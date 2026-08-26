@@ -1,0 +1,84 @@
+[gd_scene load_steps=19 format=3 uid="uid://b3fov15j2avl7"]
+
+[ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="1_tyifh"]
+[ext_resource type="Shader" uid="uid://c5vr2ybol65x7" path="res://Cenas/ShaderGrama.gdshader" id="1_w4tno"]
+[ext_resource type="Texture2D" uid="uid://osrb42ls4ebt" path="res://Texture/azul.png" id="2_j7xbl"]
+[ext_resource type="Texture2D" uid="uid://bn175qs86uedx" path="res://Texture/grama.png" id="2_yja4k"]
+[ext_resource type="Script" uid="uid://krqcf0ojhopo" path="res://Cenas/MeshGrama.gd" id="3_sqgjq"]
+[ext_resource type="Texture2D" uid="uid://dijdo2wok1frf" path="res://Texture/verde.png" id="3_xu8hi"]
+[ext_resource type="Texture2D" uid="uid://d3ffwwes7oyvl" path="res://Texture/TextureGrama2XP4.png" id="3_yja4k"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_ahhmj"]
+size = Vector2(20, 20)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j7xbl"]
+render_priority = 0
+shader = ExtResource("1_w4tno")
+shader_parameter/textura_grama = ExtResource("3_xu8hi")
+shader_parameter/textura_baixo = ExtResource("2_j7xbl")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w4tno"]
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sqgjq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7xbl"]
+albedo_texture = ExtResource("3_yja4k")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xu8hi"]
+albedo_texture = ExtResource("2_yja4k")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tyifh"]
+sky_top_color = Color(1.540184e-06, 0.7560735, 0.72830176, 1)
+sky_horizon_color = Color(0.524308, 0.68613684, 0.68569714, 1)
+
+[sub_resource type="Sky" id="Sky_ahhmj"]
+sky_material = SubResource("ProceduralSkyMaterial_tyifh")
+
+[sub_resource type="Environment" id="Environment_1w6ss"]
+background_mode = 2
+sky = SubResource("Sky_ahhmj")
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_w4tno"]
+
+[sub_resource type="Compositor" id="Compositor_yja4k"]
+
+[node name="CenaTeste" type="Node3D"]
+
+[node name="Chao" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Chao"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_ahhmj")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_j7xbl")
+script = ExtResource("3_sqgjq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chao"]
+shape = SubResource("BoxShape3D_w4tno")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Chao"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.700498, 0, 0)
+mesh = SubResource("CapsuleMesh_sqgjq")
+surface_material_override/0 = SubResource("StandardMaterial3D_j7xbl")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Chao"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.700498, 0, -2.1565018)
+mesh = SubResource("CapsuleMesh_sqgjq")
+surface_material_override/0 = SubResource("StandardMaterial3D_xu8hi")
+
+[node name="cortador" parent="." instance=ExtResource("1_tyifh")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 8.084903, 0.45306277, -3.9489002)
+
+[node name="Camera3D" type="Camera3D" parent="cortador"]
+transform = Transform3D(-9.999025, 0.13962193, -8.6487444e-07, 0.13407852, 9.602049, 2.789743, 0.038951755, 2.7894707, -9.602986, 0, 27.548138, -33.560375)
+
+[node name="Ambiente" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Ambiente"]
+transform = Transform3D(1, 0, 0, 0, 0.6969899, 0.71708095, 0, -0.71708095, 0.6969899, 0, 3.0588558, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Ambiente"]
+environment = SubResource("Environment_1w6ss")
+camera_attributes = SubResource("CameraAttributesPractical_w4tno")
+compositor = SubResource("Compositor_yja4k")
