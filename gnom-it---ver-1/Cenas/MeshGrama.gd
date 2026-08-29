@@ -1,11 +1,16 @@
 extends MeshInstance3D
 
-# @onready faz essa variável ser preenchida quando o nó estiver pronto.
-@onready var cortador = $"../../cortador"
 
-# Tamanho do cortador em metros.
-@export var largura_cortador: float = 0.4
-@export var comprimento_cortador: float = 0.6
+# @onready faz essa variável ser preenchida quando o nó estiver pronto.
+@onready var cortador = $"../../cortador/Node3D"
+
+
+# Tamanho do círculo que corta a grama.
+# Esse valor está em unidades do mundo.
+@export var raio_corte: float = 0.18
+
+# Distância que o círculo fica atrás do cortador.
+@export var distancia_atras: float = 0.1
 
 
 # MÁSCARA
@@ -32,50 +37,56 @@ var venceu: bool = false
 
 
 # PINTAR O RASTRO
+# PINTAR O RASTRO
 func pintar(posicao: Vector2):
-	
 
-
-	# 512 / 20 = 25.6 pixels
+	# Nosso terreno possui 20 unidades
+	# e nossa máscara possui 512 pixels.
+	#
+	# Então:
+	# 512 / 20 = 25.6 pixels por unidade.
 	var pixels_por_metro = 512.0 / 20.0
-	
-	# Transforma o tamanho do cortador em metros
-	# para o tamanho correspondente em pixels.
-	var largura_pixels = int(largura_cortador * pixels_por_metro)
-	var comprimento_pixels = int(comprimento_cortador * pixels_por_metro)
-	
-	# Posição central do cortador dentro da máscara.
+
+
+	# Converte o raio do corte
+	# de unidades do mundo para pixels.
+	var raio_pixels = int(raio_corte * pixels_por_metro)
+
+
+	# Centro do círculo dentro da máscara.
 	var centro_x = int(posicao.x)
 	var centro_y = int(posicao.y)
-	
-	# Calcula onde começa e termina a área do cortador.
-	# Exemplo:
-	#
-	#       centro
-	#         ↓
-	#    |---------|
-	# inicio       fim
-	#
-	# max() e min() impedem que tentemos acessar
-	# pixels fora da imagem.
-	var inicio_x = max(centro_x - largura_pixels / 2, 0)
-	var fim_x = min(centro_x + largura_pixels / 2, 511)
-	
-	var inicio_y = max(centro_y - comprimento_pixels / 2, 0)
-	var fim_y = min(centro_y + comprimento_pixels / 2, 511)
-	
-	
-	# Percorre somente a área ocupada pelo cortador.
+
+
+	# Calcula apenas a região próxima do círculo.
+	var inicio_x = max(centro_x - raio_pixels, 0)
+	var fim_x = min(centro_x + raio_pixels, 511)
+
+	var inicio_y = max(centro_y - raio_pixels, 0)
+	var fim_y = min(centro_y + raio_pixels, 511)
+
+
 	for y in range(inicio_y, fim_y + 1):
 		for x in range(inicio_x, fim_x + 1):
-			
-			if mascara.get_pixel(x, y) != Color.BLACK:
-				
-				# Pinta de preto.
-				# preto = mostrar textura de baixo.
-				mascara.set_pixel(x, y, Color.BLACK)
-				
-				pixels_cortados += 1
+
+			# Calcula a distância entre
+			# esse pixel e o centro do círculo.
+			var distancia = Vector2(x, y).distance_to(posicao)
+
+
+			# Se estiver dentro do círculo...
+			if distancia <= raio_pixels:
+
+				# Verifica se esse pedaço
+				# ainda não tinha sido cortado.
+				if mascara.get_pixel(x, y) != Color.BLACK:
+
+					# Pinta de preto.
+					mascara.set_pixel(x, y, Color.BLACK)
+
+					# Conta mais um pixel cortado.
+					pixels_cortados += 1
+
 
 
 func mundo_para_mascara(posicao: Vector3) -> Vector2:
@@ -176,25 +187,36 @@ func _ready():
 
 # RASTRO DO CORTADOR
 
+# RASTRO DO CORTADOR
+
 func _process(_delta):
-	
-	# Pega a posição atual do cortador no mundo 3D.
-	var posicao_cortador = cortador.global_position
-	
-	
-	# Converte a posição do mundo para
-	# uma posição dentro da máscara.
-	var posicao_mascara = mundo_para_mascara(posicao_cortador)
-	
-	
-	# Pinta de preto a região onde
-	# o cortador está passando.
+
+	# Na Godot, o eixo Z do objeto aponta para trás
+	# considerando que a frente dele seja -Z.
+	var direcao_atras = cortador.global_transform.basis.z.normalized()
+
+
+	# Calcula uma posição um pouco atrás do cortador.
+	#
+	# 🚜 -----> posição do círculo de corte
+	var posicao_corte = (
+		cortador.global_position
+		+ direcao_atras * distancia_atras
+	)
+
+
+	# Converte a posição do círculo
+	# para uma posição dentro da máscara.
+	var posicao_mascara = mundo_para_mascara(posicao_corte)
+
+
+	# Pinta o círculo.
 	pintar(posicao_mascara)
-	
-	
-	# Atualiza a ImageTexture.
+
+
+	# Atualiza a textura.
 	textura_mascara.update(mascara)
-	
-	
-	# Verifica se 95% da grama já foi cortada.
+
+
+	# Verifica se 95% da grama foi cortada.
 	verificar_vitoria()

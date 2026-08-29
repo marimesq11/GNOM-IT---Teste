@@ -1,52 +1,88 @@
 extends CharacterBody3D
 
+@onready var _model : Node3D = $Node3D
 
-const SPEED = 2.0
-const JUMP_VELOCITY = 4.5
-const ROTATION_SPEED = 1
+@export_group("Camera")
+@export_range(0.0, 1.0) var mouse_sensitivity := 0.25
+@export var tilt_upper_limit := PI / 3.0
+@export var tilt_lower_limit := -PI / 8.0
+
+@export_group("Movement")
+@export var move_speed := 2.0
+@export var acceleration := 5.0
+@export var rotation_speed := 3
+
+var _camera_input_direction := Vector2.ZERO
+
+@onready var _camera_pivot: Node3D = %CameraPivot
+@onready var _camera: Camera3D = %Camera3D
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_click"):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	if event.is_action_pressed("ui_cancel"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	var is_camera_motion := (
+		event is InputEventMouseMotion and
+		Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
+	)
+
+	if is_camera_motion:
+		_camera_input_direction = event.screen_relative * mouse_sensitivity
 
 
 func _physics_process(delta: float) -> void:
-	# Gravidade
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	# Rotação da câmera
+	_camera_pivot.rotation.x += _camera_input_direction.y * delta
+	_camera_pivot.rotation.x = clamp(
+		_camera_pivot.rotation.x,
+		tilt_lower_limit,
+		tilt_upper_limit
+	)
 
-	# Pulo
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	_camera_pivot.rotation.y -= _camera_input_direction.x * delta
+
+	_camera_input_direction = Vector2.ZERO
+
 
 	# Movimento
-	var input_dir := Input.get_vector(
+	var raw_input := Input.get_vector(
 		"Andar_Esquerda",
 		"Andar_Direita",
 		"Andar_Frente",
 		"Andar_Tras"
 	)
 
-	var direction := (
-		transform.basis * Vector3(input_dir.x, 0, input_dir.y)
-	).normalized()
+	var forward := _camera.global_basis.z
+	var right := _camera.global_basis.x
 
-	if direction:
-		velocity.x = -direction.x * SPEED
-		velocity.z = -direction.z * SPEED
-		
-		# Rotação suave
-		rotacionar_para_movimento(-direction, delta)
+	var move_direction := forward * raw_input.y + right * raw_input.x
 
-	else:
-		velocity.x = -move_toward(velocity.x, 0, SPEED)
-		velocity.z = -move_toward(velocity.z, 0, SPEED)
+	move_direction.y = 0.0
+	move_direction = move_direction.normalized()
+
+	velocity = velocity.move_toward(
+		move_direction * move_speed,
+		acceleration * delta
+	)
 
 	move_and_slide()
 
 
-func rotacionar_para_movimento(direction: Vector3, delta: float) -> void:
-	if direction.length() > 0.01:
-		var angulo_alvo = atan2(direction.x, direction.z)
+	# Faz o personagem olhar para onde está andando
+	if move_direction.length() > 0.1:
+		var target_rotation := atan2(
+			move_direction.x,
+			move_direction.z
+		)
 
-		rotation.y = lerp_angle(
-			rotation.y,
-			angulo_alvo,
-			ROTATION_SPEED * delta
+		_model.rotation.y = lerp_angle(
+			_model.rotation.y,
+			target_rotation,
+			rotation_speed * delta
 		)

@@ -18,7 +18,7 @@ shader_parameter/textura_grama = ExtResource("3_xu8hi")
 shader_parameter/textura_baixo = ExtResource("2_j7xbl")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w4tno"]
-size = Vector3(20, 0.1, 20)
+size = Vector3(20, 0.01, 20)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sqgjq"]
 
@@ -68,10 +68,9 @@ mesh = SubResource("CapsuleMesh_sqgjq")
 surface_material_override/0 = SubResource("StandardMaterial3D_xu8hi")
 
 [node name="cortador" parent="." instance=ExtResource("1_tyifh")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 8.084903, 0.45306277, -3.9489002)
-
-[node name="Camera3D" type="Camera3D" parent="cortador"]
-transform = Transform3D(-9.999025, 0.13962193, -8.6487444e-07, 0.13407852, 9.602049, 2.789743, 0.038951755, 2.7894707, -9.602986, 0, 27.548138, -33.560375)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 8.084903, 0.10321462, -3.9489002)
+move_speed = 5.0
+acceleration = 6.5
 
 [node name="Ambiente" type="Node3D" parent="."]
 
@@ -82,3 +81,5 @@ transform = Transform3D(1, 0, 0, 0, 0.6969899, 0.71708095, 0, -0.71708095, 0.696
 environment = SubResource("Environment_1w6ss")
 camera_attributes = SubResource("CameraAttributesPractical_w4tno")
 compositor = SubResource("Compositor_yja4k")
+
+[editable path="cortador"]
