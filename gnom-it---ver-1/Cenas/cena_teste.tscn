@@ -93,7 +93,7 @@ transparency = 1
 [node name="Chao" type="StaticBody3D" parent="."]
 
 [node name="Chao" type="MeshInstance3D" parent="Chao"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -2.2843552)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("QuadMesh_ahhmj")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_j7xbl")
@@ -128,7 +128,6 @@ camera_attributes = SubResource("CameraAttributesPractical_w4tno")
 compositor = SubResource("Compositor_yja4k")
 
 [node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0040020943, 0.010016441, -2.2128515)
 material_override = SubResource("ShaderMaterial_g1ha3")
 multimesh = SubResource("MultiMesh_g1ha3")
 
