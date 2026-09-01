@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://befhdd4x1oo1m"
-path.s3tc="res://.godot/imported/grass_basic_03.png-4221de5e56fdb0b19bdd02c6c6f651d0.s3tc.ctex"
+uid="uid://bkd87m7ymm028"
+path.s3tc="res://.godot/imported/pngtree-grass-png-free-png-image_11444010.png-4f625f66624e2d209bd95acb13ca85f3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/BinbunGrass/src/texture/basic/grass_basic_03.png"
-dest_files=["res://.godot/imported/grass_basic_03.png-4221de5e56fdb0b19bdd02c6c6f651d0.s3tc.ctex"]
+source_file="res://Texture/pngtree-grass-png-free-png-image_11444010.png"
+dest_files=["res://.godot/imported/pngtree-grass-png-free-png-image_11444010.png-4f625f66624e2d209bd95acb13ca85f3.s3tc.ctex"]
 
 [params]
 
