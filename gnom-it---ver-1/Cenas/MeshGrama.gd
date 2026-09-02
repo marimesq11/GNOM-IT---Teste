@@ -4,6 +4,13 @@ extends MeshInstance3D
 # @onready faz essa variável ser preenchida quando o nó estiver pronto.
 @onready var cortador = $"../../cortador/Node3D"
 
+# Arraste o nó MeshInstance3D da nova grama
+# para este campo no Inspector.
+@export var grama: MeshInstance3D
+
+# Materiais utilizados pelo chão e pela grama.
+var material_chao: ShaderMaterial
+var material_grama: ShaderMaterial
 
 # Tamanho do círculo que corta a grama.
 # Esse valor está em unidades do mundo.
@@ -152,42 +159,71 @@ func verificar_vitoria():
 #CRIANDO A MASCARA
 
 func _ready():
-	
-	# Cria uma imagem de 512x512 pixels.
-	# false = não usar mipmaps.
+
+	# Cria uma imagem de 512 × 512 pixels.
 	mascara = Image.create(
 		512,
 		512,
 		false,
 		Image.FORMAT_RGBA8
 	)
-	
-	
-	# Começa com a máscara inteira branca.
-	# No shader branco = grama
+
+	# Branco significa grama inteira.
 	mascara.fill(Color.WHITE)
-	
-	# Transforma a Image em uma ImageTexture
-	# para o shader conseguir utilizá-la.
-	textura_mascara = ImageTexture.create_from_image(mascara)
-	
-	# Pega o ShaderMaterial que está no
-	# Surface Material Override 0.
-	var material = get_surface_override_material(0) as ShaderMaterial
-	
-	
-	# Coloca nossa máscara no parâmetro
-	# "mascara" que existe no shader.
-	material.set_shader_parameter(
+
+	# Transforma a imagem em uma textura.
+	textura_mascara = ImageTexture.create_from_image(
+		mascara
+	)
+
+	# Pega o material ativo do chão.
+	material_chao = get_active_material(0) as ShaderMaterial
+
+	if material_chao == null:
+		push_error(
+			"O material ativo do chão não é um ShaderMaterial!"
+		)
+	else:
+		# Envia a máscara para o shader do chão.
+		material_chao.set_shader_parameter(
+			"mascara",
+			textura_mascara
+		)
+
+	# Verifica se a nova grama foi colocada.
+	if grama == null:
+		push_error(
+			"Arraste o MeshInstance3D da grama para o campo Grama!"
+		)
+		return
+
+	# Pega o material realmente utilizado
+	# pela superfície da nova grama.
+	material_grama = grama.get_active_material(0) as ShaderMaterial
+
+	if material_grama == null:
+		push_error(
+			"O material ativo da grama não é um ShaderMaterial!"
+		)
+		return
+
+	# Envia a mesma máscara para o shader da grama.
+	material_grama.set_shader_parameter(
 		"mascara",
 		textura_mascara
 	)
 
+	# Seu terreno possui 20 × 20.
+	material_grama.set_shader_parameter(
+		"tamanho_terreno",
+		20.0
+	)
 
-
-# RASTRO DO CORTADOR
-
-# RASTRO DO CORTADOR
+	# O terreno ocupa de -10 até +10.
+	material_grama.set_shader_parameter(
+		"centro_terreno",
+		Vector2.ZERO
+	)
 
 func _process(_delta):
 
