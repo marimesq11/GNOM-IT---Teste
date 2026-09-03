@@ -14,7 +14,7 @@ var material_grama: ShaderMaterial
 
 # Tamanho do círculo que corta a grama.
 # Esse valor está em unidades do mundo.
-@export var raio_corte: float = 0.18
+@export var raio_corte: float = 0.25
 
 # Distância que o círculo fica atrás do cortador.
 @export var distancia_atras: float = 0.1
