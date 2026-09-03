@@ -111,25 +111,9 @@ uniform vec3 wind_shadow_color : source_color = vec3(
 );
 
 uniform float wind_shadow_strength = 0.4;
-uniform float flatten_shadow_strength = 0.7;
 
 uniform float wind_shadow_displacement_threshold = 0.15;
 uniform float wind_shadow_smoothing = 0.3;
-
-
-// ==================================================
-// INTERAÇÃO TEMPORÁRIA COM O CORTADOR
-// ==================================================
-
-uniform vec3 interracting_object_pos = vec3(
-	0.0,
-	0.0,
-	0.0
-);
-
-uniform float flatten_radius = 0.75;
-uniform float flatten_strength = 3.0;
-uniform float flatten_floor = 0.3;
 
 
 // ==================================================
@@ -185,7 +169,6 @@ uniform bool debug_show_cut_mask = false;
 varying vec3 worldPos;
 
 varying float wind_displacement_strength;
-varying float flatten_amount_for_overlay;
 varying float combinedNoiseDebug;
 varying float cutMaskDebug;
 
@@ -350,45 +333,6 @@ void vertex() {
 	finalVerticalScale *= corte_scale;
 
 
-	// ==================================================
-	// ACHATAMENTO TEMPORÁRIO
-	// ==================================================
-
-	float distToImpact = distance(
-		worldPos,
-		interracting_object_pos
-	);
-
-
-	float flattenFactor = clamp(
-		1.0 - (
-			distToImpact
-			/ flatten_radius
-		),
-		0.0,
-		1.0
-	);
-
-
-	float flattenAmount = (
-		flattenFactor
-		* flatten_strength
-	);
-
-
-	flatten_amount_for_overlay = flattenAmount;
-
-
-	float flattenScale = mix(
-		1.0,
-		flatten_floor,
-		flattenAmount
-	);
-
-
-	finalVerticalScale *= flattenScale;
-
-
 	// Aplica a altura final.
 	VERTEX.y *= finalVerticalScale;
 
@@ -440,15 +384,8 @@ void vertex() {
 	);
 
 
-	// Grama achatada recebe menos vento.
-	float windResponse = (
-		1.0
-		- flattenAmount
-	);
-
-
-	// Grama cortada também recebe menos vento.
-	windResponse *= corte_scale;
+	// Grama cortada recebe menos vento.
+	float windResponse = corte_scale;
 
 
 	float instanceWindDis = (
@@ -624,7 +561,7 @@ void fragment() {
 
 
 		// ==================================================
-		// SOMBRA DO VENTO E DO ACHATAMENTO
+		// SOMBRA DO VENTO
 		// ==================================================
 
 		float displace_fade = smoothstep(
@@ -635,18 +572,9 @@ void fragment() {
 		);
 
 
-		float flatten_fade = smoothstep(
-			0.0,
-			1.0,
-			flatten_amount_for_overlay
-		);
-
-
 		float total_overlay_strength = clamp(
 			displace_fade
-				* wind_shadow_strength
-			+ flatten_fade
-				* flatten_shadow_strength,
+			* wind_shadow_strength,
 			0.0,
 			1.0
 		);
@@ -707,10 +635,10 @@ void fragment() {
 		// Máscara branca:
 		// usa a cor da grama alta.
 		finalBlend = mix(
-		cutFinalColor,
-		finalBlend,
-		cutMaskDebug
-);
+			cutFinalColor,
+			finalBlend,
+			cutMaskDebug
+		);
 
 
 		ALBEDO = finalBlend;

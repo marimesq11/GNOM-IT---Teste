@@ -25,7 +25,7 @@ albedo_texture = ExtResource("3_yja4k")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xu8hi"]
 albedo_texture = ExtResource("2_yja4k")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j7xbl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sqgjq"]
 shader = ExtResource("5_sqgjq")
 shader_parameter/sky_color = Color(0.2, 0.5, 0.9, 1)
 shader_parameter/horizon_color = Color(0.5, 0.8, 1, 1)
@@ -38,12 +38,16 @@ shader_parameter/cloud_edge_sharpness = 0.1
 shader_parameter/cloud_scale = 2.0
 shader_parameter/cloud_speed = 0.02
 
-[sub_resource type="Sky" id="Sky_ahhmj"]
-sky_material = SubResource("ShaderMaterial_j7xbl")
+[sub_resource type="Sky" id="Sky_j7xbl"]
+sky_material = SubResource("ShaderMaterial_sqgjq")
 
 [sub_resource type="Environment" id="Environment_1w6ss"]
 background_mode = 2
-sky = SubResource("Sky_ahhmj")
+background_energy_multiplier = 0.6
+sky = SubResource("Sky_j7xbl")
+ambient_light_source = 3
+ambient_light_color = Color(0.00920476, 0.0047279964, 0, 1)
+ambient_light_sky_contribution = 0.1
 ambient_light_energy = 0.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_w4tno"]
@@ -81,14 +85,17 @@ mesh = SubResource("CapsuleMesh_sqgjq")
 surface_material_override/0 = SubResource("StandardMaterial3D_xu8hi")
 
 [node name="cortador" parent="." instance=ExtResource("1_tyifh")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 8.084903, 0.10321462, -3.9489002)
-move_speed = 5.0
-acceleration = 6.5
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.12938106, 0)
+move_speed = 3.0
+acceleration = 6.0
+rotation_speed = 5
 
 [node name="Ambiente" type="Node3D" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Ambiente"]
-transform = Transform3D(1, 0, 0, 0, 0.6969899, 0.71708095, 0, -0.71708095, 0.6969899, 0, 3.0588558, 0)
+transform = Transform3D(0.4949128, -0.6056442, -0.6231022, 0.8689426, 0.34494922, 0.35489255, 0, -0.71708095, 0.6969899, 0, 3.0588558, 1.8726935)
+light_color = Color(1.0569379, 1.0569379, 0.85027725, 1)
+light_energy = 0.7
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Ambiente"]
 environment = SubResource("Environment_1w6ss")
@@ -102,5 +109,3 @@ mesh = ExtResource("8_xu8hi")
 [node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.34964147, 0, 0, 0, 1, 0, 0, 0)
 multimesh = SubResource("MultiMesh_6fna2")
-
-[editable path="cortador"]
