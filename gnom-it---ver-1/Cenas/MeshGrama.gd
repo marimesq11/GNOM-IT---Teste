@@ -1,97 +1,63 @@
 extends MeshInstance3D
 
 
-# ============================================
-# REFERÊNCIAS DA CENA
-# ============================================
+# @onready faz essa variável ser preenchida quando o nó estiver pronto.
+@onready var cortador = $"../../cortador/Node3D"
 
-# @onready faz essa variável ser preenchida
-# quando o nó estiver pronto.
-@onready var cortador = $"../../cortador"
+# Arraste o nó MeshInstance3D da nova grama
+# para este campo no Inspector.
+@export var grama: MeshInstance3D
 
-
-# Pega o MultiMeshInstance3D que possui
-# todas as lâminas de grama.
-#
-# IMPORTANTE:
-# confira se o seu nó realmente se chama "Grama".
-@onready var grama: MultiMeshInstance3D = $"../../MultiMeshInstance3D"
-
-
-# ============================================
-# CONFIGURAÇÕES DO CORTE
-# ============================================
+# Materiais utilizados pelo chão e pela grama.
+var material_chao: ShaderMaterial
+var material_grama: ShaderMaterial
 
 # Tamanho do círculo que corta a grama.
 # Esse valor está em unidades do mundo.
-@export var raio_corte: float = 0.18
+@export var raio_corte: float = 0.25
+
+# Distância que o círculo fica atrás do cortador.
+@export var distancia_atras: float = 0.1
 
 
-# ============================================
 # MÁSCARA
-# ============================================
 
-# Imagem que conseguimos modificar pelo GDScript.
-#
-# Nela:
-# Branco = grama ainda existe
-# Preto  = grama foi cortada
+# Imagem que podemos modificar pelo código.
 var mascara: Image
 
-
-# Versão da Image que pode ser enviada
-# para o shader.
+# Versão da Image que pode ser enviada para o shader.
 var textura_mascara: ImageTexture
 
-
-# Tamanho da nossa máscara.
+# Tamanho da máscara.
 const TAMANHO_MASCARA: int = 512
 
-
-# Quantidade total de pixels.
-#
-# 512 x 512 = 262144 pixels
+# Quantidade total de pixels da máscara.
 const TOTAL_PIXELS: int = TAMANHO_MASCARA * TAMANHO_MASCARA
 
 
-# ============================================
+
 # VITÓRIA
-# ============================================
-
-# Guarda quantos pixels da máscara
-# já foram cortados.
 var pixels_cortados: int = 0
-
-
-# Impede que o print de vitória
-# aconteça várias vezes.
 var venceu: bool = false
 
 
 
-# ============================================
-# PINTAR O RASTRO
-# ============================================
 
+# PINTAR O RASTRO
+# PINTAR O RASTRO
 func pintar(posicao: Vector2):
 
 	# Nosso terreno possui 20 unidades
 	# e nossa máscara possui 512 pixels.
 	#
 	# Então:
-	#
-	# 512 / 20 = 25.6
-	#
-	# Cada unidade do mundo corresponde
-	# aproximadamente a 25.6 pixels.
+	# 512 / 20 = 25.6 pixels por unidade.
 	var pixels_por_metro = 512.0 / 20.0
 
 
-	# Converte o raio do cortador
+	# Converte o raio do corte
 	# de unidades do mundo para pixels.
-	var raio_pixels = int(
-		raio_corte * pixels_por_metro
-	)
+	var raio_pixels = int(raio_corte * pixels_por_metro)
 
 
 	# Centro do círculo dentro da máscara.
@@ -100,91 +66,52 @@ func pintar(posicao: Vector2):
 
 
 	# Calcula apenas a região próxima do círculo.
-	#
-	# Assim não precisamos verificar
-	# todos os 512x512 pixels.
-	var inicio_x = max(
-		centro_x - raio_pixels,
-		0
-	)
+	var inicio_x = max(centro_x - raio_pixels, 0)
+	var fim_x = min(centro_x + raio_pixels, 511)
 
-	var fim_x = min(
-		centro_x + raio_pixels,
-		TAMANHO_MASCARA - 1
-	)
+	var inicio_y = max(centro_y - raio_pixels, 0)
+	var fim_y = min(centro_y + raio_pixels, 511)
 
 
-	var inicio_y = max(
-		centro_y - raio_pixels,
-		0
-	)
-
-	var fim_y = min(
-		centro_y + raio_pixels,
-		TAMANHO_MASCARA - 1
-	)
-
-
-	# Percorre somente a área
-	# próxima do cortador.
 	for y in range(inicio_y, fim_y + 1):
-
 		for x in range(inicio_x, fim_x + 1):
 
 			# Calcula a distância entre
 			# esse pixel e o centro do círculo.
-			var distancia = Vector2(
-				x,
-				y
-			).distance_to(posicao)
+			var distancia = Vector2(x, y).distance_to(posicao)
 
 
-			# Se o pixel estiver dentro
-			# do círculo...
+			# Se estiver dentro do círculo...
 			if distancia <= raio_pixels:
 
 				# Verifica se esse pedaço
 				# ainda não tinha sido cortado.
-				#
-				# Isso impede que o mesmo pixel
-				# seja contado várias vezes.
 				if mascara.get_pixel(x, y) != Color.BLACK:
 
-					# Pinta o pixel de preto.
-					#
-					# No nosso shader:
-					#
-					# preto = esconder a grama
-					mascara.set_pixel(
-						x,
-						y,
-						Color.BLACK
-					)
-
+					# Pinta de preto.
+					mascara.set_pixel(x, y, Color.BLACK)
 
 					# Conta mais um pixel cortado.
 					pixels_cortados += 1
 
 
 
-# ============================================
-# MUNDO 3D -> MÁSCARA 2D
-# ============================================
-
 func mundo_para_mascara(posicao: Vector3) -> Vector2:
-
-	# O cortador está no mundo 3D:
+	
+	# O cortador possui X, Y e Z porque está no mundo 3D.
+	# A máscara é 2D, então possui somente X e Y.
 	#
-	# X = esquerda / direita
-	# Y = altura
-	# Z = frente / trás
+	# No chão usamos:
 	#
-	# Como nossa máscara é uma imagem 2D:
+	# X = esquerda/direita
+	# Z = frente/trás
+	#
+	# Por isso:
 	#
 	# X do mundo -> X da máscara
 	# Z do mundo -> Y da máscara
-
-
+	
+	
 	# Nosso terreno possui 20 unidades:
 	#
 	# -10 -------- 0 -------- +10
@@ -192,191 +119,140 @@ func mundo_para_mascara(posicao: Vector3) -> Vector2:
 	#            centro
 	#
 	#
-	# Primeiro fazemos:
+	# +10 transforma:
 	#
-	# +10
-	#
-	# transformando:
-	#
-	# -10 até +10
+	# -10 -------- 0 -------- +10
 	#
 	# em:
 	#
-	# 0 até 20
+	#  0 -------- 10 -------- 20
 	#
 	#
-	# Depois:
+	# /20 transforma a posição em
+	# uma porcentagem entre 0 e 1.
 	#
-	# /20
-	#
-	# transforma isso em uma porcentagem:
-	#
-	# 0 até 1
-	#
-	#
-	# Finalmente:
-	#
-	# *512
-	#
-	# transforma essa porcentagem
-	# em uma posição dentro da máscara.
-
-	var x = (
-		(posicao.x + 10.0)
-		/ 20.0
-		* TAMANHO_MASCARA
-	)
-
-	var y = (
-		(posicao.z + 10.0)
-		/ 20.0
-		* TAMANHO_MASCARA
-	)
-
-
-	# Devolve a posição correspondente
-	# dentro da máscara.
+	# *512 transforma essa porcentagem
+	# no pixel correspondente da máscara.
+	
+	var x = (posicao.x + 10.0) / 20.0 * 512.0
+	var y = (posicao.z + 10.0) / 20.0 * 512.0
+	
+	
+	# Devolve a posição correspondente na máscara.
 	return Vector2(x, y)
 
 
 
-# ============================================
 # VERIFICAR VITÓRIA
-# ============================================
-
 func verificar_vitoria():
-
-	# Se já venceu, não precisa
-	# verificar novamente.
 	if venceu:
 		return
-
-
-	# Calcula a porcentagem cortada.
-	#
-	# pixels cortados
-	# ----------------
-	# pixels totais
-	var porcentagem = (
-		float(pixels_cortados)
-		/
-		float(TOTAL_PIXELS)
-	)
-
-
-	# 0.95 = 95%
-	if porcentagem >= 0.95:
-
+	
+	var porcentagem = float(pixels_cortados) / float(TOTAL_PIXELS)
+	if porcentagem >= 0.94:
+		
 		venceu = true
-
+		
 		print("VITÓRIA! 95% da grama foi cortada!")
 
 
-
-# ============================================
-# CRIANDO A MÁSCARA
-# ============================================
+#CRIANDO A MASCARA
 
 func _ready():
 
-	# Cria uma imagem de 512x512 pixels.
-	#
-	# false = não utilizar mipmaps.
+	# Cria uma imagem de 512 × 512 pixels.
 	mascara = Image.create(
-		TAMANHO_MASCARA,
-		TAMANHO_MASCARA,
+		512,
+		512,
 		false,
 		Image.FORMAT_RGBA8
 	)
 
-
-	# Começa com a máscara inteira branca.
-	#
-	# No shader:
-	#
-	# branco = grama aparece
-	# preto  = grama desaparece
+	# Branco significa grama inteira.
 	mascara.fill(Color.WHITE)
 
-
-	# Até aqui "mascara" é uma Image
-	# que o GDScript consegue modificar.
-	#
-	# Agora transformamos ela em uma
-	# ImageTexture para o shader conseguir usar.
+	# Transforma a imagem em uma textura.
 	textura_mascara = ImageTexture.create_from_image(
 		mascara
 	)
 
+	# Pega o material ativo do chão.
+	material_chao = get_active_material(0) as ShaderMaterial
 
-	# ============================================
-	# CONECTANDO A MÁSCARA COM O SHADER DA GRAMA
-	# ============================================
+	if material_chao == null:
+		push_error(
+			"O material ativo do chão não é um ShaderMaterial!"
+		)
+	else:
+		# Envia a máscara para o shader do chão.
+		material_chao.set_shader_parameter(
+			"mascara",
+			textura_mascara
+		)
 
-	# Pega o ShaderMaterial colocado no
-	# Material Override do MultiMeshInstance3D.
-	var material = grama.material_override as ShaderMaterial
-
-
-	# Verifica se conseguimos encontrar
-	# o ShaderMaterial.
-	if material == null:
-
-		print("ERRO: não encontrei o ShaderMaterial da grama!")
-
+	# Verifica se a nova grama foi colocada.
+	if grama == null:
+		push_error(
+			"Arraste o MeshInstance3D da grama para o campo Grama!"
+		)
 		return
 
+	# Pega o material realmente utilizado
+	# pela superfície da nova grama.
+	material_grama = grama.get_active_material(0) as ShaderMaterial
 
-	# Envia nossa ImageTexture para:
-	#
-	# uniform sampler2D mascara;
-	#
-	# que adicionamos no shader da grama.
-	material.set_shader_parameter(
+	if material_grama == null:
+		push_error(
+			"O material ativo da grama não é um ShaderMaterial!"
+		)
+		return
+
+	# Envia a mesma máscara para o shader da grama.
+	material_grama.set_shader_parameter(
 		"mascara",
 		textura_mascara
 	)
 
+	# Seu terreno possui 20 × 20.
+	material_grama.set_shader_parameter(
+		"tamanho_terreno",
+		20.0
+	)
 
-	print("Máscara enviada para o shader da grama!")
-
-
-
-# ============================================
-# RASTRO DO CORTADOR
-# ============================================
+	# O terreno ocupa de -10 até +10.
+	material_grama.set_shader_parameter(
+		"centro_terreno",
+		Vector2.ZERO
+	)
 
 func _process(_delta):
 
-	# Pega a posição atual do cortador
-	# no mundo 3D.
-	var posicao_corte = cortador.global_position
+	# Na Godot, o eixo Z do objeto aponta para trás
+	# considerando que a frente dele seja -Z.
+	var direcao_atras = cortador.global_transform.basis.z.normalized()
 
 
-	# Converte a posição do mundo
-	# para a posição correspondente
-	# dentro da máscara.
-	var posicao_mascara = mundo_para_mascara(
-		posicao_corte
-	)
-
-
-	# Pinta um círculo preto
-	# na posição do cortador.
-	pintar(
-		posicao_mascara
-	)
-
-
-	# Nós modificamos a Image no GDScript.
+	# Calcula uma posição um pouco atrás do cortador.
 	#
-	# Agora precisamos atualizar a
-	# ImageTexture que está no shader.
-	textura_mascara.update(
-		mascara
+	# 🚜 -----> posição do círculo de corte
+	var posicao_corte = (
+		cortador.global_position
+		+ direcao_atras * distancia_atras
 	)
 
 
-	# Verifica se 95% da grama
-	# já foi cortada.
+	# Converte a posição do círculo
+	# para uma posição dentro da máscara.
+	var posicao_mascara = mundo_para_mascara(posicao_corte)
+
+
+	# Pinta o círculo.
+	pintar(posicao_mascara)
+
+
+	# Atualiza a textura.
+	textura_mascara.update(mascara)
+
+
+	# Verifica se 95% da grama foi cortada.
 	verificar_vitoria()

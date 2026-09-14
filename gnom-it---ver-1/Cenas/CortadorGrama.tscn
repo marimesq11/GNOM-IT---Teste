@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=4 uid="uid://dbqhupiq8dkaa"]
+[gd_scene load_steps=16 format=4 uid="uid://dbqhupiq8dkaa"]
 
 [ext_resource type="Script" uid="uid://bj3dm448gfy5h" path="res://Script/CortadorDeGrama.gd" id="2_757jh"]
 [ext_resource type="Texture2D" uid="uid://bi6jox3a60qa" path="res://Assets/Cortador/cortador_0.png" id="2_ak1vr"]
+[ext_resource type="Shader" uid="uid://kw7bils328gc" path="res://Cenas/CortadorGramaShaderr.gdshader" id="3_757jh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a3hm4"]
 size = Vector3(4.7055664, 1.20047, 4.7196045)
@@ -51,6 +52,17 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nxi81")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_coagh"]
+render_priority = 0
+shader = ExtResource("3_757jh")
+shader_parameter/progress = 0.10000000475
+shader_parameter/frequency = 30.000000447036
+shader_parameter/max_offset = Vector3(0.01, 0.01, 0.01)
+shader_parameter/albedo_texture = ExtResource("2_ak1vr")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/roughness_value = 0.7
+shader_parameter/metallic_value = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4ed8"]
 resource_name = "rodinha"
@@ -156,6 +168,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0016623735, 1.1334045, -1.0
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_757jh")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_coagh")
 
 [node name="Cylinder_002" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
