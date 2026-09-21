@@ -11,7 +11,7 @@ extends CharacterBody3D
 @export var intervalo_dano: float = 1
 
 # QUEDA
-@export var distancia_arremesso: float = 1.5
+@export var distancia_arremesso: float = 2
 @export var altura_arremesso: float = 0.6
 @export var duracao_arremesso: float = 0.45
 @export var tempo_caido: float = 4.0

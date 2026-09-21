@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @onready var area_atropelamento: Area3D = $AreaAtropelamento
-@onready var _model: Node3D = $Node3D
+@onready var _model: Node3D= $Node3D
 @onready var _camera_pivot: Node3D = %CameraPivot
 @onready var _camera: Camera3D = %Camera3D
 
@@ -113,8 +113,8 @@ func _physics_process(delta: float) -> void:
 		var velocidade_desejada := move_direction * move_speed
 		var alvo_drift := velocidade_drift.lerp(velocidade_desejada, forca_drift)
 
-		velocity.x = move_toward(velocity.x, alvo_drift.x, acceleration * 0.35 * delta)
-		velocity.z = move_toward(velocity.z, alvo_drift.z, acceleration * 0.35 * delta)
+		velocity.x = move_toward(velocity.x, alvo_drift.x, acceleration * 0.45 * delta)
+		velocity.z = move_toward(velocity.z, alvo_drift.z, acceleration * 0.45 * delta)
 
 		if tempo_drift <= 0.0:
 			terminar_drift()
