@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i8erbf33fv3h"
-path.s3tc="res://.godot/imported/Nintenfo64 Shader.png-de5b2437da368950f73621eb6c4f4e68.s3tc.ctex"
+uid="uid://lmvwta6sqqny"
+path.s3tc="res://.godot/imported/gnomo verde_0.png-0464d2cc68296ecd1b36c5dbe664f57b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "4446e3e4ef2b654383f27dbf59274989"
+}
 
 [deps]
 
-source_file="res://Nintenfo64 Shader.png"
-dest_files=["res://.godot/imported/Nintenfo64 Shader.png-de5b2437da368950f73621eb6c4f4e68.s3tc.ctex"]
+source_file="res://Assets/gnomo verde_0.png"
+dest_files=["res://.godot/imported/gnomo verde_0.png-0464d2cc68296ecd1b36c5dbe664f57b.s3tc.ctex"]
 
 [params]
 

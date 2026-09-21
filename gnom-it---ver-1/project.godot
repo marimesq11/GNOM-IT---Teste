@@ -14,6 +14,10 @@ config/name="Gnom It - VER 1"
 run/main_scene="uid://b3fov15j2avl7"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
+[display]
+
+window/vsync/vsync_mode=0
+
 [dotnet]
 
 project/assembly_name="Gnom It - VER 1"
@@ -23,6 +27,7 @@ project/assembly_name="Gnom It - VER 1"
 folder_colors={
 "res://Assets/": "red",
 "res://Cenas/": "orange",
+"res://Meshs/": "blue",
 "res://Script/": "yellow",
 "res://Shaders/": "green",
 "res://Texture/": "teal"
