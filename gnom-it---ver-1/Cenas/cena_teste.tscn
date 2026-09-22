@@ -80,13 +80,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xu8hi")
 [node name="cortador" parent="." instance=ExtResource("1_tyifh")]
 unique_name_in_owner = true
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.12938106, 0)
-move_speed = 4.5
-acceleration = 6.0
-rotation_speed = 5.0
-velocidade_minima_drift = 3.0
-forca_drift = 0.65
-inclinacao_drift = 45.0
-altura_drift = 0.25
+rotation_speed = 4.0
+velocidade_minima_drift = 2.0
+angulo_drift = 45.0
+duracao_drift = 0.9
+forca_drift = 0.6
+inclinacao_drift = 25.0
 
 [node name="Cylinder2" parent="cortador/Node3D" index="1"]
 surface_material_override/0 = null
