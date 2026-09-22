@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dnyrwky64ojs" path="res://Cenas/Gnomo_Verde.tscn" id="9_7pt1d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yja4k"]
-albedo_color = Color(0, 0.7340335, 0.27606493, 1)
+albedo_color = Color(0, 0.28235295, 0, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_ahhmj"]
 material = SubResource("StandardMaterial3D_yja4k")
@@ -81,14 +81,24 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xu8hi")
 unique_name_in_owner = true
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.12938106, 0)
 rotation_speed = 4.0
+velocidade_dash = 6.5
+duracao_dash = 2.0
 velocidade_minima_drift = 2.0
-angulo_drift = 45.0
-duracao_drift = 0.9
+angulo_drift = 20.0
+duracao_drift = 0.8
 forca_drift = 0.6
 inclinacao_drift = 25.0
+altura_drift = 0.35
+tempo_entre_drifts = 0.7
 
 [node name="Cylinder2" parent="cortador/Node3D" index="1"]
 surface_material_override/0 = null
+
+[node name="SpringArm3D" parent="cortador/CameraPivot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.9856564, -0.16876462, 0, 0.16876462, 0.9856564, 0, 8.079196, -22.956856)
+
+[node name="Camera3D" parent="cortador/CameraPivot/SpringArm3D" index="0"]
+transform = Transform3D(-9.999998, 2.868981e-14, 8.742276e-07, -3.8144776e-09, 9.999905, -0.043632627, -8.742194e-07, -0.043632627, -9.999905, 0, 5.249358, -14.216526)
 
 [node name="Ambiente" type="Node3D" parent="."]
 
@@ -119,6 +129,9 @@ transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, -9.338, -0.008, 0)
 
 [node name="GnomoVermelho2" parent="." instance=ExtResource("7_j7xbl")]
 transform = Transform3D(-0.0053228275, 0, 0.06979734, 0, 0.07, 0, -0.06979734, 0, -0.0053228275, 8.7, -0.008, 6.11)
+
+[node name="GnomoVermelho3" parent="." instance=ExtResource("7_j7xbl")]
+transform = Transform3D(-0.0053228275, 0, 0.06979734, 0, 0.07, 0, -0.06979734, 0, -0.0053228275, -8.353665, -0.008, -1.0403275)
 
 [node name="GnomoAzul" parent="." node_paths=PackedStringArray("ponto_destino") instance=ExtResource("8_6fna2")]
 transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, 6.286, -0.008, 1.991)

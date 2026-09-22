@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://dbqhupiq8dkaa"]
+[gd_scene load_steps=20 format=4 uid="uid://dbqhupiq8dkaa"]
 
 [ext_resource type="Script" uid="uid://bj3dm448gfy5h" path="res://Script/CortadorDeGrama.gd" id="2_757jh"]
 [ext_resource type="Texture2D" uid="uid://bi6jox3a60qa" path="res://Assets/Cortador/cortador_0.png" id="2_ak1vr"]
@@ -151,6 +151,24 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_rw8x1")
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_757jh"]
+lifetime_randomness = 0.2
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coagh"]
+albedo_color = Color(3.014, 3.014, 3.014, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_na02i"]
+material = SubResource("StandardMaterial3D_coagh")
+radius = 0.06
+height = 0.1
+
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("2_757jh")
 
@@ -197,9 +215,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50987947, 1.5104814, -0.756
 unique_name_in_owner = true
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.9856564, -0.16876462, 0, 0.16876462, 0.9856564, 0, 8.079196, -21.436413)
+transform = Transform3D(1, 0, 0, 0, 0.9856564, -0.16876462, 0, 0.16876462, 0.9856564, 0, 10.2926035, -26.604837)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1.0000001, 0, -8.742278e-08, 0, -1, 0, 3.7781754, -7.1963844)
 far = 20.0
+
+[node name="ParticulaDash" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.4353852)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_757jh")
+draw_pass_1 = SubResource("SphereMesh_na02i")

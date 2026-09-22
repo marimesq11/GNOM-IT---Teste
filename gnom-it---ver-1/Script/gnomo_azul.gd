@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+var altura_chao: float = 0.3
+
 # MOVIMENTO
 @export var velocidade: float = 1.3
 @export var distancia_pulo: float = 1.0
@@ -30,6 +32,9 @@ var pai_original: Node
 
 func _ready():
 	pai_original = get_parent()
+
+	# Guarda a altura normal do gnomo no chão
+	altura_chao = global_position.y
 
 	if is_instance_valid(Cortador):
 		Cortador.driftou.connect(_quando_driftar)
@@ -161,6 +166,10 @@ func cair_do_cortador(direcao_drift: Vector3):
 
 	var inicio := global_position
 	var destino := inicio + lado * distancia_arremesso
+
+	# O arremesso termina na altura normal do chão
+	destino.y = altura_chao
+
 	var tempo := 0.0
 
 	while tempo < duracao_arremesso:
