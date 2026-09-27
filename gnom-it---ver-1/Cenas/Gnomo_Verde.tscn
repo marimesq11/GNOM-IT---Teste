@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=4 uid="uid://dnyrwky64ojs"]
 
 [ext_resource type="Script" uid="uid://6d3tgdao247p" path="res://Script/Gnomo_verde.gd" id="1_asuct"]
-[ext_resource type="Texture2D" uid="uid://lmvwta6sqqny" path="res://Assets/gnomo verde_0.png" id="2_o1foq"]
+[ext_resource type="Texture2D" uid="uid://lmvwta6sqqny" path="res://Assets/Gnomo verde/gnomo verde_0.png" id="2_o1foq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1rv4e"]
 size = Vector3(2.3165283, 3.5995483, 2)

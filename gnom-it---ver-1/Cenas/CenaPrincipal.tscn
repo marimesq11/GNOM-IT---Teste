@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b41q4jivcl8yb" path="res://Cenas/GnomoVermelho.tscn" id="6_8p8gf"]
 [ext_resource type="PackedScene" uid="uid://cwvw4rxs8a2ce" path="res://Cenas/Gnomo_Azul.tscn" id="7_hxyxy"]
 [ext_resource type="PackedScene" uid="uid://dnyrwky64ojs" path="res://Cenas/Gnomo_Verde.tscn" id="8_y8fg7"]
-[ext_resource type="Script" uid="uid://dw3wflx7loidx" path="res://Cenas/barra_vida.gd" id="9_tvo0x"]
+[ext_resource type="Script" uid="uid://dw3wflx7loidx" path="res://Script/barra_vida.gd" id="9_tvo0x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yja4k"]
 albedo_color = Color(0, 0.28235295, 0, 1)
