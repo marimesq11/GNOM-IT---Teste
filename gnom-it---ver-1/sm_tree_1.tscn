@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://difyxniascexf"]
+
+[ext_resource type="PackedScene" uid="uid://dbyb0ulbdo3pr" path="res://CenasCenarios/Mesh/Trees/Sm_Tree1.FBX" id="1_bpxnl"]
+
+[node name="Sm_Tree1" unique_id=1081133504 instance=ExtResource("1_bpxnl")]
+
+[node name="UCX_Sm_Tree1" parent="." index="1" unique_id=209373419]
+visible = false
