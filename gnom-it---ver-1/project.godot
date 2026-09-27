@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Gnom It - VER 1"
 run/main_scene="uid://b3fov15j2avl7"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 
 [display]
 
@@ -37,6 +37,10 @@ folder_colors={
 "res://Shaders/": "green",
 "res://Texture/": "teal"
 }
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 
