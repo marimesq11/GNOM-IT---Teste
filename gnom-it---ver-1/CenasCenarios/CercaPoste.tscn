@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=4 uid="uid://bmbhpk8vghgxw"]
+
+[ext_resource type="Texture2D" uid="uid://cjl5xu4voa5kl" path="res://Farm_objects_BaseColor.png" id="1_fw206"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bimlo"]
+resource_name = "Farm objects material"
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+normal_enabled = true
+normal_scale = 0.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_jglyp"]
+_surfaces = [{
+"aabb": AABB(-0.001963241, -0.0019632422, -0.013350245, 0.003926486, 0.0039264844, 0.017522851),
+"format": 34359742465,
+"index_count": 108,
+"index_data": PackedByteArray("CQAAAAoAAAAJAAsACQAMAAsAAAALAAEAAAABAAoACwAMAA0ACwANAAEADAAJAA4ADAAOAA0ACQAKAA4ADgADAA0AAwAOAAoADQAIAAEAAwAIAA0ACAAEAAEAAQAEAAoAAgADAAoABAACAAoAAgAPAAMABAAFAAIABQAPAAIACAAHAAQABwAFAAQAAwAGAAgADwAGAAMABgAHAAgABgAPABAADwAFABEABQAHABEAEAAPABEAEgAGABAABwAGABIAEgAQABEABwATABEAEwASABEAEwAHABIA"),
+"lods": [0.011737967, PackedByteArray("AAAAAAEAAAABAAEAAgADAAEABAACAAEAAgAFAAMABAAFAAIABQAGAAMABwAFAAQABwAGAAUACAAEAAEACAAHAAQAAwAIAAEABgAHAAgAAwAGAAgA")],
+"name": "Farm objects material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("SFuWulxbljr8ulq8SFuWulxbljoAyTs7uKkAu72pALvhCC07yKkAO72pALvhCC07uKkAu72pADvhCC07uKkAu72pADsupXA7yKkAO72pALsupXA7yKkAO72pADsupXA7yKkAO72pADvhCC07SFuWulxblrr8ulq8SFuWulxblroAyTs7cVuWOlxbljr8ulq8cVuWOlxblrr8ulq8cVuWOlxbljoAyTs7cVuWOlxblroAyTs7uKkAu72pALsupXA7SFuWulxblrpcuog7SFuWulxbljpcuog7cVuWOlxblrpcuog7cVuWOlxbljpcuog7")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_w8wrd"]
+resource_name = "Cube_018"
+_surfaces = [{
+"aabb": AABB(-0.001963241, -0.0019632422, -0.013350245, 0.003926486, 0.0039264844, 0.017522851),
+"attribute_data": PackedByteArray("vs0kPwx0fT/7E+Q+DHR9P7zNJD/mwCM/+xPkPubAIz+aHXU/3ZpmPwgudT8LdH0/3jheP+JuZj8I1yo/XANSP/qLMD9cA1I/CNcqP7S7Zz/6izA/tLtnPwjXKj8LdH0/+oswPwt0fT/4izA/qpImPwjXKj8DSzw/CNcqP6qSJj+iS6Q9gFK2PPoPKj5A7Lc8nv3JPUBauD3gHSo+0K7dPaJLpD2gpd093HX9Pgx0fT/cdf0+5sAjP9xrCz/mwCM/3msLPwx0fT/OHBg/5sAjP84cGD8MdH0/2lduP7Aw6z7cV24/SEkCP+qmYT+wMOs+6qZhP0hJAj91r8k94A4mPdx7Fz5wCLg9aEsXPiD3Jj3MyW8/6O1rP3gAcD8kDXg/tHljP+i1az/eOF4/WG99P7SmYz/YPng/+oswPwNLPD8="),
+"format": 34359742487,
+"index_count": 108,
+"index_data": PackedByteArray("FQABABYAAQADABYAFQAWABcAGAAVABcAGAAXABkAGgAYABkAGgAZAAIAAAAaAAIAGwAcAB0AHAAeAB0AEgAUAB8AFAAQAB8AEwAUABIAEAARAB8AIAATABIAEQATACAAIQARACAAEQAhAB8AIgAjACQAIgAEACMABAAiACQABgAEACQABAAFACMAJQAGACQAIwAFACYABQAlACYAIwAmACQAJgAlACQABwAIAAkACAAKAAkACQAKAAsACgAMAAsAJwAIAAcADgAnAAcADQAnAA4ADwANAA4A"),
+"lods": [0.011737967, PackedByteArray("AAABAAIAAQADAAIABAAFAAYABwAIAAkACAAKAAkACQAKAAsACgAMAAsADQAIAAcADgANAAcADwANAA4AEAARABIAEQATABIAFAAQABIAEwAUABIA")],
+"material": SubResource("StandardMaterial3D_bimlo"),
+"name": "Farm objects material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("SFuWulxbljr8ulq8SFuWulxbljr8ulq8SFuWulxbljoAyTs7SFuWulxbljoAyTs7yKkAO72pADsupXA7yKkAO72pALsupXA7uKkAu72pADsupXA7yKkAO72pALvhCC07yKkAO72pALsupXA7yKkAO72pADvhCC07yKkAO72pADsupXA7uKkAu72pADvhCC07uKkAu72pADsupXA7uKkAu72pADsupXA7uKkAu72pALvhCC07uKkAu72pADvhCC07uKkAu72pALvhCC07yKkAO72pALvhCC07SFuWulxbljoAyTs7yKkAO72pADvhCC07uKkAu72pADvhCC07SFuWulxblrr8ulq8SFuWulxblroAyTs7cVuWOlxblroAyTs7cVuWOlxblrr8ulq8cVuWOlxbljoAyTs7cVuWOlxbljr8ulq8SFuWulxbljr8ulq8SFuWulxblrr8ulq8cVuWOlxbljr8ulq8cVuWOlxblrr8ulq8SFuWulxblroAyTs7cVuWOlxbljoAyTs7cVuWOlxblroAyTs7cVuWOlxbljpcuog7cVuWOlxblrpcuog7SFuWulxbljpcuog7uKkAu72pALsupXA7SFuWulxblrpcuog7uKkAu72pALsupXA7qipU1f8//6+qKlTV/z//j/cSB+0dGdC99xIH7eFmLoLnrueu4uJCneeuF1E94q7iF1Hnrp+63c5B170oHaLwrueuF1EEZXzNQddB1x2iDtHnrueuBGWBsr0oQdfhXQ7RF1HnrvqagbIXUeeu+pqBsr0ovSjhXfCuvShB1+FdDtG9KL0obdvnoEHXvSjPwVHS9xIH7eD2Gs5B10HXzsGqrb0oQdeA2xbfqiqqKv+//5/3EvcS/7//nwft9xL/v//fVNWqKv+//98H7Qft/z//31TVVNX/P//fqipU1f8//6+qKqoq/z//z1TVVNX/H//fVNWqKv8f/5/3EvcSofcjsgftB+1C5M27B+33Enjjy8Rzk3OTMflYsnOTi2w5/VvMi2xzkyzndsEXURdRgLqEsYtsi2wv5fq8F1EXUfqafM0=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_jglyp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tl8x"]
+albedo_texture = ExtResource("1_fw206")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qoto0"]
+size = Vector3(0.34399414, 1.9023438, 0.3209839)
+
+[node name="StaticBody3D" type="StaticBody3D"]
+
+[node name="Fence post" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
+mesh = SubResource("ArrayMesh_w8wrd")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_8tl8x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004272461, -0.45117188, 0.0027160645)
+shape = SubResource("BoxShape3D_qoto0")
