@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b71fnw4ecrwo5"]
+
+[ext_resource type="ArrayMesh" uid="uid://duj6747nq4qsk" path="res://Meshs/grass.res" id="1_15eph"]
+
+[node name="Node3D" type="Node3D" unique_id=568398773]
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="." unique_id=1406286018]
+lifetime = 0.26
+explosiveness = 0.02
+mesh = ExtResource("1_15eph")
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+gravity = Vector3(0, -4.8, 0)
+initial_velocity_max = 5.34
