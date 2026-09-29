@@ -1,5 +1,6 @@
 extends Node3D
 
+var pontos: int = 0
 @onready var timer: Timer = $Timer
 @onready var label: Label = $Label
 
@@ -18,3 +19,6 @@ func _on_timer_timeout():
 
 func morrer():
 	print("Você morreu!")
+	
+func adicionar_pontos(valor: int):
+	pontos += valor

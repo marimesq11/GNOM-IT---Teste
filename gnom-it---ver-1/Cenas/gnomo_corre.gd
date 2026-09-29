@@ -90,6 +90,7 @@ func pode_andar(direcao: Vector3) -> bool:
 	return resultado.is_empty()
 
 func morrer_atropelado():
+	GameManager.adicionar_pontos(10, global_position)
 	if esta_morto:
 		return
 

@@ -189,6 +189,7 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.move_toward(move_direction * velocidade_atual, acceleration * delta)
 
 	move_and_slide()
+	verificar_colisao_quebravel()
 
 	# ROTAÇÃO DO CORTADOR
 	if move_direction.length_squared() > 0.01:
@@ -387,3 +388,11 @@ func morrer():
 	if area_atropelamento:
 		area_atropelamento.set_deferred("monitoring", false)
 		area_atropelamento.set_deferred("monitorable", false)
+
+func verificar_colisao_quebravel():
+	for i in get_slide_collision_count():
+		var colisao = get_slide_collision(i)
+		var objeto = colisao.get_collider()
+
+		if objeto.is_in_group("Quebravel"):
+			objeto.queue_free()

@@ -45,7 +45,7 @@ shadow_mesh = SubResource("ArrayMesh_70rik")
 [sub_resource type="SphereShape3D" id="SphereShape3D_382nm"]
 radius = 0.7076233
 
-[node name="StaticBody3D" type="StaticBody3D"]
+[node name="StaticBody3D" type="StaticBody3D" groups=["Quebravel"]]
 
 [node name="stylized bush" type="MeshInstance3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, -1.2989894e-05, 99.99999, 0, -108.96712, -1.1920929e-05, 0, 0, 0)
