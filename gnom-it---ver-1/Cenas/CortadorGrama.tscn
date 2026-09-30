@@ -156,12 +156,8 @@ radius = 1.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_757jh"]
 lifetime_randomness = 0.2
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 1.0
-emission_ring_radius = 1.0
-emission_ring_inner_radius = 0.0
-emission_ring_cone_angle = 90.0
+emission_shape = 1
+emission_sphere_radius = 1.0
 gravity = Vector3(0, 0, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coagh"]
@@ -169,8 +165,8 @@ albedo_color = Color(3.014, 3.014, 3.014, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_na02i"]
 material = SubResource("StandardMaterial3D_coagh")
-radius = 0.06
-height = 0.1
+radius = 0.02
+height = 0.04
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("2_757jh")
@@ -229,9 +225,22 @@ unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1.0000001, 0, -8.742278e-08, 0, -1, 0, 3.7781754, -7.1963844)
 far = 20.0
 
+[node name="Esq" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6821051, 0, -2.3237724)
+
+[node name="Dir" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.656692, 0, -2.3794098)
+
 [node name="ParticulaDash" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.4353852)
 emitting = false
 amount = 20
+process_material = SubResource("ParticleProcessMaterial_757jh")
+draw_pass_1 = SubResource("SphereMesh_na02i")
+
+[node name="ParticulaDrift" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.4353852)
+emitting = false
+amount = 30
 process_material = SubResource("ParticleProcessMaterial_757jh")
 draw_pass_1 = SubResource("SphereMesh_na02i")
