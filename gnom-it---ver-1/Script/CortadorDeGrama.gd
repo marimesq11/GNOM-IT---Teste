@@ -19,8 +19,8 @@ signal morreu
 
 # MOVIMENTO
 @export_group("Movement")
-@export var move_speed: float = 5.0
-@export var acceleration: float = 5.0
+@export var move_speed: float = 3.0
+@export var acceleration: float = 4.0
 @export var rotation_speed: float = 3.0
 
 # CAMERA
@@ -33,7 +33,7 @@ var _camera_input_x: float = 0.0
 
 # DASH
 @export_group("Dash")
-@export var velocidade_dash: float = 8.0
+@export var velocidade_dash: float = 6.0
 @export var tempo_preparacao_dash: float = 0.2
 @export var duracao_dash: float = 0.5
 @export var cooldown_dash: float = 0.8
@@ -49,18 +49,31 @@ var direcao_dash := Vector3.ZERO
 # DRIFT
 @export_group("Drift")
 @export var velocidade_minima_drift: float = 1.2
-@export var angulo_drift: float = 40.0
-@export var duracao_drift: float = 0.7
-@export_range(0.0, 1.0) var forca_drift: float = 0.3
+## Ângulo (graus) entre a velocidade e o input para COMEÇAR o drift.
+@export var angulo_drift: float = 30.0
+## Ângulo (graus) abaixo do qual o drift TERMINA (indo reto de novo).
+@export var angulo_fim_drift: float = 20.0
+## Tempo mínimo que o drift dura antes de poder terminar.
+@export var tempo_minimo_drift: float = 0.6
+## Tempo máximo do drift. É só uma segurança, o drift deve acabar sozinho ao terminar a curva.
+@export var duracao_maxima_drift: float = 3.0
+## Velocidade MÍNIMA de giro da direção durante o drift (rad/s). Menor = derrapa mais.
+@export var velocidade_giro_drift: float = 3.0
+## Velocidade MÁXIMA de giro (rad/s). Usada quando falta muito ângulo pra terminar a curva.
+@export var velocidade_giro_maximo_drift: float = 7.0
+## Quanto o giro acelera conforme o ângulo restante (maior = alcança a direção mais rápido).
+@export var ganho_giro_drift: float = 4.0
+## Multiplicador da rotação da câmera enquanto está em drift.
+@export var multiplicador_camera_drift: float = 1.6
 @export var inclinacao_drift: float = 14.0
 @export var altura_drift: float = 0.15
-@export var tempo_entre_drifts: float = 0.5
+@export var tempo_entre_drifts: float = 0.3
 
 var em_drift := false
-var tempo_drift := 0.0
+var tempo_em_drift := 0.0
 var cooldown_drift := 0.0
-var velocidade_drift := Vector3.ZERO
 var lado_drift := 1.0
+var _tween_drift: Tween
 
 # TRANSFORMS ORIGINAIS
 var transform_original_modelo: Transform3D
@@ -160,10 +173,14 @@ func _physics_process(delta: float) -> void:
 	if em_dash:
 		velocidade_atual = velocidade_dash
 
-	# DETECTAR DRIFT
+	# DETECTAR INÍCIO DO DRIFT
+	# (girar a câmera segurando W, ou W+A / W+D, muda o move_direction
+	# e faz o ângulo em relação à velocidade aumentar)
 	var velocidade_horizontal := Vector3(velocity.x, 0.0, velocity.z)
+	var tem_input := move_direction.length_squared() > 0.01
 
-	if not em_drift and move_direction.length_squared() > 0.01 and velocidade_horizontal.length_squared() >= velocidade_minima_drift * velocidade_minima_drift and cooldown_drift <= 0.0:
+	if not em_drift and tem_input and cooldown_drift <= 0.0 \
+			and velocidade_horizontal.length_squared() >= velocidade_minima_drift * velocidade_minima_drift:
 		var direcao_atual := velocidade_horizontal.normalized()
 		var dot: float = clampf(direcao_atual.dot(move_direction), -1.0, 1.0)
 		var angulo: float = rad_to_deg(acos(dot))
@@ -173,16 +190,47 @@ func _physics_process(delta: float) -> void:
 
 	# MOVIMENTO DURANTE DRIFT
 	if em_drift:
-		tempo_drift -= delta
+		tempo_em_drift += delta
 
-		var velocidade_desejada := move_direction * velocidade_atual
-		var alvo_drift := velocidade_drift.lerp(velocidade_desejada, forca_drift)
-
-		velocity.x = move_toward(velocity.x, alvo_drift.x, acceleration * 0.45 * delta)
-		velocity.z = move_toward(velocity.z, alvo_drift.z, acceleration * 0.45 * delta)
-
-		if tempo_drift <= 0.0:
+		if not tem_input:
+			# Soltou as teclas: encerra o drift.
 			terminar_drift()
+		else:
+			var vel_h := Vector3(velocity.x, 0.0, velocity.z)
+			var velocidade_escalar := vel_h.length()
+			var direcao_atual := vel_h.normalized() if velocidade_escalar > 0.01 else move_direction
+
+			var angulo_restante := direcao_atual.signed_angle_to(move_direction, Vector3.UP)
+
+			# Se o jogador inverteu a curva (esq <-> dir), troca o lado do drift
+			if absf(angulo_restante) > deg_to_rad(15.0):
+				var novo_lado := -signf(angulo_restante)
+				if novo_lado != lado_drift:
+					trocar_lado_drift(novo_lado, move_direction)
+
+			# Gira suavemente a direção da velocidade em direção ao input
+			# Giro adaptativo: quanto mais falta pra terminar a curva, mais rápido gira.
+			# Assim a velocidade sempre "alcança" a direção, mesmo com a câmera se movendo.
+			var giro := clampf(
+				absf(angulo_restante) * ganho_giro_drift,
+				velocidade_giro_drift,
+				velocidade_giro_maximo_drift
+			)
+			var passo := clampf(angulo_restante, -giro * delta, giro * delta)
+			var nova_direcao := direcao_atual.rotated(Vector3.UP, passo)
+
+			# Mantém a velocidade (sem perder embalo na curva)
+			velocidade_escalar = move_toward(velocidade_escalar, velocidade_atual, acceleration * 0.5 * delta)
+
+			velocity.x = nova_direcao.x * velocidade_escalar
+			velocity.z = nova_direcao.z * velocidade_escalar
+
+			# Terminou a curva (indo reto de novo) ou estourou o tempo máximo
+			var angulo_final := absf(nova_direcao.signed_angle_to(move_direction, Vector3.UP))
+			var foi_reto := angulo_final <= deg_to_rad(angulo_fim_drift)
+
+			if (tempo_em_drift >= tempo_minimo_drift and foi_reto) or tempo_em_drift >= duracao_maxima_drift:
+				terminar_drift()
 
 	# MOVIMENTO NORMAL / DASH
 	else:
@@ -192,7 +240,7 @@ func _physics_process(delta: float) -> void:
 	verificar_colisao_quebravel()
 
 	# ROTAÇÃO DO CORTADOR
-	if move_direction.length_squared() > 0.01:
+	if tem_input:
 		var target_rotation := atan2(move_direction.x, move_direction.z)
 		rotation.y = lerp_angle(rotation.y, target_rotation, rotation_speed * delta)
 
@@ -211,20 +259,23 @@ func _physics_process(delta: float) -> void:
 func atualizar_camera(delta: float):
 	_camera_pivot.global_position = global_position
 
-	# Mouse vai esq q dir
+	# Mouse vai esq q dir (gira mais rápido durante o drift)
 	if _camera_input_x != 0.0:
-		_camera_pivot.rotation.y -= _camera_input_x * delta
+		var multiplicador := multiplicador_camera_drift if em_drift else 1.0
+		_camera_pivot.rotation.y -= _camera_input_x * delta * multiplicador
 		_camera_input_x = 0.0
 
 	var inclinacao_alvo := 0.0
 
 	if em_drift:
-		#Inclina seguindo o drift
+		# Inclina seguindo o drift
 		inclinacao_alvo = deg_to_rad(inclinacao_camera_drift) * lado_drift
 
-	#Faz a camera inclinar  ate o ângulo usando lerp pra suaviz
-	_camera_pivot.rotation.z = lerp_angle(_camera_pivot.rotation.z,inclinacao_alvo,
-	1.0 - exp(-velocidade_inclinacao_camera * delta)
+	# Faz a câmera inclinar até o ângulo usando lerp pra suavizar
+	_camera_pivot.rotation.z = lerp_angle(
+		_camera_pivot.rotation.z,
+		inclinacao_alvo,
+		1.0 - exp(-velocidade_inclinacao_camera * delta)
 	)
 
 
@@ -272,27 +323,36 @@ func terminar_dash():
 
 	particula_dash.emitting = false
 
+
 # =========================================================
 # DRIFT
 # =========================================================
 
-func comecar_drift(_direcao_atual: Vector3, nova_direcao: Vector3):
+func comecar_drift(direcao_atual: Vector3, nova_direcao: Vector3):
 	if em_drift:
 		return
 
 	em_drift = true
-	tempo_drift = duracao_drift
-	cooldown_drift = tempo_entre_drifts
-	velocidade_drift = velocity
+	tempo_em_drift = 0.0
 
-	var direita_cortador := global_basis.x
-	var lado_movimento := direita_cortador.dot(nova_direcao)
-
-	if lado_movimento > 0.0:
-		lado_drift = -1.0
-	else:
+	# Lado da curva, baseado na direção da velocidade (não na rotação do corpo)
+	var angulo_curva := direcao_atual.signed_angle_to(nova_direcao, Vector3.UP)
+	lado_drift = -signf(angulo_curva)
+	if lado_drift == 0.0:
 		lado_drift = 1.0
 
+	_aplicar_pose_drift(0.15)
+	driftou.emit(nova_direcao)
+
+
+func trocar_lado_drift(novo_lado: float, nova_direcao: Vector3):
+	lado_drift = novo_lado
+	tempo_em_drift = 0.0  # a curva nova ganha um drift novo
+	_aplicar_pose_drift(0.2)
+	driftou.emit(nova_direcao)
+
+
+func _aplicar_pose_drift(duracao: float):
 	var angulo := deg_to_rad(inclinacao_drift) * lado_drift
 	var rotacao_drift := Transform3D(Basis(Vector3.FORWARD, angulo), Vector3.ZERO)
 
@@ -306,15 +366,16 @@ func comecar_drift(_direcao_atual: Vector3, nova_direcao: Vector3):
 	transform_drift_tampa.origin.y += altura_drift
 	transform_drift_area.origin.y += altura_drift
 
-	var tween := create_tween()
-	tween.set_parallel(true)
+	if _tween_drift and _tween_drift.is_valid():
+		_tween_drift.kill()
 
-	tween.tween_property(_model, "transform", transform_drift_modelo, 0.15)
-	tween.tween_property(collision_corpo, "transform", transform_drift_corpo, 0.15)
-	tween.tween_property(collision_tampa, "transform", transform_drift_tampa, 0.15)
-	tween.tween_property(area_atropelamento, "transform", transform_drift_area, 0.15)
+	_tween_drift = create_tween()
+	_tween_drift.set_parallel(true)
 
-	driftou.emit(nova_direcao)
+	_tween_drift.tween_property(_model, "transform", transform_drift_modelo, duracao)
+	_tween_drift.tween_property(collision_corpo, "transform", transform_drift_corpo, duracao)
+	_tween_drift.tween_property(collision_tampa, "transform", transform_drift_tampa, duracao)
+	_tween_drift.tween_property(area_atropelamento, "transform", transform_drift_area, duracao)
 
 
 func terminar_drift():
@@ -322,14 +383,19 @@ func terminar_drift():
 		return
 
 	em_drift = false
+	tempo_em_drift = 0.0
+	cooldown_drift = tempo_entre_drifts
 
-	var tween := create_tween()
-	tween.set_parallel(true)
+	if _tween_drift and _tween_drift.is_valid():
+		_tween_drift.kill()
 
-	tween.tween_property(_model, "transform", transform_original_modelo, 0.25)
-	tween.tween_property(collision_corpo, "transform", transform_original_collision_corpo, 0.25)
-	tween.tween_property(collision_tampa, "transform", transform_original_collision_tampa, 0.25)
-	tween.tween_property(area_atropelamento, "transform", transform_original_area, 0.25)
+	_tween_drift = create_tween()
+	_tween_drift.set_parallel(true)
+
+	_tween_drift.tween_property(_model, "transform", transform_original_modelo, 0.25)
+	_tween_drift.tween_property(collision_corpo, "transform", transform_original_collision_corpo, 0.25)
+	_tween_drift.tween_property(collision_tampa, "transform", transform_original_collision_tampa, 0.25)
+	_tween_drift.tween_property(area_atropelamento, "transform", transform_original_area, 0.25)
 
 
 # =========================================================
@@ -388,6 +454,7 @@ func morrer():
 	if area_atropelamento:
 		area_atropelamento.set_deferred("monitoring", false)
 		area_atropelamento.set_deferred("monitorable", false)
+
 
 func verificar_colisao_quebravel():
 	for i in get_slide_collision_count():

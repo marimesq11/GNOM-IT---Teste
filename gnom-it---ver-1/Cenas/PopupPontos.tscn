@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dsnqg6ao0gbob" path="res://Cenas/popup_pontos.gd" id="1_nqc0u"]
 
 [node name="Label3D" type="Label3D"]
+billboard = 1
 modulate = Color(1, 0, 0, 1)
 text = "+10"
 font_size = 50
