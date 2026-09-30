@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b3fov15j2avl7"]
+[gd_scene load_steps=41 format=3 uid="uid://b3fov15j2avl7"]
 
 [ext_resource type="Script" uid="uid://dhk3hqktoybxi" path="res://Cenas/Main.gd" id="1_7pyqf"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="1_tyifh"]
@@ -9,8 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://cwvw4rxs8a2ce" path="res://Cenas/Gnomo_Azul.tscn" id="8_6fna2"]
 [ext_resource type="Script" uid="uid://dw3wflx7loidx" path="res://Script/barra_vida.gd" id="9_6fna2"]
 [ext_resource type="PackedScene" uid="uid://dnyrwky64ojs" path="res://Cenas/Gnomo_Verde.tscn" id="9_7pt1d"]
+[ext_resource type="Script" uid="uid://b4u2m2wkpc22g" path="res://Cenas/barra_gasolina.gd" id="10_2288r"]
 [ext_resource type="PackedScene" uid="uid://4umlq6vc5e3b" path="res://CenasCenarios/Rocha6.tscn" id="10_kqcot"]
 [ext_resource type="PackedScene" uid="uid://c4es3mxmkneo6" path="res://CenasCenarios/Rocha11.tscn" id="11_7pyqf"]
+[ext_resource type="PackedScene" uid="uid://cd0iw0jg20kn" path="res://Gasolina.tscn" id="11_ns3cp"]
 [ext_resource type="PackedScene" uid="uid://c8qvjv58cskd1" path="res://CenasCenarios/Rocha1.tscn" id="12_0juky"]
 [ext_resource type="PackedScene" uid="uid://cxlvjwfs7g8so" path="res://CenasCenarios/Rocha2.tscn" id="13_apn5o"]
 [ext_resource type="PackedScene" uid="uid://bus73ub0e28uq" path="res://CenasCenarios/CaixaouCanteiro.tscn" id="14_kqcot"]
@@ -23,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://b55qjd34jjrfd" path="res://Arvores.tscn" id="22_0juky"]
 [ext_resource type="PackedScene" uid="uid://e0pieu6lyakn" path="res://CenasCenarios/CarrinhodeMao.tscn" id="22_bkf8r"]
 [ext_resource type="ArrayMesh" uid="uid://duj6747nq4qsk" path="res://Meshs/grass.res" id="24_apn5o"]
+[ext_resource type="PackedScene" uid="uid://ba0c3xgwsvu1c" path="res://Rampa.tscn" id="25_apn5o"]
 [ext_resource type="PackedScene" uid="uid://bbui718p0jqeo" path="res://Cenas/GnomoCorre.tscn" id="25_qd40q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0juky"]
@@ -100,12 +103,15 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xu8hi")
 
 [node name="cortador" parent="." groups=["player"] instance=ExtResource("1_tyifh")]
 unique_name_in_owner = true
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.12938106, 0)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.98181915, 0.076580286, -8.898669)
 rotation_speed = 4.0
 duracao_dash = 2.0
 tempo_entre_drifts = 0.7
 inclinacao_drift = 25.0
 altura_drift = 0.35
+
+[node name="Cylinder2" parent="cortador/Node3D" index="1"]
+surface_material_override/0 = null
 
 [node name="SpringArm3D" parent="cortador/CameraPivot" index="0"]
 transform = Transform3D(1, 0, 0, 0, 0.9856564, -0.16876462, 0, 0.16876462, 0.9856564, 0, 8.079196, -22.956856)
@@ -155,6 +161,17 @@ value = 100.0
 fill_mode = 1
 script = ExtResource("9_6fna2")
 cortador = NodePath("../../cortador")
+
+[node name="ProgressBar2" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("jogador")]
+offset_left = 17.0
+offset_top = 52.0
+offset_right = 334.0
+offset_bottom = 79.0
+script = ExtResource("10_2288r")
+jogador = NodePath("../../cortador")
+
+[node name="Node3D" parent="CanvasLayer/ProgressBar2" instance=ExtResource("11_ns3cp")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.29718852, 10.7148285)
 
 [node name="Mapa" type="Node3D" parent="."]
 transform = Transform3D(1.3431945, 0, 0, 0, 1, 0, 0, 0, 1.3415703, 0, 0, 0)
@@ -375,10 +392,10 @@ wait_time = 30.0
 one_shot = true
 
 [node name="Label" type="Label" parent="."]
-offset_left = 186.0
-offset_top = 51.0
-offset_right = 226.0
-offset_bottom = 74.0
+offset_left = 428.0
+offset_top = 18.0
+offset_right = 468.0
+offset_bottom = 41.0
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("25_qd40q")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 3.7580092)
@@ -425,6 +442,9 @@ multimesh = SubResource("MultiMesh_0juky")
 transform = Transform3D(1, 0, 0, 0, 0.99998283, -0.005864306, 0, 0.005864306, 0.99998283, 4.3768063, 1.231129, 3.785318)
 visible = false
 mesh = ExtResource("24_apn5o")
+
+[node name="StaticBody3D" parent="." instance=ExtResource("25_apn5o")]
+transform = Transform3D(-0.00027923187, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -0.00027923187, 0.98181915, 0, -3.2147138)
 
 [connection signal="timeout" from="Timer" to="cortador" method="_on_timer_timeout"]
 
