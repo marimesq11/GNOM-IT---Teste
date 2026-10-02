@@ -7,7 +7,7 @@ var morto: bool = false
 @export var atraso_troca: float = 1.5
 
 @onready var timer: Timer = $Timer
-@onready var label: Label = $Label
+@onready var label: Label = $TimeLabel
 
 func _ready():
 	# conecta por código (só se ainda não estiver conectado no editor)

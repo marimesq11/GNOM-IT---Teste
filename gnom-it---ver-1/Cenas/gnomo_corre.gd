@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var velocidade_fuga: float = 3.5
+@export var velocidade_fuga: float = 2.7
 @export var distancia_deteccao: float = 30
 @export var distancia_parede: float = 4
 @export var aceleracao: float = 12.0

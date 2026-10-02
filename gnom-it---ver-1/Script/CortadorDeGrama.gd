@@ -36,15 +36,16 @@ const LIMIAR_EMISSAO_GASOLINA := 0.2
 
 @export_group("Gasolina")
 @export var gasolina_maxima: float = 100.0
-@export var consumo_gasolina: float = 0.5
+@export var consumo_gasolina: float = 1
 
 @export_group("Vida")
 @export var vida_maxima: float = 100.0
 
 @export_group("Movement")
-@export var move_speed: float = 4.5
-@export var acceleration: float = 5.5
-@export var rotation_speed: float = 3.0
+@export var move_speed: float = 4.0
+@export var acceleration: float = 4.7
+
+@export var rotation_speed: float = 2.5
 
 @export_group("Camera")
 ## Abaixo desse valor (produto escalar com a frente da câmera) a câmera trava.
@@ -76,7 +77,7 @@ const LIMIAR_EMISSAO_GASOLINA := 0.2
 @export var cooldown_dash: float = 2
 @export var velocidade_preparacao: float = 0.85
 ## Quantas vezes o consumo aumenta durante o dash.
-@export var multiplicador_consumo_dash: float = 3.0
+@export var multiplicador_consumo_dash: float = 5.0
 
 @export_group("Drift - Início")
 @export var velocidade_minima_drift: float = 2.5

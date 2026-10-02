@@ -5,9 +5,9 @@ extends CharacterBody3D
 var sendo_atropelado: bool = false
 
 # Var Velocidade
-var velocidade = 2.5
-var velocidade_rotacao = 1.0
-var velocidade_ataque = 1.2
+var velocidade = 3.5
+var velocidade_rotacao = 2.0
+var velocidade_ataque = 3
 
 # Var Cortador
 @onready var Cortador: CharacterBody3D = %cortador

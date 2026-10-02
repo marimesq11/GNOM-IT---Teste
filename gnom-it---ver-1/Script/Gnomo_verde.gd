@@ -14,7 +14,7 @@ var sendo_atropelado: bool = false
 # MOVIMENTO
 # =========================================================
 
-@export var velocidade: float = 2.0
+@export var velocidade: float = 3.5
 @export var distancia_chegada: float = 0.2
 
 
@@ -23,10 +23,10 @@ var sendo_atropelado: bool = false
 # =========================================================
 
 # Raio em METROS que o inimigo restaura.
-@export var raio_restauracao: float = 0.5
+@export var raio_restauracao: float = 1.5
 
 # Velocidade do crescimento.
-@export var velocidade_restauracao: float = 0.3
+@export var velocidade_restauracao: float = 0.2
 
 # De quanto em quanto tempo a máscara é restaurada.
 # Não precisamos editar a Image 60 vezes por segundo.
@@ -42,7 +42,7 @@ var sendo_atropelado: bool = false
 @export var passo_busca: int = 32
 
 # Tempo entre buscas quando não existe alvo.
-@export var intervalo_busca: float = 0.5
+@export var intervalo_busca: float = 0.3
 
 
 # =========================================================
