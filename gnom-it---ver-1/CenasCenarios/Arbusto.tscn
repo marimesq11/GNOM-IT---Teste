@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://hcdxwjicfi71"]
+[gd_scene format=4 uid="uid://hcdxwjicfi71"]
 
 [ext_resource type="Texture2D" uid="uid://c0cg3t0gl0v3" path="res://Assets/TextureBrush/9.png" id="1_tysla"]
 
@@ -45,13 +45,37 @@ shadow_mesh = SubResource("ArrayMesh_70rik")
 [sub_resource type="SphereShape3D" id="SphereShape3D_382nm"]
 radius = 0.7076233
 
-[node name="StaticBody3D" type="StaticBody3D" groups=["Quebravel"]]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0i88t"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
 
-[node name="stylized bush" type="MeshInstance3D" parent="."]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3si4x"]
+albedo_color = Color(0.08500004, 0.51, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ckb4l"]
+material = SubResource("StandardMaterial3D_3si4x")
+radius = 0.04
+height = 0.08
+
+[node name="StaticBody3D" type="StaticBody3D" unique_id=1470751302 groups=["Quebravel"]]
+
+[node name="stylized bush" type="MeshInstance3D" parent="." unique_id=624983484]
 transform = Transform3D(100, 0, 0, 0, -1.2989894e-05, 99.99999, 0, -108.96712, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_25odd")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=377238133]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29481566, 0)
 shape = SubResource("SphereShape3D_382nm")
+
+[node name="Quebrou" type="GPUParticles3D" parent="." unique_id=936365647]
+transform = Transform3D(0.8120628, 0, 0, 0, 0.5588158, 0, 0, 0, 0.7771984, 0, 0.3320284, 0)
+emitting = false
+amount = 20
+lifetime = 0.7
+one_shot = true
+speed_scale = 3.0
+fixed_fps = 10
+process_material = SubResource("ParticleProcessMaterial_0i88t")
+draw_pass_1 = SubResource("SphereMesh_ckb4l")

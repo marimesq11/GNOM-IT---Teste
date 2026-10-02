@@ -2,18 +2,26 @@ extends CharacterBody3D
 
 signal gasolina_alterada(atual, maximo)
 signal dash_disponivel_alterado(disponivel: bool)
-
-@export_group("Gasolina")
-@export var gasolina_maxima: float = 100.0
-@export var consumo_gasolina: float = 0.5
-
-var gasolina: float
-var _dash_disponivel_antes := true
-
 signal vida_alterada(vida_atual, vida_max)
 signal morreu
 signal driftou(direcao: Vector3)
 signal boost_drift
+
+# StringName evita converter String -> StringName a cada frame
+const ACAO_ESQUERDA := &"Andar_Esquerda"
+const ACAO_DIREITA := &"Andar_Direita"
+const ACAO_FRENTE := &"Andar_Frente"
+const ACAO_TRAS := &"Andar_Tras"
+const ACAO_DASH := &"Dash"
+const GRUPO_QUEBRAVEL := &"Quebravel"
+const GRUPO_ATROPELAVEL := &"atropelavel"
+
+const SUAVIZACAO_GIRO_INPUT := 12.0
+const DURACAO_ENTRAR_DRIFT := 0.15
+const DURACAO_TROCAR_LADO := 0.6
+const DURACAO_SAIR_DRIFT := 0.25
+## A barra de gasolina só é avisada quando muda pelo menos isso (evita emit todo frame).
+const LIMIAR_EMISSAO_GASOLINA := 0.2
 
 @onready var particula_dash: GPUParticles3D = $ParticulaDash
 @onready var area_atropelamento: Area3D = $AreaAtropelamento
@@ -26,10 +34,9 @@ signal boost_drift
 @onready var marker_esq: Node3D = find_child("Esq", true, false)
 @onready var marker_dir: Node3D = find_child("Dir", true, false)
 
-const SUAVIZACAO_GIRO_INPUT := 12.0
-const DURACAO_ENTRAR_DRIFT := 0.15
-const DURACAO_TROCAR_LADO := 0.2
-const DURACAO_SAIR_DRIFT := 0.25
+@export_group("Gasolina")
+@export var gasolina_maxima: float = 100.0
+@export var consumo_gasolina: float = 0.5
 
 @export_group("Vida")
 @export var vida_maxima: float = 100.0
@@ -72,7 +79,7 @@ const DURACAO_SAIR_DRIFT := 0.25
 @export var multiplicador_consumo_dash: float = 3.0
 
 @export_group("Drift - Início")
-@export var velocidade_minima_drift: float =2.5
+@export var velocidade_minima_drift: float = 2.5
 ## Curva fechada: ângulo (graus) entre velocidade e input para começar.
 @export var angulo_drift: float = 45.0
 ## Curva aberta: quão rápido o input precisa girar (rad/s).
@@ -86,7 +93,7 @@ const DURACAO_SAIR_DRIFT := 0.25
 
 @export_group("Drift - Fim")
 ## Ângulo (graus) abaixo do qual a curva é considerada terminada.
-@export var angulo_fim_drift: float =25.0
+@export var angulo_fim_drift: float = 25.0
 ## Tempo que precisa estar "reto" para o drift terminar.
 @export var tempo_confirmar_fim_drift: float = 0.3
 @export var tempo_minimo_drift: float = 0.5
@@ -121,7 +128,12 @@ const DURACAO_SAIR_DRIFT := 0.25
 @export var tempo_para_boost_drift: float = 0.6
 @export var impulso_boost_drift: float = 2.0
 
+var gasolina: float
 var vida: float
+
+var _gasolina_emitida: float
+var _dash_disponivel_antes := true
+
 var _fov_base := 75.0
 var _offset_yaw_camera := 0.0
 var _heading := 0.0
@@ -129,6 +141,12 @@ var _origem_braco := Vector3.ZERO
 var _offset_camera := Vector3.ZERO
 var _fator_camera := 1.0
 var _fator_suave := 1.0
+var _fator_aplicado := 1.0
+var _cam_z_plano := Vector3.ZERO  # "frente" horizontal da câmera, calculada 1x por frame
+
+# Raycast da câmera reaproveitado (não cria objeto novo a cada frame)
+var _consulta: PhysicsRayQueryParameters3D
+var _mundo: World3D
 
 var preparando_dash := false
 var em_dash := false
@@ -154,6 +172,7 @@ var _transforms_originais: Array[Transform3D] = []
 
 func _ready() -> void:
 	gasolina = gasolina_maxima
+	_gasolina_emitida = gasolina
 	gasolina_alterada.emit(gasolina, gasolina_maxima)
 	vida = vida_maxima
 	_partes.assign([_model, collision_corpo, collision_tampa, area_atropelamento])
@@ -190,12 +209,16 @@ func _ready() -> void:
 	braco.queue_free()
 	_camera.transform = Transform3D(basis_camera, _offset_camera)
 
+	# Raycast criado uma única vez e só atualizado a cada frame
+	_mundo = get_world_3d()
+	_consulta = PhysicsRayQueryParameters3D.create(Vector3.ZERO, Vector3.ZERO, camera_colisao_mask, [get_rid()])
+
 
 func _physics_process(delta: float) -> void:
 	cooldown_drift = maxf(cooldown_drift - delta, 0.0)
 	tempo_cooldown_dash = maxf(tempo_cooldown_dash - delta, 0.0)
 
-	var raw_input := Input.get_vector("Andar_Esquerda", "Andar_Direita", "Andar_Frente", "Andar_Tras")
+	var raw_input := Input.get_vector(ACAO_ESQUERDA, ACAO_DIREITA, ACAO_FRENTE, ACAO_TRAS)
 	var dir := _direcao_de_movimento(raw_input)
 	if gasolina <= 0.0:
 		dir = Vector3.ZERO  # sem gasolina, não anda
@@ -229,6 +252,7 @@ func _physics_process(delta: float) -> void:
 	_atualizar_rotacao(dir, tem_input, delta)
 	_atualizar_colisao_camera()
 
+
 func _process(delta: float) -> void:
 	atualizar_camera(delta)
 	atualizar_fumaca_drift()
@@ -239,11 +263,17 @@ func _process(delta: float) -> void:
 # ---------------------------------------------------------
 
 func _direcao_de_movimento(raw_input: Vector2) -> Vector3:
-	var frente := _camera.global_basis.z
-	var direita := _camera.global_basis.x
+	# Sem input: nem lê a transform da câmera
+	if raw_input == Vector2.ZERO:
+		return Vector3.ZERO
+
+	var cam_basis := _camera.global_basis  # lido 1x e reaproveitado em _atualizar_rotacao
+	var frente := cam_basis.z
+	var direita := cam_basis.x
 	frente.y = 0.0
 	direita.y = 0.0
-	var dir := frente.normalized() * raw_input.y + direita.normalized() * raw_input.x
+	_cam_z_plano = frente.normalized()
+	var dir := _cam_z_plano * raw_input.y + direita.normalized() * raw_input.x
 	dir.y = 0.0
 	return dir.normalized() if dir.length_squared() > 0.01 else Vector3.ZERO
 
@@ -266,48 +296,59 @@ func _atualizar_rotacao(dir: Vector3, tem_input: bool, delta: float) -> void:
 	var desvio := lado_drift * deg_to_rad(angulo_derrapagem) if em_drift else 0.0
 
 	# Indo "para trás" em relação à câmera: trava a câmera (não atualiza o _heading)
-	var cam_frente := -_camera.global_basis.z
-	cam_frente.y = 0.0
-	cam_frente = cam_frente.normalized()
-	var indo_para_tras := dir.dot(cam_frente) < limite_travar_camera
+	# frente da câmera = -z, e _cam_z_plano já é o z horizontal normalizado
+	var indo_para_tras := dir.dot(-_cam_z_plano) < limite_travar_camera
 
 	if not indo_para_tras:
 		_heading = lerp_angle(_heading, alvo, vel * delta)
 
 	rotation.y = lerp_angle(rotation.y, alvo + desvio, vel * delta)
 
+
 func atualizar_camera(delta: float) -> void:
-	_camera_pivot.global_position = _camera_pivot.global_position.lerp(
-		global_position, 1.0 - exp(-suavizacao_posicao_camera * delta))
+	# Só escreve na cena quando o valor realmente mudou (cada escrita marca transform/render como "sujo")
+	var pos_pivo := _camera_pivot.global_position
+	var pos_alvo := global_position
+	if not pos_pivo.is_equal_approx(pos_alvo):
+		_camera_pivot.global_position = pos_pivo.lerp(pos_alvo, 1.0 - exp(-suavizacao_posicao_camera * delta))
 
 	var seguir := suavizacao_giro_camera * (multiplicador_camera_drift if em_drift else 1.0)
-	_camera_pivot.rotation.y = lerp_angle(
-		_camera_pivot.rotation.y, _heading + _offset_yaw_camera, 1.0 - exp(-seguir * delta))
+	var yaw_atual := _camera_pivot.rotation.y
+	var yaw_alvo := _heading + _offset_yaw_camera
+	if not is_equal_approx(angle_difference(yaw_atual, yaw_alvo), 0.0):
+		_camera_pivot.rotation.y = lerp_angle(yaw_atual, yaw_alvo, 1.0 - exp(-seguir * delta))
 
 	var fov_alvo := _fov_base + (fov_extra_drift if em_drift else 0.0)
-	_camera.fov = lerpf(_camera.fov, fov_alvo, 1.0 - exp(-4.0 * delta))
+	if not is_equal_approx(_camera.fov, fov_alvo):
+		_camera.fov = lerpf(_camera.fov, fov_alvo, 1.0 - exp(-4.0 * delta))
 
 	var inclinacao := deg_to_rad(inclinacao_camera_drift) * lado_drift if em_drift else 0.0
-	_camera_pivot.rotation.z = lerp_angle(
-		_camera_pivot.rotation.z, inclinacao, 1.0 - exp(-velocidade_inclinacao_camera * delta))
+	var roll_atual := _camera_pivot.rotation.z
+	if not is_equal_approx(angle_difference(roll_atual, inclinacao), 0.0):
+		_camera_pivot.rotation.z = lerp_angle(roll_atual, inclinacao, 1.0 - exp(-velocidade_inclinacao_camera * delta))
 
 	# Aproxima na hora quando há parede; volta suave quando o caminho libera
 	if _fator_camera < _fator_suave:
 		_fator_suave = _fator_camera
+	elif is_equal_approx(_fator_suave, _fator_camera):
+		_fator_suave = _fator_camera
 	else:
 		_fator_suave = lerpf(_fator_suave, _fator_camera, 1.0 - exp(-camera_retorno * delta))
 
-	_camera.position = _origem_braco + (_offset_camera - _origem_braco) * _fator_suave
+	if _fator_suave != _fator_aplicado:
+		_fator_aplicado = _fator_suave
+		_camera.position = _origem_braco + (_offset_camera - _origem_braco) * _fator_suave
 
 
 func _atualizar_colisao_camera() -> void:
-	# Raio do "ombro" do jogador até a posição ideal da câmera
-	var b := _camera_pivot.global_basis
-	var origem := _camera_pivot.global_position + b * _origem_braco
-	var destino := _camera_pivot.global_position + b * _offset_camera
+	# Raio do "ombro" do jogador até a posição ideal da câmera (usa a mesma query de sempre)
+	var t := _camera_pivot.global_transform
+	var origem := t * _origem_braco
+	var destino := t * _offset_camera
 
-	var consulta := PhysicsRayQueryParameters3D.create(origem, destino, camera_colisao_mask, [get_rid()])
-	var acerto := get_world_3d().direct_space_state.intersect_ray(consulta)
+	_consulta.from = origem
+	_consulta.to = destino
+	var acerto := _mundo.direct_space_state.intersect_ray(_consulta)
 
 	if acerto:
 		var total := origem.distance_to(destino)
@@ -321,7 +362,7 @@ func _atualizar_colisao_camera() -> void:
 # ---------------------------------------------------------
 
 func _atualizar_dash(dir: Vector3, tem_input: bool, delta: float) -> void:
-	if Input.is_action_just_pressed("Dash") and _dash_disponivel():
+	if Input.is_action_just_pressed(ACAO_DASH) and _dash_disponivel():
 		preparando_dash = true
 		tempo_preparacao = tempo_preparacao_dash
 		direcao_dash = dir if tem_input else global_basis.z.normalized()
@@ -352,19 +393,20 @@ func _atualizar_dash(dir: Vector3, tem_input: bool, delta: float) -> void:
 # ---------------------------------------------------------
 
 func _checar_inicio_drift(dir: Vector3, tem_input: bool, delta: float) -> void:
-	var vel_h := Vector3(velocity.x, 0.0, velocity.z)
 	var quer_drift := false
 
-	if tem_input and cooldown_drift <= 0.0 and vel_h.length_squared() >= velocidade_minima_drift * velocidade_minima_drift:
-		var angulo := vel_h.angle_to(dir)
-		var curva_fechada := angulo >= deg_to_rad(angulo_drift)
-		var curva_aberta := absf(giro_input) >= giro_minimo_drift and angulo >= deg_to_rad(angulo_minimo_curva_aberta)
-		quer_drift = curva_fechada or curva_aberta
+	if tem_input and cooldown_drift <= 0.0:
+		var vel_h := Vector3(velocity.x, 0.0, velocity.z)
+		if vel_h.length_squared() >= velocidade_minima_drift * velocidade_minima_drift:
+			var angulo := vel_h.angle_to(dir)
+			var curva_fechada := angulo >= deg_to_rad(angulo_drift)
+			var curva_aberta := absf(giro_input) >= giro_minimo_drift and angulo >= deg_to_rad(angulo_minimo_curva_aberta)
+			quer_drift = curva_fechada or curva_aberta
 
 	_tempo_intencao_drift = _tempo_intencao_drift + delta if quer_drift else 0.0
 
 	if _tempo_intencao_drift >= tempo_confirmar_inicio_drift:
-		comecar_drift(vel_h.normalized(), dir)
+		comecar_drift(Vector3(velocity.x, 0.0, velocity.z).normalized(), dir)
 
 
 func comecar_drift(direcao_atual: Vector3, nova_direcao: Vector3) -> void:
@@ -379,6 +421,10 @@ func comecar_drift(direcao_atual: Vector3, nova_direcao: Vector3) -> void:
 		lado_drift = -signf(angulo_curva)
 	elif absf(giro_input) > 0.1:
 		lado_drift = -signf(giro_input)
+
+	# A fumaça liga/desliga aqui, só nas mudanças de estado (não precisa checar todo frame)
+	if particula_drift:
+		particula_drift.emitting = true
 
 	_animar_pose(true, DURACAO_ENTRAR_DRIFT)
 	driftou.emit(nova_direcao)
@@ -451,6 +497,8 @@ func terminar_drift(dar_boost: bool = false) -> void:
 	tempo_em_drift = 0.0
 	_tempo_reto = 0.0
 	cooldown_drift = tempo_entre_drifts
+	if particula_drift:
+		particula_drift.emitting = false
 	_animar_pose(false, DURACAO_SAIR_DRIFT)
 
 
@@ -472,13 +520,8 @@ func _animar_pose(pose_drift: bool, duracao: float) -> void:
 
 
 func atualizar_fumaca_drift() -> void:
-	if particula_drift == null:
-		return
-
-	if particula_drift.emitting != em_drift:
-		particula_drift.emitting = em_drift
-
-	if not em_drift:
+	# Fora do drift não faz nada (o emitting já é ligado/desligado em comecar/terminar_drift)
+	if not em_drift or particula_drift == null:
 		return
 
 	# lado_drift > 0 = esquerda -> marker Esq
@@ -494,16 +537,18 @@ func atualizar_fumaca_drift() -> void:
 # ---------------------------------------------------------
 
 func _matar_se_atropelavel(body: Node) -> void:
-	if body.is_in_group("atropelavel") and body.has_method("morrer_atropelado"):
+	if body.is_in_group(GRUPO_ATROPELAVEL) and body.has_method(&"morrer_atropelado"):
 		body.morrer_atropelado()
 
 
 func verificar_colisao_quebravel() -> void:
 	for i in get_slide_collision_count():
-		var objeto = get_slide_collision(i).get_collider()
+		var objeto := get_slide_collision(i).get_collider() as Node
+		if objeto == null:
+			continue
 
-		if objeto.is_in_group("Quebravel"):
-			objeto.queue_free()
+		if objeto.is_in_group(GRUPO_QUEBRAVEL):
+			Quebravel.quebrar(objeto)
 		else:
 			_matar_se_atropelavel(objeto)
 
@@ -533,21 +578,36 @@ func morrer() -> void:
 	area_atropelamento.set_deferred("monitoring", false)
 	area_atropelamento.set_deferred("monitorable", false)
 
+
+# ---------------------------------------------------------
+# GASOLINA
+# ---------------------------------------------------------
+
 func reabastecer(quantidade: float) -> void:
 	gasolina = minf(gasolina + quantidade, gasolina_maxima)
-	gasolina_alterada.emit(gasolina, gasolina_maxima)
+	_emitir_gasolina()
 
 
 func _dash_disponivel() -> bool:
 	return not preparando_dash and not em_dash and tempo_cooldown_dash <= 0.0 and gasolina > 0.0
 
+
 func _atualizar_gasolina(tem_input: bool, delta: float) -> void:
 	if tem_input:
 		var consumo := consumo_gasolina * (multiplicador_consumo_dash if em_dash else 1.0)
 		gasolina = maxf(gasolina - consumo * delta, 0.0)
-		gasolina_alterada.emit(gasolina, gasolina_maxima)
+		_emitir_gasolina()
 
 	var disponivel := _dash_disponivel()
 	if disponivel != _dash_disponivel_antes:
 		_dash_disponivel_antes = disponivel
 		dash_disponivel_alterado.emit(disponivel)
+
+
+func _emitir_gasolina() -> void:
+	# Só avisa a UI quando a diferença é visível (ou ao chegar em 0 / no máximo)
+	var mudou := absf(gasolina - _gasolina_emitida) >= LIMIAR_EMISSAO_GASOLINA
+	var chegou_no_limite := (gasolina <= 0.0 or gasolina >= gasolina_maxima) and gasolina != _gasolina_emitida
+	if mudou or chegou_no_limite:
+		_gasolina_emitida = gasolina
+		gasolina_alterada.emit(gasolina, gasolina_maxima)

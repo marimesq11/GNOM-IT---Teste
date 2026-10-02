@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cunoamskh72hk"]
+
+[ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="1_ys4tv"]
+[ext_resource type="Script" uid="uid://hb2vvohjp8kc" path="res://Cenas/pontos_label.gd" id="2_1oa15"]
+[ext_resource type="Script" uid="uid://dr10lw2bpy5s6" path="res://BotaoMenu.gd" id="3_f0f2m"]
+
+[node name="Node2D" type="Node2D" unique_id=1904979765]
+
+[node name="Label" type="Label" parent="." unique_id=842337950]
+offset_left = 86.0
+offset_top = -46.0
+offset_right = 1113.0
+offset_bottom = 343.0
+theme_override_fonts/font = ExtResource("1_ys4tv")
+theme_override_font_sizes/font_size = 100
+text = "Parabens! 
+Sua pontuação foi:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="." unique_id=845231683]
+offset_left = 324.0
+offset_top = 314.0
+offset_right = 818.0
+offset_bottom = 444.0
+theme_override_fonts/font = ExtResource("1_ys4tv")
+theme_override_font_sizes/font_size = 100
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_1oa15")
+
+[node name="Button" type="Button" parent="." unique_id=2005568903]
+offset_left = 342.0
+offset_top = 497.0
+offset_right = 797.0
+offset_bottom = 601.0
+theme_override_font_sizes/font_size = 50
+text = "Menu"
+script = ExtResource("3_f0f2m")
+cena_destino = "uid://bgg28mm36h0ob"

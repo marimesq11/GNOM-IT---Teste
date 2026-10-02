@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://dbqhupiq8dkaa"]
+[gd_scene format=4 uid="uid://dbqhupiq8dkaa"]
 
 [ext_resource type="Script" uid="uid://bj3dm448gfy5h" path="res://Script/CortadorDeGrama.gd" id="2_757jh"]
 [ext_resource type="Texture2D" uid="uid://bi6jox3a60qa" path="res://Assets/Cortador/cortador_0.png" id="2_ak1vr"]
@@ -168,77 +168,77 @@ material = SubResource("StandardMaterial3D_coagh")
 radius = 0.02
 height = 0.04
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1317807494]
 script = ExtResource("2_757jh")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1636614886]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.013916045, -0.25196838, -0.02252196)
 shape = SubResource("BoxShape3D_a3hm4")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1743808473]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.013916045, 0.7711822, -0.986645)
 shape = SubResource("CylinderShape3D_ak1vr")
 
-[node name="AreaAtropelamento" type="Area3D" parent="."]
+[node name="AreaAtropelamento" type="Area3D" parent="." unique_id=1807855945]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AreaAtropelamento"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AreaAtropelamento" unique_id=1775709387]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16690063, 0.060546875, 1.8629303)
 shape = SubResource("BoxShape3D_757jh")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Node3D" type="Node3D" parent="." unique_id=1042802644]
 
-[node name="Pivot" type="Marker3D" parent="Node3D"]
+[node name="Pivot" type="Marker3D" parent="Node3D" unique_id=1040135284]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0016623735, 1.1334045, -1.2633098)
 
-[node name="Cylinder2" type="MeshInstance3D" parent="Node3D"]
+[node name="Cylinder2" type="MeshInstance3D" parent="Node3D" unique_id=532416502]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_757jh")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_coagh")
 
-[node name="Cylinder_002" type="MeshInstance3D" parent="Node3D"]
+[node name="Cylinder_002" type="MeshInstance3D" parent="Node3D" unique_id=347670222]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_coagh")
 skeleton = NodePath("")
 
-[node name="Cylinder_004" type="MeshInstance3D" parent="Node3D"]
+[node name="Cylinder_004" type="MeshInstance3D" parent="Node3D" unique_id=1455315089]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_na02i")
 skeleton = NodePath("")
 
-[node name="Ponto_Inimigo" type="Marker3D" parent="Node3D"]
+[node name="Ponto_Inimigo" type="Marker3D" parent="Node3D" unique_id=575713915]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50987947, 1.5104814, -0.7568062)
 
-[node name="CameraPivot" type="Node3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="." unique_id=1415393391]
 unique_name_in_owner = true
 
-[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=1278876024]
 transform = Transform3D(1, 0, 0, 0, 0.9856564, -0.16876462, 0, 0.16876462, 0.9856564, 0, 10.2926035, -26.604837)
 collision_mask = 3
 shape = SubResource("SphereShape3D_757jh")
 spring_length = 5.0
 margin = 0.1
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=329421050]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1.0000001, 0, -8.742278e-08, 0, -1, 0, 3.7781754, -7.1963844)
 far = 20.0
 
-[node name="Esq" type="Marker3D" parent="."]
+[node name="Esq" type="Marker3D" parent="." unique_id=1127338541]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6821051, 0, -2.3237724)
 
-[node name="Dir" type="Marker3D" parent="."]
+[node name="Dir" type="Marker3D" parent="." unique_id=1759537342]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.656692, 0, -2.3794098)
 
-[node name="ParticulaDash" type="GPUParticles3D" parent="."]
+[node name="ParticulaDash" type="GPUParticles3D" parent="." unique_id=1688514529]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.4353852)
 emitting = false
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_757jh")
 draw_pass_1 = SubResource("SphereMesh_na02i")
 
-[node name="ParticulaDrift" type="GPUParticles3D" parent="."]
+[node name="ParticulaDrift" type="GPUParticles3D" parent="." unique_id=1666767629]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.4353852)
 emitting = false
 amount = 30

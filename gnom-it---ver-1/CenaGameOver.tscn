@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c43qcg265fk1l"]
+
+[ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="1_sbqad"]
+
+[node name="Node2D" type="Node2D" unique_id=1130400279]
+
+[node name="Label" type="Label" parent="." unique_id=445339637]
+offset_left = 235.0
+offset_top = 71.0
+offset_right = 986.0
+offset_bottom = 460.0
+theme_override_fonts/font = ExtResource("1_sbqad")
+theme_override_font_sizes/font_size = 100
+text = "Você Morreu!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=771223616]
+offset_left = 383.0
+offset_top = 362.0
+offset_right = 838.0
+offset_bottom = 466.0
+theme_override_font_sizes/font_size = 50
+text = "Tentar novamente"
