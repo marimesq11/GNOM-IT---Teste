@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ct7of8lldvmlh"
-path="res://.godot/imported/PicnicTable.fbx-bb5f2f5989b87fd578f9e7ab094e11d3.scn"
+uid="uid://tlnxaf25okq6"
+path="res://.godot/imported/grama.fbx-a6b7f5c3a550afa9d1cff9d2a5cb5ced.scn"
 
 [deps]
 
-source_file="res://Assets/PicnicTable.fbx"
-dest_files=["res://.godot/imported/PicnicTable.fbx-bb5f2f5989b87fd578f9e7ab094e11d3.scn"]
+source_file="res://grama.fbx"
+dest_files=["res://.godot/imported/grama.fbx-a6b7f5c3a550afa9d1cff9d2a5cb5ced.scn"]
 
 [params]
 
@@ -39,7 +39,19 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"meshes": {
+"Plane": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://Meshs/Plane.res",
+"save_to_file/path": "uid://cg0jwu5qlqsji"
+}
+}
+}
 fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
 fbx/embedded_image_handling=1
