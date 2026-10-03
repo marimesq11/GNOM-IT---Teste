@@ -22,7 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://hcdxwjicfi71" path="res://CenasCenarios/Arbusto.tscn" id="17_dosvs"]
 [ext_resource type="PackedScene" uid="uid://k0b04vssj23n" path="res://Cenas/CadeiraDeitada.tscn" id="20_isj38"]
 [ext_resource type="PackedScene" uid="uid://bqi3x00xbubml" path="res://CenasCenarios/MesadePicnic.tscn" id="21_8hd82"]
-[ext_resource type="PackedScene" uid="uid://b55qjd34jjrfd" path="res://Arvores.tscn" id="22_0juky"]
 [ext_resource type="PackedScene" uid="uid://e0pieu6lyakn" path="res://CenasCenarios/CarrinhodeMao.tscn" id="22_bkf8r"]
 [ext_resource type="ArrayMesh" uid="uid://duj6747nq4qsk" path="res://Meshs/grass.res" id="24_apn5o"]
 [ext_resource type="PackedScene" uid="uid://ba0c3xgwsvu1c" path="res://Rampa.tscn" id="25_apn5o"]
@@ -31,7 +30,11 @@
 [ext_resource type="Script" uid="uid://hh2nsm3gvm7f" path="res://123já.gd" id="29_d611r"]
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="30_d611r"]
 [ext_resource type="Script" uid="uid://hb2vvohjp8kc" path="res://Cenas/pontos_label.gd" id="31_unpoe"]
+[ext_resource type="PackedScene" uid="uid://cfaupx30lbrfv" path="res://Cenas/arvore 1.fbx" id="32_20tst"]
 [ext_resource type="PackedScene" uid="uid://cwgvmwmpl52cw" path="res://Circulo_Pontuação.tscn" id="32_isj38"]
+[ext_resource type="PackedScene" uid="uid://dn7h1g42kles4" path="res://Cenas/arvore 2.fbx" id="33_fck58"]
+[ext_resource type="PackedScene" uid="uid://dvq5xj6hxnhv8" path="res://Cenas/arvore 3.fbx" id="34_my0ki"]
+[ext_resource type="PackedScene" uid="uid://b8efti1w7o1sy" path="res://Cenas/arvore 4.fbx" id="35_l8th8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0juky"]
 albedo_texture = ExtResource("2_yja4k")
@@ -375,18 +378,6 @@ transform = Transform3D(0.5669512, 0, 0.82375145, 0, 1, 0, -0.82375145, 0, 0.566
 
 [node name="Node3D Arvores" type="Node3D" parent="Mapa" unique_id=451686659 groups=["obstaculos"]]
 
-[node name="StaticBody3D2" parent="Mapa/Node3D Arvores" unique_id=321396798 instance=ExtResource("22_0juky")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.586654, 0, -4.548773)
-
-[node name="StaticBody3D3" parent="Mapa/Node3D Arvores" unique_id=230045375 instance=ExtResource("22_0juky")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8172214, 0, 4.544613)
-
-[node name="StaticBody3D4" parent="Mapa/Node3D Arvores" unique_id=969781854 instance=ExtResource("22_0juky")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.81797, 0, -5.476182)
-
-[node name="StaticBody3D" parent="Mapa/Node3D Arvores" unique_id=1690892610 instance=ExtResource("22_0juky")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3164043, 0.005203732, 5.5016994)
-
 [node name="Timer" type="Timer" parent="." unique_id=1161715401]
 wait_time = 45.0
 one_shot = true
@@ -499,6 +490,18 @@ transform = Transform3D(0.18944545, 0, -0.4627207, 0, 0.5, 0, 0.4627207, 0, 0.18
 
 [node name="Node3D3" parent="." unique_id=1587197806 instance=ExtResource("32_isj38")]
 transform = Transform3D(0.41335383, 0, -0.2813159, 0, 0.5, 0, 0.2813159, 0, 0.41335383, -7.879712, 0.31315625, 9.809692)
+
+[node name="arvore 1" parent="." unique_id=1885598906 instance=ExtResource("32_20tst")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.073663, 0.020708734, -6.6771812)
+
+[node name="arvore 2" parent="." unique_id=1150048758 instance=ExtResource("33_fck58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.534149, 0.0050001144, 7.53915)
+
+[node name="arvore 3" parent="." unique_id=1213263941 instance=ExtResource("34_my0ki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5314865, 0.035287842, -8.940731)
+
+[node name="arvore 4" parent="." unique_id=885948572 instance=ExtResource("35_l8th8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.842125, 0.0050001144, 6.300379)
 
 [connection signal="timeout" from="Timer" to="cortador" method="_on_timer_timeout"]
 
