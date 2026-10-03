@@ -2,9 +2,12 @@ class_name Quebravel
 extends Node
 
 const POPUP = preload("res://Cenas/PopupPontos.tscn")
-const TEMPO_BONUS := 3
 
-static func quebrar(objeto: Area3D):
+const TEMPO_BONUS := 3
+const PONTOS_BONUS := 50
+
+
+static func quebrar(objeto: Node) -> void:
 	if objeto == null:
 		return
 
@@ -18,6 +21,7 @@ static func quebrar(objeto: Area3D):
 
 	if particula:
 		var pos = particula.global_transform
+
 		particula.reparent(cena)
 		particula.global_transform = pos
 
@@ -25,22 +29,26 @@ static func quebrar(objeto: Area3D):
 		particula.restart()
 		particula.emitting = true
 
-		particula.get_tree().create_timer(particula.lifetime + 0.5).timeout.connect(particula.queue_free)
+		particula.get_tree().create_timer(
+			particula.lifetime + 0.5
+		).timeout.connect(particula.queue_free)
 
-	# Popup
+	# Popup +3s
 	var popup = POPUP.instantiate()
 	cena.add_child(popup)
+
 	popup.global_position = objeto.global_position
 	popup.modulate = Color.WHITE
 	popup.outline_modulate = Color.BLACK
 	popup.outline_size = 12
 	popup.aparecer("+%ds" % TEMPO_BONUS)
 
-	# Tempo
+	# Adiciona 3 segundos
 	var fase = objeto.get_tree().get_first_node_in_group("fase")
 
 	if fase:
 		fase.adicionar_tempo(TEMPO_BONUS)
 
-	# QUEBRA
+
+	# Quebra o objeto
 	objeto.queue_free()

@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func _iniciar() -> void:
 	_atualizar_valor(jogador.gasolina, jogador.gasolina_maxima)
-	_atualizar_cor(true)
+	_atualizar_cor(false)
 
 
 func _atualizar_valor(atual: float, maximo: float) -> void:
