@@ -182,12 +182,13 @@ fill_mode = 1
 script = ExtResource("9_6fna2")
 cortador = NodePath("../../cortador")
 
-[node name="Gasolina" type="ProgressBar" parent="CanvasLayer" unique_id=1066205984]
+[node name="Gasolina" type="ProgressBar" parent="CanvasLayer" unique_id=1066205984 node_paths=PackedStringArray("jogador")]
 offset_left = 17.0
 offset_top = 52.0
 offset_right = 334.0
 offset_bottom = 79.0
 script = ExtResource("10_2288r")
+jogador = NodePath("../../cortador")
 
 [node name="Node3D" parent="CanvasLayer/Gasolina" unique_id=970664953 instance=ExtResource("11_ns3cp")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.29718852, 10.7148285)

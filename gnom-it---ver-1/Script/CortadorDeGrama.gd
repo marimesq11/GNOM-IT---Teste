@@ -74,7 +74,7 @@ const LIMIAR_EMISSAO_GASOLINA := 0.2
 @export var velocidade_dash: float = 6.5
 @export var tempo_preparacao_dash: float = 0.5
 @export var duracao_dash: float = 0.5
-@export var cooldown_dash: float = 3.5
+@export var cooldown_dash: float = 2
 @export var velocidade_preparacao: float = 0.85
 ## Quantas vezes o consumo aumenta durante o dash.
 @export var multiplicador_consumo_dash: float = 5.0
