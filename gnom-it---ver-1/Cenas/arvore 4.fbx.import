@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ct7of8lldvmlh"
-path="res://.godot/imported/PicnicTable.fbx-bb5f2f5989b87fd578f9e7ab094e11d3.scn"
+uid="uid://b8efti1w7o1sy"
+path="res://.godot/imported/arvore 4.fbx-af0cb94d6306497c7d05cbee2c3210dc.scn"
 
 [deps]
 
-source_file="res://Assets/PicnicTable.fbx"
-dest_files=["res://.godot/imported/PicnicTable.fbx-bb5f2f5989b87fd578f9e7ab094e11d3.scn"]
+source_file="res://Cenas/arvore 4.fbx"
+dest_files=["res://.godot/imported/arvore 4.fbx-af0cb94d6306497c7d05cbee2c3210dc.scn"]
 
 [params]
 
