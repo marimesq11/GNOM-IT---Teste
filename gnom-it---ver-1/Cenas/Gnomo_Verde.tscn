@@ -1,7 +1,10 @@
-[gd_scene load_steps=23 format=4 uid="uid://dnyrwky64ojs"]
+[gd_scene format=4 uid="uid://dnyrwky64ojs"]
 
 [ext_resource type="Script" uid="uid://6d3tgdao247p" path="res://Script/Gnomo_verde.gd" id="1_asuct"]
 [ext_resource type="Texture2D" uid="uid://lmvwta6sqqny" path="res://Assets/Gnomo verde/gnomo verde_0.png" id="2_o1foq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0i88t"]
+size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1rv4e"]
 size = Vector3(2.3165283, 3.5995483, 2)
@@ -225,38 +228,43 @@ shadow_mesh = SubResource("ArrayMesh_84u2e")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rlkij"]
 albedo_color = Color(0.9815763, 0.6617702, 0, 1)
 
-[node name="Node3D" type="CharacterBody3D" groups=["atropelavel"]]
+[node name="Node3D" type="CharacterBody3D" unique_id=698039101 groups=["atropelavel"]]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 script = ExtResource("1_asuct")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2091375489]
+shape = SubResource("BoxShape3D_0i88t")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=823646568]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1682262950]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15826418, 0.7206116, 0.0017984957)
 shape = SubResource("BoxShape3D_1rv4e")
 
-[node name="Sphere_005" type="MeshInstance3D" parent="."]
+[node name="Sphere_005" type="MeshInstance3D" parent="Area3D" unique_id=601053803]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_7rbar")
 skeleton = NodePath("")
 
-[node name="Sphere_004" type="MeshInstance3D" parent="."]
+[node name="Sphere_004" type="MeshInstance3D" parent="Area3D" unique_id=1818102692]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_51dnr")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_gxwhw")
 
-[node name="Cube_002" type="MeshInstance3D" parent="."]
+[node name="Cube_002" type="MeshInstance3D" parent="Area3D" unique_id=1085194375]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_74hnq")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_wx3c6")
 
-[node name="Cylinder_005" type="MeshInstance3D" parent="."]
+[node name="Cylinder_005" type="MeshInstance3D" parent="Area3D" unique_id=195979314]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_lb37b")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_8kccl")
 
-[node name="Cylinder_004" type="MeshInstance3D" parent="."]
+[node name="Cylinder_004" type="MeshInstance3D" parent="Area3D" unique_id=695370485]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_5ff6d")
 skeleton = NodePath("")
