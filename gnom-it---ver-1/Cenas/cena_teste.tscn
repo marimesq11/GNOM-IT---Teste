@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhk3hqktoybxi" path="res://Cenas/Main.gd" id="1_7pyqf"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="1_tyifh"]
+[ext_resource type="AudioStream" uid="uid://dfeeqxt3pp7by" path="res://Música Livre de Direitos Autorais [[SAMBA- BRASIL]]- As Músicas Mais Diferenciadas [BPohzqiZRbo].mp3" id="2_8hd82"]
 [ext_resource type="Texture2D" uid="uid://bn175qs86uedx" path="res://Texture/grama.png" id="2_yja4k"]
 [ext_resource type="Script" uid="uid://krqcf0ojhopo" path="res://Script/MeshGrama.gd" id="3_sqgjq"]
 [ext_resource type="Texture2D" uid="uid://d3ffwwes7oyvl" path="res://Texture/TextureGrama2XP4.png" id="3_yja4k"]
@@ -85,6 +86,11 @@ buffer = PackedFloat32Array(0, 0, -0.301, 3.0632772, 5.800767e-08, 0.301, 0, -0.
 [node name="CenaTeste" type="Node3D" unique_id=839201494 groups=["fase"]]
 script = ExtResource("1_7pyqf")
 cena_game_over = "uid://cunoamskh72hk"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=2081866795]
+stream = ExtResource("2_8hd82")
+autoplay = true
+parameters/looping = true
 
 [node name="Chao" type="StaticBody3D" parent="." unique_id=14445420]
 

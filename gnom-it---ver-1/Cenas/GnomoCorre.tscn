@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=4 uid="uid://bbui718p0jqeo"]
+[gd_scene format=4 uid="uid://bbui718p0jqeo"]
 
 [ext_resource type="Script" uid="uid://rj4aqcgvdu4v" path="res://Cenas/gnomo_corre.gd" id="1_jl075"]
+[ext_resource type="AudioStream" uid="uid://c7my8av5gu8an" path="res://ElevenLabs_Sharp_ceramic_plate_shattering_on_a_tiled_floor.mp3" id="2_g7v2m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f55u6"]
 size = Vector3(3.5, 3.5, 3.5)
@@ -221,39 +222,44 @@ shadow_mesh = SubResource("ArrayMesh_v25an")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jl075"]
 albedo_color = Color(1, 0.76862746, 0, 1)
 
-[node name="CharacterBody3D" type="CharacterBody3D" groups=["atropelavel", "inimigos"]]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1369375029 groups=["atropelavel", "inimigos"]]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 script = ExtResource("1_jl075")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["inimigos"]]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1623400117 groups=["inimigos"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11598122, 0.6290053, 0)
 shape = SubResource("BoxShape3D_f55u6")
 
-[node name="Cube_003" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="Cube_003" type="MeshInstance3D" parent="CollisionShape3D" unique_id=708158838]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -0.11598122, -0.6290053, 0)
 mesh = SubResource("ArrayMesh_sgsov")
 skeleton = NodePath("")
 
-[node name="Cylinder_001" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="Cylinder_001" type="MeshInstance3D" parent="CollisionShape3D" unique_id=1073289952]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -0.11598122, -0.6290053, 0)
 mesh = SubResource("ArrayMesh_ob1uq")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_f55u6")
 
-[node name="Cylinder_006" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="Cylinder_006" type="MeshInstance3D" parent="CollisionShape3D" unique_id=746699899]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -0.11598122, -0.6290053, 0)
 mesh = SubResource("ArrayMesh_r6abq")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_8poqy")
 
-[node name="Sphere" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="Sphere" type="MeshInstance3D" parent="CollisionShape3D" unique_id=730558749]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -0.11598122, -0.6290053, 0)
 mesh = SubResource("ArrayMesh_pqi7w")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_5bwjs")
 
-[node name="Sphere_006" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="Sphere_006" type="MeshInstance3D" parent="CollisionShape3D" unique_id=297749314]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -0.11598122, -0.6290053, 0)
 mesh = SubResource("ArrayMesh_wtwyr")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_jl075")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=685047485]
+
+[node name="Morreu" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1661970871]
+stream = ExtResource("2_g7v2m")

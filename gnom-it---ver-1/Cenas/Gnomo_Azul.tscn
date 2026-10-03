@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=4 uid="uid://cwvw4rxs8a2ce"]
+[gd_scene format=4 uid="uid://cwvw4rxs8a2ce"]
 
 [ext_resource type="Script" uid="uid://bik13ygydw17l" path="res://Script/gnomo_azul.gd" id="1_3h4s2"]
 [ext_resource type="Texture2D" uid="uid://bxv1qhx5p17tj" path="res://Assets/Gnomo azul/gnomo azul_0.png" id="2_b45b1"]
 [ext_resource type="Texture2D" uid="uid://behrkt4fh8phc" path="res://Assets/Gnomo azul/gnomo azul_1.png" id="3_3yk12"]
 [ext_resource type="Texture2D" uid="uid://ctnimovd4nmu0" path="res://Assets/Gnomo azul/gnomo azul_2.png" id="4_antr4"]
 [ext_resource type="Texture2D" uid="uid://b60ontoahyoih" path="res://Assets/Gnomo azul/gnomo azul_3.png" id="5_x2gr7"]
+[ext_resource type="AudioStream" uid="uid://c7my8av5gu8an" path="res://ElevenLabs_Sharp_ceramic_plate_shattering_on_a_tiled_floor.mp3" id="6_b45b1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_il4au"]
 size = Vector3(2.1474915, 6.6035156, 2.3622742)
@@ -217,38 +218,44 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_pqhmc")
 
-[node name="Node3D" type="CharacterBody3D"]
+[node name="Node3D" type="CharacterBody3D" unique_id=801741046]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_3h4s2")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1709512351]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0153131485, 2.171875, 0.036514282)
 shape = SubResource("BoxShape3D_il4au")
 
-[node name="Sphere_003" type="MeshInstance3D" parent="."]
+[node name="Sphere_003" type="MeshInstance3D" parent="." unique_id=1525641200]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_4wdu0")
 skeleton = NodePath("")
 
-[node name="Sphere_002" type="MeshInstance3D" parent="."]
+[node name="Sphere_002" type="MeshInstance3D" parent="." unique_id=922136754]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_d52jj")
 skeleton = NodePath("")
 
-[node name="Cube_001" type="MeshInstance3D" parent="."]
+[node name="Cube_001" type="MeshInstance3D" parent="." unique_id=1757513325]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_pen5v")
 skeleton = NodePath("")
 
-[node name="Cylinder_002" type="MeshInstance3D" parent="."]
+[node name="Cylinder_002" type="MeshInstance3D" parent="." unique_id=1945464044]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_gi51f")
 skeleton = NodePath("")
 
-[node name="Cylinder_003" type="MeshInstance3D" parent="."]
+[node name="Cylinder_003" type="MeshInstance3D" parent="." unique_id=1474279004]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_t6whe")
 skeleton = NodePath("")
 
-[node name="Ponto_Encaixe" type="Marker3D" parent="."]
+[node name="Ponto_Encaixe" type="Marker3D" parent="." unique_id=1555663088]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.090354264, -0.9258051, 0.011950433)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1477260594]
+
+[node name="Morreu" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=305575211]
+stream = ExtResource("6_b45b1")
+pitch_scale = 1.59

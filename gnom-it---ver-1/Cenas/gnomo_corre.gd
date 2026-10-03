@@ -94,8 +94,10 @@ func morrer_atropelado():
 	if esta_morto:
 		return
 
+	$AudioStreamPlayer/Morreu.play()
 	esta_morto = true
 	print("Gnomo foi atropelado e esmagado pelo dash!")
 
 	$CollisionShape3D.set_deferred("disabled", true)
+	await get_tree().create_timer(1.0).timeout
 	queue_free()

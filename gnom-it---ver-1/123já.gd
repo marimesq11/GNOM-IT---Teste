@@ -7,7 +7,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().paused = true
 
-	for t in ["1", "2", "3"]:
+	for t in ["3", "2", "1"]:
 		_mostrar(t)
 		await get_tree().create_timer(1.0).timeout
 

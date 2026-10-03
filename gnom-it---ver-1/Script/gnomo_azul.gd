@@ -303,6 +303,7 @@ func levantar() -> void:
 func morrer_atropelado() -> void:
 	if estado != Estado.CAIDO:
 		return
-
+	$AudioStreamPlayer/Morreu.play()
 	causando_dano = false
+	await get_tree().create_timer(1.0).timeout
 	queue_free()

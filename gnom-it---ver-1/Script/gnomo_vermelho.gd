@@ -130,7 +130,8 @@ func ataque_acertou():
 func morrer_atropelado():
 	if sendo_atropelado:
 		return
-
+	$AudioStreamPlayer/Morreu.play()
+	
 	sendo_atropelado = true
 	atacando = false
 	parado = true
@@ -146,5 +147,5 @@ func morrer_atropelado():
 	# Desliga colisões
 	collision_layer = 0
 	collision_mask = 0
-
+	await get_tree().create_timer(1.0).timeout
 	queue_free()

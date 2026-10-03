@@ -234,7 +234,7 @@ func restaurar_grama(tempo_passado: float):
 func morrer_atropelado():
 	if sendo_atropelado:
 		return
-
+	$AudioStreamPlayer/Morreu.play()
 	sendo_atropelado = true
 	possui_alvo = false
 	velocity = Vector3.ZERO
@@ -246,5 +246,5 @@ func morrer_atropelado():
 
 	collision_layer = 0
 	collision_mask = 0
-
+	await get_tree().create_timer(1.0).timeout
 	queue_free()
