@@ -22,7 +22,7 @@ const GRUPO_ATROPELAVEL := &"atropelavel"
 @export var tempo_caido: float = 4.0
 
 # REFERÊNCIAS
-@onready var Cortador: CharacterBody3D = %cortador
+@export var Cortador: CharacterBody3D
 @export var ponto_destino: Marker3D
 @onready var colisao: CollisionShape3D = $CollisionShape3D
 

@@ -8,6 +8,6 @@ func adicionar_pontos(valor: int, posicao_3d: Vector3):
 	print("pontos agora: ", pontos)
 
 	var popup = popup_pontos.instantiate()
-	get_tree().current_scene.add_child(popup)  # primeiro entra na cena...
-	popup.global_position = posicao_3d         # ...depois posiciona
-	popup.aparecer()
+	get_tree().current_scene.add_child(popup)
+	popup.global_position = posicao_3d
+	popup.aparecer("+" + str(valor))

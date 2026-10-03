@@ -543,15 +543,9 @@ func _matar_se_atropelavel(body: Node) -> void:
 
 
 func verificar_colisao_quebravel() -> void:
-	for i in get_slide_collision_count():
-		var objeto := get_slide_collision(i).get_collider() as Node
-		if objeto == null:
-			continue
-
+	for objeto in $AreaAtropelamento.get_overlapping_areas():
 		if objeto.is_in_group(GRUPO_QUEBRAVEL):
 			Quebravel.quebrar(objeto)
-		else:
-			_matar_se_atropelavel(objeto)
 
 
 # ---------------------------------------------------------

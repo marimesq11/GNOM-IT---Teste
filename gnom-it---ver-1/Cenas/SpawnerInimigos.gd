@@ -1,32 +1,94 @@
+class_name Spawner
 extends Node3D
 
-# Uma lista (Array) onde você pode adicionar os 4 tipos de inimigos no Inspetor
-@export var tipos_inimigos: Array[PackedScene] = []
+@export var tipos_inimigos: Array[DadosSpawnInimigo] = []
+@export var pontos_spawn: Array[Marker3D] = []
 
-@onready var timer: Timer = $SpawnerFrente/Timer
+@export_group("Jogador")
+@export var jogador: CharacterBody3D
 
-func _ready():
-	if tipos_inimigos.is_empty():
-		print("Aviso: Nenhum inimigo foi adicionado na lista do Spawner!")
+@export_group("Tempo")
+@export var intervalo_checagem: float = 0.5
+
+var cortador: CharacterBody3D
+
+
+func _ready() -> void:
+	# Procura o Cortador pelo grupo.
+	cortador = get_tree().get_first_node_in_group("player") as CharacterBody3D
+
+	print("CORTADOR ENCONTRADO: ", cortador)
+
+	var timer: Timer = Timer.new()
+	timer.wait_time = intervalo_checagem
+	timer.autostart = true
+	timer.timeout.connect(_checar_spawns)
+	add_child(timer)
+
+	call_deferred("_checar_spawns")
+
+
+func _checar_spawns() -> void:
+	for tipo in tipos_inimigos:
+
+		if tipo == null:
+			continue
+
+		if tipo.cena == null:
+			continue
+
+		if tipo.grupo.is_empty():
+			continue
+
+		if _contar_vivos(tipo.grupo) < tipo.maximo:
+			_spawnar(tipo)
+
+
+func _contar_vivos(grupo: String) -> int:
+	var total: int = 0
+
+	for inimigo: Node in get_tree().get_nodes_in_group(grupo):
+
+		if inimigo.is_queued_for_deletion():
+			continue
+
+		total += 1
+
+	return total
+
+
+func _spawnar(tipo: DadosSpawnInimigo) -> void:
+
+	if pontos_spawn.is_empty():
 		return
 
-	timer.timeout.connect(_on_timer_timeout)
+	var ponto: Marker3D = pontos_spawn.pick_random()
 
-func _on_timer_timeout():
-	if tipos_inimigos.is_empty():
+	if ponto == null or not ponto.is_inside_tree():
 		return
 
-	# Escolhe aleatoriamente um dos 4 tipos de inimigos da lista
-	var inimigo_escolhido_cena = tipos_inimigos.pick_random() as PackedScene
-	if not inimigo_escolhido_cena:
+	var inimigo: Node3D = tipo.cena.instantiate() as Node3D
+
+	if inimigo == null:
 		return
 
-	# Instancia o inimigo sorteado
-	var inimigo = inimigo_escolhido_cena.instantiate()
+	# Passa o Cortador para o inimigo ANTES de colocá-lo na árvore.
+	if "player" in inimigo:
+		inimigo.player = cortador
 
-	# Define a posição (você pode adicionar um pequeno deslocamento aleatório X/Z se quiser que eles não nasçam exatamente no mesmo pixel)
-	var offset_aleatorio = Vector3(randf_range(-2.0, 2.0), 0, randf_range(-2.0, 2.0))
-	inimigo.global_position = global_position + offset_aleatorio
-
-	# Adiciona o inimigo na cena principal
+	# Adiciona a cena do inimigo à cena principal.
 	get_tree().current_scene.add_child(inimigo)
+
+	# Posiciona depois de entrar na árvore.
+	inimigo.global_position = ponto.global_position
+
+	# Escala.
+	var escala: float = randf_range(
+		tipo.escala_min,
+		tipo.escala_max
+	)
+
+	inimigo.scale = Vector3.ONE * escala
+
+	# Grupo.
+	inimigo.add_to_group(tipo.grupo)

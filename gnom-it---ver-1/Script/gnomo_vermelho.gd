@@ -10,7 +10,7 @@ var velocidade_rotacao = 2.0
 var velocidade_ataque = 3
 
 # Var Cortador
-@onready var Cortador: CharacterBody3D = %cortador
+@export var Cortador: CharacterBody3D
 
 # Var Distancia
 var distancia_cercar = 0.6
