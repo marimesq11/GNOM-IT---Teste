@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://tlnxaf25okq6"
+uid="uid://dncqqlmmh2bhx"
 path="res://.godot/imported/grama.fbx-a6b7f5c3a550afa9d1cff9d2a5cb5ced.scn"
 
 [deps]
@@ -48,7 +48,7 @@ _subresources={
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
 "save_to_file/fallback_path": "res://Meshs/Plane.res",
-"save_to_file/path": "uid://cg0jwu5qlqsji"
+"save_to_file/path": "uid://chohp3ssomv71"
 }
 }
 }
