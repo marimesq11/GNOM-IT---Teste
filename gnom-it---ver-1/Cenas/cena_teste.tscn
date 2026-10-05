@@ -31,7 +31,7 @@
 [ext_resource type="Script" uid="uid://hh2nsm3gvm7f" path="res://123já.gd" id="29_d611r"]
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="30_d611r"]
 [ext_resource type="Script" uid="uid://hb2vvohjp8kc" path="res://Cenas/pontos_label.gd" id="31_unpoe"]
-[ext_resource type="ArrayMesh" uid="uid://s7gk26703te7" path="res://Meshs/Plane.res" id="32_8hd82"]
+[ext_resource type="ArrayMesh" uid="uid://b11vfjdamjtd1" path="res://Meshs/Plane.res" id="32_8hd82"]
 [ext_resource type="PackedScene" uid="uid://cwgvmwmpl52cw" path="res://Circulo_Pontuação.tscn" id="32_isj38"]
 [ext_resource type="Texture2D" uid="uid://diswh7futkwxr" path="res://galão.png" id="34_bkf8r"]
 
@@ -163,18 +163,26 @@ environment = SubResource("Environment_1w6ss")
 camera_attributes = SubResource("CameraAttributesPractical_w4tno")
 compositor = SubResource("Compositor_yja4k")
 
-[node name="GnomoVermelho" parent="." unique_id=1572347986 instance=ExtResource("7_j7xbl")]
+[node name="GnomoVermelho" parent="." unique_id=1572347986 node_paths=PackedStringArray("Cortador") instance=ExtResource("7_j7xbl")]
 transform = Transform3D(0.155, 0, 0, 0, 0.155, 0, 0, 0, 0.155, -2.6014938, 0.15617241, -7.223628)
+Cortador = NodePath("../cortador")
 
-[node name="GnomoVermelho2" parent="." unique_id=1321109298 instance=ExtResource("7_j7xbl")]
+[node name="GnomoVermelho3" parent="." unique_id=1619792841 node_paths=PackedStringArray("Cortador") instance=ExtResource("7_j7xbl")]
+transform = Transform3D(0.155, 0, 0, 0, 0.155, 0, 0, 0, 0.155, -2.6014938, 0.15617241, -7.223628)
+Cortador = NodePath("../cortador")
+
+[node name="GnomoVermelho2" parent="." unique_id=1321109298 node_paths=PackedStringArray("Cortador") instance=ExtResource("7_j7xbl")]
 transform = Transform3D(-0.011786262, 0, 0.15455124, 0, 0.155, 0, -0.15455124, 0, -0.011786262, 3.8198576, 0.15617205, 4.8049016)
+Cortador = NodePath("../cortador")
 
-[node name="GnomoAzul" parent="." unique_id=1660321169 node_paths=PackedStringArray("ponto_destino") instance=ExtResource("8_6fna2")]
+[node name="GnomoAzul" parent="." unique_id=1660321169 node_paths=PackedStringArray("Cortador", "ponto_destino") instance=ExtResource("8_6fna2")]
 transform = Transform3D(-0.15439284, 0, 0.013705848, 0, 0.155, 0, -0.013705848, 0, -0.15439284, 2.5471334, 0.18562722, 3.8380733)
+Cortador = NodePath("../cortador")
 ponto_destino = NodePath("../cortador/Node3D/Ponto_Inimigo")
 
-[node name="GnomoAzul2" parent="." unique_id=1099488255 node_paths=PackedStringArray("ponto_destino") instance=ExtResource("8_6fna2")]
+[node name="GnomoAzul2" parent="." unique_id=1099488255 node_paths=PackedStringArray("Cortador", "ponto_destino") instance=ExtResource("8_6fna2")]
 transform = Transform3D(0.14600256, 0, -0.052040875, 0, 0.155, 0, 0.052040875, 0, 0.14600256, -5.2754536, 0.19682455, -3.4874606)
+Cortador = NodePath("../cortador")
 ponto_destino = NodePath("../cortador/Node3D/Ponto_Inimigo")
 
 [node name="GnomoVerde" parent="." unique_id=1814899833 node_paths=PackedStringArray("sistema_grama") instance=ExtResource("9_7pt1d")]
@@ -241,7 +249,7 @@ transform = Transform3D(-0.33395034, 0, -0.22017537, 0, 0.4, 0, 0.22017537, 0, -
 transform = Transform3D(0.03648928, 0, 0.019344812, 0, 0.041299984, 0, -0.019344816, 0, 0.03648927, -3.4604006, 0.13901937, 1.0063685)
 
 [node name="StaticBody3D2" parent="Mapa/Nod3D Detalhes/Node3D Mesas" unique_id=647992183 instance=ExtResource("21_8hd82")]
-transform = Transform3D(0.023315564, -4.1104264e-05, 0.034089178, 8.4760475e-05, 0.0412999, -8.172888e-06, -0.03408909, 7.4575975e-05, 0.0233156, 3.1053216, 0.13901962, 2.4890285)
+transform = Transform3D(0.023315564, -4.1104264e-05, 0.034089178, 8.476047e-05, 0.041299894, -8.172887e-06, -0.03408909, 7.4575975e-05, 0.0233156, 3.1053216, 0.13901961, 2.4890282)
 
 [node name="Node3D Folhas caidas" type="Node3D" parent="Mapa/Nod3D Detalhes" unique_id=414710461]
 
@@ -630,7 +638,6 @@ script = ExtResource("31_unpoe")
 
 [node name="Grama" type="MeshInstance3D" parent="." unique_id=870748676]
 transform = Transform3D(10, 0, 0, 0, 16.976494, 0, 0, 0, 11.537178, 0, 0.27915376, 0)
-visible = false
 mesh = ExtResource("32_8hd82")
 skeleton = NodePath("../MultiMeshInstance3D")
 
