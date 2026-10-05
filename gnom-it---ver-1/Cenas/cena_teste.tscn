@@ -33,6 +33,7 @@
 [ext_resource type="Script" uid="uid://hb2vvohjp8kc" path="res://Cenas/pontos_label.gd" id="31_unpoe"]
 [ext_resource type="ArrayMesh" uid="uid://s7gk26703te7" path="res://Meshs/Plane.res" id="32_8hd82"]
 [ext_resource type="PackedScene" uid="uid://cwgvmwmpl52cw" path="res://Circulo_Pontuação.tscn" id="32_isj38"]
+[ext_resource type="Texture2D" uid="uid://diswh7futkwxr" path="res://galão.png" id="34_bkf8r"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0juky"]
 albedo_texture = ExtResource("2_yja4k")
@@ -151,10 +152,11 @@ transform = Transform3D(-9.999998, 2.868981e-14, 8.742276e-07, -3.8144776e-09, 9
 [node name="Ambiente" type="Node3D" parent="." unique_id=1617314598]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Ambiente" unique_id=1897972845]
-transform = Transform3D(0.36317596, -0.4649174, -0.8074373, 0.44829232, -0.67251194, 0.58886486, -0.81678474, -0.5758294, -0.03582127, 0, 3.0588558, 1.8726935)
+transform = Transform3D(-0.16077399, -0.9298387, -0.3309859, -0.14838494, -0.30876568, 0.93949217, -0.97577333, 0.20015925, -0.08833261, 0, 3.0588558, 1.8726935)
 light_color = Color(1.0569985, 1.0564294, 0.63488865, 1)
 light_energy = 1.248
 shadow_enabled = true
+shadow_opacity = 0.8
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Ambiente" unique_id=1633253909]
 environment = SubResource("Environment_1w6ss")
@@ -182,10 +184,10 @@ sistema_grama = NodePath("../Chao/ChaoMesh")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=252204925]
 
 [node name="Vida" type="ProgressBar" parent="CanvasLayer" unique_id=630243160 node_paths=PackedStringArray("cortador")]
-offset_left = 15.0
-offset_top = 15.0
-offset_right = 401.0
-offset_bottom = 42.0
+offset_left = 162.0
+offset_top = 599.0
+offset_right = 412.00018
+offset_bottom = 626.0
 min_value = 100.0
 value = 100.0
 fill_mode = 1
@@ -193,10 +195,14 @@ script = ExtResource("9_6fna2")
 cortador = NodePath("../../cortador")
 
 [node name="Gasolina" type="ProgressBar" parent="CanvasLayer" unique_id=1066205984 node_paths=PackedStringArray("jogador")]
-offset_left = 17.0
-offset_top = 52.0
-offset_right = 334.0
-offset_bottom = 79.0
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0.8745098, 0.77254903, 0, 1)
+offset_left = 36.999985
+offset_top = 617.0
+offset_right = 130.8911
+offset_bottom = 709.3064
+rotation = -1.5707964
+theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0.9490196, 0)
 script = ExtResource("10_2288r")
 jogador = NodePath("../../cortador")
 
@@ -527,12 +533,14 @@ wait_time = 45.0
 one_shot = true
 
 [node name="TimeLabel" type="Label" parent="." unique_id=930863366]
-offset_left = 416.0
+offset_left = 550.0
 offset_top = 16.0
-offset_right = 493.0
+offset_right = 627.0
 offset_bottom = 47.0
 theme_override_fonts/font = ExtResource("30_d611r")
-theme_override_font_sizes/font_size = 23
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
 script = SubResource("GDScript_isj38")
 
 [node name="CharacterBody3D" parent="." unique_id=694497183 instance=ExtResource("25_qd40q")]
@@ -599,9 +607,9 @@ fundo = NodePath("../FundoCinzadaContagem")
 
 [node name="ObjetivosLabel" type="Label" parent="." unique_id=886307129]
 offset_left = 14.0
-offset_top = 88.0
-offset_right = 437.0
-offset_bottom = 236.0
+offset_top = 15.0
+offset_right = 326.0
+offset_bottom = 163.0
 theme_override_colors/font_color = Color(1, 0.81666666, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
@@ -659,6 +667,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.276272, 0, 0)
 
 [node name="Marker3D3" type="Marker3D" parent="Spanw" unique_id=1238899275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.276272, 0, -13.362936)
+
+[node name="Galão" type="Sprite2D" parent="." unique_id=1594117192]
+position = Vector2(100.21094, 540.9294)
+scale = Vector2(0.21065919, 0.21065924)
+texture = ExtResource("34_bkf8r")
 
 [connection signal="timeout" from="Timer" to="cortador" method="_on_timer_timeout"]
 
