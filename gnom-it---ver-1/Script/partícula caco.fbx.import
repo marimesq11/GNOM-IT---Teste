@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dncqqlmmh2bhx"
-path="res://.godot/imported/grama.fbx-a6b7f5c3a550afa9d1cff9d2a5cb5ced.scn"
+uid="uid://b85wyh6qs6dsy"
+path="res://.godot/imported/partícula caco.fbx-d0f2e75fed675622cee3eb9d2fc788d6.scn"
 
 [deps]
 
-source_file="res://grama.fbx"
-dest_files=["res://.godot/imported/grama.fbx-a6b7f5c3a550afa9d1cff9d2a5cb5ced.scn"]
+source_file="res://Script/partícula caco.fbx"
+dest_files=["res://.godot/imported/partícula caco.fbx-d0f2e75fed675622cee3eb9d2fc788d6.scn"]
 
 [params]
 
@@ -39,19 +39,7 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"meshes": {
-"Plane": {
-"generate/lightmap_uv": 0,
-"generate/lods": 0,
-"generate/shadow_meshes": 0,
-"lods/normal_merge_angle": 20.0,
-"save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Meshs/Plane.res",
-"save_to_file/path": "uid://chohp3ssomv71"
-}
-}
-}
+_subresources={}
 fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
 fbx/embedded_image_handling=1
