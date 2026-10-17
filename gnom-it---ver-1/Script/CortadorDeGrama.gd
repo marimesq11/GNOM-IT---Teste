@@ -1,4 +1,5 @@
 extends CharacterBody3D
+var gnomo_em_cima: CharacterBody3D = null
 
 signal gasolina_alterada(atual, maximo)
 signal dash_disponivel_alterado(disponivel: bool)
@@ -538,9 +539,9 @@ func atualizar_fumaca_drift() -> void:
 # ATROPELAMENTO / COLISÕES
 # ---------------------------------------------------------
 
-func _matar_se_atropelavel(body: Node) -> void:
-	if body.is_in_group(GRUPO_ATROPELAVEL) and body.has_method(&"morrer_atropelado"):
-		body.morrer_atropelado()
+func _matar_se_atropelavel(objeto: Node3D) -> void:
+	if objeto.is_in_group(GRUPO_ATROPELAVEL) and objeto.has_method("morrer_atropelado"):
+		objeto.morrer_atropelado()
 
 
 func verificar_colisao_quebravel() -> void:
@@ -548,18 +549,25 @@ func verificar_colisao_quebravel() -> void:
 		if objeto.is_in_group(GRUPO_QUEBRAVEL):
 			Quebravel.quebrar(objeto)
 
+
 func verificar_colisao_quebravel_grande() -> void:
-	for i in get_slide_collision_count():
-		var objeto := get_slide_collision(i).get_collider() as Node
+	for i in range(get_slide_collision_count()):
+		var objeto := get_slide_collision(i).get_collider() as Node3D
 
 		if objeto == null:
 			continue
 
+		# OBJETOS QUEBRÁVEIS
 		if objeto.is_in_group(GRUPO_QUEBRAVEL):
 			if em_dash:
 				Quebravel.quebrar(objeto)
-				GameManager.adicionar_pontos(50, objeto.global_position + Vector3.UP)
-		else:
+				GameManager.adicionar_pontos(
+					50,
+					objeto.global_position + Vector3.UP
+				)
+
+		# GNOMOS
+		elif objeto.is_in_group(GRUPO_ATROPELAVEL):
 			_matar_se_atropelavel(objeto)
 
 # ---------------------------------------------------------

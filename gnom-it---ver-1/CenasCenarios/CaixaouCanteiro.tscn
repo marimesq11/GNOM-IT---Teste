@@ -72,6 +72,7 @@ material = SubResource("StandardMaterial3D_3si4x")
 size = Vector2(0.1, 0.2)
 
 [node name="StaticBody3D" type="Area3D" unique_id=448420748 groups=["Quebravel"]]
+collision_mask = 3
 
 [node name="Crate" type="MeshInstance3D" parent="." unique_id=661766753]
 transform = Transform3D(57.001114, 0, 0, 0, -6.7950623e-06, 57.00111, 0, -57.00111, -6.7950623e-06, 0, 0, 0)

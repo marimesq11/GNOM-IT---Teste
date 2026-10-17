@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwgvmwmpl52cw"]
+[gd_scene format=3 uid="uid://cwgvmwmpl52cw"]
 
 [ext_resource type="Script" uid="uid://bi0tbacdaf3ur" path="res://CirculoPontos.gd" id="1_6i8uc"]
 
@@ -15,16 +15,17 @@ outer_radius = 0.757
 height = 0.26712036
 radius = 1.5449219
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=82138776]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=742391992]
 transform = Transform3D(-8.22901e-08, -0.055826, 0, 1.8825781, -2.440232e-09, 0, 0, 0, 2.0414705, 0, 0, 0)
 mesh = SubResource("TorusMesh_6i8uc")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." unique_id=2084245879]
+collision_mask = 3
 script = ExtResource("1_6i8uc")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=946159673]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.0022029877, 3.9818926e-10, 0)
 shape = SubResource("CylinderShape3D_lnjtg")
 

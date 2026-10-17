@@ -1,94 +1,93 @@
-class_name Spawner
+
 extends Node3D
 
-@export var tipos_inimigos: Array[DadosSpawnInimigo] = []
-@export var pontos_spawn: Array[Marker3D] = []
+@export var cena_inimigo: PackedScene
+@export var intervalo_spawn: float = 5.0
+@export var max_inimigos: int = 10
+@export var spawn_automatico: bool = true
 
-@export_group("Jogador")
-@export var jogador: CharacterBody3D
-
-@export_group("Tempo")
-@export var intervalo_checagem: float = 0.5
-
-var cortador: CharacterBody3D
+var inimigos: Array[Node3D] = []
+var tempo: float = 0.0
+var jogador: Node3D
 
 
 func _ready() -> void:
-	# Procura o Cortador pelo grupo.
-	cortador = get_tree().get_first_node_in_group("player") as CharacterBody3D
-
-	print("CORTADOR ENCONTRADO: ", cortador)
-
-	var timer: Timer = Timer.new()
-	timer.wait_time = intervalo_checagem
-	timer.autostart = true
-	timer.timeout.connect(_checar_spawns)
-	add_child(timer)
-
-	call_deferred("_checar_spawns")
+	procurar_jogador()
 
 
-func _checar_spawns() -> void:
-	for tipo in tipos_inimigos:
+func procurar_jogador() -> void:
+	jogador = get_tree().get_first_node_in_group("player") as Node3D
 
-		if tipo == null:
-			continue
-
-		if tipo.cena == null:
-			continue
-
-		if tipo.grupo.is_empty():
-			continue
-
-		if _contar_vivos(tipo.grupo) < tipo.maximo:
-			_spawnar(tipo)
+	if jogador:
+		print("SPAWNER: Jogador encontrado: ", jogador.name)
+	else:
+		print("ERRO: Jogador não encontrado!")
 
 
-func _contar_vivos(grupo: String) -> int:
-	var total: int = 0
-
-	for inimigo: Node in get_tree().get_nodes_in_group(grupo):
-
-		if inimigo.is_queued_for_deletion():
-			continue
-
-		total += 1
-
-	return total
-
-
-func _spawnar(tipo: DadosSpawnInimigo) -> void:
-
-	if pontos_spawn.is_empty():
+func _process(delta: float) -> void:
+	if not spawn_automatico:
 		return
 
-	var ponto: Marker3D = pontos_spawn.pick_random()
+	tempo += delta
 
-	if ponto == null or not ponto.is_inside_tree():
+	if tempo >= intervalo_spawn:
+		tempo = 0.0
+		spawnar_inimigo()
+
+
+func spawnar_inimigo() -> void:
+	if cena_inimigo == null:
+		print("ERRO: Cena do inimigo não configurada!")
 		return
 
-	var inimigo: Node3D = tipo.cena.instantiate() as Node3D
-
-	if inimigo == null:
-		return
-
-	# Passa o Cortador para o inimigo ANTES de colocá-lo na árvore.
-	if "player" in inimigo:
-		inimigo.player = cortador
-
-	# Adiciona a cena do inimigo à cena principal.
-	get_tree().current_scene.add_child(inimigo)
-
-	# Posiciona depois de entrar na árvore.
-	inimigo.global_position = ponto.global_position
-
-	# Escala.
-	var escala: float = randf_range(
-		tipo.escala_min,
-		tipo.escala_max
+	# Remove inimigos que já foram destruídos
+	inimigos = inimigos.filter(
+		func(inimigo): return is_instance_valid(inimigo)
 	)
 
-	inimigo.scale = Vector3.ONE * escala
+	if inimigos.size() >= max_inimigos:
+		return
 
-	# Grupo.
-	inimigo.add_to_group(tipo.grupo)
+	# Procura o jogador novamente, se necessário
+	if not is_instance_valid(jogador):
+		procurar_jogador()
+
+	if not is_instance_valid(jogador):
+		print("ERRO: Não foi possível encontrar o cortador!")
+		return
+
+	# Cria o inimigo
+	var inimigo = cena_inimigo.instantiate() as Node3D
+
+	if inimigo == null:
+		print("ERRO: O inimigo precisa ser um Node3D!")
+		return
+
+	# Passa o cortador ANTES do _ready()
+	var recebeu_cortador: bool = false
+
+	for propriedade in inimigo.get_property_list():
+		if propriedade.name == "Cortador":
+			inimigo.set("Cortador", jogador)
+			recebeu_cortador = true
+			print("CORTADOR ATRIBUÍDO: ", jogador.name)
+			break
+
+	if not recebeu_cortador:
+		print("AVISO: Inimigo não possui propriedade Cortador!")
+
+	# Adiciona como irmão do spawner
+	get_parent().add_child(inimigo)
+
+	# Posiciona o inimigo no spawner
+	inimigo.global_position = global_position
+
+	# Registra o inimigo criado
+	inimigos.append(inimigo)
+
+	print("INIMIGO CRIADO: ", inimigo.name)
+	print("REFERÊNCIA CORTADOR: ", inimigo.get("Cortador") if recebeu_cortador else "Não encontrada")
+
+
+func _exit_tree() -> void:
+	inimigos.clear()

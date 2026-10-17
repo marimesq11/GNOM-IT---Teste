@@ -90,14 +90,21 @@ func pode_andar(direcao: Vector3) -> bool:
 	return resultado.is_empty()
 
 func morrer_atropelado():
-	GameManager.adicionar_pontos(10, global_position)
 	if esta_morto:
 		return
 
-	$AudioStreamPlayer/Morreu.play()
 	esta_morto = true
+	GameManager.adicionar_pontos(10, global_position)
+
+	$AudioStreamPlayer/Morreu.play()
+
+	# Desativa a colisão física com o cenário.
+	$CollisionShape3D.set_deferred("disabled", true)
+
+	# Desativa a detecção de atropelamento.
+	$Area3D/CollisionShape3D.set_deferred("disabled", true)
+
 	print("Gnomo foi atropelado e esmagado pelo dash!")
 
-	$CollisionShape3D.set_deferred("disabled", true)
 	await get_tree().create_timer(1.0).timeout
 	queue_free()

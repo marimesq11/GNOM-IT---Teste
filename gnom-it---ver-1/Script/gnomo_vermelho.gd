@@ -1,34 +1,40 @@
+
 extends CharacterBody3D
 
 # DANO
 @export var dano: float = 5
 var sendo_atropelado: bool = false
 
-# Var Velocidade
-var velocidade = 3.5
-var velocidade_rotacao = 2.0
-var velocidade_ataque = 3
+# VELOCIDADE
+@export var velocidade: float = 3.5
+@export var velocidade_ataque: float = 3.0
+@export var velocidade_inicial: float = 0.5
+@export var aceleracao: float = 1.5
 
-# Var Cortador
+var velocidade_atual: float = 0.0
+var velocidade_rotacao = 2.0
+
+# CORTADOR
 @export var Cortador: CharacterBody3D
 
-# Var Distancia
+# DISTÂNCIA
 var distancia_cercar = 0.6
 var forca_recuo = 0.6
 
-# Var Tempo
+# TEMPO
 var tempo_parado = 0.5
 
-# Var Estados
+# ESTADOS
 var atacando = false
 var parado = false
 
-# Posição do inimigo no círculo
+# POSIÇÃO DO INIMIGO NO CÍRCULO
 var indice_inimigo = 0
 var quantidade_inimigos = 1
 
 
 func _ready():
+	velocidade_atual = velocidade_inicial
 	atualizar_grupo()
 
 
@@ -45,6 +51,15 @@ func _physics_process(delta):
 
 	if parado:
 		return
+
+	# ACELERAÇÃO PROGRESSIVA
+	var velocidade_maxima = velocidade_ataque if atacando else velocidade
+
+	velocidade_atual = move_toward(
+		velocidade_atual,
+		velocidade_maxima,
+		aceleracao * delta
+	)
 
 	# Distância horizontal até o cortador
 	var diferenca_cortador = Cortador.global_position - global_position
@@ -74,8 +89,6 @@ func _physics_process(delta):
 	if comprimento_quadrado > 0.0001:
 		direcao /= sqrt(comprimento_quadrado)
 
-		var velocidade_atual = velocidade_ataque if atacando else velocidade
-
 		velocity.x = direcao.x * velocidade_atual
 		velocity.z = direcao.z * velocidade_atual
 		velocity.y = 0.0
@@ -93,8 +106,7 @@ func _physics_process(delta):
 	else:
 		velocity = Vector3.ZERO
 
-
-	# Só verifica colisão se estiver atacando
+	# Verifica colisão durante o ataque
 	if atacando:
 		for i in get_slide_collision_count():
 			var colisao = get_slide_collision(i)
@@ -122,30 +134,33 @@ func ataque_acertou():
 
 	velocity = Vector3.ZERO
 
+	# Reinicia aceleração depois do ataque
+	velocidade_atual = velocidade_inicial
+
 	await get_tree().create_timer(tempo_parado).timeout
 
 	if is_inside_tree():
 		parado = false
-	
+
+
 func morrer_atropelado():
 	if sendo_atropelado:
 		return
+
 	$AudioStreamPlayer/Morreu.play()
-	
+
 	sendo_atropelado = true
 	atacando = false
 	parado = true
 	velocity = Vector3.ZERO
 
-	# Para qualquer lógica do inimigo imediatamente
 	set_physics_process(false)
 	set_process(false)
 
-	# Some imediatamente
 	hide()
 
-	# Desliga colisões
 	collision_layer = 0
 	collision_mask = 0
+
 	await get_tree().create_timer(1.0).timeout
 	queue_free()
