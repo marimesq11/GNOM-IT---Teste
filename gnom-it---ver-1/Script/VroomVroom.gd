@@ -244,6 +244,14 @@ func _physics_process(delta: float) -> void:
 	# som_motor.pitch_scale = 1.5 if em_dash else 1.0
 
 	_atualizar_gasolina(tem_input, delta)
+	for objeto in area_atropelamento.get_overlapping_bodies():
+		if objeto == self:
+			continue
+
+		_empurrar_gnomo(objeto)
+
+	if gasolina <= 0.0:
+		return
 	_atualizar_giro_input(dir, tem_input, delta)
 	_atualizar_dash(dir, tem_input, delta)
 
@@ -627,6 +635,10 @@ func morrer() -> void:
 	collision_tampa.set_deferred("disabled", true)
 	area_atropelamento.set_deferred("monitoring", false)
 	area_atropelamento.set_deferred("monitorable", false)
+	get_tree().call_deferred(
+	"change_scene_to_file",
+	"res://CenaGameOver.tscn")
+
 
 
 # ---------------------------------------------------------
@@ -648,6 +660,11 @@ func _atualizar_gasolina(tem_input: bool, delta: float) -> void:
 		gasolina = maxf(gasolina - consumo * delta, 0.0)
 		_emitir_gasolina()
 
+		# DERROTA POR FALTA DE GASOLINA
+		if gasolina <= 0.0:
+			morrer()
+			return
+
 	var disponivel := _dash_disponivel()
 	if disponivel != _dash_disponivel_antes:
 		_dash_disponivel_antes = disponivel
@@ -661,3 +678,9 @@ func _emitir_gasolina() -> void:
 	if mudou or chegou_no_limite:
 		_gasolina_emitida = gasolina
 		gasolina_alterada.emit(gasolina, gasolina_maxima)
+		
+func _empurrar_gnomo(objeto: Node3D) -> void:
+	if objeto.has_method("receber_empurrao"):
+		var direcao: Vector3 = objeto.global_position - global_position
+		direcao.y = 0.0
+		objeto.receber_empurrao(direcao)

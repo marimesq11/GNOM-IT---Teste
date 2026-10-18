@@ -1,3 +1,4 @@
+
 extends CharacterBody3D
 
 const GRUPO_ATROPELAVEL := &"atropelavel"
@@ -11,6 +12,12 @@ const GRUPO_ATROPELAVEL := &"atropelavel"
 @export var distancia_pulo: float = 1.0
 @export var tempo_pulo: float = 0.5
 @export var altura_pulo: float = 1.0
+
+# EMPURRÃO DO CORTADOR
+@export var forca_empurrao: float = 6.0
+@export var desaceleracao_empurrao: float = 8.0
+
+var impulso_empurrao: Vector3 = Vector3.ZERO
 
 # DANO
 @export var dano: float = 2.0
@@ -78,7 +85,6 @@ func _ready() -> void:
 	_timer_caido.timeout.connect(_acabou_tempo_caido)
 	add_child(_timer_caido)
 
-	# Timer para tocar GnomoSons periodicamente.
 	_timer_som_passos = Timer.new()
 	_timer_som_passos.wait_time = intervalo_som_passos
 	_timer_som_passos.one_shot = false
@@ -117,12 +123,27 @@ func _tocar_som_passos() -> void:
 	if Vector2(velocity.x, velocity.z).length_squared() < 0.01:
 		return
 
-	# ======================================
 	# AUDIO: GnomoSons
 	# Toca periodicamente enquanto anda.
-	# ======================================
 
 	# $GnomoSons.play()
+
+
+# ==========================================
+# SISTEMA DE EMPURRÃO
+# ==========================================
+
+func receber_empurrao(direcao: Vector3) -> void:
+	# Só pode ser empurrado enquanto está em pé.
+	if estado != Estado.PERSEGUINDO:
+		return
+
+	direcao.y = 0.0
+
+	if direcao.length_squared() < 0.001:
+		return
+
+	impulso_empurrao = direcao.normalized() * forca_empurrao
 
 
 # ==========================================
@@ -134,8 +155,14 @@ func _perseguir(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	if not is_instance_valid(Cortador):
-		velocity.x = 0.0
-		velocity.z = 0.0
+		velocity.x = impulso_empurrao.x
+		velocity.z = impulso_empurrao.z
+
+		impulso_empurrao = impulso_empurrao.move_toward(
+			Vector3.ZERO,
+			desaceleracao_empurrao * delta
+		)
+
 		move_and_slide()
 		return
 
@@ -145,35 +172,37 @@ func _perseguir(delta: float) -> void:
 	var distancia_quadrada := diferenca.length_squared()
 
 	# Só pula quando a vaga estiver livre.
+	# Não inicia o pulo enquanto está sendo empurrado.
 	if distancia_quadrada <= _distancia_pulo_quad and is_on_floor():
-		if not is_instance_valid(Cortador.gnomo_em_cima):
-			comecar_pulo()
-			return
+		if impulso_empurrao.length_squared() < 0.1:
+			if not is_instance_valid(Cortador.gnomo_em_cima):
+				comecar_pulo()
+				return
 
 	# Continua perseguindo mesmo com outro gnomo em cima.
-	if distancia_quadrada <= 0.0001:
-		velocity.x = 0.0
-		velocity.z = 0.0
-		move_and_slide()
-		return
+	var direcao := Vector3.ZERO
 
-	var direcao := diferenca.normalized()
+	if distancia_quadrada > 0.0001:
+		direcao = diferenca.normalized()
 
-	velocity.x = direcao.x * velocidade
-	velocity.z = direcao.z * velocidade
+	# Movimento normal + empurrão.
+	velocity.x = direcao.x * velocidade + impulso_empurrao.x
+	velocity.z = direcao.z * velocidade + impulso_empurrao.z
+
+	# Reduz o empurrão gradualmente.
+	impulso_empurrao = impulso_empurrao.move_toward(
+		Vector3.ZERO,
+		desaceleracao_empurrao * delta
+	)
 
 	move_and_slide()
 
-	# ======================================
 	# ANIMAÇÃO: GnomoAndando
-	# Reproduz enquanto persegue o jogador.
-	# Não reinicia a animação a cada frame.
-	# ======================================
-
 	# if $AnimationPlayer.current_animation != "GnomoAndando":
 	#     $AnimationPlayer.play("GnomoAndando")
 
-	rotation.y = atan2(direcao.x, direcao.z) + PI / 2.0
+	if direcao.length_squared() > 0.001:
+		rotation.y = atan2(direcao.x, direcao.z) + PI / 2.0
 
 
 # ==========================================
@@ -190,7 +219,6 @@ func comecar_pulo() -> void:
 	if not is_instance_valid(ponto_destino):
 		return
 
-	# Impede que dois gnomos pulem ao mesmo tempo.
 	if is_instance_valid(Cortador.gnomo_em_cima):
 		return
 
@@ -199,12 +227,9 @@ func comecar_pulo() -> void:
 
 	estado = Estado.PULANDO
 	velocity = Vector3.ZERO
+	impulso_empurrao = Vector3.ZERO
 
-	# ======================================
 	# ANIMAÇÃO: PARAR GnomoAndando
-	# Para a animação quando começa a pular.
-	# ======================================
-
 	# $AnimationPlayer.stop()
 
 	_inicio_pulo = global_position
@@ -259,6 +284,7 @@ func ficar_no_cortador() -> void:
 
 	estado = Estado.PRESO
 	velocity = Vector3.ZERO
+	impulso_empurrao = Vector3.ZERO
 
 	colisao.set_deferred("disabled", true)
 
@@ -270,11 +296,7 @@ func ficar_no_cortador() -> void:
 
 	causando_dano = true
 
-	# ======================================
 	# PARTICULA: ParticulaRoubandoGasolina
-	# Ativa enquanto está em cima do jogador.
-	# ======================================
-
 	# $ParticulaRoubandoGasolina.emitting = true
 
 	dano_continuo()
@@ -326,31 +348,22 @@ func cair_do_cortador(direcao_drift: Vector3) -> void:
 	causando_dano = false
 	_timer_dano.stop()
 
-	# ======================================
 	# PARTICULA: ParticulaRoubandoGasolina
-	# Desativa ao sair de cima do jogador.
-	# ======================================
-
 	# $ParticulaRoubandoGasolina.emitting = false
 
-	# Guarda a posição atual.
 	var posicao_atual := global_position
 
-	# Libera a vaga para outros gnomos.
 	liberar_vaga()
 
-	# Sai do cortador mantendo a posição global.
 	reparent(pai_original, true)
 	global_position = posicao_atual
 
 	# Reativa a colisão física.
 	colisao.set_deferred("disabled", false)
 
-	# Corrige a orientação antes do arremesso.
 	rotation.x = 0.0
 	rotation.z = 0.0
 
-	# Calcula o lado do arremesso.
 	var lado := Vector3(
 		-direcao_drift.z,
 		0.0,
@@ -362,7 +375,6 @@ func cair_do_cortador(direcao_drift: Vector3) -> void:
 	else:
 		lado = Vector3.RIGHT
 
-	# Calcula a velocidade do arco.
 	var g := maxf(get_gravity().length(), 0.01)
 	var v0 := sqrt(2.0 * g * altura_arremesso)
 	var tempo_voo := maxf(2.0 * v0 / g, 0.05)
@@ -372,23 +384,19 @@ func cair_do_cortador(direcao_drift: Vector3) -> void:
 
 	_tempo_arremesso = 0.0
 
-	# Reativa a física para que o gnomo caia.
 	set_physics_process(true)
 
 
 func _atualizar_arremesso(delta: float) -> void:
 	_tempo_arremesso += delta
 
-	# Aplica gravidade.
 	velocity += get_gravity() * delta
 
-	# Gira o gnomo durante o voo.
+	# Faz o gnomo girar durante o voo.
 	rotation.x += velocidade_giro_arremesso * delta
 
-	# Movimenta com colisão física.
 	move_and_slide()
 
-	# Detecta o chão.
 	if _tempo_arremesso > 0.1 and is_on_floor():
 		ficar_caido()
 
@@ -403,17 +411,16 @@ func ficar_caido() -> void:
 
 	estado = Estado.CAIDO
 	velocity = Vector3.ZERO
+	impulso_empurrao = Vector3.ZERO
 
-	# Deita o gnomo.
 	rotation.x = deg_to_rad(90.0)
 	rotation.z = 0.0
 
-	# Ajusta levemente ao chão.
 	move_and_collide(Vector3.DOWN * 0.2)
 
 	set_physics_process(false)
 
-	# Permite atropelamento.
+	# Agora pode ser atropelado.
 	if not is_in_group(GRUPO_ATROPELAVEL):
 		add_to_group(GRUPO_ATROPELAVEL)
 
@@ -438,12 +445,12 @@ func levantar() -> void:
 	if is_in_group(GRUPO_ATROPELAVEL):
 		remove_from_group(GRUPO_ATROPELAVEL)
 
-	# Volta à posição normal.
 	rotation.x = 0.0
 	rotation.z = 0.0
 
 	estado = Estado.PERSEGUINDO
 	velocity = Vector3.ZERO
+	impulso_empurrao = Vector3.ZERO
 
 	_timer_som_passos.start()
 
@@ -467,12 +474,13 @@ func liberar_vaga() -> void:
 # ==========================================
 
 func morrer_atropelado() -> void:
+	# Só morre quando está caído.
 	if estado != Estado.CAIDO:
 		return
 
 	GameManager.adicionar_pontos(50, global_position)
 	GameManager.registrar_gnomo()
-	
+
 	estado = Estado.MORTO
 	causando_dano = false
 
@@ -485,36 +493,22 @@ func morrer_atropelado() -> void:
 
 	liberar_vaga()
 
-	# ======================================
 	# ANIMAÇÃO: PARAR GnomoAndando
-	# Garante que nenhuma animação continue.
-	# ======================================
-
 	# $AnimationPlayer.stop()
 
-	# ======================================
 	# AUDIO: GnomoMorte
-	# Toca quando o gnomo morre.
-	# ======================================
-
 	# $GnomoMorte.play()
 
-	# ======================================
 	# PARTICULA: ParticulaMorte
-	# Emite partículas quando o gnomo morre.
-	# ======================================
-
 	# $ParticulaMorte.emitting = true
 
 	# Desaparece imediatamente.
-	visible = false
+	hide()
 
-	# Desativa a colisão.
 	colisao.set_deferred("disabled", true)
 
 	set_physics_process(false)
 	set_process(false)
 
-	# Aguarda o som antes de remover.
 	await get_tree().create_timer(1.0).timeout
 	queue_free()
