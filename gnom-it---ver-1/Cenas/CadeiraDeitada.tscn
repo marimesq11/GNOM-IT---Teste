@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://k0b04vssj23n"]
+[gd_scene format=4 uid="uid://k0b04vssj23n"]
 
 [ext_resource type="Texture2D" uid="uid://dxis3rrikgmy2" path="res://Assets/CadeiraTexture/M_DC_Base_Top_BaseColor.jpg" id="1_fdpgj"]
 [ext_resource type="Texture2D" uid="uid://nhb15wyotnov" path="res://Assets/CadeiraTexture/M_DC_Base_Bottom_BaseColor.jpg" id="2_o82fq"]
@@ -283,48 +283,100 @@ size = Vector3(1, 0.53131104, 1.6576843)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8hq6u"]
 size = Vector3(1, 1.2397461, 0.23022461)
 
-[node name="StaticBody3D" type="StaticBody3D"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ckb4l"]
+emission_shape_scale = Vector3(1.2, 1, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
 
-[node name="M_Base_Top" type="MeshInstance3D" parent="."]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3si4x"]
+albedo_color = Color(0.34, 0.12466667, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0i88t"]
+material = SubResource("StandardMaterial3D_3si4x")
+size = Vector2(0.2, 0.1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fdpgj"]
+lifetime_randomness = 0.07
+emission_shape_scale = Vector3(0.5, 0.3, 0.5)
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = 1.0728835e-05
+angle_max = 552.0
+use_rotation_3d = true
+rotation_3d_min = Vector3(25, 0, 320)
+rotation_3d_max = Vector3(300, 56, 340)
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o82fq"]
+albedo_color = Color(0.53, 0.24733333, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_m0goo"]
+material = SubResource("StandardMaterial3D_o82fq")
+size = Vector2(0.1, 0.2)
+
+[node name="StaticBody3D" type="StaticBody3D" unique_id=1803107154 groups=["grande", "madeira"]]
+
+[node name="M_Base_Top" type="MeshInstance3D" parent="." unique_id=1780999843]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_qge2w")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_q1x6t")
 
-[node name="B_Base_Bottom" type="MeshInstance3D" parent="."]
+[node name="B_Base_Bottom" type="MeshInstance3D" parent="." unique_id=1296951784]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_657hs")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_56gvl")
 
-[node name="M_Base_Middle" type="MeshInstance3D" parent="."]
+[node name="M_Base_Middle" type="MeshInstance3D" parent="." unique_id=252586953]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_1yvfh")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_85sju")
 
-[node name="M_Base_Top_Side" type="MeshInstance3D" parent="."]
+[node name="M_Base_Top_Side" type="MeshInstance3D" parent="." unique_id=263587104]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_0odwj")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_w3gsb")
 
-[node name="M_Base_Middle_Side" type="MeshInstance3D" parent="."]
+[node name="M_Base_Middle_Side" type="MeshInstance3D" parent="." unique_id=542169509]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_dn6mt")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_bbfd1")
 
-[node name="M_Legs" type="MeshInstance3D" parent="."]
+[node name="M_Legs" type="MeshInstance3D" parent="." unique_id=1518574722]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_rduro")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_ksfo4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=670982288]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29776, 0.233078)
 shape = SubResource("BoxShape3D_dkr70")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=582130029]
 transform = Transform3D(1, 0, 0, 0, 0.8785588, 0.4776342, 0, -0.4776342, 0.8785588, 0, 1.0463269, -0.54643905)
 shape = SubResource("BoxShape3D_8hq6u")
+
+[node name="ParticulaMadeiraPequena" type="GPUParticles3D" parent="." unique_id=2053258594]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014392972, 0.56325066, 0)
+emitting = false
+amount = 10
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_ckb4l")
+draw_pass_1 = SubResource("PlaneMesh_0i88t")
+
+[node name="ParticulaMorteMadeira" type="GPUParticles3D" parent="." unique_id=89311867]
+transform = Transform3D(-0.0031975177, 0, -1.7544824, 0, 2.5807083, 0, 1.0024016, 0, -0.005596548, 0, 0.6041889, 0)
+emitting = false
+amount = 15
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.45
+randomness = 0.19
+fixed_fps = 10
+process_material = SubResource("ParticleProcessMaterial_fdpgj")
+draw_pass_1 = SubResource("QuadMesh_m0goo")

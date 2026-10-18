@@ -1,17 +1,35 @@
 
 extends Node3D
 
-@export var cena_inimigo: PackedScene
+# CENAS DOS INIMIGOS
+@export var inimigo_1: PackedScene
+@export var inimigo_2: PackedScene
+@export var inimigo_3: PackedScene
+@export var inimigo_4: PackedScene
+
+# LIMITES INDIVIDUAIS
+@export var max_inimigo_1: int = 5
+@export var max_inimigo_2: int = 4
+@export var max_inimigo_3: int = 3
+@export var max_inimigo_4: int = 2
+
+# CONFIGURAÇÕES
 @export var intervalo_spawn: float = 5.0
-@export var max_inimigos: int = 10
 @export var spawn_automatico: bool = true
 
-var inimigos: Array[Node3D] = []
+# PONTOS DE SPAWN
+@export var marker_1: Marker3D
+@export var marker_2: Marker3D
+@export var marker_3: Marker3D
+
+# CONTROLE
+var inimigos_vivos: Array = [[], [], [], []]
 var tempo: float = 0.0
 var jogador: Node3D
 
 
 func _ready() -> void:
+	randomize()
 	procurar_jogador()
 
 
@@ -36,41 +54,78 @@ func _process(delta: float) -> void:
 
 
 func spawnar_inimigo() -> void:
-	if cena_inimigo == null:
-		print("ERRO: Cena do inimigo não configurada!")
+
+	# Cenas disponíveis
+	var cenas = [
+		inimigo_1,
+		inimigo_2,
+		inimigo_3,
+		inimigo_4
+	]
+
+	# Limites individuais
+	var limites = [
+		max_inimigo_1,
+		max_inimigo_2,
+		max_inimigo_3,
+		max_inimigo_4
+	]
+
+	# Pontos disponíveis
+	var markers: Array[Marker3D] = []
+
+	for marker in [marker_1, marker_2, marker_3]:
+		if is_instance_valid(marker):
+			markers.append(marker)
+
+	if markers.is_empty():
+		print("ERRO: Nenhum Marker3D configurado!")
 		return
 
-	# Remove inimigos que já foram destruídos
-	inimigos = inimigos.filter(
-		func(inimigo): return is_instance_valid(inimigo)
-	)
+	# Limpa inimigos destruídos
+	for i in range(4):
+		inimigos_vivos[i] = inimigos_vivos[i].filter(
+			func(inimigo): return is_instance_valid(inimigo)
+		)
 
-	if inimigos.size() >= max_inimigos:
+	# Verifica quais tipos podem spawnar
+	var tipos_disponiveis: Array[int] = []
+
+	for i in range(4):
+		if cenas[i] != null and inimigos_vivos[i].size() < limites[i]:
+			tipos_disponiveis.append(i)
+
+	if tipos_disponiveis.is_empty():
+		print("SPAWNER: Todos os limites foram atingidos!")
 		return
 
-	# Procura o jogador novamente, se necessário
+	# Escolhe tipo aleatório
+	var tipo = tipos_disponiveis.pick_random()
+
+	# Escolhe ponto aleatório
+	var marker = markers.pick_random()
+
+	# Procura o jogador
 	if not is_instance_valid(jogador):
 		procurar_jogador()
 
 	if not is_instance_valid(jogador):
-		print("ERRO: Não foi possível encontrar o cortador!")
 		return
 
 	# Cria o inimigo
-	var inimigo = cena_inimigo.instantiate() as Node3D
+	var inimigo = cenas[tipo].instantiate() as Node3D
 
 	if inimigo == null:
-		print("ERRO: O inimigo precisa ser um Node3D!")
+		print("ERRO: Cena do inimigo inválida!")
 		return
 
-	# Passa o cortador ANTES do _ready()
-	var recebeu_cortador: bool = false
+	# Passa o cortador antes do _ready()
+	var recebeu_cortador = false
 
 	for propriedade in inimigo.get_property_list():
 		if propriedade.name == "Cortador":
 			inimigo.set("Cortador", jogador)
 			recebeu_cortador = true
-			print("CORTADOR ATRIBUÍDO: ", jogador.name)
 			break
 
 	if not recebeu_cortador:
@@ -79,15 +134,20 @@ func spawnar_inimigo() -> void:
 	# Adiciona como irmão do spawner
 	get_parent().add_child(inimigo)
 
-	# Posiciona o inimigo no spawner
-	inimigo.global_position = global_position
+	# Posiciona no marker escolhido
+	inimigo.global_position = marker.global_position
 
-	# Registra o inimigo criado
-	inimigos.append(inimigo)
+	# Registra inimigo
+	inimigos_vivos[tipo].append(inimigo)
 
-	print("INIMIGO CRIADO: ", inimigo.name)
-	print("REFERÊNCIA CORTADOR: ", inimigo.get("Cortador") if recebeu_cortador else "Não encontrada")
+	print(
+		"SPAWN: Inimigo ", tipo + 1,
+		" | Ponto: ", marker.name,
+		" | Vivos: ", inimigos_vivos[tipo].size(),
+		"/", limites[tipo]
+	)
 
 
 func _exit_tree() -> void:
-	inimigos.clear()
+	for lista in inimigos_vivos:
+		lista.clear()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cd0iw0jg20kn"]
+[gd_scene format=3 uid="uid://cd0iw0jg20kn"]
 
 [ext_resource type="Script" uid="uid://dsk5anytrwafw" path="res://Abastecer.gd" id="1_6iv6h"]
 
@@ -24,24 +24,25 @@ height = 0.3
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qjw2h"]
 radius = 1.5180664
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=103601605]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1534099191]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1776411659]
 mesh = SubResource("BoxMesh_6iv6h")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1493216561]
 transform = Transform3D(1.03, 0, 0, 0, 1.03, 0, 0, 0, 1.03, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_4wm8l")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D" unique_id=659137563]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32649758, 0.6995082, 0)
 mesh = SubResource("CylinderMesh_1n2mn")
 
-[node name="Reabastecer" type="Area3D" parent="StaticBody3D"]
+[node name="Reabastecer" type="Area3D" parent="StaticBody3D" unique_id=2128680094]
+collision_mask = 3
 script = ExtResource("1_6iv6h")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Reabastecer"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Reabastecer" unique_id=699649717]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08436155, 0, 0)
 shape = SubResource("CylinderShape3D_qjw2h")

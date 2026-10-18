@@ -1,4 +1,3 @@
-
 extends CharacterBody3D
 
 const GRUPO_ATROPELAVEL := &"atropelavel"
@@ -22,6 +21,9 @@ const GRUPO_ATROPELAVEL := &"atropelavel"
 @export var altura_arremesso: float = 0.6
 @export var velocidade_giro_arremesso: float = 8.0
 @export var tempo_caido: float = 4.0
+
+# SONS DE MOVIMENTO
+@export var intervalo_som_passos: float = 1.5
 
 # REFERÊNCIAS
 @export var Cortador: CharacterBody3D
@@ -53,6 +55,7 @@ var _tempo_arremesso: float = 0.0
 
 var _timer_dano: Timer
 var _timer_caido: Timer
+var _timer_som_passos: Timer
 
 
 # ==========================================
@@ -75,6 +78,15 @@ func _ready() -> void:
 	_timer_caido.timeout.connect(_acabou_tempo_caido)
 	add_child(_timer_caido)
 
+	# Timer para tocar GnomoSons periodicamente.
+	_timer_som_passos = Timer.new()
+	_timer_som_passos.wait_time = intervalo_som_passos
+	_timer_som_passos.one_shot = false
+	_timer_som_passos.timeout.connect(_tocar_som_passos)
+	add_child(_timer_som_passos)
+
+	_timer_som_passos.start()
+
 	set_process(false)
 
 	if is_instance_valid(Cortador):
@@ -92,6 +104,25 @@ func _physics_process(delta: float) -> void:
 
 		Estado.ARREMESSADO:
 			_atualizar_arremesso(delta)
+
+
+# ==========================================
+# SOM DO GNOMO ANDANDO
+# ==========================================
+
+func _tocar_som_passos() -> void:
+	if estado != Estado.PERSEGUINDO:
+		return
+
+	if Vector2(velocity.x, velocity.z).length_squared() < 0.01:
+		return
+
+	# ======================================
+	# AUDIO: GnomoSons
+	# Toca periodicamente enquanto anda.
+	# ======================================
+
+	# $GnomoSons.play()
 
 
 # ==========================================
@@ -133,6 +164,15 @@ func _perseguir(delta: float) -> void:
 
 	move_and_slide()
 
+	# ======================================
+	# ANIMAÇÃO: GnomoAndando
+	# Reproduz enquanto persegue o jogador.
+	# Não reinicia a animação a cada frame.
+	# ======================================
+
+	# if $AnimationPlayer.current_animation != "GnomoAndando":
+	#     $AnimationPlayer.play("GnomoAndando")
+
 	rotation.y = atan2(direcao.x, direcao.z) + PI / 2.0
 
 
@@ -160,8 +200,17 @@ func comecar_pulo() -> void:
 	estado = Estado.PULANDO
 	velocity = Vector3.ZERO
 
+	# ======================================
+	# ANIMAÇÃO: PARAR GnomoAndando
+	# Para a animação quando começa a pular.
+	# ======================================
+
+	# $AnimationPlayer.stop()
+
 	_inicio_pulo = global_position
 	_tempo_pulo_atual = 0.0
+
+	_timer_som_passos.stop()
 
 	set_process(true)
 
@@ -174,6 +223,7 @@ func _process(delta: float) -> void:
 	if not is_instance_valid(Cortador) or not is_instance_valid(ponto_destino):
 		liberar_vaga()
 		estado = Estado.PERSEGUINDO
+		_timer_som_passos.start()
 		set_process(false)
 		return
 
@@ -219,6 +269,14 @@ func ficar_no_cortador() -> void:
 	set_physics_process(false)
 
 	causando_dano = true
+
+	# ======================================
+	# PARTICULA: ParticulaRoubandoGasolina
+	# Ativa enquanto está em cima do jogador.
+	# ======================================
+
+	# $ParticulaRoubandoGasolina.emitting = true
+
 	dano_continuo()
 
 
@@ -267,6 +325,13 @@ func cair_do_cortador(direcao_drift: Vector3) -> void:
 	estado = Estado.ARREMESSADO
 	causando_dano = false
 	_timer_dano.stop()
+
+	# ======================================
+	# PARTICULA: ParticulaRoubandoGasolina
+	# Desativa ao sair de cima do jogador.
+	# ======================================
+
+	# $ParticulaRoubandoGasolina.emitting = false
 
 	# Guarda a posição atual.
 	var posicao_atual := global_position
@@ -380,6 +445,8 @@ func levantar() -> void:
 	estado = Estado.PERSEGUINDO
 	velocity = Vector3.ZERO
 
+	_timer_som_passos.start()
+
 	set_physics_process(true)
 
 
@@ -403,19 +470,41 @@ func morrer_atropelado() -> void:
 	if estado != Estado.CAIDO:
 		return
 
+	GameManager.adicionar_pontos(50, global_position)
+	GameManager.registrar_gnomo()
+	
 	estado = Estado.MORTO
 	causando_dano = false
 
 	_timer_dano.stop()
 	_timer_caido.stop()
+	_timer_som_passos.stop()
 
 	if is_in_group(GRUPO_ATROPELAVEL):
 		remove_from_group(GRUPO_ATROPELAVEL)
 
 	liberar_vaga()
 
-	# Reproduz o som.
-	$AudioStreamPlayer/Morreu.play()
+	# ======================================
+	# ANIMAÇÃO: PARAR GnomoAndando
+	# Garante que nenhuma animação continue.
+	# ======================================
+
+	# $AnimationPlayer.stop()
+
+	# ======================================
+	# AUDIO: GnomoMorte
+	# Toca quando o gnomo morre.
+	# ======================================
+
+	# $GnomoMorte.play()
+
+	# ======================================
+	# PARTICULA: ParticulaMorte
+	# Emite partículas quando o gnomo morre.
+	# ======================================
+
+	# $ParticulaMorte.emitting = true
 
 	# Desaparece imediatamente.
 	visible = false

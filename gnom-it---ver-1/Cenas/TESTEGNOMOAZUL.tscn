@@ -223,7 +223,7 @@ height = 5.0598145
 radius = 1.0488281
 
 [node name="Node3D" type="CharacterBody3D" unique_id=801741046 groups=["atropelavel", "inimigos"]]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, 0, 0, 0)
 collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_vbnlp")

@@ -71,7 +71,7 @@ albedo_color = Color(0.53, 0.24733333, 0, 1)
 material = SubResource("StandardMaterial3D_3si4x")
 size = Vector2(0.1, 0.2)
 
-[node name="StaticBody3D" type="Area3D" unique_id=448420748 groups=["Quebravel"]]
+[node name="StaticBody3D" type="Area3D" unique_id=448420748 groups=["Quebravel", "madeira"]]
 collision_mask = 3
 
 [node name="Crate" type="MeshInstance3D" parent="." unique_id=661766753]
@@ -84,7 +84,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_yt88j")
 transform = Transform3D(57.1, 0, 0, 0, -2.4959202e-06, 57.1, 0, -57.1, -2.4959202e-06, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_okxq7")
 
-[node name="Quebrou" type="GPUParticles3D" parent="." unique_id=1887198055]
+[node name="ParticulaMorteMadeira" type="GPUParticles3D" parent="." unique_id=1887198055]
 transform = Transform3D(-0.0031975177, 0, -1.7544824, 0, 2.5807083, 0, 1.0024016, 0, -0.005596548, 0, -0.027627796, 0)
 emitting = false
 amount = 15

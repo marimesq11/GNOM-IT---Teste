@@ -18,6 +18,7 @@ var morto: bool = false
 var posicao_original_label: Vector2
 
 func _ready():
+	GameManager.reiniciar()
 	posicao_original_label = label.position
 	if not timer.timeout.is_connected(_on_timer_timeout):
 		timer.timeout.connect(_on_timer_timeout)

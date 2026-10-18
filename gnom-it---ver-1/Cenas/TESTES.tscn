@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://krqcf0ojhopo" path="res://Script/MeshGrama.gd" id="4_3mcl0"]
 [ext_resource type="Texture2D" uid="uid://d3ffwwes7oyvl" path="res://Texture/TextureGrama2XP4.png" id="5_skq4c"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="6_ir2pu"]
+[ext_resource type="Script" uid="uid://ch8jeydmhh7ma" path="res://Script/VroomVroom.gd" id="7_3mcl0"]
 [ext_resource type="Script" uid="uid://dw3wflx7loidx" path="res://Script/barra_vida.gd" id="10_8lgi8"]
 [ext_resource type="Script" uid="uid://b4u2m2wkpc22g" path="res://Cenas/barra_gasolina.gd" id="11_2a5hf"]
 [ext_resource type="PackedScene" uid="uid://cd0iw0jg20kn" path="res://Gasolina.tscn" id="12_mctnb"]
@@ -23,18 +24,19 @@
 [ext_resource type="PackedScene" uid="uid://b3flxdsa7x1gs" path="res://CenasCenarios/Rocha3.tscn" id="24_m46c5"]
 [ext_resource type="PackedScene" uid="uid://b55qjd34jjrfd" path="res://Arvores.tscn" id="25_lrtr4"]
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="26_6gs8y"]
+[ext_resource type="Script" uid="uid://c2ro47sc5mmo5" path="res://Cenas/PontosLabelCena.gd" id="28_3mcl0"]
 [ext_resource type="PackedScene" uid="uid://ba0c3xgwsvu1c" path="res://Rampa.tscn" id="28_bavn2"]
 [ext_resource type="PackedScene" uid="uid://bfxeppe2iietr" path="res://123JÁ.tscn" id="29_3repn"]
 [ext_resource type="Script" uid="uid://hh2nsm3gvm7f" path="res://123já.gd" id="30_4u8vl"]
 [ext_resource type="Script" uid="uid://di0yxtjm1y44h" path="res://Cenas/SpawnerInimigos.gd" id="30_iegax"]
 [ext_resource type="PackedScene" uid="uid://e1c5afilg1y" path="res://Cenas/TESTE_GNOMO_CORRE.tscn" id="31_oe0oo"]
-[ext_resource type="Script" uid="uid://hb2vvohjp8kc" path="res://Cenas/pontos_label.gd" id="31_v3mo5"]
 [ext_resource type="PackedScene" uid="uid://deo2pg1m8mdl7" path="res://Cenas/TESTEGNOMOVERMELHO.tscn" id="31_xqa8m"]
 [ext_resource type="ArrayMesh" uid="uid://f6bvnvov1lly" path="res://Meshs/Plane.res" id="32_lfrpg"]
 [ext_resource type="Script" uid="uid://dj2xy820u5qaf" path="res://Cenas/TESTEGNOMOCORRE.gd" id="32_qsvmo"]
 [ext_resource type="PackedScene" uid="uid://d20lrrt0d6by8" path="res://Cenas/TESTEGNOMOAZUL.tscn" id="33_0outj"]
 [ext_resource type="PackedScene" uid="uid://cwgvmwmpl52cw" path="res://Circulo_Pontuação.tscn" id="33_0yihv"]
 [ext_resource type="Texture2D" uid="uid://diswh7futkwxr" path="res://galão.png" id="34_02wfc"]
+[ext_resource type="PackedScene" uid="uid://dnyrwky64ojs" path="res://Cenas/Gnomo_Verde.tscn" id="34_xqa8m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0juky"]
 albedo_texture = ExtResource("3_xqa8m")
@@ -121,6 +123,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xu8hi")
 
 [node name="cortador" parent="." unique_id=1886462838 instance=ExtResource("6_ir2pu")]
 transform = Transform3D(0.135, 0, 0, 0, 0.135, 0, 0, 0, 0.135, 0.98181915, 0.17322394, -8.898669)
+script = ExtResource("7_3mcl0")
 move_speed = 5.0
 acceleration = 6.0
 rotation_speed = 5.0
@@ -517,7 +520,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3164043, 0.005203732, 5.501
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3164043, 0.005203732, 5.5016994)
 
 [node name="Timer" type="Timer" parent="." unique_id=2053944718]
-wait_time = 45.0
+wait_time = 10.0
 one_shot = true
 
 [node name="TimeLabel" type="Label" parent="." unique_id=1208621726]
@@ -566,7 +569,8 @@ offset_right = 1015.0
 offset_bottom = 39.0
 theme_override_fonts/font = ExtResource("26_6gs8y")
 theme_override_font_sizes/font_size = 22
-script = ExtResource("31_v3mo5")
+script = ExtResource("28_3mcl0")
+metadata/_edit_use_anchors_ = true
 
 [node name="Grama" type="MeshInstance3D" parent="." unique_id=620709146]
 transform = Transform3D(10, 0, 0, 0, 16.976494, 0, 0, 0, 11.537178, -0.50475097, 0.7000782, 3.2707849)
@@ -597,10 +601,20 @@ transform = Transform3D(0.18944545, 0, -0.4627207, 0, 0.5, 0, 0.4627207, 0, 0.18
 [node name="Node3D3" parent="." unique_id=642321627 instance=ExtResource("33_0yihv")]
 transform = Transform3D(0.41335383, 0, -0.2813159, 0, 0.5, 0, 0.2813159, 0, 0.41335383, -7.879712, 0.31315625, 9.809692)
 
-[node name="Spanw" type="Node3D" parent="." unique_id=1863625013]
+[node name="Spanw" type="Node3D" parent="." unique_id=1863625013 node_paths=PackedStringArray("marker_1", "marker_2", "marker_3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.138, 0.15561026, 3.52)
 script = ExtResource("30_iegax")
-cena_inimigo = ExtResource("31_xqa8m")
+inimigo_1 = ExtResource("31_xqa8m")
+inimigo_2 = ExtResource("33_0outj")
+inimigo_3 = ExtResource("31_oe0oo")
+inimigo_4 = ExtResource("34_xqa8m")
+max_inimigo_1 = 6
+max_inimigo_3 = 10
+max_inimigo_4 = 5
+intervalo_spawn = 2.0
+marker_1 = NodePath("Marker3D")
+marker_2 = NodePath("Marker3D2")
+marker_3 = NodePath("Marker3D3")
 
 [node name="Marker3D" type="Marker3D" parent="Spanw" unique_id=1998461000]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21347904, 0.0033054352, 0)
@@ -619,6 +633,10 @@ texture = ExtResource("34_02wfc")
 [node name="CharacterBody3D" parent="." unique_id=1369375029 instance=ExtResource("31_oe0oo")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.15446746, 0)
 script = ExtResource("32_qsvmo")
+intervalo_som_min = 1.0
+intervalo_som_max = 3.0
+pitch_som_min = 0.8
+pitch_som_max = 1.4
 
 [node name="Node3D6" parent="." unique_id=801741046 node_paths=PackedStringArray("Cortador", "ponto_destino") instance=ExtResource("33_0outj")]
 transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, 0, 0.13976562, 2.0835545)

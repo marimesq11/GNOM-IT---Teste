@@ -226,8 +226,13 @@ shadow_mesh = SubResource("ArrayMesh_84u2e")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rlkij"]
 albedo_color = Color(0.9815763, 0.6617702, 0, 1)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_n7fwp"]
+radius = 1.9577835
+
 [node name="Node3D" type="CharacterBody3D" unique_id=551412508 groups=["atropelavel"]]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+collision_layer = 8
+collision_mask = 3
 script = ExtResource("1_asuct")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=259883160]
@@ -269,3 +274,11 @@ pitch_scale = 0.85
 [node name="Morreu" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1831094664]
 stream = ExtResource("3_n7fwp")
 pitch_scale = 1.59
+
+[node name="Area3D" type="Area3D" parent="." unique_id=771063174 groups=["atropelavel", "inimigos"]]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=724050815 groups=["atropelavel", "inimigos"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13581872, 0.51525664, 0)
+shape = SubResource("SphereShape3D_n7fwp")
