@@ -37,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://cwgvmwmpl52cw" path="res://Circulo_Pontuação.tscn" id="33_0yihv"]
 [ext_resource type="Texture2D" uid="uid://diswh7futkwxr" path="res://galão.png" id="34_02wfc"]
 [ext_resource type="PackedScene" uid="uid://dnyrwky64ojs" path="res://Cenas/Gnomo_Verde.tscn" id="34_xqa8m"]
+[ext_resource type="PackedScene" uid="uid://blmlbk64gk2mt" path="res://Cenas/PopupPontos.tscn" id="38_skq4c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0juky"]
 albedo_texture = ExtResource("3_xqa8m")
@@ -633,6 +634,13 @@ texture = ExtResource("34_02wfc")
 [node name="CharacterBody3D" parent="." unique_id=1369375029 instance=ExtResource("31_oe0oo")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.15446746, 0)
 script = ExtResource("32_qsvmo")
+forca_pulo = 5.0
+gravidade = 9.8
+tempo_susto = 0.8
+velocidade_sprint = 9.0
+duracao_sprint = 2.0
+cena_popup = ExtResource("38_skq4c")
+altura_popup = 2.0
 intervalo_som_min = 1.0
 intervalo_som_max = 3.0
 pitch_som_min = 0.8

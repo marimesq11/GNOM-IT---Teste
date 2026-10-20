@@ -55,6 +55,12 @@ const LIMIAR_EMISSAO_GASOLINA := 0.2
 
 @export var rotation_speed: float = 2.5
 
+@export_group("Marcha Ré")
+@export var velocidade_re: float = 4.0
+@export var aceleracao_re: float = 4.7
+@export var velocidade_giro_re: float = 2.5
+var dando_re: bool = false
+
 @export_group("Camera")
 ## Abaixo desse valor (produto escalar com a frente da câmera) a câmera trava.
 ## -1.0 = só trava andando 100% para trás; 0.0 = trava também nas laterais.
@@ -228,12 +234,26 @@ func _physics_process(delta: float) -> void:
 	tempo_cooldown_dash = maxf(tempo_cooldown_dash - delta, 0.0)
 
 	var raw_input := Input.get_vector(ACAO_ESQUERDA, ACAO_DIREITA, ACAO_FRENTE, ACAO_TRAS)
+	dando_re = Input.is_action_pressed(ACAO_TRAS) and not Input.is_action_pressed(ACAO_FRENTE)
+
+	# Girar antes de calcular a direção da ré: a traseira acompanha a curva.
+	if dando_re and gasolina > 0.0:
+		if em_drift:
+			terminar_drift()
+		preparando_dash = false
+		em_dash = false
+		particula_dash.emitting = false
+		_tempo_intencao_drift = 0.0
+		var esterco := Input.get_axis(ACAO_ESQUERDA, ACAO_DIREITA)
+		rotation.y += esterco * velocidade_giro_re * delta
+		# Não alterar _heading: a câmera não se inverte na marcha ré.
+
 	var dir := _direcao_de_movimento(raw_input)
 	if gasolina <= 0.0:
-		dir = Vector3.ZERO  # sem gasolina, não anda
+		dir = Vector3.ZERO
 	var tem_input := dir != Vector3.ZERO
 
-	# SOM MOTOR / PARTÍCULA GRAMA: ativar somente quando estiver andando.
+	# SOM MOTOR / PARTÍCULA GRAMA (descomente quando adicionar os nós)
 	# if tem_input:
 	# 	if not som_motor.playing:
 	# 		som_motor.play()
@@ -247,28 +267,33 @@ func _physics_process(delta: float) -> void:
 	for objeto in area_atropelamento.get_overlapping_bodies():
 		if objeto == self:
 			continue
-
 		_empurrar_gnomo(objeto)
 
 	if gasolina <= 0.0:
 		return
-	_atualizar_giro_input(dir, tem_input, delta)
-	_atualizar_dash(dir, tem_input, delta)
 
-	var vel_max := velocidade_dash if em_dash else move_speed * (velocidade_preparacao if preparando_dash else 1.0)
-
-	if not em_drift:
-		_checar_inicio_drift(dir, tem_input, delta)
-
-	if em_drift:
-		_atualizar_drift(dir, tem_input, vel_max, delta)
+	if dando_re:
+		# Velocidade escalar: esterçar não freia a marcha ré.
+		var velocidade_atual := Vector2(velocity.x, velocity.z).length()
+		velocidade_atual = move_toward(velocidade_atual, velocidade_re, aceleracao_re * delta)
+		velocity.x = dir.x * velocidade_atual
+		velocity.z = dir.z * velocidade_atual
 	else:
-		# Só X e Z, para não apagar a gravidade
-		var horizontal := Vector3(velocity.x, 0.0, velocity.z).move_toward(dir * vel_max, acceleration * delta)
-		velocity.x = horizontal.x
-		velocity.z = horizontal.z
+		_atualizar_giro_input(dir, tem_input, delta)
+		_atualizar_dash(dir, tem_input, delta)
 
-	# Gravidade (vale em qualquer estado: parado, andando, dash e drift)
+		var vel_max := velocidade_dash if em_dash else move_speed * (velocidade_preparacao if preparando_dash else 1.0)
+
+		if not em_drift:
+			_checar_inicio_drift(dir, tem_input, delta)
+
+		if em_drift:
+			_atualizar_drift(dir, tem_input, vel_max, delta)
+		else:
+			var horizontal := Vector3(velocity.x, 0.0, velocity.z).move_toward(dir * vel_max, acceleration * delta)
+			velocity.x = horizontal.x
+			velocity.z = horizontal.z
+
 	if is_on_floor():
 		velocity.y = 0.0
 	else:
@@ -277,7 +302,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	verificar_colisao_quebravel()
 	verificar_colisao_quebravel_grande()
-	_atualizar_rotacao(dir, tem_input, delta)
+	if not dando_re:
+		_atualizar_rotacao(dir, tem_input, delta)
 	_atualizar_colisao_camera()
 
 
@@ -291,11 +317,17 @@ func _process(delta: float) -> void:
 # ---------------------------------------------------------
 
 func _direcao_de_movimento(raw_input: Vector2) -> Vector3:
-	# Sem input: nem lê a transform da câmera
 	if raw_input == Vector2.ZERO:
 		return Vector3.ZERO
 
-	var cam_basis := _camera.global_basis  # lido 1x e reaproveitado em _atualizar_rotacao
+	if dando_re:
+		# Frente lógica do código original: +Z; ré: -Z.
+		# A/D apenas esterçam, sem acrescentar velocidade lateral.
+		var tras := -global_basis.z
+		tras.y = 0.0
+		return tras.normalized()
+
+	var cam_basis := _camera.global_basis
 	var frente := cam_basis.z
 	var direita := cam_basis.x
 	frente.y = 0.0
