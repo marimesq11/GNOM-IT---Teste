@@ -14,9 +14,11 @@ var finalizando: bool = false
 
 
 func _ready() -> void:
+	if video == null or tela_preta == null or botao_skip == null:
+		return
+
 	pressed.connect(_on_pressed)
-	if botao_skip != null:
-		botao_skip.pressed.connect(pular_video)
+	botao_skip.pressed.connect(pular_video)
 
 	video.visible = false
 	video.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -27,14 +29,13 @@ func _ready() -> void:
 	botao_skip.visible = false
 
 	video.finished.connect(finalizar_video)
-	# Faz o vídeo ocupar toda a tela
+
+	# Configura o vídeo
 	video.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	video.expand = true
 
-	# Tamanho do vídeo (95% da tela)
 	video.size = Vector2(1152, 648) * 0.95
 
-	# Centraliza o vídeo
 	video.position = (Vector2(1152, 648) - video.size) / 2
 
 func _on_pressed() -> void:
