@@ -6,6 +6,7 @@ extends Button
 @export var video: VideoStreamPlayer
 @export var tela_preta: ColorRect
 @export var botao_skip: Button
+@export var TutorialBotao: Button
 
 @export var duracao_fade: float = 1.5
 
@@ -44,6 +45,9 @@ func _on_pressed() -> void:
 
 	transicionando = true
 	disabled = true
+	
+	if TutorialBotao != null:
+		TutorialBotao.disabled = true
 
 	get_tree().paused = false
 

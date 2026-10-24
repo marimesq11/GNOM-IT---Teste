@@ -6,8 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bn175qs86uedx" path="res://Texture/grama.png" id="2_yja4k"]
 [ext_resource type="Script" uid="uid://krqcf0ojhopo" path="res://Script/MeshGrama.gd" id="3_sqgjq"]
 [ext_resource type="Texture2D" uid="uid://d3ffwwes7oyvl" path="res://Texture/TextureGrama2XP4.png" id="3_yja4k"]
-[ext_resource type="PackedScene" uid="uid://b41q4jivcl8yb" path="res://Cenas/GnomoVermelho.tscn" id="7_j7xbl"]
-[ext_resource type="PackedScene" uid="uid://cwvw4rxs8a2ce" path="res://Cenas/Gnomo_Azul.tscn" id="8_6fna2"]
 [ext_resource type="Script" uid="uid://dw3wflx7loidx" path="res://Script/barra_vida.gd" id="9_6fna2"]
 [ext_resource type="PackedScene" uid="uid://dnyrwky64ojs" path="res://Cenas/Gnomo_Verde.tscn" id="9_7pt1d"]
 [ext_resource type="Script" uid="uid://b4u2m2wkpc22g" path="res://Cenas/barra_gasolina.gd" id="10_2288r"]
@@ -162,28 +160,6 @@ shadow_opacity = 0.8
 environment = SubResource("Environment_1w6ss")
 camera_attributes = SubResource("CameraAttributesPractical_w4tno")
 compositor = SubResource("Compositor_yja4k")
-
-[node name="GnomoVermelho" parent="." unique_id=132421720 node_paths=PackedStringArray("Cortador") instance=ExtResource("7_j7xbl")]
-transform = Transform3D(0.155, 0, 0, 0, 0.155, 0, 0, 0, 0.155, -2.6014938, 0.15617241, -7.223628)
-Cortador = NodePath("../cortador")
-
-[node name="GnomoVermelho3" parent="." unique_id=1185024877 node_paths=PackedStringArray("Cortador") instance=ExtResource("7_j7xbl")]
-transform = Transform3D(0.155, 0, 0, 0, 0.155, 0, 0, 0, 0.155, -2.6014938, 0.15617241, -7.223628)
-Cortador = NodePath("../cortador")
-
-[node name="GnomoVermelho2" parent="." unique_id=1579637907 node_paths=PackedStringArray("Cortador") instance=ExtResource("7_j7xbl")]
-transform = Transform3D(-0.011786262, 0, 0.15455124, 0, 0.155, 0, -0.15455124, 0, -0.011786262, 3.8198576, 0.15617205, 4.8049016)
-Cortador = NodePath("../cortador")
-
-[node name="GnomoAzul" parent="." unique_id=1307325941 node_paths=PackedStringArray("Cortador", "ponto_destino") instance=ExtResource("8_6fna2")]
-transform = Transform3D(-0.15439284, 0, 0.013705848, 0, 0.155, 0, -0.013705848, 0, -0.15439284, 2.5471334, 0.18562722, 3.8380733)
-Cortador = NodePath("../cortador")
-ponto_destino = NodePath("../cortador/Node3D/Ponto_Inimigo")
-
-[node name="GnomoAzul2" parent="." unique_id=952316075 node_paths=PackedStringArray("Cortador", "ponto_destino") instance=ExtResource("8_6fna2")]
-transform = Transform3D(0.14600256, 0, -0.052040875, 0, 0.155, 0, 0.052040875, 0, 0.14600256, -5.2754536, 0.19682455, -3.4874606)
-Cortador = NodePath("../cortador")
-ponto_destino = NodePath("../cortador/Node3D/Ponto_Inimigo")
 
 [node name="GnomoVerde" parent="." unique_id=1805536575 node_paths=PackedStringArray("sistema_grama") instance=ExtResource("9_7pt1d")]
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, -1.131, -0.008, -2.9765334)
@@ -558,25 +534,25 @@ distancia_deteccao = 10.0
 aceleracao = 4.0
 
 [node name="CharacterBody3D2" parent="." unique_id=741872158 instance=ExtResource("25_qd40q")]
-transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, 2.6443527, 0.12175298, 1.901772)
+transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, 4.599684, 0.12175298, 1.901772)
 velocidade_fuga = 2.5
 distancia_deteccao = 10.0
 aceleracao = 4.0
 
 [node name="CharacterBody3D3" parent="." unique_id=1024543716 instance=ExtResource("25_qd40q")]
-transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, 2.8175375, 0.12175298, -2.17105)
+transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, 3.4496539, 0.12175298, -2.17105)
 velocidade_fuga = 2.5
 distancia_deteccao = 10.0
 aceleracao = 4.0
 
 [node name="CharacterBody3D4" parent="." unique_id=1750268253 instance=ExtResource("25_qd40q")]
-transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, -1.7816589, 0.1217525, -1.1964548)
+transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, -3.0578387, 0.1217525, -1.1964548)
 velocidade_fuga = 2.5
 distancia_deteccao = 10.0
 aceleracao = 4.0
 
 [node name="CharacterBody3D5" parent="." unique_id=1196490040 instance=ExtResource("25_qd40q")]
-transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, -1.4607341, 0.12175202, 1.5391955)
+transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, -2.5125496, 0.12175202, 1.5391955)
 velocidade_fuga = 2.5
 distancia_deteccao = 10.0
 aceleracao = 4.0
@@ -588,7 +564,7 @@ distancia_deteccao = 10.0
 aceleracao = 4.0
 
 [node name="CharacterBody3D7" parent="." unique_id=1647495982 instance=ExtResource("25_qd40q")]
-transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, 0.99541736, 0.12175202, -6.502184)
+transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, -1.1954818, 0.12175202, -6.502184)
 velocidade_fuga = 2.5
 distancia_deteccao = 10.0
 aceleracao = 4.0
@@ -641,6 +617,7 @@ transform = Transform3D(10, 0, 0, 0, 16.976496, 0, 0, 0, 11.537179, -0.50475097,
 visible = false
 mesh = ExtResource("32_bkf8r")
 skeleton = NodePath("../MultiMeshInstance3D")
+script = ExtResource("3_sqgjq")
 
 [node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=996835379]
 transform = Transform3D(1.1065513, 0, 0, 0, 1.232106, 0, 0, 0, 1.1182657, 0, 0, 0)
@@ -680,6 +657,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.276272, 0, -13.362936)
 position = Vector2(100.21094, 540.9294)
 scale = Vector2(0.21065919, 0.21065924)
 texture = ExtResource("34_bkf8r")
+
+[node name="Node3D6" parent="." unique_id=551412508 instance=ExtResource("9_7pt1d")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 5.297314, 0.09790528, 0)
+
+[node name="Node3D7" parent="." unique_id=1327152119 instance=ExtResource("9_7pt1d")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -3.795372, 0, 0)
 
 [connection signal="timeout" from="Timer" to="cortador" method="_on_timer_timeout"]
 
