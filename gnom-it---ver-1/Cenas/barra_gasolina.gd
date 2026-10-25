@@ -20,6 +20,13 @@ func _atualizar_valor(atual: float, maximo: float) -> void:
 	max_value = maximo
 	value = atual
 
+	print("========== BARRA ==========")
+	print("JOGADOR: ", jogador.get_path())
+	print("GASOLINA RECEBIDA: ", atual)
+	print("GASOLINA REAL DO JOGADOR: ", jogador.gasolina)
+	print("VALOR DA BARRA: ", value)
+	print("===========================")
+
 
 func _atualizar_cor(disponivel: bool) -> void:
 	modulate = cor_dash_pronto if disponivel else cor_dash_indisponivel

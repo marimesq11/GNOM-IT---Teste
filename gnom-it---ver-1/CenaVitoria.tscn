@@ -2,15 +2,16 @@
 
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="1_ys4tv"]
 [ext_resource type="Script" uid="uid://hb2vvohjp8kc" path="res://Cenas/pontos_label.gd" id="2_1oa15"]
-[ext_resource type="Script" uid="uid://dr10lw2bpy5s6" path="res://BotaoMenu.gd" id="3_f0f2m"]
+[ext_resource type="Script" uid="uid://x54vm7ybm7f5" path="res://BotaoIrparaOMenu.gd" id="3_okwc5"]
+[ext_resource type="Script" uid="uid://qcb6apaiudqr" path="res://Botao_TentarNovamente.gd" id="4_ccbbh"]
 
 [node name="Node2D" type="Node2D" unique_id=1904979765]
 
 [node name="Label" type="Label" parent="." unique_id=842337950]
-offset_left = 86.0
-offset_top = -46.0
-offset_right = 1113.0
-offset_bottom = 343.0
+offset_left = 77.0
+offset_top = -82.0
+offset_right = 1104.0
+offset_bottom = 307.0
 theme_override_fonts/font = ExtResource("1_ys4tv")
 theme_override_font_sizes/font_size = 80
 text = "Parabens! 
@@ -30,11 +31,21 @@ vertical_alignment = 1
 script = ExtResource("2_1oa15")
 
 [node name="Button" type="Button" parent="." unique_id=2005568903]
-offset_left = 342.0
-offset_top = 497.0
-offset_right = 797.0
-offset_bottom = 601.0
-theme_override_font_sizes/font_size = 50
+offset_left = 447.0
+offset_top = 463.0
+offset_right = 771.0
+offset_bottom = 528.0
+theme_override_font_sizes/font_size = 41
 text = "Menu"
-script = ExtResource("3_f0f2m")
+script = ExtResource("3_okwc5")
 cena_destino = "uid://bgg28mm36h0ob"
+
+[node name="Button2" type="Button" parent="." unique_id=28669233]
+offset_left = 379.0
+offset_top = 540.0
+offset_right = 834.0
+offset_bottom = 617.0
+theme_override_font_sizes/font_size = 40
+text = "Tentar novamente"
+script = ExtResource("4_ccbbh")
+cena_destino = "uid://6gs2bnf2gw7o"

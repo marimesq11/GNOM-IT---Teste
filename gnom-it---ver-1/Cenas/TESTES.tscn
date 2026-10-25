@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://d3ffwwes7oyvl" path="res://Texture/TextureGrama2XP4.png" id="5_skq4c"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="6_ir2pu"]
 [ext_resource type="Script" uid="uid://ch8jeydmhh7ma" path="res://Script/VroomVroom.gd" id="7_3mcl0"]
-[ext_resource type="Script" uid="uid://dw3wflx7loidx" path="res://Script/barra_vida.gd" id="10_8lgi8"]
 [ext_resource type="Script" uid="uid://b4u2m2wkpc22g" path="res://Cenas/barra_gasolina.gd" id="11_2a5hf"]
 [ext_resource type="PackedScene" uid="uid://cd0iw0jg20kn" path="res://Gasolina.tscn" id="12_mctnb"]
 [ext_resource type="PackedScene" uid="uid://e0pieu6lyakn" path="res://CenasCenarios/CarrinhodeMao.tscn" id="13_7mgab"]
@@ -92,11 +91,6 @@ buffer = PackedFloat32Array(4.840182, 0, -19.40651, 1.0926046, 7.704622e-07, 20.
 script = ExtResource("1_0outj")
 cena_game_over = "uid://cunoamskh72hk"
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=2043663800]
-stream = ExtResource("2_iegax")
-autoplay = true
-parameters/looping = true
-
 [node name="Chao" type="StaticBody3D" parent="." unique_id=1094404901]
 
 [node name="ChaoMesh" type="MeshInstance3D" parent="Chao" unique_id=331962387 node_paths=PackedStringArray("grama")]
@@ -172,17 +166,6 @@ camera_attributes = SubResource("CameraAttributesPractical_w4tno")
 compositor = SubResource("Compositor_yja4k")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2000164364]
-
-[node name="Vida" type="ProgressBar" parent="CanvasLayer" unique_id=983916011 node_paths=PackedStringArray("cortador")]
-offset_left = 162.0
-offset_top = 599.0
-offset_right = 412.00018
-offset_bottom = 626.0
-min_value = 100.0
-value = 100.0
-fill_mode = 1
-script = ExtResource("10_8lgi8")
-cortador = NodePath("../../cortador")
 
 [node name="Gasolina" type="ProgressBar" parent="CanvasLayer" unique_id=1555773346 node_paths=PackedStringArray("jogador")]
 modulate = Color(0, 0, 0, 1)
@@ -604,7 +587,7 @@ transform = Transform3D(0.18944545, 0, -0.4627207, 0, 0.5, 0, 0.4627207, 0, 0.18
 [node name="Node3D3" parent="." unique_id=642321627 instance=ExtResource("33_0yihv")]
 transform = Transform3D(0.41335383, 0, -0.2813159, 0, 0.5, 0, 0.2813159, 0, 0.41335383, -7.879712, 0.31315625, 9.809692)
 
-[node name="Spanw" type="Node3D" parent="." unique_id=1863625013 node_paths=PackedStringArray("marker_1", "marker_2", "marker_3")]
+[node name="Spanw" type="Node3D" parent="." unique_id=1863625013 node_paths=PackedStringArray("sistema_grama", "marker_1", "marker_2", "marker_3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.138, 0.15561026, 3.52)
 script = ExtResource("30_iegax")
 inimigo_1 = ExtResource("31_xqa8m")
@@ -615,6 +598,7 @@ max_inimigo_1 = 6
 max_inimigo_3 = 10
 max_inimigo_4 = 5
 intervalo_spawn = 2.0
+sistema_grama = NodePath("../Chao/ChaoMesh")
 marker_1 = NodePath("Marker3D")
 marker_2 = NodePath("Marker3D2")
 marker_3 = NodePath("Marker3D3")
@@ -690,7 +674,11 @@ Cortador = NodePath("../cortador")
 
 [node name="Node3D8" parent="." unique_id=551412508 node_paths=PackedStringArray("sistema_grama") instance=ExtResource("34_xqa8m")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -1.875818, 0, -4.302869)
-sistema_grama = NodePath("../PontosLabel/Grama")
+sistema_grama = NodePath("../Chao/ChaoMesh")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=920233300]
+stream = ExtResource("2_iegax")
+autoplay = true
 
 [connection signal="timeout" from="Timer" to="cortador" method="_on_timer_timeout"]
 

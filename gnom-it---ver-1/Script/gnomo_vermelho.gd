@@ -8,7 +8,7 @@ extends CharacterBody3D
 var gravidade: float = 9.8
 
 # DANO
-@export var dano: float = 5
+@export var dano: float = 3
 var sendo_atropelado: bool = false
 
 # VELOCIDADE
@@ -113,8 +113,7 @@ func atualizar_grupo():
 # ==========================================
 # PROCESSAMENTO FÍSICO
 # ==========================================
-
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	if not is_instance_valid(Cortador):
 		return
 
@@ -124,13 +123,13 @@ func _physics_process(delta):
 	else:
 		velocity.y = 0.0
 
-	if parado:
+	if parado or sendo_atropelado:
 		velocity.x = 0.0
 		velocity.z = 0.0
 		move_and_slide()
 		return
 
-	# ACELERAÇÃO PROGRESSIVA
+	# ACELERAÇÃO
 	var velocidade_maxima = velocidade_ataque if atacando else velocidade
 
 	velocidade_atual = move_toward(
@@ -139,27 +138,21 @@ func _physics_process(delta):
 		aceleracao * delta
 	)
 
-	# Distância horizontal até o cortador
-	var diferenca_cortador = Cortador.global_position - global_position
-	diferenca_cortador.y = 0.0
+	# DISTÂNCIA DO CORTADOR
+	var diferenca = Cortador.global_position - global_position
+	diferenca.y = 0.0
 
-	var distancia_quadrada = diferenca_cortador.length_squared()
+	var distancia_quadrada = diferenca.length_squared()
 
-	# Começa o ataque
+	# COMEÇAR ATAQUE
 	if distancia_quadrada <= distancia_cercar * distancia_cercar:
 		if not atacando:
 			atacando = true
 
-			# ======================================
-			# ANIMAÇÃO: GnomoAtacando
-			# Toca quando começa a atacar.
-			# ======================================
-
 			# $AnimationPlayer.play("GnomoAtacando")
-
-			# Para os sons de perseguição.
 			# _timer_som.stop()
 
+	# DESTINO
 	var destino: Vector3
 
 	if atacando:
@@ -169,113 +162,82 @@ func _physics_process(delta):
 		var offset = Vector3(cos(angulo), 0.0, sin(angulo)) * distancia_cercar
 		destino = Cortador.global_position + offset
 
-	# Direção
+	# MOVIMENTO
 	var direcao = destino - global_position
 	direcao.y = 0.0
 
-	var comprimento_quadrado = direcao.length_squared()
-
-	if comprimento_quadrado > 0.0001:
-		direcao /= sqrt(comprimento_quadrado)
+	if direcao.length_squared() > 0.0001:
+		direcao = direcao.normalized()
 
 		velocity.x = direcao.x * velocidade_atual
 		velocity.z = direcao.z * velocidade_atual
 
-		move_and_slide()
-
-		# Rotação
 		var angulo_desejado = atan2(direcao.x, direcao.z)
+
 		rotation.y = lerp_angle(
 			rotation.y,
 			angulo_desejado + PI / 2,
 			velocidade_rotacao * delta
 		)
+	else:
+		velocity.x = 0.0
+		velocity.z = 0.0
 
-		if not atacando:
-			# ======================================
-			# ANIMAÇÃO: GnomoAndando
-			# Toca enquanto persegue o jogador.
-			# Não reinicia a cada frame.
-			# ======================================
+	# MOVIMENTA UMA ÚNICA VEZ
+	move_and_slide()
 
-			# if $AnimationPlayer.current_animation != "GnomoAndando":
-			#     $AnimationPlayer.play("GnomoAndando")
+	# VERIFICA COLISÃO FÍSICA PARA ATAQUE
+	# Verifica se o gnomo chegou perto o suficiente para acertar
+	if atacando and not parado:
+		var distancia = global_position.distance_to(Cortador.global_position)
 
-			# ======================================
-			# AUDIO: GnomoSons
-			# Inicia sons aleatórios ao perseguir.
-			# ======================================
-
-			# if _timer_som.is_stopped():
-			#     _agendar_som_perseguicao()
-
-			pass
-
-		else:
-			velocity.x = 0.0
-			velocity.z = 0.0
-			move_and_slide()
-
-		# ======================================
-		# ANIMAÇÃO: PARAR GnomoAndando
-		# ======================================
-
-		# if not atacando:
-		#     $AnimationPlayer.stop()
-
-		# Cancela os sons se parar de andar.
-		# _timer_som.stop()
-
-		pass
-
-	# Verifica colisão durante o ataque
-	if atacando:
-		for i in get_slide_collision_count():
-			var colisao = get_slide_collision(i)
-
-			if colisao.get_collider() == Cortador:
-				ataque_acertou()
-				break
+		if distancia <= distancia_cercar:
+			ataque_acertou()
 
 
 # ==========================================
 # ATAQUE
 # ==========================================
 
-func ataque_acertou():
-	if sendo_atropelado:
+func ataque_acertou() -> void:
+	print("GNOMO ATACA O NÓ: ", Cortador.get_path())
+	print("GASOLINA ANTES: ", Cortador.gasolina)
+
+	Cortador.tomar_dano(dano)
+
+	print("GASOLINA DEPOIS: ", Cortador.gasolina)
+	if sendo_atropelado or parado:
 		return
 
 	atacando = false
 	parado = true
 
-	# ======================================
-	# ANIMAÇÃO: PARAR GnomoAtacando
-	# Para a animação ao acertar o jogador.
-	# ======================================
+	print("GNOMO ACERTOU O CORTADOR!")
 
 	# $AnimationPlayer.stop()
-
-	# Para os sons durante o recuo.
 	# _timer_som.stop()
 
-	Cortador.tomar_dano(dano)
+	if is_instance_valid(Cortador):
+		print("GASOLINA ANTES: ", Cortador.gasolina)
 
-	var direcao_recuo = global_position - Cortador.global_position
-	direcao_recuo.y = 0.0
+		Cortador.tomar_dano(dano)
 
-	if direcao_recuo.length_squared() > 0.0001:
-		direcao_recuo = direcao_recuo.normalized()
-		global_position += direcao_recuo * forca_recuo
+		print("DANO CAUSADO: ", dano)
+		print("GASOLINA DEPOIS: ", Cortador.gasolina)
+
+		var direcao_recuo = global_position - Cortador.global_position
+		direcao_recuo.y = 0.0
+
+		if direcao_recuo.length_squared() > 0.0001:
+			direcao_recuo = direcao_recuo.normalized()
+			global_position += direcao_recuo * forca_recuo
 
 	velocity = Vector3.ZERO
-
-	# Reinicia aceleração depois do ataque
 	velocidade_atual = velocidade_inicial
 
 	await get_tree().create_timer(tempo_parado).timeout
 
-	if is_inside_tree():
+	if is_inside_tree() and not sendo_atropelado:
 		parado = false
 
 
@@ -284,8 +246,15 @@ func ataque_acertou():
 # ==========================================
 
 func morrer_atropelado():
+	print("GNOMO MORREU POR ATROPELAMENTO!")
+	print_stack()
+
 	if sendo_atropelado:
 		return
+
+	print("GNOMO MORREU POR ATROPELAMENTO!")
+	print("POSIÇÃO DO GNOMO: ", global_position)
+
 	
 	GameManager.adicionar_pontos(50, global_position)
 	GameManager.registrar_gnomo()
