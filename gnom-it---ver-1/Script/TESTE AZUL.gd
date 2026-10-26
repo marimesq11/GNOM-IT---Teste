@@ -1,4 +1,3 @@
-
 extends CharacterBody3D
 
 const GRUPO_ATROPELAVEL := &"atropelavel"
@@ -20,7 +19,7 @@ const GRUPO_ATROPELAVEL := &"atropelavel"
 var impulso_empurrao: Vector3 = Vector3.ZERO
 
 # DANO
-@export var dano: float = 2.0
+@export var dano: float = 5
 @export var intervalo_dano: float = 1.0
 
 # ARREMESSO

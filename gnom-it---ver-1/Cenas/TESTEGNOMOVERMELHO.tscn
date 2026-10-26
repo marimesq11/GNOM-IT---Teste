@@ -222,11 +222,11 @@ shadow_mesh = SubResource("ArrayMesh_v25an")
 [sub_resource type="SphereShape3D" id="SphereShape3D_r1xqv"]
 radius = 1.9577835
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1619792841 groups=["atropelavel", "inimigos"]]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1619792841 groups=["atropelavel"]]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 script = ExtResource("1_r1xqv")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1330910761 groups=["inimigos"]]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1330910761]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11598122, 0.6290053, 0)
 shape = SubResource("BoxShape3D_f55u6")
 
@@ -263,10 +263,10 @@ skeleton = NodePath("")
 [node name="Morreu" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=748221151]
 stream = ExtResource("2_t2hdc")
 
-[node name="Area3D" type="Area3D" parent="." unique_id=653462817 groups=["atropelavel", "inimigos"]]
+[node name="Area3D" type="Area3D" parent="." unique_id=653462817 groups=["AreaGnomo", "atropelavel", "inimigos"]]
 collision_layer = 8
 collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1895892771 groups=["atropelavel", "inimigos"]]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1895892771 groups=["AreaGnomo", "atropelavel", "inimigos"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13581872, 0.51525664, 0)
 shape = SubResource("SphereShape3D_r1xqv")

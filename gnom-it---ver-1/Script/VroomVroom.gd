@@ -3,10 +3,11 @@ var gnomo_em_cima: CharacterBody3D = null
 
 signal gasolina_alterada(atual, maximo)
 signal dash_disponivel_alterado(disponivel: bool)
-signal vida_alterada(vida_atual, vida_max)
 signal morreu
 signal driftou(direcao: Vector3)
 signal boost_drift
+
+var esta_morto: bool = false
 
 # StringName evita converter String -> StringName a cada frame
 const ACAO_ESQUERDA := &"Andar_Esquerda"
@@ -45,9 +46,6 @@ const LIMIAR_EMISSAO_GASOLINA := 0.2
 @export_group("Gasolina")
 @export var gasolina_maxima: float = 100.0
 @export var consumo_gasolina: float = 1
-
-@export_group("Vida")
-@export var vida_maxima: float = 100.0
 
 @export_group("Movement")
 @export var move_speed: float = 4.0
@@ -144,7 +142,6 @@ var dando_re: bool = false
 @export var impulso_boost_drift: float = 2.0
 
 var gasolina: float
-var vida: float
 
 var _gasolina_emitida: float
 var _dash_disponivel_antes := true
@@ -189,7 +186,6 @@ func _ready() -> void:
 	gasolina = gasolina_maxima
 	_gasolina_emitida = gasolina
 	gasolina_alterada.emit(gasolina, gasolina_maxima)
-	vida = vida_maxima
 	_partes.assign([_model, collision_corpo, collision_tampa, area_atropelamento])
 	for parte in _partes:
 		_transforms_originais.append(parte.transform)
@@ -199,7 +195,6 @@ func _ready() -> void:
 
 	_fov_base = _camera.fov
 	_heading = rotation.y
-	vida_alterada.emit(vida, vida_maxima)
 	area_atropelamento.body_entered.connect(_matar_se_atropelavel)
 
 	# CÂMERA: substitui o SpringArm3D por um raycast próprio, que não depende da escala dos nós.
@@ -635,42 +630,71 @@ func verificar_colisao_quebravel_grande() -> void:
 		elif objeto.is_in_group(GRUPO_ATROPELAVEL):
 			_matar_se_atropelavel(objeto)
 
-# ---------------------------------------------------------
-# VIDA
-# ---------------------------------------------------------
+# =========================================================
+# DANO NA GASOLINA
+# =========================================================
 
 func tomar_dano(dano: float) -> void:
-	if vida <= 0.0:
+	if gasolina <= 0.0 or esta_morto:
 		return
 
-	vida = clampf(vida - dano, 0.0, vida_maxima)
-	vida_alterada.emit(vida, vida_maxima)
+	print("========== DANO RECEBIDO ==========")
+	print("GASOLINA ANTES: ", gasolina)
+	print("DANO: ", dano)
 
-	if vida <= 0.0:
+	gasolina = clampf(gasolina - maxf(dano, 0.0), 0.0, gasolina_maxima)
+
+	print("GASOLINA DEPOIS: ", gasolina)
+	print("===================================")
+
+	_emitir_gasolina()
+
+	if gasolina <= 0.0:
 		morrer()
 
 
+# =========================================================
+# MORTE
+# =========================================================
+
 func morrer() -> void:
-	# SOM MORTE: tocar ao morrer (o áudio precisa continuar ativo após hide()).
+	if gasolina > 0.0 or esta_morto:
+		return
+
+	esta_morto = true
+
+	print("========== MORTE ==========")
+	print("MOTIVO: GASOLINA ESGOTADA")
+	print("GASOLINA: ", gasolina)
+	print("===========================")
+
+	# SOM MORTE
 	# som_motor.stop()
 	# som_morte.play()
-	# PARTÍCULAS MORTE: emitir antes de esconder o personagem.
+
+	# PARTÍCULAS MORTE
 	# particulas_morte.global_position = global_position
 	# particulas_morte.restart()
 	# particulas_morte.emitting = true
 	# particula_grama.emitting = false
+
 	morreu.emit()
+
 	hide()
+
 	set_physics_process(false)
 	set_process(false)
+
 	collision_corpo.set_deferred("disabled", true)
 	collision_tampa.set_deferred("disabled", true)
+
 	area_atropelamento.set_deferred("monitoring", false)
 	area_atropelamento.set_deferred("monitorable", false)
-	get_tree().call_deferred(
-	"change_scene_to_file",
-	"res://CenaGameOver.tscn")
 
+	get_tree().call_deferred(
+		"change_scene_to_file",
+		"res://CenaGameOver.tscn"
+	)
 
 
 # ---------------------------------------------------------
@@ -687,17 +711,24 @@ func _dash_disponivel() -> bool:
 
 
 func _atualizar_gasolina(tem_input: bool, delta: float) -> void:
+	if esta_morto:
+		return
+
 	if tem_input:
-		var consumo := consumo_gasolina * (multiplicador_consumo_dash if em_dash else 1.0)
+		var consumo := consumo_gasolina * (
+			multiplicador_consumo_dash if em_dash else 1.0
+		)
+
 		gasolina = maxf(gasolina - consumo * delta, 0.0)
+
 		_emitir_gasolina()
 
-		# DERROTA POR FALTA DE GASOLINA
 		if gasolina <= 0.0:
 			morrer()
 			return
 
 	var disponivel := _dash_disponivel()
+
 	if disponivel != _dash_disponivel_antes:
 		_dash_disponivel_antes = disponivel
 		dash_disponivel_alterado.emit(disponivel)

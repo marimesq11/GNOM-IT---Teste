@@ -1,15 +1,12 @@
 extends CharacterBody3D
 
-
 # =========================================================
 # SISTEMA DE GRAMA
 # =========================================================
 
-# MeshInstance3D que possui o script da máscara/corte.
-@export var sistema_grama: MeshInstance3D
+@export var sistema_grama: SistemaGrama
 
 var sendo_atropelado: bool = false
-
 
 # =========================================================
 # MOVIMENTO
@@ -18,20 +15,13 @@ var sendo_atropelado: bool = false
 @export var velocidade: float = 3.5
 @export var distancia_chegada: float = 0.2
 
-
 # =========================================================
 # RESTAURAÇÃO
 # =========================================================
 
-# Raio em METROS que o inimigo restaura.
 @export var raio_restauracao: float = 1.5
-
-# Velocidade do crescimento.
-@export var velocidade_restauracao: float = 0.2
-
-# Intervalo entre restaurações.
+@export var velocidade_restauracao: float = 0.5
 @export var intervalo_restauracao: float = 0.05
-
 
 # =========================================================
 # PROCURA
@@ -39,7 +29,6 @@ var sendo_atropelado: bool = false
 
 @export var passo_busca: int = 32
 @export var intervalo_busca: float = 0.3
-
 
 # =========================================================
 # SONS ALEATÓRIOS
@@ -53,7 +42,6 @@ var sendo_atropelado: bool = false
 
 var _timer_som: Timer
 
-
 # =========================================================
 # VARIÁVEIS
 # =========================================================
@@ -65,19 +53,15 @@ var alvo_pixel: Vector2i = Vector2i.ZERO
 var tempo_busca: float = 0.0
 var tempo_restauracao: float = 0.0
 
-
 # =========================================================
 # INICIALIZAÇÃO
 # =========================================================
 
 func _ready() -> void:
-
-	# Timer para sons aleatórios enquanto anda.
 	_timer_som = Timer.new()
 	_timer_som.one_shot = true
 	_timer_som.timeout.connect(_tocar_som_andando)
 	add_child(_timer_som)
-
 
 # =========================================================
 # SOM ALEATÓRIO ENQUANTO ANDA
@@ -105,21 +89,14 @@ func _tocar_som_andando() -> void:
 	if Vector2(velocity.x, velocity.z).length_squared() < 0.01:
 		return
 
-	# =====================================================
 	# AUDIO: GnomoSons
-	# Toca aleatoriamente enquanto anda.
-	# Pitch varia para não repetir sempre o mesmo som.
-	# =====================================================
-
 	# $GnomoSons.pitch_scale = randf_range(
 	#     pitch_som_min,
 	#     pitch_som_max
 	# )
 	# $GnomoSons.play()
 
-	# Agenda o próximo som.
 	# _agendar_som_andando()
-
 
 # =========================================================
 # PROCESSO PRINCIPAL
@@ -129,21 +106,21 @@ func _physics_process(delta: float) -> void:
 	if sendo_atropelado:
 		return
 
-	if sistema_grama == null or sistema_grama.mascara == null:
+	# Verifica se a grama existe e está inicializada.
+	if not is_instance_valid(sistema_grama):
+		return
+
+	if sistema_grama.mascara == null:
 		return
 
 	if not possui_alvo:
 		velocity.x = 0.0
 		velocity.z = 0.0
 
-		# =================================================
 		# ANIMAÇÃO: PARAR
-		# Para a animação quando não tem alvo.
-		# =================================================
-
 		# $AnimationPlayer.stop()
 
-		# Para os sons enquanto não anda.
+		# AUDIO: PARAR
 		# _timer_som.stop()
 
 		tempo_busca += delta
@@ -155,25 +132,17 @@ func _physics_process(delta: float) -> void:
 	if possui_alvo:
 		var dx = alvo_mundo.x - global_position.x
 		var dz = alvo_mundo.z - global_position.z
+
 		var distancia_quadrada = dx * dx + dz * dz
 
 		if distancia_quadrada > distancia_chegada * distancia_chegada:
-
 			mover_para_alvo(dx, dz)
 
-			# ==============================================
 			# ANIMAÇÃO: GnomoAndando
-			# Toca enquanto anda até a grama cortada.
-			# ==============================================
-
 			# if $AnimationPlayer.current_animation != "GnomoAndando":
 			#     $AnimationPlayer.play("GnomoAndando")
 
-			# ==============================================
 			# AUDIO: GnomoSons
-			# Inicia sons aleatórios enquanto anda.
-			# ==============================================
-
 			# if _timer_som.is_stopped():
 			#     _agendar_som_andando()
 
@@ -181,19 +150,11 @@ func _physics_process(delta: float) -> void:
 			velocity.x = 0.0
 			velocity.z = 0.0
 
-			# ==============================================
 			# ANIMAÇÃO: GnomoRestaurando
-			# Toca enquanto restaura a grama.
-			# ==============================================
-
 			# if $AnimationPlayer.current_animation != "GnomoRestaurando":
 			#     $AnimationPlayer.play("GnomoRestaurando")
 
-			# ==============================================
 			# AUDIO: PARAR GnomoSons
-			# Para os sons enquanto restaura a grama.
-			# ==============================================
-
 			# _timer_som.stop()
 
 			tempo_restauracao += delta
@@ -204,7 +165,6 @@ func _physics_process(delta: float) -> void:
 				restaurar_grama(tempo_passado)
 
 	move_and_slide()
-
 
 # =========================================================
 # PROCURAR GRAMA CORTADA
@@ -218,10 +178,8 @@ func procurar_grama_cortada() -> void:
 	var melhor_pixel = Vector2i.ZERO
 	var encontrou = false
 
-	# Procura pixels cortados pulando conforme passo_busca.
-	for y in range(0, tamanho_mascara, passo_busca):
-		for x in range(0, tamanho_mascara, passo_busca):
-
+	for y in range(0, tamanho_mascara, maxi(passo_busca, 1)):
+		for x in range(0, tamanho_mascara, maxi(passo_busca, 1)):
 			var valor = mascara.get_pixel(x, y).r
 
 			if valor < 0.95:
@@ -250,7 +208,6 @@ func procurar_grama_cortada() -> void:
 	else:
 		possui_alvo = false
 
-
 # =========================================================
 # MOVIMENTO
 # =========================================================
@@ -276,7 +233,6 @@ func mover_para_alvo(dx: float, dz: float) -> void:
 		Vector3.UP
 	)
 
-
 # =========================================================
 # RESTAURAR GRAMA
 # =========================================================
@@ -286,12 +242,10 @@ func restaurar_grama(tempo_passado: float) -> void:
 	var tamanho_mascara: int = sistema_grama.TAMANHO_MASCARA
 	var tamanho_terreno: Vector2 = sistema_grama.tamanho_terreno
 
-	# Usa a conversão do sistema de grama.
 	var posicao_mascara: Vector2 = sistema_grama.mundo_para_mascara(
 		global_position
 	)
 
-	# Conversão independente para terreno retangular.
 	var pixels_por_metro_x = float(tamanho_mascara) / tamanho_terreno.x
 	var pixels_por_metro_y = float(tamanho_mascara) / tamanho_terreno.y
 
@@ -304,25 +258,11 @@ func restaurar_grama(tempo_passado: float) -> void:
 	var centro_x = int(posicao_mascara.x)
 	var centro_y = int(posicao_mascara.y)
 
-	var inicio_x = max(
-		centro_x - int(ceil(raio_pixels_x)),
-		0
-	)
+	var inicio_x = max(centro_x - int(ceil(raio_pixels_x)), 0)
+	var fim_x = min(centro_x + int(ceil(raio_pixels_x)), tamanho_mascara - 1)
 
-	var fim_x = min(
-		centro_x + int(ceil(raio_pixels_x)),
-		tamanho_mascara - 1
-	)
-
-	var inicio_y = max(
-		centro_y - int(ceil(raio_pixels_y)),
-		0
-	)
-
-	var fim_y = min(
-		centro_y + int(ceil(raio_pixels_y)),
-		tamanho_mascara - 1
-	)
+	var inicio_y = max(centro_y - int(ceil(raio_pixels_y)), 0)
+	var fim_y = min(centro_y + int(ceil(raio_pixels_y)), tamanho_mascara - 1)
 
 	var crescimento = velocidade_restauracao * tempo_passado
 	var alterou_mascara = false
@@ -361,9 +301,11 @@ func restaurar_grama(tempo_passado: float) -> void:
 
 					alterou_mascara = true
 
-	# Atualiza a textura somente se houve alteração.
 	if alterou_mascara:
 		sistema_grama.textura_mascara.update(mascara)
+
+		# Atualiza a quantidade real de grama cortada.
+		sistema_grama.atualizar_pixels_cortados()
 
 	# Verifica se o alvo foi restaurado.
 	var valor_alvo = mascara.get_pixel(
@@ -380,7 +322,6 @@ func restaurar_grama(tempo_passado: float) -> void:
 		tempo_restauracao = 0.0
 		tempo_busca = intervalo_busca
 
-
 # =========================================================
 # MORTE POR ATROPELAMENTO
 # =========================================================
@@ -391,40 +332,25 @@ func morrer_atropelado() -> void:
 
 	GameManager.adicionar_pontos(50, global_position)
 	GameManager.registrar_gnomo()
-	
+
 	sendo_atropelado = true
 	possui_alvo = false
 	velocity = Vector3.ZERO
 
-	# =====================================================
 	# ANIMAÇÃO: PARAR
-	# Para GnomoAndando ou GnomoRestaurando.
-	# =====================================================
-
 	# $AnimationPlayer.stop()
 
-	# =====================================================
 	# AUDIO: PARAR GnomoSons
-	# =====================================================
-
 	# _timer_som.stop()
 	# $GnomoSons.stop()
 
-	# =====================================================
 	# AUDIO: GnomoMorte
-	# Toca quando o gnomo morre.
-	# =====================================================
-
 	# $GnomoMorte.play()
 
-	# =====================================================
-	# PARTICULA: GnomoMorte
-	# Emite partículas quando o gnomo morre.
-	# =====================================================
-
+	# PARTÍCULA: GnomoMorte
 	# $ParticulaGnomoMorte.emitting = true
 
-	# Som original mantido.
+	# Som original.
 	$AudioStreamPlayer/Morreu.play()
 
 	set_physics_process(false)
