@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://badbwwfcwa7yx"]
+
+[sub_resource type="Curve" id="Curve_5a724"]
+_data = [Vector2(0, 0.6024417), 0.0, 0.33612558, 0, 0, Vector2(0.99486625, 0.11713076), -2.0637736, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7t83b"]
+curve = SubResource("Curve_5a724")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bv7jr"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 0.275, 0.175)
+angle_min = -449.1
+angle_max = 410.50003
+gravity = Vector3(0, 3, 0)
+tangential_accel_min = -1.4500022
+tangential_accel_max = -2.2351742e-06
+scale_curve = SubResource("CurveTexture_7t83b")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gkvm"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.36078432)
+
+[sub_resource type="SphereMesh" id="SphereMesh_0ct6o"]
+material = SubResource("StandardMaterial3D_2gkvm")
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_s70rq"]
+
+[sub_resource type="Curve" id="Curve_y7vdc"]
+_data = [Vector2(0, 0.30026698), 0.0, 0.0, 0, 0, Vector2(0.5279654, 0.4193055), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.319227, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_5a724"]
+curve = SubResource("Curve_y7vdc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7t83b"]
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, -10.41, 0)
+linear_accel_min = -7.940002
+linear_accel_max = 9.819998
+scale_curve = SubResource("CurveTexture_5a724")
+color_ramp = SubResource("GradientTexture1D_s70rq")
+
+[sub_resource type="Curve" id="Curve_2gkvm"]
+_data = [Vector2(0, 0.23616934), 0.0, 1.0669293, 0, 0, Vector2(0.99062985, 0), -1.92513, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dn4h7"]
+albedo_color = Color(1, 1, 0.41960785, 1)
+emission_enabled = true
+emission = Color(0.82217187, 0.6960144, 3.85046e-07, 1)
+emission_energy_multiplier = 4.48
+use_particle_trails = true
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_2yfry"]
+material = SubResource("StandardMaterial3D_dn4h7")
+curve = SubResource("Curve_2gkvm")
+
+[sub_resource type="Environment" id="Environment_7t83b"]
+
+[node name="Node3D" type="Node3D" unique_id=365302979]
+
+[node name="fumassa carrinho" type="GPUParticles3D" parent="." unique_id=2034678506]
+visible = false
+amount = 4
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_bv7jr")
+draw_pass_1 = SubResource("SphereMesh_0ct6o")
+
+[node name="faísca" type="GPUParticles3D" parent="." unique_id=1245515933]
+visible = false
+lifetime = 0.35000000000000003
+trail_enabled = true
+trail_lifetime = 0.22
+process_material = SubResource("ParticleProcessMaterial_7t83b")
+draw_passes = 2
+draw_pass_1 = SubResource("TubeTrailMesh_2yfry")
+draw_pass_2 = null
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1476032745]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1532324473]
+environment = SubResource("Environment_7t83b")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1362147149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.3450794)
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="." unique_id=883175256]

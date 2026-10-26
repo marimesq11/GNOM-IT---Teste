@@ -154,11 +154,20 @@ shadow_mesh = SubResource("ArrayMesh_rw8x1")
 [sub_resource type="SphereShape3D" id="SphereShape3D_757jh"]
 radius = 1.0
 
+[sub_resource type="Curve" id="Curve_coagh"]
+_data = [Vector2(0.3204539, 0.94124377), 0.0, 0.0, 0, 0, Vector2(0.9170494, 0.034719467), -5.2952094, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_757jh"]
+curve = SubResource("Curve_coagh")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_757jh"]
 lifetime_randomness = 0.2
 emission_shape = 1
 emission_sphere_radius = 1.0
-gravity = Vector3(0, 0, 0)
+gravity = Vector3(0, 1.755, 0)
+scale_max = 5.0
+alpha_curve = SubResource("CurveTexture_757jh")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coagh"]
 albedo_color = Color(3.014, 3.014, 3.014, 1)
@@ -236,9 +245,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6821051, 0, -2.3237724)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.656692, 0, -2.3794098)
 
 [node name="ParticulaDash" type="GPUParticles3D" parent="." unique_id=1688514529]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.4353852)
-emitting = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.0526595)
 amount = 20
+lifetime = 0.43
+speed_scale = 0.89
+trail_enabled = true
+trail_lifetime = 0.08
 process_material = SubResource("ParticleProcessMaterial_757jh")
 draw_pass_1 = SubResource("SphereMesh_na02i")
 
