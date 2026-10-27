@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://badbwwfcwa7yx"]
 
+[ext_resource type="PackedScene" uid="uid://cooqw8eacdht5" path="res://gnomo azul finalizado.fbx" id="1_2gkvm"]
+
 [sub_resource type="Curve" id="Curve_5a724"]
 _data = [Vector2(0, 0.6024417), 0.0, 0.33612558, 0, 0, Vector2(0.99486625, 0.11713076), -2.0637736, 0.0, 0, 0]
 point_count = 2
@@ -87,3 +89,6 @@ environment = SubResource("Environment_7t83b")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.3450794)
 
 [node name="GPUParticles3D2" type="GPUParticles3D" parent="." unique_id=883175256]
+
+[node name="gnomo azul finalizado" parent="." unique_id=751310393 instance=ExtResource("1_2gkvm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4213369, 0, 1.3528304)
