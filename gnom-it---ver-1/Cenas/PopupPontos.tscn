@@ -1,10 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://blmlbk64gk2mt"]
+[gd_scene format=3 uid="uid://blmlbk64gk2mt"]
 
 [ext_resource type="Script" uid="uid://dsnqg6ao0gbob" path="res://Cenas/popup_pontos.gd" id="1_nqc0u"]
 
-[node name="Label3D" type="Label3D"]
+[node name="Label3D" type="Label3D" unique_id=1290967973]
 billboard = 1
-modulate = Color(1, 0, 0, 1)
-text = "+10"
-font_size = 50
+modulate = Color(0.96862745, 0.92941177, 0, 1)
+text = "+"
+font_size = 55
+outline_size = 15
 script = ExtResource("1_nqc0u")

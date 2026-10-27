@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lmvwta6sqqny"
+uid="uid://dm17ne52edapx"
 path.s3tc="res://.godot/imported/gnomo verde_0.png-bad437d2565ec1b08529a53eac060c7f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "4446e3e4ef2b654383f27dbf59274989"
 }
 
 [deps]

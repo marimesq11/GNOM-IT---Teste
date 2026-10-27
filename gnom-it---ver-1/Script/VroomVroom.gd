@@ -296,7 +296,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	verificar_colisao_quebravel()
-	verificar_colisao_quebravel_grande()
 	if not dando_re:
 		_atualizar_rotacao(dir, tem_input, delta)
 	_atualizar_colisao_camera()
@@ -609,26 +608,6 @@ func verificar_colisao_quebravel() -> void:
 		if objeto.is_in_group(GRUPO_QUEBRAVEL):
 			Quebravel.quebrar(objeto)
 
-
-func verificar_colisao_quebravel_grande() -> void:
-	for i in range(get_slide_collision_count()):
-		var objeto := get_slide_collision(i).get_collider() as Node3D
-
-		if objeto == null:
-			continue
-
-		# OBJETOS QUEBRÁVEIS
-		if objeto.is_in_group(GRUPO_QUEBRAVEL):
-			if em_dash:
-				Quebravel.quebrar(objeto)
-				GameManager.adicionar_pontos(
-					50,
-					objeto.global_position + Vector3.UP
-				)
-
-		# GNOMOS
-		elif objeto.is_in_group(GRUPO_ATROPELAVEL):
-			_matar_se_atropelavel(objeto)
 
 # =========================================================
 # DANO NA GASOLINA

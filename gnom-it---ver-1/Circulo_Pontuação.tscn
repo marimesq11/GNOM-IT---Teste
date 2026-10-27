@@ -4,7 +4,7 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnjtg"]
 transparency = 1
-albedo_color = Color(0, 1.1539063, 1.5790963, 0.41568628)
+albedo_color = Color(2.2700198, 1.5008469, 0, 0.64705884)
 
 [sub_resource type="TorusMesh" id="TorusMesh_6i8uc"]
 material = SubResource("StandardMaterial3D_lnjtg")
