@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://paq1n0b17sbd"]
+
+[ext_resource type="Script" uid="uid://ccu5pb8gfu67l" path="res://Cenas/popup_tempo.gd" id="1_d5ova"]
+
+[node name="Label3D" type="Label" unique_id=1802213637]
+modulate = Color(0.96862745, 0.92941177, 0, 1)
+text = "+"
+script = ExtResource("1_d5ova")

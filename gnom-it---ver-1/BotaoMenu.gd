@@ -1,5 +1,4 @@
-
-extends Button
+extends TextureButton
 
 @export_file("*.tscn") var cena_destino: String
 

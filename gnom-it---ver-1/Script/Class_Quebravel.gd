@@ -1,11 +1,23 @@
 class_name Quebravel
 extends Node
 
-const POPUP = preload("res://Cenas/PopupPontos.tscn")
+const POPUP_PONTOS = preload("res://Cenas/PopupPontos.tscn")
+const POPUP_TEMPO = preload("res://Cenas/PopupTempo.tscn")
+
+# ========================================
+# CONFIGURAÇÕES
+# ========================================
 
 const TEMPO_BONUS := 3
-const PONTOS_BONUS := 50
 
+const PONTOS_ARBUSTO := 10
+const PONTOS_CAIXA := 20
+const PONTOS_FLOR := 5
+
+
+# ========================================
+# QUEBRAR OBJETO
+# ========================================
 
 static func quebrar(objeto: Node) -> void:
 	if objeto == null:
@@ -15,64 +27,62 @@ static func quebrar(objeto: Node) -> void:
 		return
 
 	var cena = objeto.get_tree().current_scene
+	if cena == null:
+		return
+
+	var pontos := 0
 
 	# ========================================
-	# PARTÍCULAS E SONS POR TIPO DE OBJETO
+	# ARBUSTO
 	# ========================================
 
-	# MADEIRA
-	if objeto.is_in_group("madeira"):
-
-		emitir_particula(objeto, cena, "ParticulaMorteMadeira")
-
-		# TOCAR SOM: MadeiraQuebrando
-		# var som = objeto.find_child("MadeiraQuebrando", true, false)
-		# if som:
-		#     tocar_som(som, cena)
-
-
-	# PLANTA
 	if objeto.is_in_group("planta"):
+		pontos = PONTOS_ARBUSTO
 
-		emitir_particula(objeto, cena, "ParticulaMortePlanta")
-
-		# TOCAR SOM: PlantaAtropelada
-		# var som = objeto.find_child("PlantaAtropelada", true, false)
-		# if som:
-		#     tocar_som(som, cena)
-
-
-	# MADEIRA GRANDE
-	if objeto.is_in_group("grande") and objeto.is_in_group("madeira"):
-
-		emitir_particula(objeto, cena, "ParticulaMadeiraPequena")
-
-		# TOCAR SOM: ObjetoGrandeMadeira
-		# var som = objeto.find_child("ObjetoGrandeMadeira", true, false)
-		# if som:
-		#     tocar_som(som, cena)
-
+		# emitir_particula(objeto, cena, "ParticulaArbusto")
+		# tocar_som(objeto, cena, "SomArbusto")
 
 	# ========================================
-	# PARTÍCULA ORIGINAL
+	# CAIXA
 	# ========================================
 
-	emitir_particula(objeto, cena, "Quebrou")
+	elif objeto.is_in_group("madeira"):
+		pontos = PONTOS_CAIXA
 
+		# emitir_particula(objeto, cena, "ParticulaCaixa")
+		# tocar_som(objeto, cena, "SomCaixa")
 
 	# ========================================
-	# POPUP +3s
+	# FLOR
 	# ========================================
 
-	var popup = POPUP.instantiate()
-	cena.add_child(popup)
+	elif objeto.is_in_group("flor"):
+		pontos = PONTOS_FLOR
 
-	popup.global_position = objeto.global_position
-	popup.modulate = Color.WHITE
-	popup.outline_modulate = Color.BLACK
-	popup.outline_size = 12
-	popup.aparecer("+%ds" % TEMPO_BONUS)
+		# emitir_particula(objeto, cena, "ParticulaFlor")
+		# tocar_som(objeto, cena, "SomFlor")
 
+	else:
+		return
+
+	# ========================================
+	# ADICIONAR PONTOS
+	# ========================================
+
+	GameManager.pontos += pontos
+
+	# ========================================
+	# POPUP DE PONTOS (3D)
+	# ========================================
+
+	var popup_pontos = POPUP_PONTOS.instantiate()
+	cena.add_child(popup_pontos)
+
+	popup_pontos.global_position = objeto.global_position
+	popup_pontos.modulate = Color.WHITE
+	popup_pontos.outline_modulate = Color.BLACK
+	popup_pontos.outline_size = 12
+	popup_pontos.aparecer("+%d" % pontos)
 
 	# ========================================
 	# ADICIONAR TEMPO
@@ -83,10 +93,28 @@ static func quebrar(objeto: Node) -> void:
 	if fase:
 		fase.adicionar_tempo(TEMPO_BONUS)
 
+	# ========================================
+	# POPUP DE TEMPO (2D)
+	# ========================================
+
+	var marker = cena.find_child("PopUpTempo", true, false)
+
+	if marker is Marker2D:
+		var popup_tempo = POPUP_TEMPO.instantiate()
+
+		# Adiciona na mesma camada do marcador
+		marker.add_child(popup_tempo)
+
+		# Centraliza no marcador
+		popup_tempo.position = Vector2.ZERO
+
+		# Exibe o tempo
+		popup_tempo.aparecer("+%ds" % TEMPO_BONUS)
 
 	# ========================================
 	# DESTRUIR OBJETO
 	# ========================================
+
 	GameManager.registrar_objeto()
 	objeto.queue_free()
 
@@ -95,32 +123,32 @@ static func quebrar(objeto: Node) -> void:
 # FUNÇÃO PARA EMITIR PARTÍCULAS
 # ========================================
 
-static func emitir_particula(
-	objeto: Node,
-	cena: Node,
-	nome: String
-) -> void:
-
-	var particula = objeto.find_child(nome, true, false)
-
-	if particula == null:
-		return
-
-	if not particula is GPUParticles3D:
-		return
-
-	var pos = particula.global_transform
-
-	particula.reparent(cena)
-	particula.global_transform = pos
-
-	particula.one_shot = true
-	particula.restart()
-	particula.emitting = true
-
-	particula.get_tree().create_timer(
-		particula.lifetime + 0.5
-	).timeout.connect(particula.queue_free)
+# static func emitir_particula(
+# 	objeto: Node,
+# 	cena: Node,
+# 	nome: String
+# ) -> void:
+#
+# 	var particula = objeto.find_child(nome, true, false)
+#
+# 	if particula == null:
+# 		return
+#
+# 	if not particula is GPUParticles3D:
+# 		return
+#
+# 	var pos = particula.global_transform
+#
+# 	particula.reparent(cena)
+# 	particula.global_transform = pos
+#
+# 	particula.one_shot = true
+# 	particula.restart()
+# 	particula.emitting = true
+#
+# 	particula.get_tree().create_timer(
+# 		particula.lifetime + 0.5
+# 	).timeout.connect(particula.queue_free)
 
 
 # ========================================
@@ -128,15 +156,23 @@ static func emitir_particula(
 # ========================================
 
 # static func tocar_som(
-#     som: AudioStreamPlayer3D,
-#     cena: Node
+# 	objeto: Node,
+# 	cena: Node,
+# 	nome: String
 # ) -> void:
 #
-#     var pos = som.global_transform
+# 	var som = objeto.find_child(nome, true, false)
 #
-#     som.reparent(cena)
-#     som.global_transform = pos
+# 	if som == null:
+# 		return
 #
-#     som.play()
+# 	if not som is AudioStreamPlayer3D:
+# 		return
 #
-#     som.finished.connect(som.queue_free)
+# 	var pos = som.global_transform
+#
+# 	som.reparent(cena)
+# 	som.global_transform = pos
+#
+# 	som.play()
+# 	som.finished.connect(som.queue_free)

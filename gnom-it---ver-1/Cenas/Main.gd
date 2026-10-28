@@ -9,7 +9,7 @@ var morto: bool = false
 @export_group("Alerta do timer")
 @export var limite_alerta: float = 15.0       # começa a alertar nos últimos 10s
 @export var intensidade_tremor: float = 4.0   # em pixels
-@export var cor_normal: Color = Color.WHITE
+@export var cor_normal: Color = Color.ORANGE
 @export var cor_alerta: Color = Color.RED
 
 @onready var timer: Timer = $Timer
