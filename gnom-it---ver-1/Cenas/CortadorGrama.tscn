@@ -179,7 +179,7 @@ height = 0.04
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1317807494 groups=["player"]]
 collision_layer = 2
-collision_mask = 7
+collision_mask = 135
 script = ExtResource("2_757jh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1636614886]
@@ -201,7 +201,7 @@ shape = SubResource("BoxShape3D_757jh")
 [node name="Node3D" type="Node3D" parent="." unique_id=1042802644]
 
 [node name="Pivot" type="Marker3D" parent="Node3D" unique_id=1040135284]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0016623735, 1.1334045, -1.2633098)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8352765, 0.3730383, -1.0549375)
 
 [node name="Cylinder2" type="MeshInstance3D" parent="Node3D" unique_id=532416502]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
@@ -221,7 +221,7 @@ skeleton = NodePath("")
 
 [node name="Ponto_Inimigo" type="Marker3D" parent="Node3D" unique_id=575713915]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50987947, 1.5104814, -0.7568062)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.809481, 1.5104814, -0.5940621)
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1415393391]
 unique_name_in_owner = true

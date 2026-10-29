@@ -16,7 +16,6 @@ var sendo_atropelado: bool = false
 @export var velocidade_ataque: float = 3.0
 @export var velocidade_inicial: float = 0.5
 @export var aceleracao: float = 1.5
-
 var velocidade_atual: float = 0.0
 var velocidade_rotacao = 2.0
 
@@ -56,7 +55,6 @@ func _ready():
 	velocidade_atual = velocidade_inicial
 	atualizar_grupo()
 
-	# Timer para sons aleatórios.
 	_timer_som = Timer.new()
 	_timer_som.one_shot = true
 	_timer_som.timeout.connect(_tocar_som_perseguicao)
@@ -71,11 +69,7 @@ func _agendar_som_perseguicao() -> void:
 	if sendo_atropelado or parado or atacando:
 		return
 
-	var intervalo = randf_range(
-		intervalo_som_min,
-		intervalo_som_max
-	)
-
+	var intervalo = randf_range(intervalo_som_min, intervalo_som_max)
 	_timer_som.start(maxf(intervalo, 0.01))
 
 
@@ -83,19 +77,9 @@ func _tocar_som_perseguicao() -> void:
 	if sendo_atropelado or parado or atacando:
 		return
 
-	# ======================================
 	# AUDIO: GnomoSons
-	# Toca aleatoriamente enquanto persegue.
-	# Pitch também varia aleatoriamente.
-	# ======================================
-
-	# $GnomoSons.pitch_scale = randf_range(
-	#     pitch_som_min,
-	#     pitch_som_max
-	# )
+	# $GnomoSons.pitch_scale = randf_range(pitch_som_min, pitch_som_max)
 	# $GnomoSons.play()
-
-	# Agenda o próximo som.
 	# _agendar_som_perseguicao()
 
 
@@ -105,14 +89,32 @@ func _tocar_som_perseguicao() -> void:
 
 func atualizar_grupo():
 	var inimigos = get_tree().get_nodes_in_group("inimigos")
-
 	indice_inimigo = inimigos.find(self)
 	quantidade_inimigos = max(inimigos.size(), 1)
 
 
 # ==========================================
+# OLHAR SEMPRE PARA O JOGADOR
+# ==========================================
+
+func olhar_para_jogador(delta: float) -> void:
+	if not is_instance_valid(Cortador):
+		return
+
+	var direcao = Cortador.global_position - global_position
+	direcao.y = 0.0
+
+	if direcao.length_squared() < 0.0001:
+		return
+
+	var angulo_desejado = atan2(direcao.x, direcao.z)
+	rotation.y = lerp_angle(rotation.y, angulo_desejado + PI / 2, velocidade_rotacao * delta)
+
+
+# ==========================================
 # PROCESSAMENTO FÍSICO
 # ==========================================
+
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(Cortador):
 		return
@@ -123,6 +125,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = 0.0
 
+	# SEMPRE OLHA PARA O JOGADOR
+	olhar_para_jogador(delta)
+
 	if parado or sendo_atropelado:
 		velocity.x = 0.0
 		velocity.z = 0.0
@@ -131,24 +136,17 @@ func _physics_process(delta: float) -> void:
 
 	# ACELERAÇÃO
 	var velocidade_maxima = velocidade_ataque if atacando else velocidade
-
-	velocidade_atual = move_toward(
-		velocidade_atual,
-		velocidade_maxima,
-		aceleracao * delta
-	)
+	velocidade_atual = move_toward(velocidade_atual, velocidade_maxima, aceleracao * delta)
 
 	# DISTÂNCIA DO CORTADOR
 	var diferenca = Cortador.global_position - global_position
 	diferenca.y = 0.0
-
 	var distancia_quadrada = diferenca.length_squared()
 
 	# COMEÇAR ATAQUE
 	if distancia_quadrada <= distancia_cercar * distancia_cercar:
 		if not atacando:
 			atacando = true
-
 			# $AnimationPlayer.play("GnomoAtacando")
 			# _timer_som.stop()
 
@@ -168,29 +166,17 @@ func _physics_process(delta: float) -> void:
 
 	if direcao.length_squared() > 0.0001:
 		direcao = direcao.normalized()
-
 		velocity.x = direcao.x * velocidade_atual
 		velocity.z = direcao.z * velocidade_atual
-
-		var angulo_desejado = atan2(direcao.x, direcao.z)
-
-		rotation.y = lerp_angle(
-			rotation.y,
-			angulo_desejado + PI / 2,
-			velocidade_rotacao * delta
-		)
 	else:
 		velocity.x = 0.0
 		velocity.z = 0.0
 
-	# MOVIMENTA UMA ÚNICA VEZ
 	move_and_slide()
 
-	# VERIFICA COLISÃO FÍSICA PARA ATAQUE
-	# Verifica se o gnomo chegou perto o suficiente para acertar
+	# VERIFICA DISTÂNCIA PARA ATAQUE
 	if atacando and not parado:
 		var distancia = global_position.distance_to(Cortador.global_position)
-
 		if distancia <= distancia_cercar:
 			ataque_acertou()
 
@@ -202,16 +188,14 @@ func _physics_process(delta: float) -> void:
 func ataque_acertou() -> void:
 	print("GNOMO ATACA O NÓ: ", Cortador.get_path())
 	print("GASOLINA ANTES: ", Cortador.gasolina)
-
 	Cortador.tomar_dano(dano)
-
 	print("GASOLINA DEPOIS: ", Cortador.gasolina)
+
 	if sendo_atropelado or parado:
 		return
 
 	atacando = false
 	parado = true
-
 	print("GNOMO ACERTOU O CORTADOR!")
 
 	# $AnimationPlayer.stop()
@@ -219,9 +203,7 @@ func ataque_acertou() -> void:
 
 	if is_instance_valid(Cortador):
 		print("GASOLINA ANTES: ", Cortador.gasolina)
-
 		Cortador.tomar_dano(dano)
-
 		print("DANO CAUSADO: ", dano)
 		print("GASOLINA DEPOIS: ", Cortador.gasolina)
 
@@ -255,48 +237,29 @@ func morrer_atropelado():
 	print("GNOMO MORREU POR ATROPELAMENTO!")
 	print("POSIÇÃO DO GNOMO: ", global_position)
 
-	
 	GameManager.adicionar_pontos(50, global_position)
 	GameManager.registrar_gnomo()
-	
+
 	sendo_atropelado = true
 	atacando = false
 	parado = true
 	velocity = Vector3.ZERO
 
-	# ======================================
-	# ANIMAÇÃO: PARAR TODAS
-	# ======================================
-
+	# ANIMAÇÃO
 	# $AnimationPlayer.stop()
 
-	# ======================================
-	# AUDIO: PARAR GnomoSons
-	# ======================================
-
+	# AUDIO
 	# _timer_som.stop()
 	# $GnomoSons.stop()
-
-	# ======================================
-	# AUDIO: GnomoMorte
-	# Toca quando o gnomo morre.
-	# ======================================
-
 	# $GnomoMorte.play()
 
-	# ======================================
-	# PARTICULA: GnomoMorte
-	# Emite partículas quando morre.
-	# ======================================
-
+	# PARTÍCULAS
 	# $ParticulaGnomoMorte.emitting = true
 
-	# Som original mantido.
 	$AudioStreamPlayer/Morreu.play()
 
 	set_physics_process(false)
 	set_process(false)
-
 	hide()
 
 	collision_layer = 0
