@@ -69,7 +69,6 @@ process_material = SubResource("ParticleProcessMaterial_bv7jr")
 draw_pass_1 = SubResource("SphereMesh_0ct6o")
 
 [node name="faísca" type="GPUParticles3D" parent="." unique_id=1245515933]
-visible = false
 lifetime = 0.35000000000000003
 trail_enabled = true
 trail_lifetime = 0.22
