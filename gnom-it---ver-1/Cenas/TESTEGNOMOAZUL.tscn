@@ -140,7 +140,7 @@ radius = 0.95458984
 
 [node name="Node3D" type="CharacterBody3D" unique_id=801741046 groups=["atropelavel", "inimigos"]]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
-collision_layer = 8
+collision_layer = 136
 collision_mask = 15
 script = ExtResource("1_vbnlp")
 
@@ -164,7 +164,7 @@ mesh = SubResource("ArrayMesh_kwejd")
 skeleton = NodePath("")
 
 [node name="Ponto_Encaixe" type="Marker3D" parent="." unique_id=1555663088]
-transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, -0.009764202, -1.8219849, 0.011950433)
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, -0.009764202, -1.1914524, -0.6810504)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1477260594]
 

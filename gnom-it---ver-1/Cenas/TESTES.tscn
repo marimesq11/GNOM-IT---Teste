@@ -574,7 +574,7 @@ inimigo_1 = ExtResource("31_xqa8m")
 inimigo_2 = ExtResource("33_0outj")
 inimigo_3 = ExtResource("31_oe0oo")
 inimigo_4 = ExtResource("34_xqa8m")
-max_inimigo_1 = 6
+max_inimigo_1 = 3
 max_inimigo_3 = 10
 max_inimigo_4 = 5
 intervalo_spawn = 2.0
@@ -641,7 +641,6 @@ sistema_grama = NodePath("../Chao/ChaoMesh")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=920233300]
 stream = ExtResource("2_iegax")
-autoplay = true
 
 [node name="Placa" type="Sprite2D" parent="." unique_id=1986225170]
 position = Vector2(600.00006, 34.999992)
