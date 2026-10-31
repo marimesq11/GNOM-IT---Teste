@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cfm37n6g0hhi5"]
+
+[sub_resource type="Curve" id="Curve_5a724"]
+_data = [Vector2(0, 0.6024417), 0.0, 0.33612558, 0, 0, Vector2(0.99486625, 0.11713076), -2.0637736, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7t83b"]
+curve = SubResource("Curve_5a724")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bv7jr"]
+emission_shape = 3
+emission_box_extents = Vector3(1.805, 0.275, 0.175)
+angle_min = -449.1
+angle_max = 410.50003
+gravity = Vector3(0, 3, 0)
+tangential_accel_min = -1.4500022
+tangential_accel_max = -2.2351742e-06
+scale_curve = SubResource("CurveTexture_7t83b")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gkvm"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.8862745)
+
+[sub_resource type="SphereMesh" id="SphereMesh_0ct6o"]
+material = SubResource("StandardMaterial3D_2gkvm")
+
+[node name="fumassa preta carrinho" type="GPUParticles3D" unique_id=2016395979]
+transform = Transform3D(0.9999304, 0.010731157, -0.0049095186, -0.010704, 0.99992746, 0.005523737, 0.004968448, -0.0054707923, 0.9999727, 0, 0, 0)
+lifetime = 0.8
+process_material = SubResource("ParticleProcessMaterial_bv7jr")
+draw_pass_1 = SubResource("SphereMesh_0ct6o")

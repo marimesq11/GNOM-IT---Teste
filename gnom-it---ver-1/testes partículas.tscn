@@ -1,81 +1,34 @@
 [gd_scene format=3 uid="uid://badbwwfcwa7yx"]
 
-[sub_resource type="Curve" id="Curve_5a724"]
-_data = [Vector2(0, 0.6024417), 0.0, 0.33612558, 0, 0, Vector2(0.99486625, 0.11713076), -2.0637736, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_7t83b"]
-curve = SubResource("Curve_5a724")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bv7jr"]
-emission_shape = 3
-emission_box_extents = Vector3(1, 0.275, 0.175)
-angle_min = -449.1
-angle_max = 410.50003
-gravity = Vector3(0, 3, 0)
-tangential_accel_min = -1.4500022
-tangential_accel_max = -2.2351742e-06
-scale_curve = SubResource("CurveTexture_7t83b")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gkvm"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.36078432)
-
-[sub_resource type="SphereMesh" id="SphereMesh_0ct6o"]
-material = SubResource("StandardMaterial3D_2gkvm")
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_s70rq"]
-
-[sub_resource type="Curve" id="Curve_y7vdc"]
-_data = [Vector2(0, 0.30026698), 0.0, 0.0, 0, 0, Vector2(0.5279654, 0.4193055), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.319227, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_5a724"]
-curve = SubResource("Curve_y7vdc")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7t83b"]
-initial_velocity_min = 5.0
-initial_velocity_max = 10.0
-gravity = Vector3(0, -10.41, 0)
-linear_accel_min = -7.940002
-linear_accel_max = 9.819998
-scale_curve = SubResource("CurveTexture_5a724")
-color_ramp = SubResource("GradientTexture1D_s70rq")
-
-[sub_resource type="Curve" id="Curve_2gkvm"]
-_data = [Vector2(0, 0.23616934), 0.0, 1.0669293, 0, 0, Vector2(0.99062985, 0), -1.92513, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dn4h7"]
-albedo_color = Color(1, 1, 0.41960785, 1)
-emission_enabled = true
-emission = Color(0.82217187, 0.6960144, 3.85046e-07, 1)
-emission_energy_multiplier = 4.48
-use_particle_trails = true
-
-[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_2yfry"]
-material = SubResource("StandardMaterial3D_dn4h7")
-curve = SubResource("Curve_2gkvm")
+[ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="1_2gkvm"]
+[ext_resource type="PackedScene" uid="uid://cfm37n6g0hhi5" path="res://partículas/fumassa_preta_carrinho.tscn" id="1_umnoy"]
+[ext_resource type="PackedScene" uid="uid://d4hp64da3bq1v" path="res://partículas/gnomo_verde_magia.tscn" id="2_gwnse"]
+[ext_resource type="PackedScene" uid="uid://jpdif2cuxeh2" path="res://partículas/faísca.tscn" id="3_ovhyt"]
+[ext_resource type="PackedScene" uid="uid://dieb7vxtlr7q3" path="res://partículas/gotas_gasolina.tscn" id="4_8sk2g"]
 
 [sub_resource type="Environment" id="Environment_7t83b"]
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y7vdc"]
+emission_shape_offset = Vector3(0, -0.445, 0)
+emission_shape_scale = Vector3(0.05, 0.975, 1)
+gravity = Vector3(0, 1, 0)
+
+[sub_resource type="PrismMesh" id="PrismMesh_1scgq"]
+
 [node name="Node3D" type="Node3D" unique_id=365302979]
 
-[node name="fumassa carrinho" type="GPUParticles3D" parent="." unique_id=2034678506]
+[node name="fumassa preta carrinho" parent="." unique_id=2016395979 instance=ExtResource("1_umnoy")]
+transform = Transform3D(0.9999304, 0.010731152, -0.0049095284, -0.0107040005, 0.99992746, 0.005523728, 0.0049684485, -0.0054707923, 0.9999727, 0, 0, 0)
 visible = false
-amount = 4
-lifetime = 0.5
-process_material = SubResource("ParticleProcessMaterial_bv7jr")
-draw_pass_1 = SubResource("SphereMesh_0ct6o")
 
-[node name="faísca" type="GPUParticles3D" parent="." unique_id=1245515933]
-lifetime = 0.35000000000000003
-trail_enabled = true
-trail_lifetime = 0.22
-process_material = SubResource("ParticleProcessMaterial_7t83b")
-draw_passes = 2
-draw_pass_1 = SubResource("TubeTrailMesh_2yfry")
-draw_pass_2 = null
+[node name="gnomo verde magia" parent="." unique_id=1283578034 instance=ExtResource("2_gwnse")]
+visible = false
+
+[node name="faísca" parent="." unique_id=284790845 instance=ExtResource("3_ovhyt")]
+visible = false
+
+[node name="gotas gasolina" parent="." unique_id=1885486024 instance=ExtResource("4_8sk2g")]
+visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1476032745]
 
@@ -85,4 +38,10 @@ environment = SubResource("Environment_7t83b")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1362147149]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.3450794)
 
-[node name="GPUParticles3D2" type="GPUParticles3D" parent="." unique_id=883175256]
+[node name="CharacterBody3D" parent="." unique_id=1317807494 instance=ExtResource("1_2gkvm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7922965, 0, -1.1039333)
+visible = false
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=845105427]
+process_material = SubResource("ParticleProcessMaterial_y7vdc")
+draw_pass_1 = SubResource("PrismMesh_1scgq")
