@@ -164,7 +164,7 @@ mesh = SubResource("ArrayMesh_kwejd")
 skeleton = NodePath("")
 
 [node name="Ponto_Encaixe" type="Marker3D" parent="." unique_id=1555663088]
-transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, -0.009764202, -1.1914524, -0.6810504)
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0.23357908, -1.1914524, -0.0020707024)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1477260594]
 

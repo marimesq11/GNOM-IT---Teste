@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bgg28mm36h0ob"]
 
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="1_817ed"]
+[ext_resource type="Script" uid="uid://bk2nbw0k61ktm" path="res://tela_play.gd" id="1_b2k28"]
 [ext_resource type="Texture2D" uid="uid://k5502fxawyen" path="res://Cenas/BotaoPlatPreenchido.webp" id="1_esroy"]
 [ext_resource type="VideoStream" uid="uid://bid45nh41eodq" path="res://Cenas/Abertura.ogv" id="3_yfse8"]
 [ext_resource type="Texture2D" uid="uid://dm862mnyybx5" path="res://Cenas/BotaoTutorialPreenchido.webp" id="4_hy0dl"]
@@ -11,13 +12,42 @@
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ocg5d"]
 
-[node name="Node2D" type="Node2D" unique_id=1523334046]
+[node name="Node2D" type="Node2D" unique_id=1523334046 node_paths=PackedStringArray("botao_play", "botao_tutorial", "botao_x", "botao_skip", "outros_botoes", "sprite_tutorial", "video", "tela_preta")]
+script = ExtResource("1_b2k28")
+botao_play = NodePath("Play")
+botao_tutorial = NodePath("TutorialBotao")
+botao_x = NodePath("FecharTutorial")
+botao_skip = NodePath("Skip")
+outros_botoes = [NodePath("Botao"), NodePath("Botao2"), NodePath("Correntes"), NodePath("Correntes3"), NodePath("Titulo")]
+sprite_tutorial = NodePath("TutorialBotao/Sprite2D")
+cena_destino = "uid://6gs2bnf2gw7o"
+video = NodePath("VideoStreamPlayer")
+tela_preta = NodePath("ColorRect")
 
 [node name="ColorRect2" type="ColorRect" parent="." unique_id=2127410212]
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(28.879997, 16.760002)
+mouse_filter = 2
 color = Color(0, 0, 0, 0.15100001)
+
+[node name="TutorialBotao" type="TextureButton" parent="." unique_id=357103441]
+z_index = 1
+offset_left = 159.0
+offset_top = 319.0
+offset_right = 1183.0
+offset_bottom = 895.0
+scale = Vector2(0.8021278, 0.71371186)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("4_hy0dl")
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="TutorialBotao" unique_id=1555995261]
+visible = false
+position = Vector2(135, -125)
+scale = Vector2(0.4322266, 0.35914356)
+texture = ExtResource("6_hy0dl")
 
 [node name="Play" type="TextureButton" parent="." unique_id=1586896677]
 z_index = 1
@@ -91,24 +121,6 @@ theme_override_font_sizes/font_size = 100
 text = "x"
 metadata/_edit_use_anchors_ = true
 
-[node name="TutorialBotao" type="TextureButton" parent="." unique_id=357103441]
-z_index = 1
-offset_left = 159.0
-offset_top = 319.0
-offset_right = 1183.0
-offset_bottom = 895.0
-scale = Vector2(0.8021278, 0.71371186)
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("4_hy0dl")
-metadata/_edit_use_anchors_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="TutorialBotao" unique_id=1555995261]
-visible = false
-position = Vector2(135, -125)
-scale = Vector2(0.4322266, 0.35914356)
-texture = ExtResource("6_hy0dl")
-
 [node name="CenaTeste" parent="." unique_id=1397743769 instance=ExtResource("7_esroy")]
 
 [node name="Botao" type="Sprite2D" parent="." unique_id=1910919311]
@@ -130,9 +142,4 @@ texture = ExtResource("8_b2k28")
 z_index = -1
 position = Vector2(566.00006, 449)
 scale = Vector2(0.6775385, 0.6259992)
-texture = ExtResource("8_b2k28")
-
-[node name="Correntes2" type="Sprite2D" parent="." unique_id=1884607789]
-visible = false
-position = Vector2(566, 412)
 texture = ExtResource("8_b2k28")

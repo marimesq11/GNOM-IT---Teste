@@ -2,8 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dhk3hqktoybxi" path="res://Cenas/Main.gd" id="1_0outj"]
 [ext_resource type="AudioStream" uid="uid://dfeeqxt3pp7by" path="res://Música Livre de Direitos Autorais [[SAMBA- BRASIL]]- As Músicas Mais Diferenciadas [BPohzqiZRbo].mp3" id="2_iegax"]
+[ext_resource type="Script" uid="uid://ldbubqvgdino" path="res://Cenas/ChaoControle.gd" id="2_xqa8m"]
+[ext_resource type="Shader" uid="uid://c5vr2ybol65x7" path="res://Shaders/ShaderGrama.gdshader" id="3_3mcl0"]
 [ext_resource type="Texture2D" uid="uid://bn175qs86uedx" path="res://Texture/grama.png" id="3_xqa8m"]
 [ext_resource type="Script" uid="uid://krqcf0ojhopo" path="res://Script/MeshGrama.gd" id="4_3mcl0"]
+[ext_resource type="Texture2D" uid="uid://dg6mcspgv1oth" path="res://Assets/cell_grass.png" id="4_skq4c"]
 [ext_resource type="Texture2D" uid="uid://bvvnmtli7his4" path="res://Shaders/barra_gasolina.webp" id="5_xqa8m"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="6_ir2pu"]
 [ext_resource type="Script" uid="uid://b4u2m2wkpc22g" path="res://Cenas/barra_gasolina.gd" id="11_2a5hf"]
@@ -35,10 +38,13 @@
 [ext_resource type="PackedScene" uid="uid://dnyrwky64ojs" path="res://Cenas/Gnomo_Verde.tscn" id="34_xqa8m"]
 [ext_resource type="Texture2D" uid="uid://belyvcv8ceneu" path="res://Shaders/placa.webp" id="36_xqa8m"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0juky"]
-albedo_texture = ExtResource("3_xqa8m")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8hd82"]
+render_priority = 0
+shader = ExtResource("3_3mcl0")
+shader_parameter/textura_grama = ExtResource("3_xqa8m")
+shader_parameter/textura_baixo = ExtResource("4_skq4c")
+shader_parameter/tamanho_terreno = Vector2(23, 23)
+shader_parameter/centro_terreno = Vector2(0, 0)
 
 [sub_resource type="QuadMesh" id="QuadMesh_ahhmj"]
 material = SubResource("ShaderMaterial_8hd82")
@@ -85,11 +91,14 @@ offset_right = 1181.0
 offset_bottom = 679.0
 color = Color(0.17923622, 0.17923622, 0.17923622, 0.5)
 
-[node name="Chao" type="StaticBody3D" parent="." unique_id=1094404901]
+[node name="Chao" type="StaticBody3D" parent="." unique_id=1094404901 node_paths=PackedStringArray("cortador", "chao_mesh")]
+script = ExtResource("2_xqa8m")
+cortador = NodePath("../cortador")
+chao_mesh = NodePath("ChaoMesh")
+raio_corte = 0.4
 
 [node name="ChaoMesh" type="MeshInstance3D" parent="Chao" unique_id=331962387 node_paths=PackedStringArray("grama")]
 transform = Transform3D(1.0001253, 0, 0, 0, -4.3716867e-08, 1.0001253, 0, -1.0001253, -4.3716867e-08, 0.008672357, -0.012735605, 0.013688087)
-material_override = SubResource("StandardMaterial3D_0juky")
 mesh = SubResource("QuadMesh_ahhmj")
 skeleton = NodePath("")
 script = ExtResource("4_3mcl0")
@@ -107,9 +116,6 @@ acceleration = 6.0
 rotation_speed = 5.0
 suavizacao_posicao_camera = 6.0
 suavizacao_giro_camera = 2.0
-velocidade_dash = 5.5
-tempo_preparacao_dash = 0.6
-duracao_dash = 2.0
 velocidade_minima_drift = 1.0
 tempo_entre_drifts = 0.7
 velocidade_giro_drift = 3.0

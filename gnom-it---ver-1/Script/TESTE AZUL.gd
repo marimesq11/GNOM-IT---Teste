@@ -163,8 +163,7 @@ func _perseguir(delta: float) -> void:
 	# ANIMAÇÃO: GnomoAndando
 	# $AnimationPlayer.play("GnomoAndando")
 
-	if direcao.length_squared() > 0.001:
-		rotation.y = atan2(direcao.x, direcao.z) + PI / 2.0
+	_olhar_para_jogador(delta)
 
 # POSIÇÃO DO ALVO
 func _obter_posicao_alvo() -> Vector3:
@@ -422,3 +421,24 @@ func morrer_atropelado() -> void:
 
 	await get_tree().create_timer(1.0).timeout
 	queue_free()
+	
+
+@export var velocidade_rotacao: float = 8.0
+
+func _olhar_para_jogador(delta: float) -> void:
+	if not is_instance_valid(Cortador):
+		return
+
+	var direcao := Cortador.global_position - global_position
+	direcao.y = 0.0
+
+	if direcao.length_squared() < 0.001:
+		return
+
+	var angulo_alvo := atan2(direcao.x, direcao.z) - PI / 2.0
+
+	rotation.y = lerp_angle(
+		rotation.y,
+		angulo_alvo,
+		clampf(velocidade_rotacao * delta, 0.0, 1.0)
+	)

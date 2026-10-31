@@ -107,8 +107,13 @@ func olhar_para_jogador(delta: float) -> void:
 	if direcao.length_squared() < 0.0001:
 		return
 
-	var angulo_desejado = atan2(direcao.x, direcao.z)
-	rotation.y = lerp_angle(rotation.y, angulo_desejado + PI / 2, velocidade_rotacao * delta)
+	var angulo_desejado = atan2(direcao.x, direcao.z) - PI / 2.0
+
+	rotation.y = lerp_angle(
+		rotation.y,
+		angulo_desejado,
+		clampf(velocidade_rotacao * delta, 0.0, 1.0)
+	)
 
 
 # ==========================================

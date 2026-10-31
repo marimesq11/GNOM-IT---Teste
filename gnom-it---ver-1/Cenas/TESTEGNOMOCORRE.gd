@@ -95,6 +95,9 @@ func _physics_process(delta: float) -> void:
 	if esta_morto or not is_instance_valid(player):
 		return
 
+	if em_susto or aguardando_aterrissagem:
+		olhar_para_jogador(delta)
+	
 	var distancia = distancia_horizontal(player.global_position, global_position)
 
 	# DETECTAR JOGADOR
@@ -174,10 +177,10 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	# ROTAÇÃO
-	if fugindo and direcao_fuga.length() > 0.1:
-		var rotacao_alvo = atan2(direcao_fuga.x, direcao_fuga.z)
-		rotation.y = lerp_angle(rotation.y, rotacao_alvo, velocidade_rotacao * delta)
+
+		# ROTAÇÃO
+	if fugindo:
+		olhar_para_direcao_fuga(delta)
 
 	# ANTI-TRAVAMENTO
 	if fugindo:
@@ -481,3 +484,33 @@ func morrer_atropelado() -> void:
 	$AudioStreamPlayer/Morreu.play()
 	await get_tree().create_timer(1.0).timeout
 	queue_free()
+
+func olhar_para_jogador(delta: float) -> void:
+	if not is_instance_valid(player):
+		return
+
+	var direcao = player.global_position - global_position
+	direcao.y = 0.0
+
+	if direcao.length_squared() < 0.0001:
+		return
+
+	var angulo_desejado = atan2(direcao.x, direcao.z) - PI / 2.0
+
+	rotation.y = lerp_angle(
+		rotation.y,
+		angulo_desejado,
+		clampf(velocidade_rotacao * delta, 0.0, 1.0)
+	)
+	
+func olhar_para_direcao_fuga(delta: float) -> void:
+	if direcao_fuga.length_squared() < 0.0001:
+		return
+
+	var angulo_desejado = atan2(direcao_fuga.x, direcao_fuga.z) - PI / 2.0
+
+	rotation.y = lerp_angle(
+		rotation.y,
+		angulo_desejado,
+		clampf(velocidade_rotacao * delta, 0.0, 1.0)
+	)
