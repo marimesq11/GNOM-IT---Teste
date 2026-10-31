@@ -8,7 +8,7 @@ extends CharacterBody3D
 var gravidade: float = 9.8
 
 # DANO
-@export var dano: float = 3
+@export var dano: float = 1
 var sendo_atropelado: bool = false
 
 # VELOCIDADE

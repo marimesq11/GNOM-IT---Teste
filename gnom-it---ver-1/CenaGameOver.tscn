@@ -3,37 +3,96 @@
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="1_sbqad"]
 [ext_resource type="Script" uid="uid://qcb6apaiudqr" path="res://Botao_TentarNovamente.gd" id="2_cpsvt"]
 [ext_resource type="Script" uid="uid://hb2vvohjp8kc" path="res://Cenas/pontos_label.gd" id="3_e51o4"]
+[ext_resource type="Texture2D" uid="uid://giyiknyi02iq" path="res://Derrota.webp" id="4_gfkpl"]
+[ext_resource type="Texture2D" uid="uid://cfmfkqucs84yv" path="res://Cenas/correntes.webp" id="5_yqmfo"]
+[ext_resource type="Texture2D" uid="uid://dir2i4fr7bgrq" path="res://Botao_Vazio.webp" id="6_wepv5"]
+[ext_resource type="PackedScene" uid="uid://bampf43d6ghk3" path="res://Cenas/TeladeMenuFundo.tscn" id="7_02ei6"]
 
 [node name="Node2D" type="Node2D" unique_id=1130400279]
 
 [node name="Label" type="Label" parent="." unique_id=445339637]
-offset_left = 220.0
-offset_top = -25.0
-offset_right = 971.0
-offset_bottom = 364.0
+z_index = 1
+offset_left = 215.0
+offset_top = -117.00001
+offset_right = 966.0
+offset_bottom = 272.0
+rotation = 0.06633489
+theme_override_colors/font_color = Color(1, 0.8000001, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 11
+theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("1_sbqad")
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 44
 text = "Você Morreu!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="." unique_id=771223616]
-offset_left = 375.0
-offset_top = 480.0
-offset_right = 830.0
-offset_bottom = 584.0
-theme_override_font_sizes/font_size = 50
+offset_left = 364.0
+offset_top = 494.0
+offset_right = 819.0
+offset_bottom = 598.0
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 43
 text = "Tentar novamente"
+flat = true
 script = ExtResource("2_cpsvt")
 cena_destino = "uid://6gs2bnf2gw7o"
 
-[node name="Label2" type="Label" parent="." unique_id=984858740]
-offset_left = 45.0
-offset_top = 252.0
-offset_right = 1129.0
-offset_bottom = 450.0
-theme_override_fonts/font = ExtResource("1_sbqad")
-theme_override_font_sizes/font_size = 55
+[node name="Label2" type="RichTextLabel" parent="." unique_id=195859108]
+z_index = 1
+offset_left = 234.00002
+offset_top = 228.0
+offset_right = 1318.0
+offset_bottom = 426.0
+scale = Vector2(0.6287296, 0.88199794)
+theme_override_colors/default_color = Color(1, 0.8, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_e51o4")
+tamanho_estrelas = 100
+cor_estrelas = Color(1, 0.8, 0, 1)
+tamanho_nota = 68
+cor_nota = Color(1, 0.8, 0, 1)
+tamanho_pontos = 68
+cor_pontos = Color(1, 0.8, 0, 1)
+
+[node name="Derrota" type="Sprite2D" parent="." unique_id=1817103224]
+position = Vector2(572.00006, 102.000015)
+rotation = 0.073314756
+scale = Vector2(1.0091325, 0.56123745)
+texture = ExtResource("4_gfkpl")
+
+[node name="Correntes" type="Sprite2D" parent="." unique_id=1628196370]
+z_index = -1
+position = Vector2(576, 20)
+texture = ExtResource("5_yqmfo")
+
+[node name="Correntes3" type="Sprite2D" parent="." unique_id=1786459898]
+z_index = -1
+position = Vector2(590, 407)
+texture = ExtResource("5_yqmfo")
+
+[node name="Correntes2" type="Sprite2D" parent="." unique_id=1569379967]
+z_index = -1
+position = Vector2(582, 166)
+scale = Vector2(0.7841797, 0.46006945)
+texture = ExtResource("5_yqmfo")
+
+[node name="BotaoVazio" type="Sprite2D" parent="." unique_id=1553931815]
+z_index = -1
+position = Vector2(582, 328)
+rotation = -0.007785702
+scale = Vector2(2.9198914, 2.001991)
+texture = ExtResource("6_wepv5")
+
+[node name="Derrota2" type="Sprite2D" parent="." unique_id=1272757875]
+z_index = -1
+position = Vector2(593, 553)
+scale = Vector2(1.1999987, 0.56)
+texture = ExtResource("4_gfkpl")
+
+[node name="CenaTeste" parent="." unique_id=1397743769 instance=ExtResource("7_02ei6")]
