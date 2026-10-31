@@ -1,4 +1,3 @@
-
 class_name SistemaGrama
 extends MeshInstance3D
 
@@ -126,6 +125,7 @@ func pintar(posicao: Vector2) -> bool:
 # CONTAGEM DE GRAMA CORTADA
 # =========================================================
 
+
 func atualizar_pixels_cortados() -> void:
 	pixels_cortados = 0
 
@@ -133,6 +133,13 @@ func atualizar_pixels_cortados() -> void:
 		for x in range(TAMANHO_MASCARA):
 			if mascara.get_pixel(x, y).r < 0.5:
 				pixels_cortados += 1
+
+	var porcentagem_cortada = (
+		float(pixels_cortados) / float(TOTAL_PIXELS)
+	) * 100.0
+
+	GameManager.atualizar_grama(porcentagem_cortada)
+
 
 # =========================================================
 # VITÓRIA

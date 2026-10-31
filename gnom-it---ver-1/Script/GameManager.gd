@@ -24,17 +24,16 @@ func adicionar_pontos(valor: int, posicao_3d: Vector3) -> void:
 # CONFIGURAÇÕES DA AVALIAÇÃO
 # ==================================================
 
-# Metas para conseguir 100% em cada categoria.
-var meta_gnomos: int = 25
-var meta_objetos: int = 15
+var meta_gnomos: int = 30
+var meta_objetos: int = 18
 var meta_objetivos: int = 3
 
-# Ativar quando o sistema de grama estiver pronto.
-var avaliar_grama: bool = false
+# GRAMA ATIVADA
+var avaliar_grama: bool = true
 
-# Limites das estrelas.
-var limite_2_estrelas: float = 45.0
-var limite_3_estrelas: float = 80.0
+# LIMITES DAS ESTRELAS
+var limite_2_estrelas: float = 55.0
+var limite_3_estrelas: float = 85.0
 
 
 # ==================================================
@@ -106,6 +105,10 @@ func calcular_nota_cenario() -> float:
 	return calcular_nota_objetos()
 
 
+func calcular_nota_grama() -> float:
+	return clampf(porcentagem_grama, 0.0, 100.0)
+
+
 # ==================================================
 # CALCULAR DESEMPENHO GERAL
 # ==================================================
@@ -113,18 +116,15 @@ func calcular_nota_cenario() -> float:
 func calcular_desempenho() -> float:
 	var nota_gnomos = calcular_nota_gnomos()
 	var nota_cenario = calcular_nota_cenario()
+	var nota_grama = calcular_nota_grama()
 
-	# Enquanto a grama estiver desativada,
-	# calcula a média apenas de duas categorias.
 	if not avaliar_grama:
 		return (nota_gnomos + nota_cenario) / 2.0
 
-	# Quando a grama estiver ativada,
-	# calcula a média das três categorias.
 	return (
 		nota_gnomos +
 		nota_cenario +
-		porcentagem_grama
+		nota_grama
 	) / 3.0
 
 

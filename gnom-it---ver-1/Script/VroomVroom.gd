@@ -29,6 +29,7 @@ const LIMIAR_EMISSAO_GASOLINA := 0.2
 # @onready var particulas_morte: GPUParticles3D = $ParticulasMorte
 # @onready var gnomo_morto: GPUParticles3D = $GnomoMorto
 # @onready var particula_grama: GPUParticles3D = $ParticulaGrama
+@onready var particula_fumaca_preta: GPUParticles3D = find_child("fumassa preta carrinho", true, false)
 
 @onready var area_atropelamento: Area3D = $AreaAtropelamento
 @onready var collision_corpo: CollisionShape3D = $CollisionShape3D
@@ -169,6 +170,9 @@ func _ready() -> void:
 	_partes.assign([_model, collision_corpo, collision_tampa, area_atropelamento])
 	for parte in _partes:
 		_transforms_originais.append(parte.transform)
+		
+	if particula_fumaca_preta:
+		particula_fumaca_preta.emitting = false
 
 	if particula_drift:
 		particula_drift.emitting = false
@@ -581,10 +585,8 @@ func morrer() -> void:
 
 	esta_morto = true
 
-	print("========== MORTE ==========")
-	print("MOTIVO: GASOLINA ESGOTADA")
-	print("GASOLINA: ", gasolina)
-	print("===========================")
+	if particula_fumaca_preta:
+		particula_fumaca_preta.emitting = false
 
 	# SOM MORTE
 	# som_motor.stop()
@@ -639,9 +641,10 @@ func _atualizar_gasolina(tem_input: bool, delta: float) -> void:
 
 
 func _emitir_gasolina() -> void:
-	# Só avisa a UI quando a diferença é visível (ou ao chegar em 0 / no máximo)
+	atualizar_fumaca_preta()
 	var mudou := absf(gasolina - _gasolina_emitida) >= LIMIAR_EMISSAO_GASOLINA
 	var chegou_no_limite := (gasolina <= 0.0 or gasolina >= gasolina_maxima) and gasolina != _gasolina_emitida
+	
 	if mudou or chegou_no_limite:
 		_gasolina_emitida = gasolina
 		gasolina_alterada.emit(gasolina, gasolina_maxima)
@@ -651,3 +654,9 @@ func _empurrar_gnomo(objeto: Node3D) -> void:
 		var direcao: Vector3 = objeto.global_position - global_position
 		direcao.y = 0.0
 		objeto.receber_empurrao(direcao)
+
+func atualizar_fumaca_preta() -> void:
+	if particula_fumaca_preta == null:
+		return
+	var porcentagem_vida := gasolina / gasolina_maxima
+	particula_fumaca_preta.emitting = porcentagem_vida < 0.4 and not esta_morto

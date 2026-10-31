@@ -36,7 +36,7 @@ gravity = Vector3(0, 1, 0)
 [node name="Node3D" type="Node3D" unique_id=365302979]
 
 [node name="fumassa preta carrinho" parent="." unique_id=2016395979 instance=ExtResource("1_umnoy")]
-transform = Transform3D(0.9999304, 0.010731152, -0.0049095284, -0.0107040005, 0.99992746, 0.005523728, 0.0049684485, -0.0054707923, 0.9999727, 0, 0, 0)
+transform = Transform3D(0.9999304, 0.010731153, -0.004909529, -0.010704001, 0.99992746, 0.005523728, 0.004968449, -0.0054707923, 0.9999727, 0, 0, 0)
 visible = false
 
 [node name="gnomo verde magia" parent="." unique_id=1283578034 instance=ExtResource("2_gwnse")]

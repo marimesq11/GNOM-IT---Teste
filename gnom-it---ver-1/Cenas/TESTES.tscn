@@ -645,9 +645,15 @@ Cortador = NodePath("../cortador")
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 8.279426)
 Cortador = NodePath("../cortador")
 
-[node name="Node3D8" parent="." unique_id=551412508 node_paths=PackedStringArray("sistema_grama") instance=ExtResource("34_xqa8m")]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -1.875818, 0, -4.302869)
+[node name="Node3D8" parent="." unique_id=551412508 node_paths=PackedStringArray("sistema_grama", "sistema_chao") instance=ExtResource("34_xqa8m")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -1.875818, -0.020965159, -4.302869)
 sistema_grama = NodePath("../Chao/ChaoMesh")
+sistema_chao = NodePath("../Chao")
+
+[node name="Node3D9" parent="." unique_id=347100274 node_paths=PackedStringArray("sistema_grama", "sistema_chao") instance=ExtResource("34_xqa8m")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 2.1467273, -0.020965159, -4.302869)
+sistema_grama = NodePath("../Chao/ChaoMesh")
+sistema_chao = NodePath("../Chao")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=920233300]
 stream = ExtResource("2_iegax")
