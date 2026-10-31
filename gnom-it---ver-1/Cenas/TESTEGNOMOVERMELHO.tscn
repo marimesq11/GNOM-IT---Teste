@@ -144,13 +144,13 @@ script = ExtResource("1_r1xqv")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14489144, 1.0793525, -0.072972775)
 shape = SubResource("CylinderShape3D_27qw2")
 
-[node name="base base" type="MeshInstance3D" parent="." unique_id=338434644]
+[node name="base base_0001" type="MeshInstance3D" parent="." unique_id=338434644]
 transform = Transform3D(-100.00001, -8.742278e-06, -3.8213708e-13, 0, -4.371139e-06, 100, -8.742279e-06, 100, 4.371139e-06, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ghtk1")
 skeleton = NodePath("")
 
 [node name="bigode vermelho" type="MeshInstance3D" parent="." unique_id=1631515537]
-transform = Transform3D(-16.580793, -7.311105e-06, -1.1372378e-13, 0, -3.6555525e-06, 29.759945, -1.449539e-06, 83.629295, 1.3008485e-06, 1.1578751, 0.77796036, 0)
+transform = Transform3D(14, 0, 0, 0, -0.9154465, 25.125887, 0, -70.605064, -0.3257756, 1.1448319, 0.9031131, 0)
 mesh = SubResource("ArrayMesh_0spx6")
 skeleton = NodePath("")
 

@@ -2,7 +2,6 @@ extends CharacterBody3D
 var gnomo_em_cima: CharacterBody3D = null
 
 signal gasolina_alterada(atual, maximo)
-signal dash_disponivel_alterado(disponivel: bool)
 signal morreu
 signal driftou(direcao: Vector3)
 signal boost_drift
@@ -14,7 +13,6 @@ const ACAO_ESQUERDA := &"Andar_Esquerda"
 const ACAO_DIREITA := &"Andar_Direita"
 const ACAO_FRENTE := &"Andar_Frente"
 const ACAO_TRAS := &"Andar_Tras"
-const ACAO_DASH := &"Dash"
 const GRUPO_QUEBRAVEL := &"Quebravel"
 const GRUPO_ATROPELAVEL := &"atropelavel"
 
@@ -32,7 +30,6 @@ const LIMIAR_EMISSAO_GASOLINA := 0.2
 # @onready var gnomo_morto: GPUParticles3D = $GnomoMorto
 # @onready var particula_grama: GPUParticles3D = $ParticulaGrama
 
-@onready var particula_dash: GPUParticles3D = $ParticulaDash
 @onready var area_atropelamento: Area3D = $AreaAtropelamento
 @onready var collision_corpo: CollisionShape3D = $CollisionShape3D
 @onready var collision_tampa: CollisionShape3D = $CollisionShape3D2
@@ -82,15 +79,6 @@ var dando_re: bool = false
 ## Velocidade com que a câmera volta ao normal depois de passar por um obstáculo.
 @export var camera_retorno: float = 8.0
 
-@export_group("Dash")
-@export var velocidade_dash: float = 6.5
-@export var tempo_preparacao_dash: float = 0.5
-@export var duracao_dash: float = 0.5
-@export var cooldown_dash: float = 2
-@export var velocidade_preparacao: float = 0.85
-## Quantas vezes o consumo aumenta durante o dash.
-@export var multiplicador_consumo_dash: float = 5.0
-
 @export_group("Drift - Início")
 @export var velocidade_minima_drift: float = 2.5
 ## Curva fechada: ângulo (graus) entre velocidade e input para começar.
@@ -130,7 +118,7 @@ var dando_re: bool = false
 @export var multiplicador_rotacao_drift: float = 2.0
 ## Ângulo extra (graus) que o corpo gira para dentro da curva.
 @export var angulo_derrapagem: float = 35.0
-## Velocidade no drift em relação à normal. Não afeta o dash.
+## Velocidade no drift em relação à normal.
 @export_range(0.3, 1.0) var multiplicador_velocidade_drift: float = 0.75
 @export var desaceleracao_drift: float = 3.5
 
@@ -144,7 +132,6 @@ var dando_re: bool = false
 var gasolina: float
 
 var _gasolina_emitida: float
-var _dash_disponivel_antes := true
 
 var _fov_base := 75.0
 var _offset_yaw_camera := 0.0
@@ -159,13 +146,6 @@ var _cam_z_plano := Vector3.ZERO  # "frente" horizontal da câmera, calculada 1x
 # Raycast da câmera reaproveitado (não cria objeto novo a cada frame)
 var _consulta: PhysicsRayQueryParameters3D
 var _mundo: World3D
-
-var preparando_dash := false
-var em_dash := false
-var tempo_preparacao := 0.0
-var tempo_dash := 0.0
-var tempo_cooldown_dash := 0.0
-var direcao_dash := Vector3.ZERO
 
 var em_drift := false
 var tempo_em_drift := 0.0
@@ -226,7 +206,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	cooldown_drift = maxf(cooldown_drift - delta, 0.0)
-	tempo_cooldown_dash = maxf(tempo_cooldown_dash - delta, 0.0)
 
 	var raw_input := Input.get_vector(ACAO_ESQUERDA, ACAO_DIREITA, ACAO_FRENTE, ACAO_TRAS)
 	dando_re = Input.is_action_pressed(ACAO_TRAS) and not Input.is_action_pressed(ACAO_FRENTE)
@@ -235,9 +214,6 @@ func _physics_process(delta: float) -> void:
 	if dando_re and gasolina > 0.0:
 		if em_drift:
 			terminar_drift()
-		preparando_dash = false
-		em_dash = false
-		particula_dash.emitting = false
 		_tempo_intencao_drift = 0.0
 		var esterco := Input.get_axis(ACAO_ESQUERDA, ACAO_DIREITA)
 		rotation.y += esterco * velocidade_giro_re * delta
@@ -256,7 +232,6 @@ func _physics_process(delta: float) -> void:
 	# else:
 	# 	som_motor.stop()
 	# 	particula_grama.emitting = false
-	# som_motor.pitch_scale = 1.5 if em_dash else 1.0
 
 	_atualizar_gasolina(tem_input, delta)
 	for objeto in area_atropelamento.get_overlapping_bodies():
@@ -275,9 +250,8 @@ func _physics_process(delta: float) -> void:
 		velocity.z = dir.z * velocidade_atual
 	else:
 		_atualizar_giro_input(dir, tem_input, delta)
-		_atualizar_dash(dir, tem_input, delta)
 
-		var vel_max := velocidade_dash if em_dash else move_speed * (velocidade_preparacao if preparando_dash else 1.0)
+		var vel_max := move_speed
 
 		if not em_drift:
 			_checar_inicio_drift(dir, tem_input, delta)
@@ -412,41 +386,6 @@ func _atualizar_colisao_camera() -> void:
 
 
 # ---------------------------------------------------------
-# DASH
-# ---------------------------------------------------------
-
-func _atualizar_dash(dir: Vector3, tem_input: bool, delta: float) -> void:
-	if Input.is_action_just_pressed(ACAO_DASH) and _dash_disponivel():
-		preparando_dash = true
-		tempo_preparacao = tempo_preparacao_dash
-		direcao_dash = dir if tem_input else global_basis.z.normalized()
-
-	if preparando_dash:
-		tempo_preparacao -= delta
-		if tem_input:
-			direcao_dash = dir
-
-		if tempo_preparacao <= 0.0:
-			preparando_dash = false
-			em_dash = true
-			# SOM MOTOR NO DASH: aumentar o pitch ao começar o dash.
-			# som_motor.pitch_scale = 1.5
-			tempo_dash = duracao_dash
-			particula_dash.emitting = true
-			particula_dash.restart()
-
-	elif em_dash:
-		tempo_dash -= delta
-
-		if tempo_dash <= 0.0:
-			em_dash = false
-			# SOM MOTOR: restaurar o pitch ao terminar o dash.
-			# som_motor.pitch_scale = 1.0
-			tempo_cooldown_dash = cooldown_dash
-			particula_dash.emitting = false
-
-
-# ---------------------------------------------------------
 # DRIFT
 # ---------------------------------------------------------
 
@@ -521,8 +460,8 @@ func _atualizar_drift(dir: Vector3, tem_input: bool, vel_max: float, delta: floa
 	var passo := clampf(restante, -giro * delta, giro * delta)
 	var nova := atual.rotated(Vector3.UP, passo)
 
-	# Perde velocidade no drift (não afeta o dash)
-	var alvo := vel_max if em_dash else vel_max * multiplicador_velocidade_drift
+	# Perde velocidade no drift
+	var alvo := vel_max * multiplicador_velocidade_drift
 	vel = move_toward(vel, alvo, desaceleracao_drift * delta)
 	velocity.x = nova.x * vel
 	velocity.z = nova.z * vel
@@ -685,32 +624,18 @@ func reabastecer(quantidade: float) -> void:
 	_emitir_gasolina()
 
 
-func _dash_disponivel() -> bool:
-	return not preparando_dash and not em_dash and tempo_cooldown_dash <= 0.0 and gasolina > 0.0
-
-
 func _atualizar_gasolina(tem_input: bool, delta: float) -> void:
 	if esta_morto:
 		return
 
 	if tem_input:
-		var consumo := consumo_gasolina * (
-			multiplicador_consumo_dash if em_dash else 1.0
-		)
-
-		gasolina = maxf(gasolina - consumo * delta, 0.0)
+		gasolina = maxf(gasolina - consumo_gasolina * delta, 0.0)
 
 		_emitir_gasolina()
 
 		if gasolina <= 0.0:
 			morrer()
 			return
-
-	var disponivel := _dash_disponivel()
-
-	if disponivel != _dash_disponivel_antes:
-		_dash_disponivel_antes = disponivel
-		dash_disponivel_alterado.emit(disponivel)
 
 
 func _emitir_gasolina() -> void:

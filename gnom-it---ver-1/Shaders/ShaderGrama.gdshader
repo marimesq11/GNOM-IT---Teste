@@ -1,28 +1,50 @@
-// Esse shader é usado em um objeto 3D
+
 shader_type spatial;
 
-//Uniform é uma variavel q eu posso preencher no inspector
-//Sampler2D recebe um textura 2D
-uniform sampler2D textura_grama;
-uniform sampler2D textura_baixo;
-uniform sampler2D mascara;
+// TEXTURAS
+uniform sampler2D textura_grama : source_color;
+uniform sampler2D textura_baixo : source_color;
+uniform sampler2D mascara : filter_nearest, repeat_disable;
 
+// CONFIGURAÇÕES DO TERRENO
+uniform vec2 tamanho_terreno = vec2(23.0, 23.0);
+uniform vec2 centro_terreno = vec2(0.0, 0.0);
+
+// POSIÇÃO NO MUNDO
+varying vec3 posicao_mundo;
+
+
+// ==========================================
+// VERTEX
+// ==========================================
+
+void vertex() {
+    // Obtém a posição real do vértice no mundo 3D
+    posicao_mundo = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+}
+
+
+// ==========================================
+// FRAGMENT
+// ==========================================
 
 void fragment() {
-//Vá na imagem textura_grama e veja qual é a cor nesse ponto.
-//Uv sao as coordenadas dentro da textura(Como plano cartesiano)
-//Vec4 Valor RGBA
-	vec4 grama = texture(textura_grama, UV);
-	vec4 baixo = texture(textura_baixo, UV);
-//Aq a mascara é preto/branco ent a gente isola so
-// o valor do RGBA q meche nisso
-	float mask = texture(mascara, UV).r;
 
-//Mix == mix(A, B, quantidade)
-// quantidade = 0 -> resultado = A
-// quantidade = 1 -> resultado = B
-// Portanto:
-// mask = 0 (preto)  -> mostra baixo
-// mask = 1 (branco) -> mostra grama
-	ALBEDO = mix(baixo.rgb, grama.rgb, mask);
+    // Lê as texturas originais
+    vec3 grama = texture(textura_grama, UV).rgb;
+    vec3 baixo = texture(textura_baixo, UV).rgb;
+
+    // Converte a posição mundial para a máscara
+    vec2 mask_uv = (
+        posicao_mundo.xz
+        - centro_terreno
+        + tamanho_terreno * 0.5
+    ) / tamanho_terreno;
+
+    // Lê a máscara
+    float mask = texture(mascara, mask_uv).r;
+
+    // Branco = grama
+    // Preto = chão cortado
+    ALBEDO = mix(baixo, grama, mask);
 }

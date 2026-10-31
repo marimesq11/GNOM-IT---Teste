@@ -5,11 +5,11 @@ extends Node2D
 # ==========================================
 
 @export var botao_play: TextureButton
-@export var botao_tutorial: Button
+@export var botao_tutorial: TextureButton
 @export var botao_x: Button
 @export var botao_skip: Button
 
-@export var outros_botoes: Array[BaseButton]
+@export var outros_botoes: Array[CanvasItem]
 
 
 # ==========================================
@@ -92,32 +92,21 @@ func _input(event: InputEvent) -> void:
 # LISTA DE BOTÕES DO MENU
 # ==========================================
 
-func obter_botoes_menu() -> Array[BaseButton]:
+func obter_botoes_menu() -> Array[CanvasItem]:
+	var elementos: Array[CanvasItem] = []
 
-	var botoes: Array[BaseButton] = []
+	if botao_play:
+		elementos.append(botao_play)
 
-	# Adiciona o Play obrigatoriamente
-	if botao_play != null:
-		botoes.append(botao_play)
+	if botao_tutorial:
+		elementos.append(botao_tutorial)
 
-	# Adiciona o Tutorial
-	if botao_tutorial != null:
-		botoes.append(botao_tutorial)
+	for elemento in outros_botoes:
+		if elemento != null and not elementos.has(elemento):
+			if elemento != botao_skip and elemento != botao_x:
+				elementos.append(elemento)
 
-	# Adiciona os outros botões
-	for botao in outros_botoes:
-		if botao != null and not botoes.has(botao):
-			if botao != botao_skip and botao != botao_x:
-				botoes.append(botao)
-
-	# Adiciona botões do grupo, caso existam
-	for node in get_tree().get_nodes_in_group("botoes_menu"):
-		if node is BaseButton:
-			if node != botao_skip and node != botao_x:
-				if not botoes.has(node):
-					botoes.append(node)
-
-	return botoes
+	return elementos
 
 
 # ==========================================
@@ -132,10 +121,11 @@ func iniciar_jogo() -> void:
 	transicionando = true
 
 	# Bloqueia todos os botões imediatamente
-	for botao in obter_botoes_menu():
-		botao.disabled = true
-		botao.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
+	for elemento in obter_botoes_menu():
+		if elemento is BaseButton:
+			elemento.disabled = true
+			elemento.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		
 	botao_x.disabled = true
 	botao_skip.disabled = true
 
