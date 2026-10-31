@@ -178,6 +178,7 @@ radius = 0.02
 height = 0.04
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1317807494 groups=["player"]]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 collision_layer = 2
 collision_mask = 135
 script = ExtResource("2_757jh")
