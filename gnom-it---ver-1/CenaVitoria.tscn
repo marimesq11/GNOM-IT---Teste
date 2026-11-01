@@ -23,7 +23,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("1_ys4tv")
 theme_override_font_sizes/font_size = 58
-text = "Parabens! "
+text = "Parabéns! "
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -66,10 +66,10 @@ texture = ExtResource("6_2qisi")
 
 [node name="Label3" type="RichTextLabel" parent="." unique_id=574499469]
 z_index = 1
-offset_left = 289.99994
-offset_top = 209.00003
-offset_right = 1374.0
-offset_bottom = 407.00003
+offset_left = 243.00002
+offset_top = 171.0
+offset_right = 1481.6992
+offset_bottom = 417.95172
 scale = Vector2(0.514249, 1.0082941)
 theme_override_colors/default_color = Color(1, 0.8, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -77,11 +77,11 @@ theme_override_constants/outline_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_1oa15")
-tamanho_estrelas = 100
+tamanho_estrelas = 85
 cor_estrelas = Color(1, 0.8, 0, 1)
-tamanho_nota = 68
+tamanho_nota = 52
 cor_nota = Color(1, 0.8, 0, 1)
-tamanho_pontos = 68
+tamanho_pontos = 53
 cor_pontos = Color(1, 0.8, 0, 1)
 
 [node name="Derrota" type="Sprite2D" parent="." unique_id=580000648]

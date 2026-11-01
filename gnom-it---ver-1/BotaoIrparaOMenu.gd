@@ -1,5 +1,4 @@
-
-extends Button
+extends TextureButton
 
 # Arraste a cena da fase pelo Inspector
 @export_file("*.tscn") var cena_destino: String
