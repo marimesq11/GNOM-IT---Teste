@@ -37,6 +37,7 @@ project/assembly_name="Gnom It - VER 1"
 
 folder_colors={
 "res://Assets/": "red",
+"res://CenaFinal/": "gray",
 "res://Cenas/": "orange",
 "res://CenasCenarios/": "purple",
 "res://Meshs/": "blue",

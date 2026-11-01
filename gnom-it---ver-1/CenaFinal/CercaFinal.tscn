@@ -1,0 +1,72 @@
+[gd_scene format=4 uid="uid://ha0uk070ur0r"]
+
+[ext_resource type="Texture2D" uid="uid://c71fkxvo2gkaq" path="res://Cenas/cerca_0.png" id="1_pjp76"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qcnnl"]
+size = Vector3(7.957184, 2.0969238, 0.19049072)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gxg4y"]
+resource_name = "cerca"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_pjp76")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_p46ab"]
+_surfaces = [{
+"aabb": AABB(-4.3711387e-10, -0.01, -3.8766862e-05, 1e-05, 0.02, 0.026400685),
+"format": 34359742465,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAADAAIAAgAFAAQABAAFAAYABgAHAAQACAAHAAYABgAJAAgACAAJAAoACgALAAgADAALAAoACgANAAwADAANAA4ADgAPAAwAEAAPAA4ADgARABAAEAARABIAEgATABAAFAATABIAEgAVABQA"),
+"name": "cerca",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 22,
+"vertex_data": PackedByteArray("T07wLwrXIzzKXcw8T07wrwrXIzyamSK4T07wr28SAzyamSK4Tk7wL28SAzzz9Nc8T07wL6abxDvKXcw8T07wr6abxDuamSK4T07wr28SgzuamSK4Tk7wL28Sgzvz9Nc8T07wL28SAzvKXcw8T07wr28SAzuamSK4T07wrwAAAACamSK4Tk7wLwAAAADz9Nc8T07wL28SA7vKXcw8T07wr28SA7uamSK4T07wr28Sg7uamSK4Tk7wL28Sg7vz9Nc8T07wL6abxLvKXcw8T07wr6abxLuamSK4T07wr28SA7yamSK4Tk7wL28SA7zz9Nc8T07wLwrXI7zKXcw8T07wrwrXI7yamSK4")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ro07v"]
+resource_name = "Plane"
+_surfaces = [{
+"aabb": AABB(-4.3711387e-10, -0.01, -3.8766862e-05, 1e-05, 0.02, 0.026400685),
+"attribute_data": PackedByteArray("Mu9BPwCDWz0w70E///9/P3iKLj///38/eoouPwAAgDS/JZs9/v9/PwAAAAD+/38/ZHORM6CCWz3MJZs9AAAAAMclGz7Agls9vyUbPv7/fz+/JZs9/v9/P8wlmz0AAAAAoLhoPv7/fz+/JRs+/v9/P8clGz7Agls9qLhoPgAAgDPEJZs+0IJbPcAlmz7+/38/oLhoPv7/fz+ouGg+AACAMzHvwT7//38/wCWbPv7/fz/EJZs+0IJbPTTvwT4AAIAzpLjoPtCCWz2huOg+//9/PzHvwT7//38/NO/BPgAAgDMIwQc///9/P6G46D7//38/pLjoPtCCWz0KwQc/AABANMIlGz/wgls9wSUbP///fz8IwQc///9/PwrBBz8AAEA0eIouP///fz/BJRs///9/P8IlGz/wgls9eoouPwAAgDQ="),
+"format": 34359742487,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQAGAAZABoAGgAbABgAHAAdAB4AHgAfABwAIAAhACIAIgAjACAAJAAlACYAJgAnACQA"),
+"material": SubResource("StandardMaterial3D_gxg4y"),
+"name": "cerca",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("T07wLwrXIzzKXcw8T07wrwrXIzyamSK4T07wr28SAzyamSK4Tk7wL28SAzzz9Nc8T07wr28SA7yamSK4T07wrwrXI7yamSK4T07wLwrXI7zKXcw8Tk7wL28SA7zz9Nc8T07wL6abxLvKXcw8T07wr6abxLuamSK4T07wr28SA7yamSK4Tk7wL28SA7zz9Nc8T07wr28Sg7uamSK4T07wr6abxLuamSK4T07wL6abxLvKXcw8Tk7wL28Sg7vz9Nc8T07wL28SA7vKXcw8T07wr28SA7uamSK4T07wr28Sg7uamSK4Tk7wL28Sg7vz9Nc8T07wrwAAAACamSK4T07wr28SA7uamSK4T07wL28SA7vKXcw8Tk7wLwAAAADz9Nc8T07wL28SAzvKXcw8T07wr28SAzuamSK4T07wrwAAAACamSK4Tk7wLwAAAADz9Nc8T07wr28SgzuamSK4T07wr28SAzuamSK4T07wL28SAzvKXcw8Tk7wL28Sgzvz9Nc8T07wL6abxDvKXcw8T07wr6abxDuamSK4T07wr28SgzuamSK4Tk7wL28Sgzvz9Nc8T07wr28SAzyamSK4T07wr6abxDuamSK4T07wL6abxDvKXcw8Tk7wL28SAzzz9Nc8////f/9///////9//3///////3//f///////f/9///////9//3///////3//f///////f/9//v////9//3/+/////3//f///////f/9///////9//3///////3//f///////f/9///////9//3///////3//f/7/////f/9//v////9//3///////3//f///////f/9///////9//3///////3//f/7/////f/9//v////9//3///////3//f///////f/9///////9//3///////3//f///////f/9///////9//3///////3//f///////f/9//v////9//3/+/////3//f///////f/9///////9//3///////3//f///////f/9///////9//3///////3//f/7/////f/9//v8=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_p46ab")
+
+[node name="StaticBody3D" type="StaticBody3D" unique_id=1509450583]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1652644253]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3634186, 0.36340332, 0.0074157715)
+shape = SubResource("BoxShape3D_qcnnl")
+
+[node name="Plane" type="MeshInstance3D" parent="." unique_id=36235488]
+transform = Transform3D(-4.3711393e-06, 100, 3.5060937e-06, 0, -4.371139e-06, 80.210075, 100.00001, 4.371139e-06, 1.5325622e-13, -1.5981704, -0.7136216, 0)
+mesh = SubResource("ArrayMesh_ro07v")
+skeleton = NodePath("")
+
+[node name="Plane2" type="MeshInstance3D" parent="." unique_id=1882107467]
+transform = Transform3D(-4.3711393e-06, 100, 3.5060937e-06, 0, -4.371139e-06, 80.210075, 100.00001, 4.371139e-06, 1.5325622e-13, 0.39782572, -0.7136216, 0)
+mesh = SubResource("ArrayMesh_ro07v")
+skeleton = NodePath("")
+
+[node name="Plane3" type="MeshInstance3D" parent="." unique_id=418791185]
+transform = Transform3D(-4.3711393e-06, 100, 3.5060937e-06, 0, -4.371139e-06, 80.210075, 100.00001, 4.371139e-06, 1.5325622e-13, 2.3781564, -0.7136216, 0)
+mesh = SubResource("ArrayMesh_ro07v")
+skeleton = NodePath("")
+
+[node name="Plane4" type="MeshInstance3D" parent="." unique_id=1610167579]
+transform = Transform3D(-4.3711393e-06, 100, 3.5060937e-06, 0, -4.371139e-06, 80.210075, 100.00001, 4.371139e-06, 1.5325622e-13, 4.365489, -0.7136216, 0)
+mesh = SubResource("ArrayMesh_ro07v")
+skeleton = NodePath("")

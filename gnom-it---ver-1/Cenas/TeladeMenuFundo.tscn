@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://krqcf0ojhopo" path="res://Script/MeshGrama.gd" id="3_0myt7"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="4_6anum"]
 [ext_resource type="PackedScene" uid="uid://1rbhaw7sd8r1" path="res://CenasCenarios/CercaDensa.tscn" id="13_ltumv"]
-[ext_resource type="PackedScene" uid="uid://hcdxwjicfi71" path="res://CenasCenarios/Arbusto.tscn" id="14_lpdgj"]
+[ext_resource type="PackedScene" uid="uid://hcdxwjicfi71" path="res://CenaFinal/Arbusto.tscn" id="14_lpdgj"]
 [ext_resource type="PackedScene" uid="uid://b55qjd34jjrfd" path="res://Arvores.tscn" id="20_mkn42"]
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="21_6eh2m"]
 [ext_resource type="ArrayMesh" uid="uid://dcerdi21bij6n" path="res://Meshs/Plane_001.res" id="26_dbly1"]

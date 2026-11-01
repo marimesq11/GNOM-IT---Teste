@@ -52,7 +52,7 @@ albedo_texture = ExtResource("1_rh1ye")
 [sub_resource type="PlaneMesh" id="PlaneMesh_0i88t"]
 size = Vector2(6, 1.6)
 
-[node name="StaticBody3D" type="StaticBody3D" unique_id=1509450583]
+[node name="StaticBody3D2" type="StaticBody3D" unique_id=1509450583]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1652644253]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02645874, 0.061157227, 0.0074157715)
