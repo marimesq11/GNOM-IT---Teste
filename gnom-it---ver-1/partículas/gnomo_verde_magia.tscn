@@ -12,8 +12,8 @@ emission_shape_scale = Vector3(1, 1, 0)
 emission_shape = 6
 emission_ring_axis = Vector3(0, 0, 1)
 emission_ring_height = 1.0
-emission_ring_radius = 1.5
-emission_ring_inner_radius = 1.5
+emission_ring_radius = 6.0
+emission_ring_inner_radius = 6.0
 emission_ring_cone_angle = 90.0
 gravity = Vector3(0, 3, 0)
 scale_curve = SubResource("CurveTexture_umnoy")
@@ -26,8 +26,8 @@ emission_energy_multiplier = 14.25
 
 [sub_resource type="SphereMesh" id="SphereMesh_jmfrr"]
 material = SubResource("StandardMaterial3D_s70rq")
-radius = 0.05
-height = 0.1
+radius = 0.1
+height = 0.2
 
 [node name="gnomo verde magia" type="GPUParticles3D" unique_id=1283578034]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)

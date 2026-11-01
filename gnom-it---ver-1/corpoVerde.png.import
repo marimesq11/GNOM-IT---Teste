@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm17ne52edapx"
-path.s3tc="res://.godot/imported/gnomo verde_0.png-bad437d2565ec1b08529a53eac060c7f.s3tc.ctex"
+uid="uid://dvgrsiduigvph"
+path.s3tc="res://.godot/imported/corpoVerde.png-428c0c092e59bb29b81074fcc9482796.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Gnomo verde/gnomo verde_0.png"
-dest_files=["res://.godot/imported/gnomo verde_0.png-bad437d2565ec1b08529a53eac060c7f.s3tc.ctex"]
+source_file="res://corpoVerde.png"
+dest_files=["res://.godot/imported/corpoVerde.png-428c0c092e59bb29b81074fcc9482796.s3tc.ctex"]
 
 [params]
 

@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dg6mcspgv1oth" path="res://Assets/cell_grass.png" id="4_skq4c"]
 [ext_resource type="Texture2D" uid="uid://bvvnmtli7his4" path="res://Shaders/barra_gasolina.webp" id="5_xqa8m"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="6_ir2pu"]
+[ext_resource type="PackedScene" uid="uid://jpdif2cuxeh2" path="res://partículas/faísca.tscn" id="8_skq4c"]
 [ext_resource type="Script" uid="uid://b4u2m2wkpc22g" path="res://Cenas/barra_gasolina.gd" id="11_2a5hf"]
 [ext_resource type="PackedScene" uid="uid://cd0iw0jg20kn" path="res://Gasolina.tscn" id="12_mctnb"]
 [ext_resource type="PackedScene" uid="uid://e0pieu6lyakn" path="res://CenasCenarios/CarrinhodeMao.tscn" id="13_7mgab"]
@@ -110,7 +111,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18688965, 0, -0.03869629)
 shape = SubResource("BoxShape3D_w4tno")
 
 [node name="cortador" parent="." unique_id=1886462838 instance=ExtResource("6_ir2pu")]
-transform = Transform3D(0.135, 0, 0, 0, 0.135, 0, 0, 0, 0.135, 0.98181915, 0.17322394, -8.898669)
+transform = Transform3D(0.135, 0, 0, 0, 0.135, 0, 0, 0, 0.135, 0.98181915, 0.17322394, -7.4281926)
 move_speed = 5.0
 acceleration = 6.0
 rotation_speed = 5.0
@@ -150,6 +151,9 @@ shadow_opacity = 0.8
 environment = SubResource("Environment_1w6ss")
 camera_attributes = SubResource("CameraAttributesPractical_w4tno")
 compositor = SubResource("Compositor_yja4k")
+
+[node name="faísca" parent="Ambiente" unique_id=284790845 instance=ExtResource("8_skq4c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.74084425, 2.3841858e-07, -14.305675)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2000164364]
 
