@@ -94,6 +94,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6hfej")
 
 [node name="Node3D" type="Node3D" unique_id=655623774]
+transform = Transform3D(1.07, 0, 0, 0, 1.07, 0, 0, 0, 1.07, 0, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1861844810]
 

@@ -63,7 +63,9 @@ curve = SubResource("Curve_2gkvm")
 
 [node name="faísca" type="GPUParticles3D" unique_id=284790845]
 lifetime = 0.35000000000000003
+speed_scale = 2.0
+local_coords = true
 trail_enabled = true
-trail_lifetime = 0.09999999999999999
+trail_lifetime = 0.1
 process_material = SubResource("ParticleProcessMaterial_7t83b")
 draw_pass_1 = SubResource("TubeTrailMesh_2yfry")
