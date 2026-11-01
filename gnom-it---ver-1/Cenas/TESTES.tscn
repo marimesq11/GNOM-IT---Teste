@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="6_ir2pu"]
 [ext_resource type="Script" uid="uid://b4u2m2wkpc22g" path="res://Cenas/barra_gasolina.gd" id="11_2a5hf"]
 [ext_resource type="PackedScene" uid="uid://cd0iw0jg20kn" path="res://Gasolina.tscn" id="12_mctnb"]
-[ext_resource type="PackedScene" uid="uid://e0pieu6lyakn" path="res://CenasCenarios/CarrinhodeMao.tscn" id="13_7mgab"]
 [ext_resource type="PackedScene" uid="uid://k0b04vssj23n" path="res://Cenas/CadeiraDeitada.tscn" id="14_hfko0"]
 [ext_resource type="PackedScene" uid="uid://bqi3x00xbubml" path="res://CenasCenarios/MesadePicnic.tscn" id="15_brmt8"]
 [ext_resource type="PackedScene" uid="uid://cb5ndd6g33b30" path="res://CenasCenarios/FolhasnoChao.tscn" id="16_n0fw8"]
@@ -94,7 +93,7 @@ chao_mesh = NodePath("ChaoMesh")
 raio_corte = 0.4
 
 [node name="ChaoMesh" type="MeshInstance3D" parent="Chao" unique_id=331962387 node_paths=PackedStringArray("grama")]
-transform = Transform3D(1.0001253, 0, 0, 0, -4.3716867e-08, 1.0001253, 0, -1.0001253, -4.3716867e-08, 0.008672357, -0.012735605, 0.013688087)
+transform = Transform3D(1.0001253, 0, 0, 0, -4.3716867e-08, 1.0001253, 0, -1.0001253, -4.3716867e-08, 0.009753823, -0.01319623, 0.011725903)
 mesh = SubResource("QuadMesh_ahhmj")
 skeleton = NodePath("")
 script = ExtResource("4_3mcl0")
@@ -185,14 +184,6 @@ transform = Transform3D(1.3431945, 0, 0, 0, 1, 0, 0, 0, 1.3415703, 0, 0, 0)
 [node name="Node3D Carrinhos de Mão" type="Node3D" parent="Mapa/Nod3D Detalhes" unique_id=1909003406]
 transform = Transform3D(1.0000001, 1.8626451e-09, 7.450581e-09, 0, 1.0000001, 0, 7.450581e-09, 2.9802322e-08, 1.0000002, 0.32210898, 1.0430813e-07, 2.3187644)
 
-[node name="StaticBody3D3" parent="Mapa/Nod3D Detalhes/Node3D Carrinhos de Mão" unique_id=1009269641 instance=ExtResource("13_7mgab")]
-transform = Transform3D(0.00035474953, 0.09998661, 0.007914444, -0.09403109, 0.0030855762, -0.034766648, -0.034901492, -0.0072968146, 0.09374818, 4.290888, 0.15188485, -5.7361116)
-collision_mask = 3
-
-[node name="StaticBody3D2" parent="Mapa/Nod3D Detalhes/Node3D Carrinhos de Mão" unique_id=2102874625 instance=ExtResource("13_7mgab")]
-transform = Transform3D(0.083404064, -1.7583371e-10, 0.04421672, 0, 0.09439998, 0, -0.044216715, -2.813338e-09, 0.08340405, 3.032442, 0.09832573, -6.8470635)
-collision_mask = 3
-
 [node name="Node3D Cadeiras" type="Node3D" parent="Mapa/Nod3D Detalhes" unique_id=2037224912]
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 1.3302417, 0, 2.0252173)
 
@@ -203,7 +194,7 @@ transform = Transform3D(0.10468474, 0, 0.38605842, 0, 0.39999977, 0, -0.38605836
 transform = Transform3D(0.31416848, 0, 0.24758467, 0, 0.39999977, 0, -0.24758463, 0, 0.31416845, -3.2444844, 0.09832539, -5.1299047)
 
 [node name="cadeiras4" parent="Mapa/Nod3D Detalhes/Node3D Cadeiras" unique_id=1954605727 groups=["Quebravel"] instance=ExtResource("14_hfko0")]
-transform = Transform3D(-0.33395034, 0, -0.22017537, 0, 0.4, 0, 0.22017537, 0, -0.33395034, 2.8541412, 0.09832548, 2.0032787)
+transform = Transform3D(-0.33395034, 0, -0.22017536, 0, 0.39999998, 0, 0.22017536, 0, -0.33395034, 1.7115132, 0.098325476, 2.0032787)
 
 [node name="Node3D Mesas" type="Node3D" parent="Mapa/Nod3D Detalhes" unique_id=527289819]
 
@@ -224,7 +215,7 @@ transform = Transform3D(0.29665533, 0, -0.521532, 0, 0.59999985, 0, 0.5215319, 0
 [node name="Node3D caixas" type="Node3D" parent="Mapa/Nod3D Detalhes" unique_id=1815275768]
 
 [node name="StaticBody3D" parent="Mapa/Nod3D Detalhes/Node3D caixas" unique_id=1623762015 instance=ExtResource("17_fhyt8")]
-transform = Transform3D(0.8, 0, 0, 0, 0.7999999, 0, 0, 0, 0.7999999, 7.8911986, 0.3001486, 0.63386166)
+transform = Transform3D(0.8, 0, 0, 0, 0.7999998, 0, 0, 0, 0.7999997, 7.8911986, 0.30014855, -5.346275)
 
 [node name="StaticBody3D15" parent="Mapa/Nod3D Detalhes/Node3D caixas" unique_id=1498198087 instance=ExtResource("17_fhyt8")]
 transform = Transform3D(0.59999996, 0, 0, 0, 0.5999999, 0, 0, 0, 0.59999996, 0.4700085, 0.30014852, 4.0653343)
@@ -254,10 +245,10 @@ transform = Transform3D(0.05815882, -0.0064960727, -0.7978558, -0.42748427, -0.6
 transform = Transform3D(0.058158807, -0.0064960727, -0.7978558, -0.5275173, 0.5998711, -0.04333684, 0.5986164, 0.52925396, 0.03932627, -5.669544, 0.35885787, -2.0962808)
 
 [node name="StaticBody3D13" parent="Mapa/Nod3D Detalhes/Node3D caixas" unique_id=1452665215 instance=ExtResource("17_fhyt8")]
-transform = Transform3D(0.058158807, -0.0064960727, -0.7978558, -0.52751696, 0.59987074, -0.043336816, 0.5986162, 0.52925396, 0.03932627, 7.9392047, 0.3588577, 1.4029998)
+transform = Transform3D(0.058158807, -0.0064960727, -0.7978558, -0.52751684, 0.5998706, -0.04333681, 0.5986162, 0.52925396, 0.03932627, 7.9392033, 0.35885763, -4.577137)
 
 [node name="StaticBody3D14" parent="Mapa/Nod3D Detalhes/Node3D caixas" unique_id=783917855 instance=ExtResource("17_fhyt8")]
-transform = Transform3D(-0.4388254, -0.66762733, 0.041266672, -0.6688798, 0.4375746, -0.03354063, 0.005419347, -0.052901197, -0.7982292, 8.139194, 0.46922764, 2.2130399)
+transform = Transform3D(-0.4388253, -0.66762733, 0.041266672, -0.6688797, 0.43757454, -0.03354062, 0.005419346, -0.052901186, -0.79822904, 8.139194, 0.46922758, -3.7670968)
 
 [node name="StaticBody3D2" parent="Mapa/Nod3D Detalhes/Node3D caixas" unique_id=1792548594 instance=ExtResource("17_fhyt8")]
 transform = Transform3D(0.4, 0, 0, 0, 0.39999995, 0, 0, 0, 0.39999995, 8.121301, 0.1844374, 1.1629622)
@@ -347,6 +338,12 @@ collision_priority = 2.0
 [node name="Node3D13" parent="Mapa/Node3D Cercas" unique_id=655623774 instance=ExtResource("17_skq4c")]
 transform = Transform3D(-2.6142299e-08, 0, 0.6091205, 0, 1.0700006, 0, -0.5980661, 0, -2.6625502e-08, 4.613143, 0.015144851, 6.505003)
 
+[node name="Node3D25" parent="Mapa/Node3D Cercas" unique_id=1774961157 instance=ExtResource("17_skq4c")]
+transform = Transform3D(-2.61423e-08, 0, 0.60912055, 0, 1.0700008, 0, -0.59806615, 0, -2.6625504e-08, 5.1720834, 0.015144853, 6.505003)
+
+[node name="Node3D26" parent="Mapa/Node3D Cercas" unique_id=1920705257 instance=ExtResource("17_skq4c")]
+transform = Transform3D(-2.61423e-08, 0, 0.60912055, 0, 1.0700008, 0, -0.59806615, 0, -2.6625504e-08, 5.1720834, 0.015144853, 6.505003)
+
 [node name="Node3D19" parent="Mapa/Node3D Cercas" unique_id=15545706 instance=ExtResource("17_skq4c")]
 transform = Transform3D(-2.61423e-08, 0, 0.60912055, 0, 1.0700008, 0, -0.59806615, 0, -2.6625504e-08, 4.0542035, 0.015144853, 6.505003)
 
@@ -382,7 +379,6 @@ transform = Transform3D(-0.59806615, 0, -5.3251e-08, 0, 1.070001, 0, 5.228461e-0
 
 [node name="Node3D Arbustos" type="Node3D" parent="Mapa" unique_id=1801414065]
 transform = Transform3D(0.99647737, 0, 0.083862096, 0, 1, 0, -0.083862096, 0, 0.99647737, 2.100859, 0, -4.0328918)
-visible = false
 
 [node name="StaticBody3D" parent="Mapa/Node3D Arbustos" unique_id=632899998 instance=ExtResource("19_kxesi")]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -7.7338457, 0, -0.6508696)
@@ -486,25 +482,9 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 3.3437626, -0.060918003
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 3.017473, -0.060918003, 5.45309)
 
 [node name="Node3D Arvores" type="Node3D" parent="Mapa" unique_id=520547274]
-visible = false
-
-[node name="StaticBody3D2" parent="Mapa/Node3D Arvores" unique_id=1870684328 instance=ExtResource("25_lrtr4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.586654, 0, -4.548773)
 
 [node name="StaticBody3D3" parent="Mapa/Node3D Arvores" unique_id=1473692081 instance=ExtResource("25_lrtr4")]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -4.255963, 0, 5.373711)
-
-[node name="StaticBody3D4" parent="Mapa/Node3D Arvores" unique_id=799473905 instance=ExtResource("25_lrtr4")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.81797, 0, -5.476182)
-
-[node name="StaticBody3D5" parent="Mapa/Node3D Arvores" unique_id=1057191904 instance=ExtResource("25_lrtr4")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.81797, 0, -5.476182)
-
-[node name="StaticBody3D" parent="Mapa/Node3D Arvores" unique_id=1928316687 instance=ExtResource("25_lrtr4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3164043, 0.005203732, 5.5016994)
-
-[node name="StaticBody3D6" parent="Mapa/Node3D Arvores" unique_id=1811193536 instance=ExtResource("25_lrtr4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3164043, 0.005203732, 5.5016994)
 
 [node name="Timer" type="Timer" parent="." unique_id=2053944718]
 wait_time = 30.0
@@ -527,7 +507,7 @@ script = SubResource("GDScript_isj38")
 metadata/_edit_use_anchors_ = true
 
 [node name="StaticBody3D" parent="." unique_id=974990503 instance=ExtResource("28_bavn2")]
-transform = Transform3D(-0.00027923187, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -0.00027923187, 7.200514, 0.39871573, 6.905164)
+transform = Transform3D(-0.00027923193, -4.3472604e-12, 0.99999994, -0.06797099, 0.9976873, -1.8979666e-05, -0.9976872, -0.06797102, -0.00027858606, 7.200514, 0.24059236, 6.905164)
 
 [node name="123" parent="." unique_id=742262406 node_paths=PackedStringArray("fundo", "elementos_hud") instance=ExtResource("29_3repn")]
 z_index = 2
