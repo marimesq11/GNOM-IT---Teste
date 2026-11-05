@@ -635,6 +635,7 @@ sistema_chao = NodePath("../Chao")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=920233300]
 stream = ExtResource("2_iegax")
+autoplay = true
 
 [node name="Placa" type="Sprite2D" parent="." unique_id=1986225170]
 position = Vector2(600.00006, 34.999992)

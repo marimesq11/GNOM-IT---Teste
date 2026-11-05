@@ -5,6 +5,12 @@
 [ext_resource type="AudioStream" uid="uid://c7my8av5gu8an" path="res://ElevenLabs_Sharp_ceramic_plate_shattering_on_a_tiled_floor.mp3" id="2_t2hdc"]
 [ext_resource type="Texture2D" uid="uid://bqgv8uey6iomm" path="res://gnomo vermelho finalizado_1.png" id="3_k4jfx"]
 [ext_resource type="Texture2D" uid="uid://baenjqdysu87c" path="res://gnomo vermelho finalizado_2.png" id="4_b8p2m"]
+[ext_resource type="AudioStream" uid="uid://bo0bp2wr6boaj" path="res://partículas/SomMorteGnomo1.mp3" id="6_ghtk1"]
+[ext_resource type="AudioStream" uid="uid://divllh2abwd3t" path="res://partículas/SomMorteGnomo2.mp3" id="7_0spx6"]
+[ext_resource type="AudioStream" uid="uid://def6cr8cnjndt" path="res://partículas/SomMorteGnomo3.mp3" id="8_p3j5y"]
+[ext_resource type="AudioStream" uid="uid://cmgojfdcmky7v" path="res://Cenas/GnomosSons2.mp3" id="9_vemsp"]
+[ext_resource type="AudioStream" uid="uid://mabxgn2blxkl" path="res://Cenas/GnomoSons3.mp3" id="10_mkcwr"]
+[ext_resource type="AudioStream" uid="uid://dtnddml6jm5r4" path="res://Cenas/GnomosRisadinha1.mp3" id="11_sf1v8"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_27qw2"]
 radius = 1.3115234
@@ -136,9 +142,13 @@ shadow_mesh = SubResource("ArrayMesh_xh8vm")
 [sub_resource type="SphereShape3D" id="SphereShape3D_r1xqv"]
 radius = 1.6269953
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1619792841 groups=["atropelavel"]]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1619792841 node_paths=PackedStringArray("som_morte_gnomo_1", "som_morte_gnomo_2", "som_morte_gnomo_3", "som_morte_gnomo_4") groups=["atropelavel"]]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 script = ExtResource("1_r1xqv")
+som_morte_gnomo_1 = NodePath("AudioStreamPlayer/Morreu")
+som_morte_gnomo_2 = NodePath("AudioStreamPlayer/Morreu2")
+som_morte_gnomo_3 = NodePath("AudioStreamPlayer/Morreu3")
+som_morte_gnomo_4 = NodePath("AudioStreamPlayer/Morreu4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1330910761]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14489144, 1.0793525, -0.072972775)
@@ -163,6 +173,32 @@ skeleton = NodePath("")
 
 [node name="Morreu" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=748221151]
 stream = ExtResource("2_t2hdc")
+
+[node name="Morreu2" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=2080606028]
+stream = ExtResource("6_ghtk1")
+pitch_scale = 1.59
+
+[node name="Morreu3" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=999842825]
+stream = ExtResource("7_0spx6")
+pitch_scale = 1.59
+
+[node name="Morreu4" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1799434405]
+stream = ExtResource("8_p3j5y")
+volume_db = 24.0
+pitch_scale = 1.59
+
+[node name="Barulinhos" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=336525049]
+stream = ExtResource("9_vemsp")
+volume_db = -0.365
+pitch_scale = 1.05
+
+[node name="Barulinhos2" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1434140379]
+stream = ExtResource("10_mkcwr")
+volume_db = -0.365
+pitch_scale = 1.1
+
+[node name="Ataque" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=582559198]
+stream = ExtResource("11_sf1v8")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=653462817 groups=["AreaGnomo", "atropelavel", "inimigos"]]
 collision_layer = 8

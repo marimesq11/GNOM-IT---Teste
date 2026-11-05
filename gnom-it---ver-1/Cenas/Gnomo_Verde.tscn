@@ -5,7 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://8pg5fylan64t" path="res://gnomo verde finalizado_1.png" id="3_grj6l"]
 [ext_resource type="AudioStream" uid="uid://c7my8av5gu8an" path="res://ElevenLabs_Sharp_ceramic_plate_shattering_on_a_tiled_floor.mp3" id="3_n7fwp"]
 [ext_resource type="Texture2D" uid="uid://dlr0h3sj08tb0" path="res://Texture/corpoVerde.png" id="4_ykc3v"]
+[ext_resource type="AudioStream" uid="uid://bo0bp2wr6boaj" path="res://partículas/SomMorteGnomo1.mp3" id="5_kwuwa"]
 [ext_resource type="PackedScene" uid="uid://d4hp64da3bq1v" path="res://partículas/gnomo_verde_magia.tscn" id="6_grj6l"]
+[ext_resource type="AudioStream" uid="uid://divllh2abwd3t" path="res://partículas/SomMorteGnomo2.mp3" id="6_oua1x"]
+[ext_resource type="AudioStream" uid="uid://def6cr8cnjndt" path="res://partículas/SomMorteGnomo3.mp3" id="7_dd5e1"]
+[ext_resource type="AudioStream" uid="uid://du2ojyrgy0auh" path="res://MagiaGnomoVerde.mp3" id="8_kwuwa"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_dd5e1"]
 height = 2.4033203
@@ -140,12 +144,17 @@ albedo_texture = ExtResource("4_ykc3v")
 [sub_resource type="SphereShape3D" id="SphereShape3D_n7fwp"]
 radius = 1.4200253
 
-[node name="Node3D" type="CharacterBody3D" unique_id=551412508 node_paths=PackedStringArray("gnomo_verde_magia") groups=["atropelavel"]]
+[node name="Node3D" type="CharacterBody3D" unique_id=551412508 node_paths=PackedStringArray("gnomo_verde_magia", "som_magia", "som_morte_gnomo_1", "som_morte_gnomo_2", "som_morte_gnomo_3", "som_morte_gnomo_4") groups=["atropelavel"]]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 collision_layer = 8
 collision_mask = 135
 script = ExtResource("1_asuct")
 gnomo_verde_magia = NodePath("gnomo verde magia")
+som_magia = NodePath("AudioStreamPlayer/Magia")
+som_morte_gnomo_1 = NodePath("AudioStreamPlayer/Morreu")
+som_morte_gnomo_2 = NodePath("AudioStreamPlayer/Morreu2")
+som_morte_gnomo_3 = NodePath("AudioStreamPlayer/Morreu3")
+som_morte_gnomo_4 = NodePath("AudioStreamPlayer/Morreu4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=259883160]
 transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0.15826413, 1.2689795, 0.0017984955)
@@ -167,12 +176,27 @@ mesh = SubResource("ArrayMesh_oua1x")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_0i88t")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=160717626]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1999941739]
 pitch_scale = 0.85
 
 [node name="Morreu" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1831094664]
-stream = ExtResource("3_n7fwp")
+stream = ExtResource("5_kwuwa")
 pitch_scale = 1.59
+
+[node name="Morreu2" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1243516373]
+stream = ExtResource("6_oua1x")
+pitch_scale = 1.59
+
+[node name="Morreu3" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1566224958]
+stream = ExtResource("7_dd5e1")
+volume_db = 24.0
+pitch_scale = 1.59
+
+[node name="Morreu4" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=713851110]
+stream = ExtResource("3_n7fwp")
+
+[node name="Magia" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=929503280]
+stream = ExtResource("8_kwuwa")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=771063174 groups=["atropelavel", "inimigos"]]
 collision_layer = 8

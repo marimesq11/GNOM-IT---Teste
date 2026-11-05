@@ -1,3 +1,4 @@
+
 class_name Quebravel
 extends Node
 
@@ -40,7 +41,7 @@ static func quebrar(objeto: Node) -> void:
 		pontos = PONTOS_ARBUSTO
 
 		# emitir_particula(objeto, cena, "ParticulaArbusto")
-		# tocar_som(objeto, cena, "SomArbusto")
+		tocar_som(objeto, cena, "ColidirArbusto")
 
 	# ========================================
 	# CAIXA
@@ -49,8 +50,9 @@ static func quebrar(objeto: Node) -> void:
 	elif objeto.is_in_group("madeira"):
 		pontos = PONTOS_CAIXA
 
+		tocar_som(objeto, cena, "CaixaQuebrando")
+
 		# emitir_particula(objeto, cena, "ParticulaCaixa")
-		# tocar_som(objeto, cena, "SomCaixa")
 
 	# ========================================
 	# FLOR
@@ -101,14 +103,8 @@ static func quebrar(objeto: Node) -> void:
 
 	if marker is Marker2D:
 		var popup_tempo = POPUP_TEMPO.instantiate()
-
-		# Adiciona na mesma camada do marcador
 		marker.add_child(popup_tempo)
-
-		# Centraliza no marcador
 		popup_tempo.position = Vector2.ZERO
-
-		# Exibe o tempo
 		popup_tempo.aparecer("+%ds" % TEMPO_BONUS)
 
 	# ========================================
@@ -155,24 +151,49 @@ static func quebrar(objeto: Node) -> void:
 # FUNÇÃO PARA TOCAR SONS
 # ========================================
 
-# static func tocar_som(
-# 	objeto: Node,
-# 	cena: Node,
-# 	nome: String
-# ) -> void:
-#
-# 	var som = objeto.find_child(nome, true, false)
-#
-# 	if som == null:
-# 		return
-#
-# 	if not som is AudioStreamPlayer3D:
-# 		return
-#
-# 	var pos = som.global_transform
-#
-# 	som.reparent(cena)
-# 	som.global_transform = pos
-#
-# 	som.play()
-# 	som.finished.connect(som.queue_free)
+
+
+static func tocar_som(objeto: Node, cena: Node, nome: String) -> void:
+	var som_original = objeto.find_child(nome, true, false)
+
+	if som_original == null:
+		push_warning("CAIXA: Não encontrou o som " + nome)
+		return
+
+	if not som_original is AudioStreamPlayer3D and not som_original is AudioStreamPlayer:
+		push_warning("CAIXA: O nó encontrado não é um AudioStreamPlayer!")
+		return
+
+	if som_original.stream == null:
+		push_warning("CAIXA: O som está sem Stream configurado!")
+		return
+
+	# CRIA UMA CÓPIA DO PLAYER PARA TOCAR FORA DA CAIXA
+	if som_original is AudioStreamPlayer3D:
+		var novo_som = AudioStreamPlayer3D.new()
+		novo_som.stream = som_original.stream
+		novo_som.volume_db = som_original.volume_db
+		novo_som.pitch_scale = som_original.pitch_scale
+		novo_som.bus = som_original.bus
+		novo_som.unit_size = som_original.unit_size
+		novo_som.max_distance = som_original.max_distance
+
+		cena.add_child(novo_som)
+		novo_som.global_position = som_original.global_position
+		novo_som.finished.connect(novo_som.queue_free)
+		novo_som.play()
+
+		print("CAIXA: Som 3D tocando!")
+
+	elif som_original is AudioStreamPlayer:
+		var novo_som = AudioStreamPlayer.new()
+		novo_som.stream = som_original.stream
+		novo_som.volume_db = som_original.volume_db
+		novo_som.pitch_scale = som_original.pitch_scale
+		novo_som.bus = som_original.bus
+
+		cena.add_child(novo_som)
+		novo_som.finished.connect(novo_som.queue_free)
+		novo_som.play()
+
+		print("CAIXA: Som 2D tocando!")

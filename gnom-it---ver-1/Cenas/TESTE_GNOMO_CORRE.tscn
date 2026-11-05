@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://dj2xy820u5qaf" path="res://Cenas/TESTEGNOMOCORRE.gd" id="1_h7iwr"]
 [ext_resource type="PackedScene" uid="uid://blmlbk64gk2mt" path="res://Cenas/PopupPontos.tscn" id="2_2omwk"]
 [ext_resource type="AudioStream" uid="uid://c7my8av5gu8an" path="res://ElevenLabs_Sharp_ceramic_plate_shattering_on_a_tiled_floor.mp3" id="2_y5vas"]
+[ext_resource type="AudioStream" uid="uid://bo0bp2wr6boaj" path="res://partículas/SomMorteGnomo1.mp3" id="4_56ony"]
+[ext_resource type="AudioStream" uid="uid://divllh2abwd3t" path="res://partículas/SomMorteGnomo2.mp3" id="5_vfdvo"]
+[ext_resource type="AudioStream" uid="uid://def6cr8cnjndt" path="res://partículas/SomMorteGnomo3.mp3" id="6_wji66"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ckb4l"]
 radius = 1.9577835
@@ -226,11 +229,15 @@ shadow_mesh = SubResource("ArrayMesh_37arf")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8poqy"]
 albedo_color = Color(1, 1, 0, 1)
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1369375029 node_paths=PackedStringArray("modelo_gnomo") groups=["atropelavel", "inimigos"]]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1369375029 node_paths=PackedStringArray("som_morte_gnomo_1", "som_morte_gnomo_2", "som_morte_gnomo_3", "som_morte_gnomo_4", "modelo_gnomo") groups=["atropelavel", "inimigos"]]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_h7iwr")
+som_morte_gnomo_1 = NodePath("AudioStreamPlayer/Morreu")
+som_morte_gnomo_2 = NodePath("AudioStreamPlayer/Morreu2")
+som_morte_gnomo_3 = NodePath("AudioStreamPlayer/Morreu3")
+som_morte_gnomo_4 = NodePath("AudioStreamPlayer/Morreu4")
 modelo_gnomo = NodePath("Node3D")
 cena_popup = ExtResource("2_2omwk")
 
@@ -250,6 +257,19 @@ shape = SubResource("BoxShape3D_f55u6")
 
 [node name="Morreu" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1661970871]
 stream = ExtResource("2_y5vas")
+
+[node name="Morreu2" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=462963131]
+stream = ExtResource("4_56ony")
+pitch_scale = 1.59
+
+[node name="Morreu3" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1203587143]
+stream = ExtResource("5_vfdvo")
+pitch_scale = 1.59
+
+[node name="Morreu4" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1118856660]
+stream = ExtResource("6_wji66")
+volume_db = 24.0
+pitch_scale = 1.59
 
 [node name="Node3D" type="Node3D" parent="." unique_id=563717880]
 

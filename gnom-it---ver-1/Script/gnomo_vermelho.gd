@@ -1,3 +1,4 @@
+
 extends CharacterBody3D
 
 # ==========================================
@@ -35,9 +36,25 @@ var tempo_parado = 0.5
 @export var pitch_som_min: float = 0.8
 @export var pitch_som_max: float = 1.4
 
+# SONS DE MORTE
+@export var som_morte_gnomo_1: AudioStreamPlayer
+@export var som_morte_gnomo_2: AudioStreamPlayer
+@export var som_morte_gnomo_3: AudioStreamPlayer
+@export var som_morte_gnomo_4: AudioStreamPlayer
+
+@onready var som_morreu: AudioStreamPlayer = $AudioStreamPlayer/Morreu
+
+# SONS DE PERSEGUIÇÃO E ATAQUE
+@onready var som_barulinho_1: AudioStreamPlayer = $AudioStreamPlayer/Barulinhos
+@onready var som_barulinho_2: AudioStreamPlayer = $AudioStreamPlayer/Barulinhos2
+@onready var som_ataque: AudioStreamPlayer = $AudioStreamPlayer/Ataque
+
 # ESTADOS
 var atacando = false
 var parado = false
+
+# CONTADOR DE ATAQUES
+var contador_ataques: int = 0
 
 # POSIÇÃO DO INIMIGO NO CÍRCULO
 var indice_inimigo = 0
@@ -60,6 +77,8 @@ func _ready():
 	_timer_som.timeout.connect(_tocar_som_perseguicao)
 	add_child(_timer_som)
 
+	_agendar_som_perseguicao()
+
 
 # ==========================================
 # SOM ALEATÓRIO DURANTE A PERSEGUIÇÃO
@@ -77,10 +96,36 @@ func _tocar_som_perseguicao() -> void:
 	if sendo_atropelado or parado or atacando:
 		return
 
-	# AUDIO: GnomoSons
-	# $GnomoSons.pitch_scale = randf_range(pitch_som_min, pitch_som_max)
-	# $GnomoSons.play()
-	# _agendar_som_perseguicao()
+	var sons: Array[AudioStreamPlayer] = [
+		som_barulinho_1,
+		som_barulinho_2
+	]
+
+	sons = sons.filter(
+		func(som): return som != null and som.stream != null
+	)
+
+	if not sons.is_empty():
+		var som_sorteado: AudioStreamPlayer = sons.pick_random()
+
+		som_sorteado.pitch_scale = randf_range(
+			pitch_som_min,
+			pitch_som_max
+		)
+
+		som_sorteado.play()
+
+	_agendar_som_perseguicao()
+
+
+func _parar_sons_perseguicao() -> void:
+	_timer_som.stop()
+
+	if som_barulinho_1.playing:
+		som_barulinho_1.stop()
+
+	if som_barulinho_2.playing:
+		som_barulinho_2.stop()
 
 
 # ==========================================
@@ -141,7 +186,11 @@ func _physics_process(delta: float) -> void:
 
 	# ACELERAÇÃO
 	var velocidade_maxima = velocidade_ataque if atacando else velocidade
-	velocidade_atual = move_toward(velocidade_atual, velocidade_maxima, aceleracao * delta)
+	velocidade_atual = move_toward(
+		velocidade_atual,
+		velocidade_maxima,
+		aceleracao * delta
+	)
 
 	# DISTÂNCIA DO CORTADOR
 	var diferenca = Cortador.global_position - global_position
@@ -152,8 +201,11 @@ func _physics_process(delta: float) -> void:
 	if distancia_quadrada <= distancia_cercar * distancia_cercar:
 		if not atacando:
 			atacando = true
+
+			# ANIMAÇÃO
 			# $AnimationPlayer.play("GnomoAtacando")
-			# _timer_som.stop()
+
+			_parar_sons_perseguicao()
 
 	# DESTINO
 	var destino: Vector3
@@ -182,6 +234,7 @@ func _physics_process(delta: float) -> void:
 	# VERIFICA DISTÂNCIA PARA ATAQUE
 	if atacando and not parado:
 		var distancia = global_position.distance_to(Cortador.global_position)
+
 		if distancia <= distancia_cercar:
 			ataque_acertou()
 
@@ -191,33 +244,42 @@ func _physics_process(delta: float) -> void:
 # ==========================================
 
 func ataque_acertou() -> void:
-	print("GNOMO ATACA O NÓ: ", Cortador.get_path())
-	print("GASOLINA ANTES: ", Cortador.gasolina)
-	Cortador.tomar_dano(dano)
-	print("GASOLINA DEPOIS: ", Cortador.gasolina)
-
 	if sendo_atropelado or parado:
+		return
+
+	if not is_instance_valid(Cortador):
 		return
 
 	atacando = false
 	parado = true
+
 	print("GNOMO ACERTOU O CORTADOR!")
+	print("GASOLINA ANTES: ", Cortador.gasolina)
 
-	# $AnimationPlayer.stop()
-	# _timer_som.stop()
+	# CAUSA DANO UMA ÚNICA VEZ
+	Cortador.tomar_dano(dano)
 
-	if is_instance_valid(Cortador):
-		print("GASOLINA ANTES: ", Cortador.gasolina)
-		Cortador.tomar_dano(dano)
-		print("DANO CAUSADO: ", dano)
-		print("GASOLINA DEPOIS: ", Cortador.gasolina)
+	print("DANO CAUSADO: ", dano)
+	print("GASOLINA DEPOIS: ", Cortador.gasolina)
 
-		var direcao_recuo = global_position - Cortador.global_position
-		direcao_recuo.y = 0.0
+	# PARA BARULHINHOS
+	_parar_sons_perseguicao()
 
-		if direcao_recuo.length_squared() > 0.0001:
-			direcao_recuo = direcao_recuo.normalized()
-			global_position += direcao_recuo * forca_recuo
+	# CONTADOR DE ATAQUES
+	contador_ataques += 1
+
+	# TOCA O SOM A CADA 3 ATAQUES ACERTADOS
+	if contador_ataques % 3 == 0:
+		if som_ataque != null and som_ataque.stream != null:
+			som_ataque.play()
+
+	# RECUO
+	var direcao_recuo = global_position - Cortador.global_position
+	direcao_recuo.y = 0.0
+
+	if direcao_recuo.length_squared() > 0.0001:
+		direcao_recuo = direcao_recuo.normalized()
+		global_position += direcao_recuo * forca_recuo
 
 	velocity = Vector3.ZERO
 	velocidade_atual = velocidade_inicial
@@ -226,49 +288,71 @@ func ataque_acertou() -> void:
 
 	if is_inside_tree() and not sendo_atropelado:
 		parado = false
+		_agendar_som_perseguicao()
 
 
 # ==========================================
 # MORTE POR ATROPELAMENTO
 # ==========================================
 
-func morrer_atropelado():
-	print("GNOMO MORREU POR ATROPELAMENTO!")
-	print_stack()
-
+func morrer_atropelado() -> void:
 	if sendo_atropelado:
 		return
 
 	print("GNOMO MORREU POR ATROPELAMENTO!")
 	print("POSIÇÃO DO GNOMO: ", global_position)
 
-	GameManager.adicionar_pontos(50, global_position)
-	GameManager.registrar_gnomo()
-
 	sendo_atropelado = true
 	atacando = false
 	parado = true
 	velocity = Vector3.ZERO
 
+	# PONTUAÇÃO
+	GameManager.adicionar_pontos(50, global_position)
+	GameManager.registrar_gnomo()
+
+	# PARA TODOS OS SONS ANTERIORES
+	_parar_sons_perseguicao()
+
+	if som_ataque.playing:
+		som_ataque.stop()
+
 	# ANIMAÇÃO
 	# $AnimationPlayer.stop()
-
-	# AUDIO
-	# _timer_som.stop()
-	# $GnomoSons.stop()
-	# $GnomoMorte.play()
 
 	# PARTÍCULAS
 	# $ParticulaGnomoMorte.emitting = true
 
-	$AudioStreamPlayer/Morreu.play()
+	# SORTEIA UM DOS QUATRO SONS DE MORTE
+	var sons_morte: Array[AudioStreamPlayer] = [
+		som_morte_gnomo_1,
+		som_morte_gnomo_2,
+		som_morte_gnomo_3,
+		som_morte_gnomo_4
+	]
 
+	sons_morte = sons_morte.filter(
+		func(som): return som != null and som.stream != null
+	)
+
+	if not sons_morte.is_empty():
+		var som_sorteado: AudioStreamPlayer = sons_morte.pick_random()
+		som_morreu.stream = som_sorteado.stream
+		som_morreu.play()
+	else:
+		push_warning("Nenhum som de morte configurado no gnomo!")
+
+	# DESATIVA O GNOMO
 	set_physics_process(false)
 	set_process(false)
+
 	hide()
 
 	collision_layer = 0
 	collision_mask = 0
 
-	await get_tree().create_timer(1.0).timeout
+	# ESPERA O SOM DE MORTE TERMINAR
+	if som_morreu.playing:
+		await som_morreu.finished
+
 	queue_free()

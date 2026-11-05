@@ -1,3 +1,4 @@
+
 extends CharacterBody3D
 
 const GRUPO_ATROPELAVEL := &"atropelavel"
@@ -28,6 +29,14 @@ const GRUPO_ATROPELAVEL := &"atropelavel"
 @export var ponto_destino: Marker3D
 @onready var colisao: CollisionShape3D = $CollisionShape3D
 @onready var ponto_encaixe: Marker3D = $Ponto_Encaixe
+
+# SONS DE MORTE
+@export var som_morte_gnomo_1: AudioStreamPlayer
+@export var som_morte_gnomo_2: AudioStreamPlayer
+@export var som_morte_gnomo_3: AudioStreamPlayer
+@export var som_morte_gnomo_4: AudioStreamPlayer
+
+@onready var som_morreu: AudioStreamPlayer = $AudioStreamPlayer/Morreu
 
 # ESTADOS
 enum Estado { PERSEGUINDO, PULANDO, PRESO, CAIDO, ARREMESSADO, MORTO }
@@ -360,7 +369,6 @@ func _acabou_tempo_caido() -> void:
 	if estado == Estado.CAIDO:
 		levantar()
 
-
 func levantar() -> void:
 	if estado != Estado.CAIDO:
 		return
@@ -377,7 +385,6 @@ func levantar() -> void:
 	impulso_empurrao = Vector3.ZERO
 
 	_timer_som_passos.start()
-
 
 # CONTROLE DA VAGA
 func liberar_vaga() -> void:
@@ -409,19 +416,39 @@ func morrer_atropelado() -> void:
 	# ANIMAÇÃO: PARAR GnomoAndando
 	# $AnimationPlayer.stop()
 
-	# AUDIO: GnomoMorte
-	# $GnomoMorte.play()
-
-	# PARTICULA: ParticulaMorte
+	# PARTÍCULA: ParticulaMorte
 	# $ParticulaMorte.emitting = true
+
+	# SORTEIA UM DOS QUATRO SONS DE MORTE
+	var sons_morte: Array[AudioStreamPlayer] = [
+		som_morte_gnomo_1,
+		som_morte_gnomo_2,
+		som_morte_gnomo_3,
+		som_morte_gnomo_4
+	]
+
+	# REMOVE PLAYERS SEM ÁUDIO CONFIGURADO
+	sons_morte = sons_morte.filter(
+		func(som): return som != null and som.stream != null
+	)
+
+	# REPRODUZ O SOM SORTEADO
+	if not sons_morte.is_empty():
+		var som_sorteado: AudioStreamPlayer = sons_morte.pick_random()
+		som_morreu.stream = som_sorteado.stream
+		som_morreu.play()
+	else:
+		push_warning("Nenhum som de morte configurado no gnomo!")
 
 	hide()
 	colisao.set_deferred("disabled", true)
 	set_physics_process(false)
 
-	await get_tree().create_timer(1.0).timeout
+	# ESPERA O SOM TERMINAR
+	if som_morreu.playing:
+		await som_morreu.finished
+
 	queue_free()
-	
 
 @export var velocidade_rotacao: float = 8.0
 

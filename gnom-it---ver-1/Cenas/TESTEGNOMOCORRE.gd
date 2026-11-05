@@ -1,6 +1,14 @@
 
 extends CharacterBody3D
 
+# SONS DE MORTE
+@export var som_morte_gnomo_1: AudioStreamPlayer
+@export var som_morte_gnomo_2: AudioStreamPlayer
+@export var som_morte_gnomo_3: AudioStreamPlayer
+@export var som_morte_gnomo_4: AudioStreamPlayer
+
+@onready var som_morreu: AudioStreamPlayer = $AudioStreamPlayer/Morreu
+
 # MOVIMENTO
 @export var velocidade_fuga: float = 2.7
 @export var velocidade_sprint: float = 9.0
@@ -471,9 +479,6 @@ func morrer_atropelado() -> void:
 	# ANIMAÇÃO: PARAR GnomoFugindo
 	# $AnimationPlayer.stop()
 
-	# AUDIO: GnomoMorrendo
-	# $GnomoMorrendo.play()
-
 	# PARTICULA: GnomoMorte
 	# $GnomoMorte.emitting = true
 
@@ -481,8 +486,26 @@ func morrer_atropelado() -> void:
 	$CollisionShape3D.set_deferred("disabled", true)
 	$Area3D/CollisionShape3D.set_deferred("disabled", true)
 
-	$AudioStreamPlayer/Morreu.play()
-	await get_tree().create_timer(1.0).timeout
+	# SORTEIA UM DOS QUATRO SONS DE MORTE
+	var sons_morte: Array[AudioStreamPlayer] = [
+		som_morte_gnomo_1,
+		som_morte_gnomo_2,
+		som_morte_gnomo_3,
+		som_morte_gnomo_4
+	]
+
+	sons_morte = sons_morte.filter(
+		func(som): return som != null and som.stream != null
+	)
+
+	if not sons_morte.is_empty():
+		var som_sorteado: AudioStreamPlayer = sons_morte.pick_random()
+		som_morreu.stream = som_sorteado.stream
+		som_morreu.play()
+		await som_morreu.finished
+	else:
+		push_warning("Nenhum som de morte configurado no gnomo!")
+
 	queue_free()
 
 func olhar_para_jogador(delta: float) -> void:

@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bus73ub0e28uq"]
 
 [ext_resource type="Texture2D" uid="uid://cjl5xu4voa5kl" path="res://Farm_objects_BaseColor.png" id="1_wxgk2"]
+[ext_resource type="AudioStream" uid="uid://dsdjp1onajtu0" path="res://Cenas/BatendoMadeira.mp3" id="2_lf6w2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bimlo"]
 resource_name = "Farm objects material"
@@ -95,3 +96,10 @@ randomness = 0.19
 fixed_fps = 10
 process_material = SubResource("ParticleProcessMaterial_0i88t")
 draw_pass_1 = SubResource("QuadMesh_ckb4l")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=219879519]
+
+[node name="CaixaQuebrando" type="AudioStreamPlayer" parent="AudioStreamPlayer3D" unique_id=2131620530]
+stream = ExtResource("2_lf6w2")
+volume_db = -2.425
+pitch_scale = 0.95

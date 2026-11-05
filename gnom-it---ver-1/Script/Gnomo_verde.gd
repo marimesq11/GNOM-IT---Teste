@@ -1,4 +1,3 @@
-
 extends CharacterBody3D
 
 # =========================================================
@@ -32,6 +31,14 @@ var sendo_atropelado: bool = false
 # =========================================================
 
 @export var gnomo_verde_magia: GPUParticles3D
+@export var som_magia: AudioStreamPlayer
+
+@export var som_morte_gnomo_1: AudioStreamPlayer
+@export var som_morte_gnomo_2: AudioStreamPlayer
+@export var som_morte_gnomo_3: AudioStreamPlayer
+@export var som_morte_gnomo_4: AudioStreamPlayer
+
+@onready var som_morreu: AudioStreamPlayer = $AudioStreamPlayer/Morreu
 
 # =========================================================
 # PROCURA
@@ -83,20 +90,19 @@ func _ready() -> void:
 # =========================================================
 
 func _ativar_magia() -> void:
-	if gnomo_verde_magia == null:
-		return
-
-	if not gnomo_verde_magia.emitting:
+	if gnomo_verde_magia != null and not gnomo_verde_magia.emitting:
 		gnomo_verde_magia.emitting = true
+
+	if som_magia != null and not som_magia.playing:
+		som_magia.play()
 
 
 func _desativar_magia() -> void:
-	if gnomo_verde_magia == null:
-		return
-
-	if gnomo_verde_magia.emitting:
+	if gnomo_verde_magia != null:
 		gnomo_verde_magia.emitting = false
 
+	if som_magia != null and som_magia.playing:
+		som_magia.stop()
 # =========================================================
 # SONS
 # =========================================================
@@ -473,28 +479,39 @@ func morrer_atropelado() -> void:
 	if sendo_atropelado:
 		return
 
-	GameManager.adicionar_pontos(50, global_position)
-	GameManager.registrar_gnomo()
-
 	sendo_atropelado = true
 	possui_alvo = false
 	velocity = Vector3.ZERO
 
+	# PARA A MAGIA IMEDIATAMENTE
 	_desativar_magia()
 
 	_timer_som.stop()
 
-	# ANIMAÇÃO: PARAR
-	# $AnimationPlayer.stop()
+	# PONTUAÇÃO
+	GameManager.adicionar_pontos(50, global_position)
+	GameManager.registrar_gnomo()
 
-	# AUDIO: GnomoMorte
-	# $GnomoMorte.play()
+	var sons_morte: Array[AudioStreamPlayer] = [
+		som_morte_gnomo_1,
+		som_morte_gnomo_2,
+		som_morte_gnomo_3,
+		som_morte_gnomo_4
+	]
 
-	# PARTÍCULA: GnomoMorte
-	# $ParticulaGnomoMorte.emitting = true
+	sons_morte = sons_morte.filter(
+		func(som): return som != null and som.stream != null
+	)
 
-	$AudioStreamPlayer/Morreu.play()
+	var som_sorteado: AudioStreamPlayer = null
+	if not sons_morte.is_empty():
+		som_sorteado = sons_morte.pick_random()
 
+	if som_sorteado != null:
+		som_morreu.stream = som_sorteado.stream
+		som_morreu.play()
+
+	# DESATIVA O GNOMO
 	set_physics_process(false)
 	set_process(false)
 
@@ -503,5 +520,8 @@ func morrer_atropelado() -> void:
 	collision_layer = 0
 	collision_mask = 0
 
-	await get_tree().create_timer(1.0).timeout
+	# ESPERA O SOM DE MORTE TERMINAR
+	if som_morreu.playing:
+		await som_morreu.finished
+
 	queue_free()
