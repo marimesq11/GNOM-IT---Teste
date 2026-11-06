@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://k0v1qdgks2h1"
-path="res://.godot/imported/galão gasolina.fbx-f0c530978033b931afd4677bdf488af0.scn"
+uid="uid://cwvng3omn6gbj"
+path="res://.godot/imported/vrumvrum finalizada.fbx-5a0c9113c0763c405329db68a89a2375.scn"
 
 [deps]
 
-source_file="res://Cenas/galão gasolina.fbx"
-dest_files=["res://.godot/imported/galão gasolina.fbx-f0c530978033b931afd4677bdf488af0.scn"]
+source_file="res://Cenas/vrumvrum finalizada.fbx"
+dest_files=["res://.godot/imported/vrumvrum finalizada.fbx-5a0c9113c0763c405329db68a89a2375.scn"]
 
 [params]
 

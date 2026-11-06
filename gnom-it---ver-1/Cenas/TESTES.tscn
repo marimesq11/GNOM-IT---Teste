@@ -15,8 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://bqi3x00xbubml" path="res://CenasCenarios/MesadePicnic.tscn" id="15_brmt8"]
 [ext_resource type="PackedScene" uid="uid://cb5ndd6g33b30" path="res://CenasCenarios/FolhasnoChao.tscn" id="16_n0fw8"]
 [ext_resource type="PackedScene" uid="uid://bus73ub0e28uq" path="res://CenaFinal/CaixaouCanteiro.tscn" id="17_fhyt8"]
-[ext_resource type="PackedScene" uid="uid://rlfoqxjt22lh" path="res://CenaFinal/CanteiroFinal.tscn" id="17_skq4c"]
-[ext_resource type="PackedScene" uid="uid://1rbhaw7sd8r1" path="res://CenasCenarios/CercaDensa.tscn" id="18_auw5l"]
 [ext_resource type="PackedScene" uid="uid://hcdxwjicfi71" path="res://CenaFinal/Arbusto.tscn" id="19_kxesi"]
 [ext_resource type="PackedScene" uid="uid://b55qjd34jjrfd" path="res://Arvores.tscn" id="25_lrtr4"]
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="26_6gs8y"]
@@ -28,9 +26,14 @@
 [ext_resource type="Script" uid="uid://di0yxtjm1y44h" path="res://Cenas/SpawnerInimigos.gd" id="30_iegax"]
 [ext_resource type="PackedScene" uid="uid://e1c5afilg1y" path="res://Cenas/TESTE_GNOMO_CORRE.tscn" id="31_oe0oo"]
 [ext_resource type="PackedScene" uid="uid://deo2pg1m8mdl7" path="res://Cenas/TESTEGNOMOVERMELHO.tscn" id="31_xqa8m"]
+[ext_resource type="PackedScene" uid="uid://3qrgkhrp1hhs" path="res://galão gasolinafbx.fbx" id="32_iegax"]
 [ext_resource type="PackedScene" uid="uid://d20lrrt0d6by8" path="res://Cenas/TESTEGNOMOAZUL.tscn" id="33_0outj"]
 [ext_resource type="PackedScene" uid="uid://cwgvmwmpl52cw" path="res://Circulo_Pontuação.tscn" id="33_0yihv"]
+[ext_resource type="PackedScene" uid="uid://csskufoa86f4j" path="res://Cenas/canteiro.fbx" id="33_xqa8m"]
+[ext_resource type="PackedScene" uid="uid://c72cdo4a8xqb1" path="res://flores.fbx" id="34_3mcl0"]
 [ext_resource type="PackedScene" uid="uid://dnyrwky64ojs" path="res://Cenas/Gnomo_Verde.tscn" id="34_xqa8m"]
+[ext_resource type="PackedScene" uid="uid://cwvng3omn6gbj" path="res://Cenas/vrumvrum finalizada.fbx" id="35_iegax"]
+[ext_resource type="PackedScene" uid="uid://ha0uk070ur0r" path="res://CenaFinal/CercaFinal.tscn" id="35_skq4c"]
 [ext_resource type="Texture2D" uid="uid://belyvcv8ceneu" path="res://Shaders/placa.webp" id="36_xqa8m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8hd82"]
@@ -61,7 +64,14 @@ sky = SubResource("Sky_xu8hi")
 ambient_light_source = 3
 ambient_light_color = Color(0, 0.42745098, 0.8980392, 1)
 ambient_light_energy = 0.0
+ssil_radius = 0.01
+glow_enabled = true
+fog_light_energy = 0.27
+volumetric_fog_density = 0.2742
 adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_contrast = 1.1
+adjustment_saturation = 1.1
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_w4tno"]
 
@@ -261,121 +271,6 @@ transform = Transform3D(0.046593253, 0, -0.39727673, 0, 0.39999983, 0, 0.3972770
 
 [node name="StaticBody3D6" parent="Mapa/Nod3D Detalhes/Node3D caixas" unique_id=278626231 instance=ExtResource("17_fhyt8")]
 transform = Transform3D(0.23360053, 0, -0.3247008, 0, 0.39999974, 0, 0.32470098, 0, 0.23360035, 3.2829094, 1.1148258, 2.2883494)
-
-[node name="Node3D Cercas" type="Node3D" parent="Mapa" unique_id=624003926]
-transform = Transform3D(1.3319743, 0, 0, 0, 0.99999976, 0, 0, 0, 1.3093848, 0, 7.4505797e-09, -4.7683707e-07)
-
-[node name="StaticBody3D" parent="Mapa/Node3D Cercas" unique_id=8210002 instance=ExtResource("18_auw5l")]
-transform = Transform3D(0.005968759, 0, 0.99998224, 0, 1, 0, -0.99998224, 0, 0.005968759, -6.2984037, 0.583944, 3.8307388)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D2" parent="Mapa/Node3D Cercas" unique_id=164678114 instance=ExtResource("18_auw5l")]
-transform = Transform3D(0.005968759, 0, 0.99998224, 0, 1, 0, -0.99998224, 0, 0.005968759, -6.270733, 0.583944, -1.1769373)
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D12" parent="Mapa/Node3D Cercas" unique_id=1603447350 instance=ExtResource("18_auw5l")]
-transform = Transform3D(0.005968759, 0, 0.99998224, 0, 1, 0, -0.99998224, 0, 0.005968759, -6.2400694, 0.583944, -6.2226853)
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D3" parent="Mapa/Node3D Cercas" unique_id=1446021807 instance=ExtResource("18_auw5l")]
-transform = Transform3D(0.013846599, 0, -0.99990416, 0, 1, 0, 0.99990416, 0, 0.013846599, 6.3931074, 0.583944, -1.1767199)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D10" parent="Mapa/Node3D Cercas" unique_id=591901831 instance=ExtResource("18_auw5l")]
-transform = Transform3D(0.013846599, 0, -0.99990416, 0, 1, 0, 0.99990416, 0, 0.013846599, 6.3436704, 0.583944, -4.3938317)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D4" parent="Mapa/Node3D Cercas" unique_id=1304355916 instance=ExtResource("18_auw5l")]
-transform = Transform3D(0.013846599, 0, -0.99990416, 0, 1, 0, 0.99990416, 0, 0.013846599, 6.4646664, 0.583944, 3.8305213)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D5" parent="Mapa/Node3D Cercas" unique_id=1395479898 instance=ExtResource("18_auw5l")]
-transform = Transform3D(-0.9999767, -0.0068135182, 0.00040619425, -0.0068134745, 0.9999768, 0.00010727427, -0.00040691497, 0.000104510014, -0.99999994, 4.006022, 0.583944, 6.3576403)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D6" parent="Mapa/Node3D Cercas" unique_id=1894118947 instance=ExtResource("18_auw5l")]
-transform = Transform3D(-0.99999994, 0, -0.0002806224, 0, 1, 0, 0.0002806224, 0, -0.99999994, -1.0017295, 0.583944, 6.361264)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D11" parent="Mapa/Node3D Cercas" unique_id=1322027464 instance=ExtResource("18_auw5l")]
-transform = Transform3D(-0.99999994, 0, -0.0002806224, 0, 1, 0, 0.0002806224, 0, -0.99999994, -6.01981, 0.583944, 6.361264)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D7" parent="Mapa/Node3D Cercas" unique_id=277442789 instance=ExtResource("18_auw5l")]
-transform = Transform3D(0.9999404, 0, -0.010920153, 0, 1, 0, 0.010920154, 0, 0.99994045, -1.0015926, 0.583944, -6.3912964)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D9" parent="Mapa/Node3D Cercas" unique_id=1219197358 instance=ExtResource("18_auw5l")]
-transform = Transform3D(0.9999404, 0, -0.010920152, 0, 1, 0, 0.010920153, 0, 0.99994045, -6.006116, 0.583944, -6.446205)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D8" parent="Mapa/Node3D Cercas" unique_id=547606264 instance=ExtResource("18_auw5l")]
-transform = Transform3D(0.9999404, 0, -0.010920152, 0, 1, 0, 0.010920153, 0, 0.99994045, 4.005885, 0.583944, -6.3671455)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="Node3D13" parent="Mapa/Node3D Cercas" unique_id=655623774 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-2.6142299e-08, 0, 0.6091205, 0, 1.0700006, 0, -0.5980661, 0, -2.6625502e-08, 4.613143, 0.015144851, 6.505003)
-
-[node name="Node3D25" parent="Mapa/Node3D Cercas" unique_id=1774961157 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-2.61423e-08, 0, 0.60912055, 0, 1.0700008, 0, -0.59806615, 0, -2.6625504e-08, 5.1720834, 0.015144853, 6.505003)
-
-[node name="Node3D26" parent="Mapa/Node3D Cercas" unique_id=1920705257 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-2.61423e-08, 0, 0.60912055, 0, 1.0700008, 0, -0.59806615, 0, -2.6625504e-08, 5.1720834, 0.015144853, 6.505003)
-
-[node name="Node3D19" parent="Mapa/Node3D Cercas" unique_id=15545706 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-2.61423e-08, 0, 0.60912055, 0, 1.0700008, 0, -0.59806615, 0, -2.6625504e-08, 4.0542035, 0.015144853, 6.505003)
-
-[node name="Node3D20" parent="Mapa/Node3D Cercas" unique_id=1640409391 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-2.6142303e-08, 0, 0.6091206, 0, 1.0700009, 0, -0.59806615, 0, -2.6625505e-08, 3.4952636, 0.015144855, 6.505003)
-
-[node name="Node3D21" parent="Mapa/Node3D Cercas" unique_id=1351985858 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-2.6142303e-08, 0, 0.6091206, 0, 1.070001, 0, -0.59806615, 0, -2.6625509e-08, 2.9363236, 0.015144857, 6.505003)
-
-[node name="Node3D22" parent="Mapa/Node3D Cercas" unique_id=1330878668 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-2.6142303e-08, 0, 0.6091206, 0, 1.0700011, 0, -0.59806615, 0, -2.662551e-08, 2.3773837, 0.0151448585, 6.505003)
-
-[node name="Node3D23" parent="Mapa/Node3D Cercas" unique_id=1275050597 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-2.6142303e-08, 0, 0.6091206, 0, 1.0700012, 0, -0.59806615, 0, -2.6625512e-08, 1.8184437, 0.01514486, 6.505003)
-
-[node name="Node3D24" parent="Mapa/Node3D Cercas" unique_id=1654990202 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-2.6142303e-08, 0, 0.6091206, 0, 1.0700014, 0, -0.59806615, 0, -2.6625514e-08, 1.2595036, 0.015144862, 6.505003)
-
-[node name="Node3D14" parent="Mapa/Node3D Cercas" unique_id=143294599 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-0.5980661, 0, -5.3251e-08, 0, 1.0700006, 0, 5.2284598e-08, 0, -0.6091205, 6.2899632, 0.015144851, 4.797189)
-
-[node name="Node3D18" parent="Mapa/Node3D Cercas" unique_id=1574921923 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-0.59806615, 0, -5.3251e-08, 0, 1.0700008, 0, 5.22846e-08, 0, -0.60912055, 6.2899637, 0.015144853, 5.366461)
-
-[node name="Node3D15" parent="Mapa/Node3D Cercas" unique_id=1345859289 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-0.59806615, 0, -5.3251e-08, 0, 1.0700008, 0, 5.22846e-08, 0, -0.60912055, 6.2899637, 0.015144853, 4.227918)
-
-[node name="Node3D16" parent="Mapa/Node3D Cercas" unique_id=710414198 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-0.59806615, 0, -5.3251e-08, 0, 1.0700009, 0, 5.2284605e-08, 0, -0.6091206, 6.2899637, 0.015144855, 3.6586473)
-
-[node name="Node3D17" parent="Mapa/Node3D Cercas" unique_id=1717898558 instance=ExtResource("17_skq4c")]
-transform = Transform3D(-0.59806615, 0, -5.3251e-08, 0, 1.070001, 0, 5.228461e-08, 0, -0.6091206, 6.2899637, 0.015144857, 3.0893764)
 
 [node name="Node3D Arbustos" type="Node3D" parent="Mapa" unique_id=1801414065]
 transform = Transform3D(0.99647737, 0, 0.083862096, 0, 1, 0, -0.083862096, 0, 0.99647737, 2.100859, 0, -4.0328918)
@@ -644,6 +539,69 @@ texture = ExtResource("36_xqa8m")
 
 [node name="PopUpTempo" type="Marker2D" parent="." unique_id=6987635]
 position = Vector2(733, 67)
+
+[node name="galão gasolinafbx" parent="." unique_id=1963847980 instance=ExtResource("32_iegax")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.148245, 0.02962873, -8.526317)
+
+[node name="canteiro" parent="." unique_id=1502606832 instance=ExtResource("33_xqa8m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.402792, 0.010000354, -8.592912)
+
+[node name="flores" parent="." unique_id=1678794390 instance=ExtResource("34_3mcl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8293967, 1.0166793, -8.757073)
+
+[node name="cercas" type="Node3D" parent="." unique_id=1847282766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.305584, 0.7267312, -1.9890947)
+
+[node name="StaticBody3D2" parent="cercas" unique_id=1509450583 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1, 0, -7)
+
+[node name="StaticBody3D10" parent="cercas" unique_id=1619639544 instance=ExtResource("35_skq4c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -9)
+
+[node name="StaticBody3D11" parent="cercas" unique_id=1938611077 instance=ExtResource("35_skq4c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -9)
+
+[node name="StaticBody3D12" parent="cercas" unique_id=1862299531 instance=ExtResource("35_skq4c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -9)
+
+[node name="StaticBody3D13" parent="cercas" unique_id=1856966087 instance=ExtResource("35_skq4c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -9)
+
+[node name="StaticBody3D14" parent="cercas" unique_id=2123473850 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1, 0, 13)
+
+[node name="StaticBody3D15" parent="cercas" unique_id=234250877 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -7, 0, 13)
+
+[node name="StaticBody3D16" parent="cercas" unique_id=347641000 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -13, 0, 13)
+
+[node name="StaticBody3D17" parent="cercas" unique_id=396306877 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -19, 0, 13)
+
+[node name="StaticBody3D3" parent="cercas" unique_id=1567575371 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1, 0, -1)
+
+[node name="StaticBody3D4" parent="cercas" unique_id=1169352923 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1, 0, 5)
+
+[node name="StaticBody3D5" parent="cercas" unique_id=1235176125 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1, 0, 11)
+
+[node name="StaticBody3D6" parent="cercas" unique_id=592233937 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -21.554546, 0, -7)
+
+[node name="StaticBody3D7" parent="cercas" unique_id=1033919879 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -21.554546, 0, -1)
+
+[node name="StaticBody3D8" parent="cercas" unique_id=9749639 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -21.554546, 0, 5)
+
+[node name="StaticBody3D9" parent="cercas" unique_id=357380507 instance=ExtResource("35_skq4c")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -21.554546, 0, 11)
+
+[node name="vrumvrum finalizada" parent="." unique_id=867773860 instance=ExtResource("35_iegax")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3302426, 0.07222011, -4.919425)
 
 [connection signal="timeout" from="Timer" to="cortador" method="_on_timer_timeout"]
 
