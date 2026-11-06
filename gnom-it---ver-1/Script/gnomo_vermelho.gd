@@ -1,10 +1,6 @@
 
 extends CharacterBody3D
 
-# ==========================================
-# CONFIGURAÇÕES
-# ==========================================
-
 # GRAVIDADE
 var gravidade: float = 9.8
 
@@ -64,10 +60,6 @@ var quantidade_inimigos = 1
 var _timer_som: Timer
 
 
-# ==========================================
-# INICIALIZAÇÃO
-# ==========================================
-
 func _ready():
 	velocidade_atual = velocidade_inicial
 	atualizar_grupo()
@@ -79,10 +71,6 @@ func _ready():
 
 	_agendar_som_perseguicao()
 
-
-# ==========================================
-# SOM ALEATÓRIO DURANTE A PERSEGUIÇÃO
-# ==========================================
 
 func _agendar_som_perseguicao() -> void:
 	if sendo_atropelado or parado or atacando:
@@ -128,9 +116,6 @@ func _parar_sons_perseguicao() -> void:
 		som_barulinho_2.stop()
 
 
-# ==========================================
-# ATUALIZAR GRUPO
-# ==========================================
 
 func atualizar_grupo():
 	var inimigos = get_tree().get_nodes_in_group("inimigos")
@@ -138,9 +123,6 @@ func atualizar_grupo():
 	quantidade_inimigos = max(inimigos.size(), 1)
 
 
-# ==========================================
-# OLHAR SEMPRE PARA O JOGADOR
-# ==========================================
 
 func olhar_para_jogador(delta: float) -> void:
 	if not is_instance_valid(Cortador):
@@ -161,10 +143,6 @@ func olhar_para_jogador(delta: float) -> void:
 	)
 
 
-# ==========================================
-# PROCESSAMENTO FÍSICO
-# ==========================================
-
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(Cortador):
 		return
@@ -175,7 +153,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = 0.0
 
-	# SEMPRE OLHA PARA O JOGADOR
+
 	olhar_para_jogador(delta)
 
 	if parado or sendo_atropelado:
@@ -184,7 +162,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	# ACELERAÇÃO
+
 	var velocidade_maxima = velocidade_ataque if atacando else velocidade
 	velocidade_atual = move_toward(
 		velocidade_atual,
@@ -192,12 +170,12 @@ func _physics_process(delta: float) -> void:
 		aceleracao * delta
 	)
 
-	# DISTÂNCIA DO CORTADOR
+
 	var diferenca = Cortador.global_position - global_position
 	diferenca.y = 0.0
 	var distancia_quadrada = diferenca.length_squared()
 
-	# COMEÇAR ATAQUE
+	
 	if distancia_quadrada <= distancia_cercar * distancia_cercar:
 		if not atacando:
 			atacando = true
@@ -207,7 +185,7 @@ func _physics_process(delta: float) -> void:
 
 			_parar_sons_perseguicao()
 
-	# DESTINO
+
 	var destino: Vector3
 
 	if atacando:
@@ -231,7 +209,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	# VERIFICA DISTÂNCIA PARA ATAQUE
+
 	if atacando and not parado:
 		var distancia = global_position.distance_to(Cortador.global_position)
 
@@ -239,9 +217,6 @@ func _physics_process(delta: float) -> void:
 			ataque_acertou()
 
 
-# ==========================================
-# ATAQUE
-# ==========================================
 
 func ataque_acertou() -> void:
 	if sendo_atropelado or parado:
@@ -253,19 +228,11 @@ func ataque_acertou() -> void:
 	atacando = false
 	parado = true
 
-	print("GNOMO ACERTOU O CORTADOR!")
-	print("GASOLINA ANTES: ", Cortador.gasolina)
 
-	# CAUSA DANO UMA ÚNICA VEZ
-	Cortador.tomar_dano(dano)
-
-	print("DANO CAUSADO: ", dano)
-	print("GASOLINA DEPOIS: ", Cortador.gasolina)
-
-	# PARA BARULHINHOS
+	
 	_parar_sons_perseguicao()
 
-	# CONTADOR DE ATAQUES
+	
 	contador_ataques += 1
 
 	# TOCA O SOM A CADA 3 ATAQUES ACERTADOS
@@ -273,7 +240,7 @@ func ataque_acertou() -> void:
 		if som_ataque != null and som_ataque.stream != null:
 			som_ataque.play()
 
-	# RECUO
+	
 	var direcao_recuo = global_position - Cortador.global_position
 	direcao_recuo.y = 0.0
 
@@ -290,10 +257,6 @@ func ataque_acertou() -> void:
 		parado = false
 		_agendar_som_perseguicao()
 
-
-# ==========================================
-# MORTE POR ATROPELAMENTO
-# ==========================================
 
 func morrer_atropelado() -> void:
 	if sendo_atropelado:
@@ -323,7 +286,6 @@ func morrer_atropelado() -> void:
 	# PARTÍCULAS
 	# $ParticulaGnomoMorte.emitting = true
 
-	# SORTEIA UM DOS QUATRO SONS DE MORTE
 	var sons_morte: Array[AudioStreamPlayer] = [
 		som_morte_gnomo_1,
 		som_morte_gnomo_2,
@@ -342,7 +304,6 @@ func morrer_atropelado() -> void:
 	else:
 		push_warning("Nenhum som de morte configurado no gnomo!")
 
-	# DESATIVA O GNOMO
 	set_physics_process(false)
 	set_process(false)
 
@@ -351,7 +312,6 @@ func morrer_atropelado() -> void:
 	collision_layer = 0
 	collision_mask = 0
 
-	# ESPERA O SOM DE MORTE TERMINAR
 	if som_morreu.playing:
 		await som_morreu.finished
 

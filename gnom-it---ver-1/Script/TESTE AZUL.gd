@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 const GRUPO_ATROPELAVEL := &"atropelavel"
 
-# CONFIGURAÇÕES
+
 @export var velocidade: float = 1.3
 @export var distancia_pulo: float = 1.0
 @export var tempo_pulo: float = 0.5
@@ -21,16 +21,16 @@ const GRUPO_ATROPELAVEL := &"atropelavel"
 @export var tempo_caido: float = 4.0
 @export var intervalo_som_passos: float = 1.5
 
-# DEBUG
+
 @export var mostrar_debug: bool = true
 
-# REFERÊNCIAS
+
 @export var Cortador: CharacterBody3D
 @export var ponto_destino: Marker3D
 @onready var colisao: CollisionShape3D = $CollisionShape3D
 @onready var ponto_encaixe: Marker3D = $Ponto_Encaixe
 
-# SONS DE MORTE
+
 @export var som_morte_gnomo_1: AudioStreamPlayer
 @export var som_morte_gnomo_2: AudioStreamPlayer
 @export var som_morte_gnomo_3: AudioStreamPlayer
@@ -38,7 +38,7 @@ const GRUPO_ATROPELAVEL := &"atropelavel"
 
 @onready var som_morreu: AudioStreamPlayer = $AudioStreamPlayer/Morreu
 
-# ESTADOS
+
 enum Estado { PERSEGUINDO, PULANDO, PRESO, CAIDO, ARREMESSADO, MORTO }
 
 var estado: Estado = Estado.PERSEGUINDO
@@ -55,12 +55,11 @@ var _timer_dano: Timer
 var _timer_caido: Timer
 var _timer_som_passos: Timer
 
-# ENCAIXE
 var _escala_original: Vector3 = Vector3.ONE
 var _rotacao_relativa: Quaternion = Quaternion.IDENTITY
 var _tempo_debug: float = 0.0
 
-# INICIALIZAÇÃO
+
 func _ready() -> void:
 	_distancia_pulo_quad = distancia_pulo * distancia_pulo
 	_escala_original = global_basis.get_scale()
@@ -99,7 +98,7 @@ func _configurar_cortador() -> void:
 	if not Cortador.driftou.is_connected(_quando_driftar):
 		Cortador.driftou.connect(_quando_driftar)
 
-# PROCESSAMENTO FÍSICO
+
 func _physics_process(delta: float) -> void:
 	_configurar_cortador()
 
@@ -124,7 +123,7 @@ func _tocar_som_passos() -> void:
 	# AUDIO: GnomoSons
 	# $GnomoSons.play()
 
-# EMPURRÃO
+
 func receber_empurrao(direcao: Vector3) -> void:
 	if estado != Estado.PERSEGUINDO:
 		return
@@ -135,7 +134,6 @@ func receber_empurrao(direcao: Vector3) -> void:
 
 	impulso_empurrao = direcao.normalized() * forca_empurrao
 
-# PERSEGUIÇÃO
 func _perseguir(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -337,7 +335,7 @@ func cair_do_cortador(direcao_drift: Vector3) -> void:
 	velocity.y = v0
 	_tempo_arremesso = 0.0
 
-# MOVIMENTO DO ARREMESSO
+
 func _atualizar_arremesso(delta: float) -> void:
 	_tempo_arremesso += delta
 	velocity += get_gravity() * delta
@@ -386,7 +384,7 @@ func levantar() -> void:
 
 	_timer_som_passos.start()
 
-# CONTROLE DA VAGA
+
 func liberar_vaga() -> void:
 	if not is_instance_valid(Cortador):
 		return
@@ -419,7 +417,7 @@ func morrer_atropelado() -> void:
 	# PARTÍCULA: ParticulaMorte
 	# $ParticulaMorte.emitting = true
 
-	# SORTEIA UM DOS QUATRO SONS DE MORTE
+
 	var sons_morte: Array[AudioStreamPlayer] = [
 		som_morte_gnomo_1,
 		som_morte_gnomo_2,
@@ -432,7 +430,6 @@ func morrer_atropelado() -> void:
 		func(som): return som != null and som.stream != null
 	)
 
-	# REPRODUZ O SOM SORTEADO
 	if not sons_morte.is_empty():
 		var som_sorteado: AudioStreamPlayer = sons_morte.pick_random()
 		som_morreu.stream = som_sorteado.stream
@@ -444,7 +441,7 @@ func morrer_atropelado() -> void:
 	colisao.set_deferred("disabled", true)
 	set_physics_process(false)
 
-	# ESPERA O SOM TERMINAR
+
 	if som_morreu.playing:
 		await som_morreu.finished
 
