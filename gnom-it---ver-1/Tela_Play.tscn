@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bampf43d6ghk3" path="res://Cenas/TeladeMenuFundo.tscn" id="7_esroy"]
 
 [sub_resource type="Gradient" id="Gradient_x5cbs"]
-offsets = PackedFloat32Array(0, 0.28, 0.696, 0.768, 0.968)
-colors = PackedColorArray(0, 0, 0, 0.5411765, 0.13, 0.13, 0.13, 0.5294118, 0.18, 0.18, 0.18, 0.34509805, 0.15, 0.15, 0.15, 0.30588236, 0.32, 0.32, 0.32, 0)
+offsets = PackedFloat32Array(0, 0.288, 0.536, 0.768, 0.968)
+colors = PackedColorArray(0, 0, 0, 0.73333335, 0.08, 0.08, 0.08, 0.78431374, 0.07191925, 0.07191925, 0.07191925, 0.654902, 0.09, 0.09, 0.09, 0.42352942, 0.43, 0.43, 0.43, 0)
 metadata/_snap_count = 6
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0i88t"]
@@ -21,9 +21,9 @@ gradient = SubResource("Gradient_x5cbs")
 script = ExtResource("1_b2k28")
 botao_play = NodePath("VBoxContainer/Play")
 botao_tutorial = NodePath("VBoxContainer/TutorialBotao")
-botao_x = NodePath("")
-botao_skip = NodePath("")
-outros_botoes = [NodePath("Sair"), NodePath("VBoxContainer/Créditos"), NodePath(""), NodePath("Titulo")]
+botao_x = NodePath("Fechar Tutorial")
+botao_skip = NodePath("Skip")
+outros_botoes = [NodePath("Sair"), NodePath("VBoxContainer/Créditos"), null, NodePath("Titulo")]
 sprite_tutorial = NodePath("VBoxContainer/TutorialBotao/Sprite2D")
 cena_destino = "uid://6gs2bnf2gw7o"
 video = NodePath("VideoStreamPlayer")
@@ -41,6 +41,25 @@ scale = Vector2(28.879997, 16.760002)
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_0i88t")
 expand_mode = 1
+
+[node name="Fechar Tutorial" type="Button" parent="." unique_id=1071077265]
+visible = false
+z_index = 7
+material = SubResource("CanvasItemMaterial_ocg5d")
+offset_left = 957.0
+offset_top = 94.0
+offset_right = 1111.0
+offset_bottom = 162.0
+size_flags_horizontal = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(1, 0.7411765, 0.38431373, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 17
+theme_override_fonts/font = ExtResource("1_817ed")
+theme_override_font_sizes/font_size = 45
+text = "X
+"
+flat = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=667723404]
 offset_left = 55.0
@@ -78,9 +97,21 @@ flat = true
 
 [node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/TutorialBotao" unique_id=1555995261]
 visible = false
-position = Vector2(135, -125)
+z_index = 5
+position = Vector2(540, 92)
 scale = Vector2(0.4322266, 0.35914356)
 texture = ExtResource("6_hy0dl")
+
+[node name="Transição pra cutcene" type="ColorRect" parent="VBoxContainer/TutorialBotao" unique_id=363236230]
+visible = false
+z_index = 3
+layout_mode = 0
+offset_left = 1132.0
+offset_top = -252.99998
+offset_right = 3901.7876
+offset_bottom = -212.99998
+scale = Vector2(-0.43103722, 16.704355)
+color = Color(0, 0, 0, 1)
 
 [node name="Créditos" type="Button" parent="VBoxContainer" unique_id=753685802]
 z_index = 1
@@ -95,6 +126,19 @@ theme_override_fonts/font = ExtResource("1_817ed")
 theme_override_font_sizes/font_size = 44
 text = "Créditos"
 flat = true
+
+[node name="ColorRect2" type="TextureRect" parent="VBoxContainer/Créditos" unique_id=1058053662]
+visible = false
+z_index = 2
+layout_mode = 0
+offset_left = -57.999996
+offset_top = -315.0
+offset_right = -33.103874
+offset_bottom = -275.91885
+scale = Vector2(28.879997, 16.760002)
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_0i88t")
+expand_mode = 1
 
 [node name="Sair" type="Button" parent="." unique_id=1598000410]
 z_index = 1
@@ -145,9 +189,20 @@ metadata/_edit_use_anchors_ = true
 [node name="CenaTeste" parent="." unique_id=1397743769 instance=ExtResource("7_esroy")]
 
 [node name="Transição pra cutcene" type="ColorRect" parent="." unique_id=1249292330]
-visible = false
 offset_left = 1176.64
 offset_right = 3946.4277
 offset_bottom = 40.0
 scale = Vector2(-0.43103722, 16.704355)
 color = Color(0, 0, 0, 0.18039216)
+
+[node name="Skip" type="Button" parent="." unique_id=599272738]
+visible = false
+z_index = 2
+offset_left = 952.0
+offset_top = 540.0
+offset_right = 1126.0
+offset_bottom = 611.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/font_size = 45
+text = "Pular>>"
