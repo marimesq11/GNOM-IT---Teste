@@ -2,7 +2,6 @@
 
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="1_ys4tv"]
 [ext_resource type="Script" uid="uid://hb2vvohjp8kc" path="res://Cenas/pontos_label.gd" id="2_1oa15"]
-[ext_resource type="Texture2D" uid="uid://cdoigp0anco0c" path="res://Botao_Menu.webp" id="2_cf6yb"]
 [ext_resource type="Script" uid="uid://x54vm7ybm7f5" path="res://BotaoIrparaOMenu.gd" id="3_okwc5"]
 [ext_resource type="Script" uid="uid://qcb6apaiudqr" path="res://Botao_TentarNovamente.gd" id="4_ccbbh"]
 [ext_resource type="Texture2D" uid="uid://giyiknyi02iq" path="res://Derrota.webp" id="5_4ugsh"]
@@ -27,13 +26,20 @@ text = "Parabéns! "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="TextureButton" parent="." unique_id=1450691722]
-offset_left = 355.0
-offset_top = 385.99997
-offset_right = 1379.0
-offset_bottom = 962.0
+[node name="Button" type="Button" parent="." unique_id=1547310307]
+z_index = 1
+offset_left = 503.0
+offset_top = 458.99997
+offset_right = 832.0
+offset_bottom = 597.0
 scale = Vector2(0.42724398, 0.36575606)
-texture_normal = ExtResource("2_cf6yb")
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("1_ys4tv")
+theme_override_font_sizes/font_size = 95
+text = "Menu"
+flat = true
 script = ExtResource("3_okwc5")
 cena_destino = "uid://bgg28mm36h0ob"
 
@@ -111,3 +117,9 @@ position = Vector2(565, 230)
 texture = ExtResource("8_ds0qj")
 
 [node name="CenaTeste" parent="." unique_id=1397743769 instance=ExtResource("9_4ugsh")]
+
+[node name="Derrota3" type="Sprite2D" parent="." unique_id=387105037]
+position = Vector2(294, 359)
+scale = Vector2(0.54980475, 0.4427084)
+texture = ExtResource("5_4ugsh")
+centered = false
