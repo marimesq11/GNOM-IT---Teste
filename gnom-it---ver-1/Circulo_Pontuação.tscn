@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cwgvmwmpl52cw"]
 
 [ext_resource type="Script" uid="uid://bi0tbacdaf3ur" path="res://CirculoPontos.gd" id="1_6i8uc"]
+[ext_resource type="AudioStream" uid="uid://b58gg3yeugvlb" path="res://CenaFinal/Pontos.mp3" id="2_50t57"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnjtg"]
 transparency = 1
@@ -24,10 +25,15 @@ mesh = SubResource("TorusMesh_6i8uc")
 [node name="Area3D" type="Area3D" parent="." unique_id=2084245879]
 collision_mask = 3
 script = ExtResource("1_6i8uc")
+som_coleta = ExtResource("2_50t57")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=946159673]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.0022029877, 3.9818926e-10, 0)
 shape = SubResource("CylinderShape3D_lnjtg")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=929841707]
+stream = ExtResource("2_50t57")
+pitch_scale = 0.7
 
 [connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area3D" to="Area3D" method="_on_body_exited"]
