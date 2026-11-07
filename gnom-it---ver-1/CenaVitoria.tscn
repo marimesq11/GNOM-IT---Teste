@@ -14,10 +14,10 @@
 
 [node name="Label" type="Label" parent="." unique_id=842337950]
 z_index = 1
-offset_left = 70.0
-offset_top = -87.0
-offset_right = 1097.0
-offset_bottom = 302.0
+offset_left = 415.0
+offset_top = 59.0
+offset_right = 755.0
+offset_bottom = 135.0
 theme_override_colors/font_color = Color(1, 0.8, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
@@ -38,9 +38,9 @@ script = ExtResource("3_okwc5")
 cena_destino = "uid://bgg28mm36h0ob"
 
 [node name="Button2" type="Button" parent="." unique_id=28669233]
-offset_left = 397.0
+offset_left = 418.0
 offset_top = 544.0
-offset_right = 762.0
+offset_right = 745.0
 offset_bottom = 621.0
 theme_override_colors/font_color = Color(1, 0.8, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -66,23 +66,26 @@ texture = ExtResource("6_2qisi")
 
 [node name="Label3" type="RichTextLabel" parent="." unique_id=574499469]
 z_index = 1
-offset_left = 243.00002
-offset_top = 171.0
-offset_right = 1481.6992
-offset_bottom = 417.95172
-scale = Vector2(0.514249, 1.0082941)
+offset_left = 296.0
+offset_top = 207.0
+offset_right = 1514.7778
+offset_bottom = 441.2854
+scale = Vector2(0.4517735, 0.7682938)
 theme_override_colors/default_color = Color(1, 0.8, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_1oa15")
-tamanho_estrelas = 85
+tamanho_estrelas = 95
 cor_estrelas = Color(1, 0.8, 0, 1)
-tamanho_nota = 52
+espaco_entre_estrelas = 2
+tamanho_nota = 71
 cor_nota = Color(1, 0.8, 0, 1)
-tamanho_pontos = 53
+tamanho_pontos = 71
 cor_pontos = Color(1, 0.8, 0, 1)
+espaco_entre_linhas = 1
+espaco_estrelas_nota = 40
 
 [node name="Derrota" type="Sprite2D" parent="." unique_id=580000648]
 position = Vector2(572.00006, 102.000015)

@@ -28,9 +28,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="." unique_id=771223616]
-offset_left = 364.0
-offset_top = 494.0
-offset_right = 819.0
+offset_left = 396.0
+offset_top = 498.0
+offset_right = 802.0
 offset_bottom = 598.0
 theme_override_colors/font_color = Color(1, 0.8, 0, 1)
 theme_override_constants/outline_size = 8
@@ -42,10 +42,10 @@ cena_destino = "uid://6gs2bnf2gw7o"
 
 [node name="Label2" type="RichTextLabel" parent="." unique_id=195859108]
 z_index = 1
-offset_left = 234.00002
-offset_top = 203.0
+offset_left = 234.0
+offset_top = 214.00002
 offset_right = 1318.0
-offset_bottom = 451.29993
+offset_bottom = 462.29993
 scale = Vector2(0.6287296, 0.88199794)
 theme_override_colors/default_color = Color(1, 0.8, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -53,7 +53,7 @@ theme_override_constants/outline_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_e51o4")
-tamanho_estrelas = 100
+tamanho_estrelas = 90
 cor_estrelas = Color(1, 0.8, 0, 1)
 tamanho_nota = 60
 cor_nota = Color(1, 0.8, 0, 1)

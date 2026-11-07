@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://kqd6owusygsw" path="res://Cenas/vrumvrum finalizada_0.png" id="4_fncsr"]
 [ext_resource type="PackedScene" uid="uid://jpdif2cuxeh2" path="res://partículas/faísca.tscn" id="4_na02i"]
 [ext_resource type="PackedScene" uid="uid://cfm37n6g0hhi5" path="res://partículas/fumassa_preta_carrinho.tscn" id="5_302sw"]
+[ext_resource type="Shader" uid="uid://kw7bils328gc" path="res://Shaders/CortadorGramaShaderr.gdshader" id="5_efun1"]
 [ext_resource type="Texture2D" uid="uid://cqo21y3rcpkt6" path="res://Cenas/vrumvrum finalizada_1.png" id="5_ju76b"]
 [ext_resource type="Texture2D" uid="uid://0eo6ptyk6c2k" path="res://Cenas/vrumvrum finalizada_2.png" id="6_efun1"]
 [ext_resource type="Texture2D" uid="uid://cntqn6sdmpltx" path="res://Cenas/vrumvrum finalizada_3.png" id="7_ehtmn"]
@@ -62,6 +63,17 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6ya87")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hbn2n"]
+render_priority = 0
+shader = ExtResource("5_efun1")
+shader_parameter/progress = 0.0950000045125
+shader_parameter/frequency = 11.70000017434404
+shader_parameter/max_offset = Vector3(0.015, 0.01, 0.015)
+shader_parameter/albedo_texture = ExtResource("4_fncsr")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/roughness_value = 0.7
+shader_parameter/metallic_value = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1x7w1"]
 resource_name = "gidao"
@@ -253,6 +265,7 @@ emitting = false
 transform = Transform3D(-3.7154678e-06, -85, -3.7154678e-06, 0, -3.7154678e-06, 85, -85, 3.7154678e-06, 1.6240827e-13, 0.061178196, -0.85929585, 0)
 mesh = SubResource("ArrayMesh_valaj")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_hbn2n")
 
 [node name="guidão" type="MeshInstance3D" parent="." unique_id=640081434]
 transform = Transform3D(-3.7154678e-06, -85, -3.7154678e-06, 0, -3.7154678e-06, 85, -85, 3.7154678e-06, 1.6240827e-13, 0.061178196, -0.8837981, 0)

@@ -25,8 +25,24 @@ const GRUPO_ATROPELAVEL := &"atropelavel"
 @export var velocidade_rotacao: float = 8.0
 
 # ==========================================
+# PATRULHA
+# ==========================================
+@export_group("Patrulha")
+@export var raio_patrulha: float = 4.0
+@export var velocidade_patrulha: float = 0.8
+@export var espera_patrulha_min: float = 0.5
+@export var espera_patrulha_max: float = 2.0
+@export var distancia_chegada_patrulha: float = 0.3
+
+var centro_patrulha: Vector3
+var destino_patrulha: Vector3
+var tempo_espera_patrulha: float = 0.0
+var esperando_patrulha: bool = false
+
+# ==========================================
 # CONFIGURAÇÕES DOS BARULHINHOS
 # ==========================================
+@export_group("Barulhinhos")
 @export var intervalo_som_min: float = 12.0
 @export var intervalo_som_max: float = 25.0
 @export var intervalo_global_perseguicao: float = 5.0
@@ -34,30 +50,23 @@ const GRUPO_ATROPELAVEL := &"atropelavel"
 @export var pitch_som_max: float = 1.4
 @export_range(-40.0, 10.0, 1.0) var volume_perseguicao: float = -8.0
 
-# ==========================================
-# CONTROLE COLETIVO DOS SONS
-# ==========================================
 static var proximo_som_perseguicao: float = 0.0
 static var ultimo_som_global: int = -1
 
 # ==========================================
 # REFERÊNCIAS
 # ==========================================
+@export_group("Referências")
 @export var Cortador: CharacterBody3D
 @export var ponto_destino: Marker3D
 @onready var colisao: CollisionShape3D = $CollisionShape3D
 @onready var ponto_encaixe: Marker3D = $Ponto_Encaixe
 
-# ==========================================
-# SONS DE PERSEGUIÇÃO
-# ==========================================
 @onready var som_barulinho_1: AudioStreamPlayer = $AudioStreamPlayer/Barulinhos
 @onready var som_barulinho_2: AudioStreamPlayer = $AudioStreamPlayer/Barulinhos2
 @onready var som_barulinho_3: AudioStreamPlayer = $AudioStreamPlayer/Barulinhos3
 
-# ==========================================
-# SONS DE MORTE
-# ==========================================
+@export_group("Sons de Morte")
 @export var som_morte_gnomo_1: AudioStreamPlayer
 @export var som_morte_gnomo_2: AudioStreamPlayer
 @export var som_morte_gnomo_3: AudioStreamPlayer
@@ -67,9 +76,9 @@ static var ultimo_som_global: int = -1
 # ==========================================
 # ESTADOS
 # ==========================================
-enum Estado { PERSEGUINDO, PULANDO, PRESO, CAIDO, ARREMESSADO, MORTO }
+enum Estado { PATRULHANDO, PERSEGUINDO, PULANDO, PRESO, CAIDO, ARREMESSADO, MORTO }
 
-var estado: Estado = Estado.PERSEGUINDO
+var estado: Estado = Estado.PATRULHANDO
 var causando_dano: bool = false
 var impulso_empurrao: Vector3 = Vector3.ZERO
 var _distancia_pulo_quad: float = 0.0
@@ -90,28 +99,26 @@ var _tempo_debug: float = 0.0
 func _ready() -> void:
 	_distancia_pulo_quad = distancia_pulo * distancia_pulo
 	_escala_original = global_basis.get_scale()
+	centro_patrulha = global_position
+	_escolher_destino_patrulha()
 
-	# TIMER DE DANO
 	_timer_dano = Timer.new()
 	_timer_dano.wait_time = intervalo_dano
 	_timer_dano.one_shot = false
 	_timer_dano.timeout.connect(_tick_dano)
 	add_child(_timer_dano)
 
-	# TIMER CAÍDO
 	_timer_caido = Timer.new()
 	_timer_caido.wait_time = tempo_caido
 	_timer_caido.one_shot = true
 	_timer_caido.timeout.connect(_acabou_tempo_caido)
 	add_child(_timer_caido)
 
-	# TIMER DOS BARULHINHOS
 	_timer_som_passos = Timer.new()
 	_timer_som_passos.one_shot = true
 	_timer_som_passos.timeout.connect(_tocar_som_passos)
 	add_child(_timer_som_passos)
 
-	# VOLUME
 	som_barulinho_1.volume_db = volume_perseguicao
 	som_barulinho_2.volume_db = volume_perseguicao
 	som_barulinho_3.volume_db = volume_perseguicao
@@ -120,37 +127,26 @@ func _ready() -> void:
 	_configurar_cortador()
 
 # ==========================================
-# TEMPO GLOBAL
+# SONS
 # ==========================================
 func _tempo_atual() -> float:
 	return Time.get_ticks_msec() / 1000.0
 
-# ==========================================
-# AGENDAR SOM DE PERSEGUIÇÃO
-# ==========================================
 func _agendar_som_perseguicao() -> void:
-	if estado != Estado.PERSEGUINDO:
+	if estado != Estado.PERSEGUINDO and estado != Estado.PATRULHANDO:
 		return
-
 	var minimo = maxf(intervalo_som_min, 0.1)
 	var maximo = maxf(intervalo_som_max, minimo)
-	var intervalo = randf_range(minimo, maximo)
-	_timer_som_passos.start(intervalo)
+	_timer_som_passos.start(randf_range(minimo, maximo))
 
-# ==========================================
-# TOCAR BARULHINHO ALEATÓRIO
-# ==========================================
 func _tocar_som_passos() -> void:
-	if estado != Estado.PERSEGUINDO:
+	if estado != Estado.PERSEGUINDO and estado != Estado.PATRULHANDO:
 		return
-
 	if Vector2(velocity.x, velocity.z).length_squared() < 0.01:
 		_agendar_som_perseguicao()
 		return
 
 	var agora = _tempo_atual()
-
-	# INTERVALO COLETIVO
 	if agora < proximo_som_perseguicao:
 		_agendar_som_perseguicao()
 		return
@@ -158,11 +154,8 @@ func _tocar_som_passos() -> void:
 	var sons: Array[AudioStreamPlayer] = [som_barulinho_1, som_barulinho_2, som_barulinho_3]
 	var indices_disponiveis: Array[int] = []
 
-	# EVITA REPETIR O ÚLTIMO SOM
 	for i in range(sons.size()):
-		if sons[i] == null:
-			continue
-		if sons[i].stream == null:
+		if sons[i] == null or sons[i].stream == null:
 			continue
 		if i == ultimo_som_global:
 			continue
@@ -177,7 +170,6 @@ func _tocar_som_passos() -> void:
 		_agendar_som_perseguicao()
 		return
 
-	# SORTEIO
 	var indice_sorteado: int = indices_disponiveis.pick_random()
 	var som_sorteado: AudioStreamPlayer = sons[indice_sorteado]
 	var pitch_minimo = maxf(pitch_som_min, 0.01)
@@ -191,9 +183,6 @@ func _tocar_som_passos() -> void:
 	proximo_som_perseguicao = agora + maxf(intervalo_global_perseguicao, 0.0)
 	_agendar_som_perseguicao()
 
-# ==========================================
-# PARAR SONS DE PERSEGUIÇÃO
-# ==========================================
 func _parar_sons_perseguicao() -> void:
 	if is_instance_valid(_timer_som_passos):
 		_timer_som_passos.stop()
@@ -227,8 +216,20 @@ func _physics_process(delta: float) -> void:
 	_configurar_cortador()
 
 	match estado:
+		Estado.PATRULHANDO:
+			if _jogador_na_area():
+				estado = Estado.PERSEGUINDO
+				esperando_patrulha = false
+				_perseguir(delta)
+			else:
+				_patrulhar(delta)
 		Estado.PERSEGUINDO:
-			_perseguir(delta)
+			if not _jogador_na_area():
+				estado = Estado.PATRULHANDO
+				_escolher_destino_patrulha()
+				_patrulhar(delta)
+			else:
+				_perseguir(delta)
 		Estado.PULANDO:
 			_atualizar_pulo(delta)
 		Estado.PRESO:
@@ -238,16 +239,71 @@ func _physics_process(delta: float) -> void:
 			_atualizar_arremesso(delta)
 
 # ==========================================
+# VERIFICAR ÁREA
+# ==========================================
+func _jogador_na_area() -> bool:
+	if not is_instance_valid(Cortador):
+		return false
+	var diferenca := Cortador.global_position - centro_patrulha
+	diferenca.y = 0.0
+	return diferenca.length_squared() <= raio_patrulha * raio_patrulha
+
+# ==========================================
+# ESCOLHER DESTINO DA PATRULHA
+# ==========================================
+func _escolher_destino_patrulha() -> void:
+	var angulo := randf_range(0.0, TAU)
+	var distancia := sqrt(randf()) * maxf(raio_patrulha, 0.0)
+	destino_patrulha = centro_patrulha + Vector3(cos(angulo) * distancia, 0.0, sin(angulo) * distancia)
+	esperando_patrulha = false
+
+# ==========================================
+# MOVIMENTO DA PATRULHA
+# ==========================================
+func _patrulhar(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	else:
+		velocity.y = 0.0
+
+	if esperando_patrulha:
+		tempo_espera_patrulha -= delta
+		velocity.x = impulso_empurrao.x
+		velocity.z = impulso_empurrao.z
+		if tempo_espera_patrulha <= 0.0:
+			_escolher_destino_patrulha()
+	else:
+		var diferenca := destino_patrulha - global_position
+		diferenca.y = 0.0
+
+		if diferenca.length() <= distancia_chegada_patrulha:
+			esperando_patrulha = true
+			var minimo := maxf(espera_patrulha_min, 0.0)
+			var maximo := maxf(espera_patrulha_max, minimo)
+			tempo_espera_patrulha = randf_range(minimo, maximo)
+			velocity.x = impulso_empurrao.x
+			velocity.z = impulso_empurrao.z
+		else:
+			var direcao := diferenca.normalized()
+			velocity.x = direcao.x * velocidade_patrulha + impulso_empurrao.x
+			velocity.z = direcao.z * velocidade_patrulha + impulso_empurrao.z
+			_olhar_para_posicao(destino_patrulha, delta)
+
+	impulso_empurrao = impulso_empurrao.move_toward(Vector3.ZERO, desaceleracao_empurrao * delta)
+	move_and_slide()
+
+	# ANIMAÇÃO: GnomoAndando
+	# $AnimationPlayer.play("GnomoAndando")
+
+# ==========================================
 # RECEBER EMPURRÃO
 # ==========================================
 func receber_empurrao(direcao: Vector3) -> void:
-	if estado != Estado.PERSEGUINDO:
+	if estado != Estado.PERSEGUINDO and estado != Estado.PATRULHANDO:
 		return
-
 	direcao.y = 0.0
 	if direcao.length_squared() < 0.001:
 		return
-
 	impulso_empurrao = direcao.normalized() * forca_empurrao
 
 # ==========================================
@@ -283,7 +339,6 @@ func _perseguir(delta: float) -> void:
 	velocity.x = direcao.x * velocidade + impulso_empurrao.x
 	velocity.z = direcao.z * velocidade + impulso_empurrao.z
 	impulso_empurrao = impulso_empurrao.move_toward(Vector3.ZERO, desaceleracao_empurrao * delta)
-
 	move_and_slide()
 
 	# ANIMAÇÃO: GnomoAndando
@@ -298,9 +353,6 @@ func _obter_posicao_alvo() -> Vector3:
 	var base_cortador := Cortador.global_basis.orthonormalized()
 	return ponto_destino.global_position + base_cortador * ajuste_local
 
-# ==========================================
-# CÁLCULO DO ENCAIXE
-# ==========================================
 func _calcular_posicao_encaixe() -> Vector3:
 	var deslocamento := ponto_encaixe.global_position - global_position
 	return _obter_posicao_alvo() - deslocamento
@@ -336,7 +388,8 @@ func comecar_pulo() -> void:
 func _atualizar_pulo(delta: float) -> void:
 	if not is_instance_valid(Cortador) or not is_instance_valid(ponto_destino):
 		liberar_vaga()
-		estado = Estado.PERSEGUINDO
+		estado = Estado.PATRULHANDO
+		_escolher_destino_patrulha()
 		colisao.set_deferred("disabled", false)
 		_agendar_som_perseguicao()
 		return
@@ -374,9 +427,6 @@ func ficar_no_cortador() -> void:
 	# $ParticulaRoubandoGasolina.emitting = true
 	dano_continuo()
 
-# ==========================================
-# ACOMPANHA O CORTADOR
-# ==========================================
 func _atualizar_posicao_preso() -> void:
 	if not is_instance_valid(Cortador) or not is_instance_valid(ponto_destino):
 		return
@@ -386,13 +436,9 @@ func _atualizar_posicao_preso() -> void:
 	global_basis = Basis(nova_rotacao).scaled(_escala_original)
 	global_position = _calcular_posicao_encaixe()
 
-# ==========================================
-# DEBUG DO ENCAIXE
-# ==========================================
 func _debug_encaixe(delta: float) -> void:
 	if not mostrar_debug:
 		return
-
 	_tempo_debug += delta
 	if _tempo_debug < 1.0:
 		return
@@ -422,7 +468,6 @@ func _tick_dano() -> void:
 	if not is_instance_valid(Cortador):
 		_timer_dano.stop()
 		return
-
 	Cortador.tomar_dano(dano)
 
 # ==========================================
@@ -507,9 +552,10 @@ func levantar() -> void:
 
 	rotation.x = 0.0
 	rotation.z = 0.0
-	estado = Estado.PERSEGUINDO
+	estado = Estado.PATRULHANDO
 	velocity = Vector3.ZERO
 	impulso_empurrao = Vector3.ZERO
+	_escolher_destino_patrulha()
 	_agendar_som_perseguicao()
 
 # ==========================================
@@ -573,16 +619,18 @@ func morrer_atropelado() -> void:
 	queue_free()
 
 # ==========================================
-# OLHAR PARA JOGADOR
+# OLHAR PARA UMA POSIÇÃO
 # ==========================================
-func _olhar_para_jogador(delta: float) -> void:
-	if not is_instance_valid(Cortador):
-		return
-
-	var direcao := Cortador.global_position - global_position
+func _olhar_para_posicao(posicao: Vector3, delta: float) -> void:
+	var direcao := posicao - global_position
 	direcao.y = 0.0
 	if direcao.length_squared() < 0.001:
 		return
 
 	var angulo_alvo := atan2(direcao.x, direcao.z) - PI / 2.0
 	rotation.y = lerp_angle(rotation.y, angulo_alvo, clampf(velocidade_rotacao * delta, 0.0, 1.0))
+
+func _olhar_para_jogador(delta: float) -> void:
+	if not is_instance_valid(Cortador):
+		return
+	_olhar_para_posicao(Cortador.global_position, delta)
