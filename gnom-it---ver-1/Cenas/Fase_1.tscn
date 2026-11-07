@@ -14,6 +14,7 @@
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="24_abx8d"]
 [ext_resource type="PackedScene" uid="uid://cd0iw0jg20kn" path="res://CenaFinal/Gasolina.tscn" id="25_i3obs"]
 [ext_resource type="PackedScene" uid="uid://nwa5tb7v4wik" path="res://partículas/gnomos_quebrando.tscn" id="25_romvb"]
+[ext_resource type="PackedScene" uid="uid://b83ip5j82r7h0" path="res://partículas/casinha.fbx" id="26_romvb"]
 [ext_resource type="PackedScene" uid="uid://bfxeppe2iietr" path="res://123JÁ.tscn" id="26_v0rfd"]
 [ext_resource type="Script" uid="uid://hh2nsm3gvm7f" path="res://123já.gd" id="27_4scbl"]
 [ext_resource type="Script" uid="uid://c2ro47sc5mmo5" path="res://Cenas/PontosLabelCena.gd" id="28_7070l"]
@@ -267,7 +268,7 @@ texture = ExtResource("37_ngmd1")
 position = Vector2(733, 67)
 
 [node name="Node3D" parent="." unique_id=103601605 instance=ExtResource("25_i3obs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.008879, 0, -0.08936787)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.583995, 0, 1.3704168)
 
 [node name="StaticBody3D" parent="." unique_id=1509450583 instance=ExtResource("22_abs0n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4986744, 0.7264879, -7.6822476)
@@ -301,6 +302,9 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10.3
 
 [node name="gnomos quebrando" parent="." unique_id=1836821295 instance=ExtResource("25_romvb")]
 transform = Transform3D(1, 0, 0, 0, -0.9990438, 0.04371964, 0, -0.04371964, -0.9990438, -6.380989, 0.00999999, 0.3988123)
+
+[node name="casinha" parent="." unique_id=560591924 instance=ExtResource("26_romvb")]
+transform = Transform3D(-3.4969112e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.4969112e-08, -11.572254, 0.010000301, -0.28916407)
 
 [connection signal="timeout" from="Timer" to="cortador" method="_on_timer_timeout"]
 
