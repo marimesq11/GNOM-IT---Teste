@@ -96,15 +96,15 @@ transform = Transform3D(1.07, 0, 0, 0, 1.07, 0, 0, 0, 1.07, 0, 0, 0)
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1861844810]
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=616131259]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0022240696, 0.26974273, -0.019653596)
+transform = Transform3D(0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, -0.0022240696, 0.26974273, -0.019653596)
 shape = SubResource("BoxShape3D_0i88t")
 
 [node name="Cube_004" type="MeshInstance3D" parent="." unique_id=1939142925]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
+transform = Transform3D(93.5, 0, 0, 0, -4.087015e-06, 93.5, 0, -93.5, -4.087015e-06, 0, 0, 0)
 mesh = SubResource("ArrayMesh_x4f8q")
 skeleton = NodePath("")
 
 [node name="Cube_005" type="MeshInstance3D" parent="." unique_id=1814472743]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
+transform = Transform3D(93.5, 0, 0, 0, -4.087015e-06, 93.5, 0, -93.5, -4.087015e-06, 0, 0, 0)
 mesh = SubResource("ArrayMesh_jdyvv")
 skeleton = NodePath("")

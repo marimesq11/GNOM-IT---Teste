@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://nwa5tb7v4wik"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y7vdc"]
+emission_shape_offset = Vector3(0, -0.445, 0)
+emission_shape_scale = Vector3(0.05, 0.975, 1)
+angle_min = 100.40001
+angle_max = 720.0
+use_rotation_3d = true
+rotation_3d_min = Vector3(-300, -30, -30)
+rotation_3d_max = Vector3(300.345, 30, 30)
+direction = Vector3(1, 0, 100)
+spread = 180.0
+initial_velocity_max = 5.0
+scale_min = 0.099999994
+collision_mode = 1
+collision_friction = 0.34
+collision_bounce = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gwnse"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_1scgq"]
+material = SubResource("StandardMaterial3D_gwnse")
+size = Vector3(0.275, 0.3, 0.135)
+
+[node name="gnomos quebrando" type="GPUParticles3D" unique_id=1836821295]
+transform = Transform3D(1, 0, 0, 0, -0.9990438, 0.04371964, 0, -0.04371964, -0.9990438, 0, 0, 0)
+amount = 15
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_y7vdc")
+draw_pass_1 = SubResource("PrismMesh_1scgq")

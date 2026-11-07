@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c71fkxvo2gkaq" path="res://Cenas/cerca_0.png" id="1_pjp76"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qcnnl"]
-size = Vector3(6, 2.0969238, 0.19049072)
+size = Vector3(8, 2.0969238, 0.19049072)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gxg4y"]
 resource_name = "cerca"
@@ -51,17 +51,27 @@ shadow_mesh = SubResource("ArrayMesh_p46ab")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.34, 0.007)
 shape = SubResource("BoxShape3D_qcnnl")
 
-[node name="Plane" type="MeshInstance3D" parent="." unique_id=36235488]
-transform = Transform3D(-4.3711393e-06, 100, 3.5060937e-06, 0, -4.371139e-06, 80.210075, 100.00001, 4.371139e-06, 1.5325622e-13, -2.000327, -0.7136216, 0)
-mesh = SubResource("ArrayMesh_ro07v")
-skeleton = NodePath("")
-
 [node name="Plane2" type="MeshInstance3D" parent="." unique_id=952144407]
-transform = Transform3D(-4.3711393e-06, 100, 3.5060937e-06, 0, -4.371139e-06, 80.210075, 100.00001, 4.371139e-06, 1.5325622e-13, -0.0003271103, -0.7136216, 0)
+transform = Transform3D(-3.4969112e-06, 80, 2.8048723e-06, 0, -3.4969112e-06, 64.168, 80, 3.4969112e-06, 1.2260486e-13, -0.0003271103, -0.7136216, 0)
 mesh = SubResource("ArrayMesh_ro07v")
 skeleton = NodePath("")
 
-[node name="Plane3" type="MeshInstance3D" parent="." unique_id=1961411725]
-transform = Transform3D(-4.3711393e-06, 100, 3.5060937e-06, 0, -4.371139e-06, 80.210075, 100.00001, 4.371139e-06, 1.5325622e-13, 1.9996729, -0.7136216, 0)
+[node name="Plane4" type="MeshInstance3D" parent="." unique_id=652905159]
+transform = Transform3D(-3.4969112e-06, 80, 2.8048723e-06, 0, -3.4969112e-06, 64.168, 80, 3.4969112e-06, 1.2260486e-13, -1.6, -0.714, 0)
+mesh = SubResource("ArrayMesh_ro07v")
+skeleton = NodePath("")
+
+[node name="Plane6" type="MeshInstance3D" parent="." unique_id=1401869597]
+transform = Transform3D(-3.4969112e-06, 80, 2.8048723e-06, 0, -3.4969112e-06, 64.168, 80, 3.4969112e-06, 1.2260486e-13, -3.2, -0.714, 0)
+mesh = SubResource("ArrayMesh_ro07v")
+skeleton = NodePath("")
+
+[node name="Plane3" type="MeshInstance3D" parent="." unique_id=389835357]
+transform = Transform3D(-3.4969112e-06, 80, 2.8048723e-06, 0, -3.4969112e-06, 64.168, 80, 3.4969112e-06, 1.2260486e-13, 1.6, -0.714, 0)
+mesh = SubResource("ArrayMesh_ro07v")
+skeleton = NodePath("")
+
+[node name="Plane5" type="MeshInstance3D" parent="." unique_id=122967905]
+transform = Transform3D(-3.4969112e-06, 80, 2.8048723e-06, 0, -3.4969112e-06, 64.168, 80, 3.4969112e-06, 1.2260486e-13, 3.2, -0.714, 0)
 mesh = SubResource("ArrayMesh_ro07v")
 skeleton = NodePath("")
