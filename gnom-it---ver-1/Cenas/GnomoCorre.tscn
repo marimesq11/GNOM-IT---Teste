@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://bbui718p0jqeo"]
+[gd_scene format=4 uid="uid://dpltg4ndourkp"]
 
 [ext_resource type="Script" uid="uid://rj4aqcgvdu4v" path="res://Cenas/gnomo_corre.gd" id="1_jl075"]
 [ext_resource type="AudioStream" uid="uid://c7my8av5gu8an" path="res://ElevenLabs_Sharp_ceramic_plate_shattering_on_a_tiled_floor.mp3" id="2_g7v2m"]

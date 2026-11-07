@@ -2,79 +2,131 @@
 
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="1_817ed"]
 [ext_resource type="Script" uid="uid://bk2nbw0k61ktm" path="res://tela_play.gd" id="1_b2k28"]
-[ext_resource type="Texture2D" uid="uid://k5502fxawyen" path="res://Cenas/BotaoPlatPreenchido.webp" id="1_esroy"]
+[ext_resource type="Texture2D" uid="uid://dxgmohl2w3n6o" path="res://CenaFinal/fundopng.webp" id="2_hipc3"]
 [ext_resource type="VideoStream" uid="uid://bid45nh41eodq" path="res://Cenas/Abertura.ogv" id="3_yfse8"]
-[ext_resource type="Texture2D" uid="uid://dm862mnyybx5" path="res://Cenas/BotaoTutorialPreenchido.webp" id="4_hy0dl"]
 [ext_resource type="Texture2D" uid="uid://b581f3gm13den" path="res://Cenas/tutorial.png" id="6_hy0dl"]
 [ext_resource type="PackedScene" uid="uid://bampf43d6ghk3" path="res://Cenas/TeladeMenuFundo.tscn" id="7_esroy"]
-[ext_resource type="Texture2D" uid="uid://cfmfkqucs84yv" path="res://Cenas/correntes.webp" id="8_b2k28"]
-[ext_resource type="Texture2D" uid="uid://dbpa8ti3txri6" path="res://Cenas/Botao.webp" id="8_hy0dl"]
+
+[sub_resource type="Gradient" id="Gradient_x5cbs"]
+offsets = PackedFloat32Array(0, 0.28, 0.696, 0.768, 0.968)
+colors = PackedColorArray(0, 0, 0, 0.5411765, 0.13, 0.13, 0.13, 0.5294118, 0.18, 0.18, 0.18, 0.34509805, 0.15, 0.15, 0.15, 0.30588236, 0.32, 0.32, 0.32, 0)
+metadata/_snap_count = 6
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0i88t"]
+gradient = SubResource("Gradient_x5cbs")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ocg5d"]
 
 [node name="Node2D" type="Node2D" unique_id=1523334046 node_paths=PackedStringArray("botao_play", "botao_tutorial", "botao_x", "botao_skip", "outros_botoes", "sprite_tutorial", "video", "tela_preta")]
 script = ExtResource("1_b2k28")
-botao_play = NodePath("Play")
-botao_tutorial = NodePath("TutorialBotao")
-botao_x = NodePath("FecharTutorial")
-botao_skip = NodePath("Skip")
-outros_botoes = [NodePath("Botao"), NodePath("Botao2"), NodePath("Correntes"), NodePath("Correntes3"), NodePath("Titulo")]
-sprite_tutorial = NodePath("TutorialBotao/Sprite2D")
+botao_play = NodePath("VBoxContainer/Play")
+botao_tutorial = NodePath("VBoxContainer/TutorialBotao")
+botao_x = NodePath("")
+botao_skip = NodePath("")
+outros_botoes = [NodePath("Sair"), NodePath("VBoxContainer/Créditos"), NodePath(""), NodePath("Titulo")]
+sprite_tutorial = NodePath("VBoxContainer/TutorialBotao/Sprite2D")
 cena_destino = "uid://6gs2bnf2gw7o"
 video = NodePath("VideoStreamPlayer")
-tela_preta = NodePath("ColorRect")
+tela_preta = NodePath("Transição pra cutcene")
 
-[node name="ColorRect2" type="ColorRect" parent="." unique_id=2127410212]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Fundopng" type="Sprite2D" parent="." unique_id=1534194813]
+position = Vector2(576.5, 325.5)
+scale = Vector2(1.1298828, 1.1232638)
+texture = ExtResource("2_hipc3")
+
+[node name="ColorRect2" type="TextureRect" parent="." unique_id=1066528347]
+offset_right = 24.896124
+offset_bottom = 39.08114
 scale = Vector2(28.879997, 16.760002)
 mouse_filter = 2
-color = Color(0, 0, 0, 0.15100001)
+texture = SubResource("GradientTexture2D_0i88t")
+expand_mode = 1
 
-[node name="TutorialBotao" type="TextureButton" parent="." unique_id=357103441]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=667723404]
+offset_left = 55.0
+offset_top = 170.0
+offset_right = 256.0
+offset_bottom = 350.0
+
+[node name="Play" type="Button" parent="VBoxContainer" unique_id=868234458]
 z_index = 1
-offset_left = 159.0
-offset_top = 319.0
-offset_right = 1183.0
-offset_bottom = 895.0
-scale = Vector2(0.8021278, 0.71371186)
+material = SubResource("CanvasItemMaterial_ocg5d")
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(1, 0.7411765, 0.38431373, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 17
+theme_override_fonts/font = ExtResource("1_817ed")
+theme_override_font_sizes/font_size = 45
+text = "Jogar
+"
+flat = true
+
+[node name="TutorialBotao" type="Button" parent="VBoxContainer" unique_id=1828083004]
+z_index = 1
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("4_hy0dl")
-metadata/_edit_use_anchors_ = true
+theme_override_colors/font_color = Color(1, 0.7411765, 0.38431373, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 14
+theme_override_fonts/font = ExtResource("1_817ed")
+theme_override_font_sizes/font_size = 45
+text = "Tutorial"
+flat = true
 
-[node name="Sprite2D" type="Sprite2D" parent="TutorialBotao" unique_id=1555995261]
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/TutorialBotao" unique_id=1555995261]
 visible = false
 position = Vector2(135, -125)
 scale = Vector2(0.4322266, 0.35914356)
 texture = ExtResource("6_hy0dl")
 
-[node name="Play" type="TextureButton" parent="." unique_id=1586896677]
+[node name="Créditos" type="Button" parent="VBoxContainer" unique_id=753685802]
 z_index = 1
 material = SubResource("CanvasItemMaterial_ocg5d")
-offset_left = 281.0
-offset_top = 199.00002
-offset_right = 1305.0
-offset_bottom = 922.80255
-scale = Vector2(0.5561145, 0.55900174)
+layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
-texture_normal = ExtResource("1_esroy")
+theme_override_colors/font_color = Color(1, 0.7411765, 0.38431373, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 17
+theme_override_fonts/font = ExtResource("1_817ed")
+theme_override_font_sizes/font_size = 44
+text = "Créditos"
+flat = true
+
+[node name="Sair" type="Button" parent="." unique_id=1598000410]
+z_index = 1
+material = SubResource("CanvasItemMaterial_ocg5d")
+offset_left = 75.0
+offset_top = 485.0
+offset_right = 187.0
+offset_bottom = 550.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(1, 0.7411765, 0.38431373, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 17
+theme_override_fonts/font = ExtResource("1_817ed")
+theme_override_font_sizes/font_size = 43
+text = "Sair"
+flat = true
 
 [node name="Titulo" type="Label" parent="." unique_id=877040806]
 z_index = 1
-offset_left = 180.0
-offset_top = -31.0
-offset_right = 931.0
-offset_bottom = 358.0
+offset_left = -24.0
+offset_top = -114.0
+offset_right = 504.0
+offset_bottom = 296.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
-theme_override_colors/font_color = Color(1, 0.6681772, 0, 1)
+theme_override_colors/font_color = Color(1, 0.6666667, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 15
 theme_override_constants/shadow_outline_size = 1
 theme_override_fonts/font = ExtResource("1_817ed")
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 71
 text = "GNOM IT"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -90,56 +142,12 @@ size_flags_vertical = 4
 stream = ExtResource("3_yfse8")
 metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=867179822]
-visible = false
-offset_right = 1151.0
-offset_bottom = 655.0
-color = Color(0, 0, 0, 1)
-
-[node name="Skip" type="Button" parent="." unique_id=483034089]
-visible = false
-offset_left = 1024.0
-offset_top = 599.0
-offset_right = 1139.0
-offset_bottom = 642.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("1_817ed")
-theme_override_font_sizes/font_size = 26
-text = "Pular>>"
-metadata/_edit_use_anchors_ = true
-
-[node name="FecharTutorial" type="Button" parent="." unique_id=1631761222]
-visible = false
-offset_left = 938.0
-offset_top = -53.0
-offset_right = 1210.0
-offset_bottom = 228.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 100
-text = "x"
-metadata/_edit_use_anchors_ = true
-
 [node name="CenaTeste" parent="." unique_id=1397743769 instance=ExtResource("7_esroy")]
 
-[node name="Botao" type="Sprite2D" parent="." unique_id=1910919311]
-position = Vector2(-959, 1082)
-texture = ExtResource("8_hy0dl")
-
-[node name="Botao2" type="Sprite2D" parent="." unique_id=1861077818]
-position = Vector2(563.00006, 157)
-scale = Vector2(2.2034667, -0.99417114)
-texture = ExtResource("8_hy0dl")
-
-[node name="Correntes" type="Sprite2D" parent="." unique_id=920802847]
-z_index = -1
-position = Vector2(566.00006, 332)
-scale = Vector2(0.6775385, 0.6259992)
-texture = ExtResource("8_b2k28")
-
-[node name="Correntes3" type="Sprite2D" parent="." unique_id=581425089]
-z_index = -1
-position = Vector2(566.00006, 449)
-scale = Vector2(0.6775385, 0.6259992)
-texture = ExtResource("8_b2k28")
+[node name="Transição pra cutcene" type="ColorRect" parent="." unique_id=1249292330]
+visible = false
+offset_left = 1176.64
+offset_right = 3946.4277
+offset_bottom = 40.0
+scale = Vector2(-0.43103722, 16.704355)
+color = Color(0, 0, 0, 0.18039216)

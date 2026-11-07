@@ -4,8 +4,8 @@ extends Node2D
 # BOTÕES
 # ==========================================
 
-@export var botao_play: TextureButton
-@export var botao_tutorial: TextureButton
+@export var botao_play: Button
+@export var botao_tutorial: Button
 @export var botao_x: Button
 @export var botao_skip: Button
 

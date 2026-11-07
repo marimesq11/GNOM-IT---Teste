@@ -8,6 +8,9 @@
 [ext_resource type="AudioStream" uid="uid://bo0bp2wr6boaj" path="res://partículas/SomMorteGnomo1.mp3" id="6_jjv04"]
 [ext_resource type="AudioStream" uid="uid://divllh2abwd3t" path="res://partículas/SomMorteGnomo2.mp3" id="7_6afdu"]
 [ext_resource type="AudioStream" uid="uid://def6cr8cnjndt" path="res://partículas/SomMorteGnomo3.mp3" id="8_kwejd"]
+[ext_resource type="AudioStream" uid="uid://caytboah77gy5" path="res://Cenas/GnomoSom 5.wav" id="9_fmllv"]
+[ext_resource type="AudioStream" uid="uid://buhdhunu3k6j6" path="res://Cenas/GnomoSom6.wav" id="10_fitn6"]
+[ext_resource type="AudioStream" uid="uid://eu60aw63ohqi" path="res://Cenas/GnomoSom7.wav" id="11_dij4r"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k8uxv"]
 height = 3.9841366
@@ -146,10 +149,12 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 collision_layer = 136
 collision_mask = 15
 script = ExtResource("1_vbnlp")
+pitch_som_min = 0.9
+pitch_som_max = 1.5
 som_morte_gnomo_1 = NodePath("AudioStreamPlayer/Morreu")
 som_morte_gnomo_2 = NodePath("AudioStreamPlayer/Morreu2")
-som_morte_gnomo_3 = NodePath("AudioStreamPlayer/Morreu3")
-som_morte_gnomo_4 = NodePath("AudioStreamPlayer/Morreu4")
+som_morte_gnomo_3 = NodePath("AudioStreamPlayer/Barulinhos2")
+som_morte_gnomo_4 = NodePath("AudioStreamPlayer/Barulinhos3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1709512351]
 transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0, -0.041134715, 0)
@@ -191,6 +196,15 @@ pitch_scale = 1.59
 stream = ExtResource("8_kwejd")
 volume_db = 24.0
 pitch_scale = 1.59
+
+[node name="Barulinhos" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=992074641]
+stream = ExtResource("9_fmllv")
+
+[node name="Barulinhos2" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1920098916]
+stream = ExtResource("10_fitn6")
+
+[node name="Barulinhos3" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=1917547109]
+stream = ExtResource("11_dij4r")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1440433218 groups=["atropelavel", "inimigos"]]
 collision_layer = 8

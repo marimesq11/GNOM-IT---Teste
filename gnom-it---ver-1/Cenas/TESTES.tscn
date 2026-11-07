@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bvvnmtli7his4" path="res://Shaders/barra_gasolina.webp" id="5_xqa8m"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="6_ir2pu"]
 [ext_resource type="Script" uid="uid://b4u2m2wkpc22g" path="res://Cenas/barra_gasolina.gd" id="11_2a5hf"]
-[ext_resource type="PackedScene" uid="uid://cd0iw0jg20kn" path="res://Gasolina.tscn" id="12_mctnb"]
+[ext_resource type="PackedScene" uid="uid://cd0iw0jg20kn" path="res://CenaFinal/Gasolina.tscn" id="12_mctnb"]
 [ext_resource type="PackedScene" uid="uid://k0b04vssj23n" path="res://Cenas/CadeiraDeitada.tscn" id="14_hfko0"]
 [ext_resource type="PackedScene" uid="uid://bqi3x00xbubml" path="res://CenasCenarios/MesadePicnic.tscn" id="15_brmt8"]
 [ext_resource type="PackedScene" uid="uid://cb5ndd6g33b30" path="res://CenasCenarios/FolhasnoChao.tscn" id="16_n0fw8"]
@@ -132,9 +132,6 @@ angulo_derrapagem = 45.0
 multiplicador_velocidade_drift = 1.0
 inclinacao_drift = 25.0
 altura_drift = 0.35
-
-[node name="Cylinder2" parent="cortador/Node3D" parent_id_path=PackedInt32Array(1886462838, 1042802644) index="1" unique_id=532416502]
-surface_material_override/0 = null
 
 [node name="SpringArm3D" parent="cortador/CameraPivot" parent_id_path=PackedInt32Array(1886462838, 1415393391) index="0" unique_id=1278876024]
 transform = Transform3D(1, 0, 0, 0, 0.9856564, -0.16876462, 0, 0.16876462, 0.9856564, 0, 8.079196, -22.956856)
@@ -478,15 +475,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.276272, 0, -13.362936)
 [node name="CharacterBody3D" parent="." unique_id=1369375029 instance=ExtResource("31_oe0oo")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -2.0775785, 0.098748624, 0)
 
-[node name="Node3D6" parent="." unique_id=801741046 node_paths=PackedStringArray("Cortador", "ponto_destino") instance=ExtResource("33_0outj")]
+[node name="Node3D6" parent="." unique_id=801741046 instance=ExtResource("33_0outj")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.2946527, 2.0835545)
-Cortador = NodePath("../cortador")
-ponto_destino = NodePath("../cortador/Node3D/Ponto_Inimigo")
 
-[node name="Node3D7" parent="." unique_id=516448486 node_paths=PackedStringArray("Cortador", "ponto_destino") instance=ExtResource("33_0outj")]
+[node name="Node3D7" parent="." unique_id=516448486 instance=ExtResource("33_0outj")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 1.9402541, 0.29145944, 2.0835545)
-Cortador = NodePath("../cortador")
-ponto_destino = NodePath("../cortador/Node3D/Ponto_Inimigo")
 
 [node name="CharacterBody3D5" parent="." unique_id=1747277323 instance=ExtResource("31_oe0oo")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 6.170895, 0.07347563, 0)
