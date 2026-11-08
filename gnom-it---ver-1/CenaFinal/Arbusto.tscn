@@ -90,3 +90,4 @@ volume_db = 5.5
 
 [node name="folhas moita" parent="." unique_id=1085378684 instance=ExtResource("3_j4w2l")]
 transform = Transform3D(-0.034468636, -0.9994058, 0, 0.9994058, -0.034468636, 0, 0, 0, 1, -0.12548625, 0.42358422, 0)
+emitting = false

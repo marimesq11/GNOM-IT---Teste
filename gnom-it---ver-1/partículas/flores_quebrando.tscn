@@ -13,7 +13,7 @@ curve = SubResource("Curve_uw4pi")
 use_rotation_3d = true
 rotation_3d_min = Vector3(-900, -90, -900)
 rotation_3d_max = Vector3(90, 90, 90)
-spread = 90.0
+spread = 60.0
 initial_velocity_min = 2.0
 initial_velocity_max = 5.0
 scale_min = 0.79999995
@@ -26,7 +26,7 @@ albedo_texture = ExtResource("1_0jw3x")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5a724"]
 material = SubResource("StandardMaterial3D_y7vdc")
-size = Vector2(0.1, 0.1)
+size = Vector2(0.15, 0.15)
 
 [node name="flores quebrando" type="GPUParticles3D" unique_id=604799326]
 transform = Transform3D(-0.034468636, -0.9994058, 0, 0.9994058, -0.034468636, 0, 0, 0, 1, 0, 0, 0)

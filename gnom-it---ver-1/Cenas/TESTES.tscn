@@ -139,6 +139,12 @@ transform = Transform3D(1, 0, 0, 0, 0.9856564, -0.16876462, 0, 0.16876462, 0.985
 [node name="Camera3D" parent="cortador/CameraPivot/SpringArm3D" index="0" unique_id=329421050]
 transform = Transform3D(-9.999998, 2.868981e-14, 8.742276e-07, -3.8144776e-09, 9.999905, -0.043632627, -8.742194e-07, -0.043632627, -9.999905, 0, 5.249358, -14.216526)
 
+[node name="corpo" parent="cortador" index="9" unique_id=964366082]
+surface_material_override/0 = null
+
+[node name="gotas gasolina" parent="cortador" index="14" unique_id=1885486024]
+visible = true
+
 [node name="Ambiente" type="Node3D" parent="." unique_id=1002796278]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Ambiente" unique_id=1161928541]

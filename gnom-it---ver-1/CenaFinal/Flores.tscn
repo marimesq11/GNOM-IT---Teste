@@ -206,3 +206,4 @@ shape = SubResource("SphereShape3D_0i88t")
 
 [node name="flores quebrando" parent="." unique_id=604799326 instance=ExtResource("2_hbn2n")]
 transform = Transform3D(-0.034468636, -0.9994058, 0, 0.9994058, -0.034468636, 0, 0, 0, 1, 0, 0.5041994, 0)
+emitting = false

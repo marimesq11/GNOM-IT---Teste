@@ -29,7 +29,7 @@ albedo_texture = SubResource("GradientTexture1D_dw1jd")
 
 [sub_resource type="BoxMesh" id="BoxMesh_dubrf"]
 material = SubResource("StandardMaterial3D_yd6g7")
-size = Vector3(0.1, 1, 0.2)
+size = Vector3(0.1, 0.5, 0.1)
 
 [node name="tábuas quebrando" type="GPUParticles3D" unique_id=388242706]
 transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, 0, 0, 0)
