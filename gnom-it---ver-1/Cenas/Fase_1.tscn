@@ -135,7 +135,7 @@ surface_material_override/0 = null
 [node name="Ambiente" type="Node3D" parent="." unique_id=1002796278]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Ambiente" unique_id=1161928541]
-transform = Transform3D(-0.16077402, -0.92983884, -0.33098593, -0.3635689, -0.25597423, 0.89570916, -0.917589, 0.26434296, -0.2969064, 0, 3.0588558, 1.8726935)
+transform = Transform3D(-0.26419538, -0.86457974, 0.42743766, -0.1438935, 0.47355843, 0.8689288, -0.953675, 0.16806138, -0.2495194, 0, 3.0588558, 1.8726935)
 light_color = Color(1.0569985, 1.0564294, 0.63488865, 1)
 light_energy = 1.248
 shadow_enabled = true
