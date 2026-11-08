@@ -48,6 +48,6 @@ shadow_mesh = SubResource("ArrayMesh_1ofhw")
 transform = Transform3D(1.07, 0, 0, 0, 1.07, 0, 0, 0, 1.07, 0, 0, 0)
 
 [node name="Cube_005" type="MeshInstance3D" parent="." unique_id=1814472743]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0.97071207)
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0.005897127, 0.97071207)
 mesh = SubResource("ArrayMesh_jdyvv")
 skeleton = NodePath("")
