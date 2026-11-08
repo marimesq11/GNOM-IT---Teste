@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://clsfkgkw8va66"
+path="res://.godot/imported/magia reconstruir grama (online-audio-converter.com).wav-094b687ef24454d25bbf008b7221c2d7.sample"
+
+[deps]
+
+source_file="res://Sons/magia reconstruir grama (online-audio-converter.com).wav"
+dest_files=["res://.godot/imported/magia reconstruir grama (online-audio-converter.com).wav-094b687ef24454d25bbf008b7221c2d7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,47 +1,45 @@
 [gd_scene format=3 uid="uid://6gs2bnf2gw7o"]
 
-[ext_resource type="Script" uid="uid://dhk3hqktoybxi" path="res://Cenas/Main.gd" id="1_0outj"]
-[ext_resource type="AudioStream" uid="uid://dfeeqxt3pp7by" path="res://Música Livre de Direitos Autorais [[SAMBA- BRASIL]]- As Músicas Mais Diferenciadas [BPohzqiZRbo].mp3" id="2_iegax"]
+[ext_resource type="Script" uid="uid://dhk3hqktoybxi" path="res://Script/Main.gd" id="1_0outj"]
+[ext_resource type="AudioStream" uid="uid://dfeeqxt3pp7by" path="res://Sons/Música Livre de Direitos Autorais [[SAMBA- BRASIL]]- As Músicas Mais Diferenciadas [BPohzqiZRbo].mp3" id="2_iegax"]
 [ext_resource type="Script" uid="uid://ldbubqvgdino" path="res://Cenas/ChaoControle.gd" id="2_xqa8m"]
 [ext_resource type="Shader" uid="uid://c5vr2ybol65x7" path="res://Shaders/ShaderGrama.gdshader" id="3_3mcl0"]
 [ext_resource type="Texture2D" uid="uid://bn175qs86uedx" path="res://Texture/grama.png" id="3_xqa8m"]
 [ext_resource type="Script" uid="uid://krqcf0ojhopo" path="res://Script/MeshGrama.gd" id="4_3mcl0"]
-[ext_resource type="Texture2D" uid="uid://dg6mcspgv1oth" path="res://Assets/cell_grass.png" id="4_skq4c"]
-[ext_resource type="Texture2D" uid="uid://bvvnmtli7his4" path="res://Shaders/barra_gasolina.webp" id="5_xqa8m"]
+[ext_resource type="Texture2D" uid="uid://b8gdasisvfavo" path="res://Cenas/texture chao.jpg" id="4_xqa8m"]
+[ext_resource type="Texture2D" uid="uid://bvvnmtli7his4" path="res://Assets/barra_gasolina.webp" id="5_xqa8m"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="6_ir2pu"]
-[ext_resource type="Script" uid="uid://b4u2m2wkpc22g" path="res://Cenas/barra_gasolina.gd" id="11_2a5hf"]
+[ext_resource type="Script" uid="uid://b4u2m2wkpc22g" path="res://Script/barra_gasolina.gd" id="11_2a5hf"]
 [ext_resource type="PackedScene" uid="uid://cd0iw0jg20kn" path="res://CenaFinal/Gasolina.tscn" id="12_mctnb"]
-[ext_resource type="PackedScene" uid="uid://k0b04vssj23n" path="res://Cenas/CadeiraDeitada.tscn" id="14_hfko0"]
-[ext_resource type="PackedScene" uid="uid://bqi3x00xbubml" path="res://CenasCenarios/MesadePicnic.tscn" id="15_brmt8"]
 [ext_resource type="PackedScene" uid="uid://bus73ub0e28uq" path="res://CenaFinal/CaixaouCanteiro.tscn" id="17_fhyt8"]
 [ext_resource type="PackedScene" uid="uid://hcdxwjicfi71" path="res://CenaFinal/Arbusto.tscn" id="19_kxesi"]
-[ext_resource type="PackedScene" uid="uid://b55qjd34jjrfd" path="res://Arvores.tscn" id="25_lrtr4"]
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="26_6gs8y"]
-[ext_resource type="Script" uid="uid://c2ro47sc5mmo5" path="res://Cenas/PontosLabelCena.gd" id="28_3mcl0"]
+[ext_resource type="Script" uid="uid://c2ro47sc5mmo5" path="res://Script/PontosLabelCena.gd" id="28_3mcl0"]
 [ext_resource type="PackedScene" uid="uid://ba0c3xgwsvu1c" path="res://CenaFinal/Rampa.tscn" id="28_bavn2"]
-[ext_resource type="PackedScene" uid="uid://bfxeppe2iietr" path="res://123JÁ.tscn" id="29_3repn"]
+[ext_resource type="PackedScene" uid="uid://bfxeppe2iietr" path="res://Cenas/123JÁ.tscn" id="29_3repn"]
 [ext_resource type="ArrayMesh" uid="uid://dcerdi21bij6n" path="res://Meshs/Plane_001.res" id="29_skq4c"]
 [ext_resource type="AudioStream" uid="uid://dfc2yeodrtdxy" path="res://CenaFinal/SomRelogio.mp3" id="30_3mcl0"]
-[ext_resource type="Script" uid="uid://hh2nsm3gvm7f" path="res://123já.gd" id="30_4u8vl"]
-[ext_resource type="Script" uid="uid://di0yxtjm1y44h" path="res://Cenas/SpawnerInimigos.gd" id="30_iegax"]
+[ext_resource type="Script" uid="uid://hh2nsm3gvm7f" path="res://Script/123já.gd" id="30_4u8vl"]
+[ext_resource type="Script" uid="uid://di0yxtjm1y44h" path="res://Script/SpawnerInimigos.gd" id="30_iegax"]
+[ext_resource type="AudioStream" uid="uid://bielqpfqejld" path="res://Sons/Projeto novo - freesound_community-engine-start-86242.mp3.wav" id="30_skq4c"]
 [ext_resource type="PackedScene" uid="uid://e1c5afilg1y" path="res://Cenas/TESTE_GNOMO_CORRE.tscn" id="31_oe0oo"]
 [ext_resource type="PackedScene" uid="uid://deo2pg1m8mdl7" path="res://Cenas/TESTEGNOMOVERMELHO.tscn" id="31_xqa8m"]
-[ext_resource type="PackedScene" uid="uid://3qrgkhrp1hhs" path="res://galão gasolinafbx.fbx" id="32_iegax"]
+[ext_resource type="PackedScene" uid="uid://3qrgkhrp1hhs" path="res://Cenas/galão gasolinafbx.fbx" id="32_iegax"]
 [ext_resource type="PackedScene" uid="uid://d20lrrt0d6by8" path="res://Cenas/TESTEGNOMOAZUL.tscn" id="33_0outj"]
-[ext_resource type="PackedScene" uid="uid://cwgvmwmpl52cw" path="res://Circulo_Pontuação.tscn" id="33_0yihv"]
+[ext_resource type="PackedScene" uid="uid://cwgvmwmpl52cw" path="res://Cenas/Circulo_Pontuação.tscn" id="33_0yihv"]
 [ext_resource type="PackedScene" uid="uid://csskufoa86f4j" path="res://Cenas/canteiro.fbx" id="33_xqa8m"]
-[ext_resource type="PackedScene" uid="uid://c72cdo4a8xqb1" path="res://flores.fbx" id="34_3mcl0"]
+[ext_resource type="PackedScene" uid="uid://c72cdo4a8xqb1" path="res://Cenas/flores.fbx" id="34_3mcl0"]
 [ext_resource type="PackedScene" uid="uid://dnyrwky64ojs" path="res://Cenas/Gnomo_Verde.tscn" id="34_xqa8m"]
 [ext_resource type="PackedScene" uid="uid://cwvng3omn6gbj" path="res://Cenas/vrumvrum finalizada.fbx" id="35_iegax"]
 [ext_resource type="PackedScene" uid="uid://ha0uk070ur0r" path="res://CenaFinal/CercaFinal.tscn" id="35_skq4c"]
 [ext_resource type="PackedScene" uid="uid://c8fejlovbih1o" path="res://CenaFinal/Flores.tscn" id="36_3mcl0"]
-[ext_resource type="Texture2D" uid="uid://belyvcv8ceneu" path="res://Shaders/placa.webp" id="36_xqa8m"]
+[ext_resource type="Texture2D" uid="uid://belyvcv8ceneu" path="res://Assets/placa.webp" id="36_xqa8m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8hd82"]
 render_priority = 0
 shader = ExtResource("3_3mcl0")
 shader_parameter/textura_grama = ExtResource("3_xqa8m")
-shader_parameter/textura_baixo = ExtResource("4_skq4c")
+shader_parameter/textura_baixo = ExtResource("4_xqa8m")
 shader_parameter/tamanho_terreno = Vector2(23, 23)
 shader_parameter/centro_terreno = Vector2(0, 0)
 
@@ -100,7 +98,6 @@ color = Color(0.17923622, 0.17923622, 0.17923622, 0.5)
 script = ExtResource("2_xqa8m")
 cortador = NodePath("../cortador")
 chao_mesh = NodePath("ChaoMesh")
-raio_corte = 0.4
 
 [node name="ChaoMesh" type="MeshInstance3D" parent="Chao" unique_id=331962387 node_paths=PackedStringArray("grama")]
 transform = Transform3D(1.0001253, 0, 0, 0, -4.3716867e-08, 1.0001253, 0, -1.0001253, -4.3716867e-08, 0.009753823, -0.01319623, 0.011725903)
@@ -114,24 +111,10 @@ tamanho_terreno = Vector2(23, 23)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18688965, 0, -0.03869629)
 shape = SubResource("BoxShape3D_w4tno")
 
-[node name="cortador" parent="." unique_id=1886462838 instance=ExtResource("6_ir2pu")]
+[node name="cortador" parent="." unique_id=1886462838 node_paths=PackedStringArray("sistema_grama", "sistema_chao") instance=ExtResource("6_ir2pu")]
 transform = Transform3D(0.135, 0, 0, 0, 0.135, 0, 0, 0, 0.135, 0.98181915, 0.17322394, -7.4281926)
-move_speed = 5.0
-acceleration = 6.0
-rotation_speed = 5.0
-suavizacao_posicao_camera = 6.0
-suavizacao_giro_camera = 2.0
-velocidade_minima_drift = 1.0
-tempo_entre_drifts = 0.7
-velocidade_giro_drift = 3.0
-velocidade_giro_maximo_drift = 5.5
-fator_derrapagem = 0.5
-tempo_inercia_drift = 0.25
-multiplicador_rotacao_drift = 3.0
-angulo_derrapagem = 45.0
-multiplicador_velocidade_drift = 1.0
-inclinacao_drift = 25.0
-altura_drift = 0.35
+sistema_grama = NodePath("../Chao/ChaoMesh")
+sistema_chao = NodePath("../Chao")
 
 [node name="SpringArm3D" parent="cortador/CameraPivot" parent_id_path=PackedInt32Array(1886462838, 1415393391) index="0" unique_id=1278876024]
 transform = Transform3D(1, 0, 0, 0, 0.9856564, -0.16876462, 0, 0.16876462, 0.9856564, 0, 8.079196, -22.956856)
@@ -141,9 +124,6 @@ transform = Transform3D(-9.999998, 2.868981e-14, 8.742276e-07, -3.8144776e-09, 9
 
 [node name="corpo" parent="cortador" index="9" unique_id=964366082]
 surface_material_override/0 = null
-
-[node name="gotas gasolina" parent="cortador" index="14" unique_id=1885486024]
-visible = true
 
 [node name="Ambiente" type="Node3D" parent="." unique_id=1002796278]
 
@@ -200,22 +180,7 @@ transform = Transform3D(1.0000001, 1.8626451e-09, 7.450581e-09, 0, 1.0000001, 0,
 [node name="Node3D Cadeiras" type="Node3D" parent="Mapa/Nod3D Detalhes" unique_id=2037224912]
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 1.3302417, 0, 2.0252173)
 
-[node name="cadeiras" parent="Mapa/Nod3D Detalhes/Node3D Cadeiras" unique_id=253275458 groups=["Quebravel"] instance=ExtResource("14_hfko0")]
-transform = Transform3D(0.10468474, 0, 0.38605842, 0, 0.39999977, 0, -0.38605836, 0, 0.104684725, -3.3047261, 0.09832539, -4.4639974)
-
-[node name="cadeiras2" parent="Mapa/Nod3D Detalhes/Node3D Cadeiras" unique_id=576196420 groups=["Quebravel"] instance=ExtResource("14_hfko0")]
-transform = Transform3D(0.31416848, 0, 0.24758467, 0, 0.39999977, 0, -0.24758463, 0, 0.31416845, -3.2444844, 0.09832539, -5.1299047)
-
-[node name="cadeiras4" parent="Mapa/Nod3D Detalhes/Node3D Cadeiras" unique_id=1954605727 groups=["Quebravel"] instance=ExtResource("14_hfko0")]
-transform = Transform3D(-0.33395034, 0, -0.22017536, 0, 0.39999998, 0, 0.22017536, 0, -0.33395034, 1.7115132, 0.098325476, 2.0032787)
-
 [node name="Node3D Mesas" type="Node3D" parent="Mapa/Nod3D Detalhes" unique_id=527289819]
-
-[node name="StaticBody3D" parent="Mapa/Nod3D Detalhes/Node3D Mesas" unique_id=1832782314 instance=ExtResource("15_brmt8")]
-transform = Transform3D(0.03648928, 0, 0.019344812, 0, 0.041299984, 0, -0.019344816, 0, 0.03648927, -3.4604006, 0.13901937, 1.0063685)
-
-[node name="StaticBody3D2" parent="Mapa/Nod3D Detalhes/Node3D Mesas" unique_id=1833725455 instance=ExtResource("15_brmt8")]
-transform = Transform3D(0.023315564, -4.1104264e-05, 0.034089178, 8.476047e-05, 0.041299894, -8.172887e-06, -0.03408909, 7.4575975e-05, 0.0233156, 3.1053216, 0.13901961, 2.4890282)
 
 [node name="Node3D Folhas caidas" type="Node3D" parent="Mapa/Nod3D Detalhes" unique_id=931211862]
 
@@ -375,11 +340,8 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 3.017473, -0.060918003,
 
 [node name="Node3D Arvores" type="Node3D" parent="Mapa" unique_id=520547274]
 
-[node name="StaticBody3D3" parent="Mapa/Node3D Arvores" unique_id=1473692081 instance=ExtResource("25_lrtr4")]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -4.255963, 0, 5.373711)
-
 [node name="Timer" type="Timer" parent="." unique_id=2053944718]
-wait_time = 30.0
+wait_time = 120.0
 one_shot = true
 
 [node name="TimeLabel" type="Label" parent="." unique_id=1208621726]
@@ -400,12 +362,12 @@ metadata/_edit_use_anchors_ = true
 [node name="StaticBody3D" parent="." unique_id=974990503 instance=ExtResource("28_bavn2")]
 transform = Transform3D(-0.00027923193, -4.3472604e-12, 0.99999994, -0.06797099, 0.9976873, -1.8979666e-05, -0.9976872, -0.06797102, -0.00027858606, 7.200514, 0.24059236, 6.905164)
 
-[node name="123" parent="." unique_id=742262406 node_paths=PackedStringArray("fundo", "elementos_hud") instance=ExtResource("29_3repn")]
+[node name="123" parent="." unique_id=742262406 node_paths=PackedStringArray("fundo", "elementos_hud", "MotorEgatando") instance=ExtResource("29_3repn")]
 z_index = 2
 script = ExtResource("30_4u8vl")
 fundo = NodePath("../FundoCinzadaContagem")
 elementos_hud = [NodePath("../CanvasLayer/BarraGasolina"), NodePath("../CanvasLayer/Gasolina"), NodePath("../TimeLabel"), NodePath("../Placa"), NodePath("../PopUpTempo")]
-metadata/_edit_use_anchors_ = true
+MotorEgatando = NodePath("../AudioStreamPlayer/MotorEngatando")
 
 [node name="PontosLabel" type="Label" parent="." unique_id=295680024]
 offset_left = 918.0
@@ -537,6 +499,9 @@ autoplay = true
 [node name="TempoAcabando" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=978917509]
 stream = ExtResource("30_3mcl0")
 parameters/looping = true
+
+[node name="MotorEngatando" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=840510855]
+stream = ExtResource("30_skq4c")
 
 [node name="Placa" type="Sprite2D" parent="." unique_id=1986225170]
 position = Vector2(600.00006, 34.999992)

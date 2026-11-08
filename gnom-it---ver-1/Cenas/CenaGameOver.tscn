@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://c43qcg265fk1l"]
+
+[ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="1_epneq"]
+[ext_resource type="Script" uid="uid://qcb6apaiudqr" path="res://Script/Botao_TentarNovamente.gd" id="2_8xphj"]
+[ext_resource type="Script" uid="uid://hb2vvohjp8kc" path="res://Script/pontos_label.gd" id="3_dfjfp"]
+[ext_resource type="Texture2D" uid="uid://giyiknyi02iq" path="res://Assets/Derrota.webp" id="4_epneq"]
+[ext_resource type="Texture2D" uid="uid://cfmfkqucs84yv" path="res://Cenas/correntes.webp" id="5_eaj2c"]
+[ext_resource type="Texture2D" uid="uid://dir2i4fr7bgrq" path="res://Assets/Botao_Vazio.webp" id="6_1j80l"]
+[ext_resource type="PackedScene" uid="uid://bampf43d6ghk3" path="res://Cenas/TeladeMenuFundo.tscn" id="7_pp35q"]
+
+[node name="Node2D" type="Node2D" unique_id=1130400279]
+
+[node name="Label" type="Label" parent="." unique_id=445339637]
+z_index = 1
+offset_left = 215.0
+offset_top = -117.00001
+offset_right = 966.0
+offset_bottom = 272.0
+rotation = 0.06633489
+theme_override_colors/font_color = Color(1, 0.8000001, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 11
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("1_epneq")
+theme_override_font_sizes/font_size = 44
+text = "Você Morreu!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=771223616]
+offset_left = 396.0
+offset_top = 498.0
+offset_right = 802.0
+offset_bottom = 598.0
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 43
+text = "Tentar novamente"
+flat = true
+script = ExtResource("2_8xphj")
+cena_destino = "uid://6gs2bnf2gw7o"
+
+[node name="Label2" type="RichTextLabel" parent="." unique_id=195859108]
+z_index = 1
+offset_left = 234.0
+offset_top = 214.00002
+offset_right = 1318.0
+offset_bottom = 462.29993
+scale = Vector2(0.6287296, 0.88199794)
+theme_override_colors/default_color = Color(1, 0.8, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_dfjfp")
+tamanho_estrelas = 90
+cor_estrelas = Color(1, 0.8, 0, 1)
+tamanho_nota = 60
+cor_nota = Color(1, 0.8, 0, 1)
+tamanho_pontos = 60
+cor_pontos = Color(1, 0.8, 0, 1)
+
+[node name="Derrota" type="Sprite2D" parent="." unique_id=1817103224]
+position = Vector2(572.00006, 102.000015)
+rotation = 0.073314756
+scale = Vector2(1.0091325, 0.56123745)
+texture = ExtResource("4_epneq")
+
+[node name="Correntes" type="Sprite2D" parent="." unique_id=1628196370]
+z_index = -1
+position = Vector2(576, 20)
+texture = ExtResource("5_eaj2c")
+
+[node name="Correntes3" type="Sprite2D" parent="." unique_id=1786459898]
+z_index = -1
+position = Vector2(590, 407)
+texture = ExtResource("5_eaj2c")
+
+[node name="Correntes2" type="Sprite2D" parent="." unique_id=1569379967]
+z_index = -1
+position = Vector2(582, 166)
+scale = Vector2(0.7841797, 0.46006945)
+texture = ExtResource("5_eaj2c")
+
+[node name="BotaoVazio" type="Sprite2D" parent="." unique_id=1553931815]
+z_index = -1
+position = Vector2(582, 328)
+rotation = -0.007785702
+scale = Vector2(2.9198914, 2.001991)
+texture = ExtResource("6_1j80l")
+
+[node name="Derrota2" type="Sprite2D" parent="." unique_id=1272757875]
+z_index = -1
+position = Vector2(593, 553)
+scale = Vector2(1.1999987, 0.56)
+texture = ExtResource("4_epneq")
+
+[node name="CenaTeste" parent="." unique_id=1397743769 instance=ExtResource("7_pp35q")]

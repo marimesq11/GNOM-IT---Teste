@@ -249,3 +249,19 @@ func _process(delta: float) -> void:
 		textura_mascara.update(mascara)
 		atualizar_pixels_cortados()
 		verificar_vitoria()
+
+func tem_grama_na_posicao(posicao: Vector3) -> bool:
+	if mascara == null:
+		return false
+
+	var ponto := mundo_para_mascara(posicao)
+	var x := int(floor(ponto.x))
+	var y := int(floor(ponto.y))
+
+	if x < 0 or x >= TAMANHO_MASCARA:
+		return false
+
+	if y < 0 or y >= TAMANHO_MASCARA:
+		return false
+
+	return mascara.get_pixel(x, y).r > 0.5

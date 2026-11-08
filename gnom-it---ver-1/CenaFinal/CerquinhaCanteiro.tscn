@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://d31hqriupjmh3"]
 
-[ext_resource type="Texture2D" uid="uid://cjl5xu4voa5kl" path="res://Farm_objects_BaseColor.png" id="1_h6kmk"]
-[ext_resource type="AudioStream" uid="uid://dsdjp1onajtu0" path="res://Cenas/BatendoMadeira.mp3" id="2_ivslt"]
+[ext_resource type="Texture2D" uid="uid://vgpn3hfa8ai" path="res://Texture/Farm_objects_BaseColor.png" id="1_h6kmk"]
+[ext_resource type="AudioStream" uid="uid://dsdjp1onajtu0" path="res://Sons/BatendoMadeira.mp3" id="2_ivslt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bimlo"]
 resource_name = "Farm objects material"

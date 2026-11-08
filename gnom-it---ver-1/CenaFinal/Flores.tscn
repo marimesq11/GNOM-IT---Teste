@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://c8fejlovbih1o"]
 
-[ext_resource type="Texture2D" uid="uid://ddu3qkk2i35l3" path="res://flores_0.png" id="1_itlco"]
+[ext_resource type="Texture2D" uid="uid://ddu3qkk2i35l3" path="res://Texture/flores_0.png" id="1_itlco"]
 [ext_resource type="PackedScene" uid="uid://dmxlnc8euecj5" path="res://partículas/flores_quebrando.tscn" id="2_hbn2n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18lsh"]

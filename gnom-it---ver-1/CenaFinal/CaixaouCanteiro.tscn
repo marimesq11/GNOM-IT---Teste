@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://bus73ub0e28uq"]
 
-[ext_resource type="Texture2D" uid="uid://cjl5xu4voa5kl" path="res://Farm_objects_BaseColor.png" id="1_wxgk2"]
-[ext_resource type="AudioStream" uid="uid://dsdjp1onajtu0" path="res://Cenas/BatendoMadeira.mp3" id="2_lf6w2"]
+[ext_resource type="Texture2D" uid="uid://vgpn3hfa8ai" path="res://Texture/Farm_objects_BaseColor.png" id="1_wxgk2"]
+[ext_resource type="AudioStream" uid="uid://dsdjp1onajtu0" path="res://Sons/BatendoMadeira.mp3" id="2_lf6w2"]
 [ext_resource type="PackedScene" uid="uid://gr1w040d2bwx" path="res://partículas/tábuas_quebrando.tscn" id="3_q0i1o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bimlo"]

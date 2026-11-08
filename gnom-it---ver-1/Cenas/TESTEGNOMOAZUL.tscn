@@ -1,17 +1,17 @@
 [gd_scene format=4 uid="uid://d20lrrt0d6by8"]
 
 [ext_resource type="Script" uid="uid://dpp0562hm8wqj" path="res://Script/TESTE AZUL.gd" id="1_vbnlp"]
-[ext_resource type="Texture2D" uid="uid://bagy7mqnmeoxg" path="res://gnomo azul finalizado_2.png" id="2_27qw2"]
-[ext_resource type="Texture2D" uid="uid://dqelwd3poapgj" path="res://gnomo azul finalizado_1.png" id="3_vbnlp"]
-[ext_resource type="Texture2D" uid="uid://c26o8cublwmfn" path="res://gnomo azul finalizado_0.png" id="4_uc7s6"]
-[ext_resource type="AudioStream" uid="uid://c7my8av5gu8an" path="res://ElevenLabs_Sharp_ceramic_plate_shattering_on_a_tiled_floor.mp3" id="6_fmllv"]
-[ext_resource type="AudioStream" uid="uid://bo0bp2wr6boaj" path="res://partículas/SomMorteGnomo1.mp3" id="6_jjv04"]
-[ext_resource type="AudioStream" uid="uid://divllh2abwd3t" path="res://partículas/SomMorteGnomo2.mp3" id="7_6afdu"]
-[ext_resource type="AudioStream" uid="uid://def6cr8cnjndt" path="res://partículas/SomMorteGnomo3.mp3" id="8_kwejd"]
-[ext_resource type="AudioStream" uid="uid://caytboah77gy5" path="res://Cenas/GnomoSom 5.wav" id="9_fmllv"]
-[ext_resource type="AudioStream" uid="uid://buhdhunu3k6j6" path="res://Cenas/GnomoSom6.wav" id="10_fitn6"]
-[ext_resource type="AudioStream" uid="uid://eu60aw63ohqi" path="res://Cenas/GnomoSom7.wav" id="11_dij4r"]
-[ext_resource type="Script" uid="uid://lmwremddj2yb" path="res://Cenas/Class_GnomoMorrendo.gd" id="12_dij4r"]
+[ext_resource type="Texture2D" uid="uid://bagy7mqnmeoxg" path="res://Texture/gnomo azul finalizado_2.png" id="2_27qw2"]
+[ext_resource type="Texture2D" uid="uid://dqelwd3poapgj" path="res://Texture/gnomo azul finalizado_1.png" id="3_vbnlp"]
+[ext_resource type="Texture2D" uid="uid://c26o8cublwmfn" path="res://Texture/gnomo azul finalizado_0.png" id="4_uc7s6"]
+[ext_resource type="AudioStream" uid="uid://c7my8av5gu8an" path="res://Sons/ElevenLabs_Sharp_ceramic_plate_shattering_on_a_tiled_floor.mp3" id="6_fmllv"]
+[ext_resource type="AudioStream" uid="uid://bo0bp2wr6boaj" path="res://Sons/SomMorteGnomo1.mp3" id="6_jjv04"]
+[ext_resource type="AudioStream" uid="uid://divllh2abwd3t" path="res://Sons/SomMorteGnomo2.mp3" id="7_6afdu"]
+[ext_resource type="AudioStream" uid="uid://def6cr8cnjndt" path="res://Sons/SomMorteGnomo3.mp3" id="8_kwejd"]
+[ext_resource type="AudioStream" uid="uid://caytboah77gy5" path="res://Sons/GnomoSom 5.wav" id="9_fmllv"]
+[ext_resource type="AudioStream" uid="uid://buhdhunu3k6j6" path="res://Sons/GnomoSom6.wav" id="10_fitn6"]
+[ext_resource type="AudioStream" uid="uid://eu60aw63ohqi" path="res://Sons/GnomoSom7.wav" id="11_dij4r"]
+[ext_resource type="Script" uid="uid://lmwremddj2yb" path="res://Script/Class_GnomoMorrendo.gd" id="12_dij4r"]
 [ext_resource type="PackedScene" uid="uid://nwa5tb7v4wik" path="res://partículas/gnomos_quebrando.tscn" id="13_hq7tu"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k8uxv"]
@@ -152,6 +152,7 @@ collision_layer = 136
 collision_mask = 15
 script = ExtResource("1_vbnlp")
 controlador_cor_morte = NodePath("CorMorteGnomo")
+distancia_pulo = 2.0
 pitch_som_min = 0.9
 pitch_som_max = 1.5
 som_morte_gnomo_1 = NodePath("AudioStreamPlayer/Morreu")

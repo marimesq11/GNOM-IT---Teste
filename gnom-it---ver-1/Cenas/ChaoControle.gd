@@ -180,3 +180,32 @@ func pintar_circulo(posicao: Vector2) -> bool:
 					alterou = true
 
 	return alterou
+
+# ==========================================
+# VERIFICAR GRAMA NA MÁSCARA DO CHÃO
+# ==========================================
+
+func tem_grama_na_posicao(posicao: Vector3) -> bool:
+	if mascara == null:
+		return false
+
+	var relativa := Vector2(
+		posicao.x - centro_terreno.x,
+		posicao.z - centro_terreno.y
+	)
+
+	var uv := Vector2(
+		relativa.x / tamanho_terreno.x + 0.5,
+		relativa.y / tamanho_terreno.y + 0.5
+	)
+
+	var x := int(floor(uv.x * RESOLUCAO))
+	var y := int(floor(uv.y * RESOLUCAO))
+
+	if x < 0 or x >= RESOLUCAO:
+		return false
+
+	if y < 0 or y >= RESOLUCAO:
+		return false
+
+	return mascara.get_pixel(x, y).r > 0.5

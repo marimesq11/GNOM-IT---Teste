@@ -3,10 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://bn175qs86uedx" path="res://Texture/grama.png" id="1_0ybji"]
 [ext_resource type="Script" uid="uid://krqcf0ojhopo" path="res://Script/MeshGrama.gd" id="2_1bdui"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="3_rpqn3"]
-[ext_resource type="PackedScene" uid="uid://1rbhaw7sd8r1" path="res://CenasCenarios/CercaDensa.tscn" id="4_fqv3s"]
 [ext_resource type="PackedScene" uid="uid://hcdxwjicfi71" path="res://CenaFinal/Arbusto.tscn" id="5_h55ji"]
-[ext_resource type="PackedScene" uid="uid://b55qjd34jjrfd" path="res://Arvores.tscn" id="6_q23hr"]
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="7_317rm"]
+[ext_resource type="PackedScene" uid="uid://ha0uk070ur0r" path="res://CenaFinal/CercaFinal.tscn" id="7_l4r64"]
 [ext_resource type="ArrayMesh" uid="uid://dcerdi21bij6n" path="res://Meshs/Plane_001.res" id="8_lj6fr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0juky"]
@@ -67,9 +66,6 @@ shape = SubResource("BoxShape3D_w4tno")
 transform = Transform3D(0.1219495, 0, -0.057907857, 0, 0.135, 0, 0.057907857, 0, 0.1219495, 9.929316, 0.17322394, -7.043184)
 script = null
 
-[node name="Cylinder2" parent="cortador/Node3D" parent_id_path=PackedInt32Array(1886462838, 1042802644) index="1" unique_id=532416502]
-surface_material_override/0 = null
-
 [node name="SpringArm3D" parent="cortador/CameraPivot" parent_id_path=PackedInt32Array(1886462838, 1415393391) index="0" unique_id=1278876024]
 transform = Transform3D(1, 0, 0, 0, 0.9856564, -0.16876462, 0, 0.16876462, 0.9856564, 0, 8.079196, -22.956856)
 
@@ -98,24 +94,6 @@ transform = Transform3D(1.3431945, 0, 0, 0, 1, 0, 0, 0, 1.3415703, 0, 0, 0)
 [node name="Node3D Cercas" type="Node3D" parent="Mapa" unique_id=624003926]
 transform = Transform3D(1.3319743, 0, 0, 0, 0.99999976, 0, 0, 0, 1.3093848, 0, 7.4505797e-09, -4.7683707e-07)
 
-[node name="StaticBody3D10" parent="Mapa/Node3D Cercas" unique_id=591901831 instance=ExtResource("4_fqv3s")]
-transform = Transform3D(0.013846599, 0, -0.99990416, 0, 1, 0, 0.99990416, 0, 0.013846599, 6.3436704, 0.583944, -4.3938317)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D7" parent="Mapa/Node3D Cercas" unique_id=277442789 instance=ExtResource("4_fqv3s")]
-transform = Transform3D(0.9999404, 0, -0.010920153, 0, 1, 0, 0.010920154, 0, 0.99994045, -1.0015926, 0.583944, -6.3912964)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D8" parent="Mapa/Node3D Cercas" unique_id=547606264 instance=ExtResource("4_fqv3s")]
-transform = Transform3D(0.9999404, 0, -0.010920152, 0, 1, 0, 0.010920153, 0, 0.99994045, 4.005885, 0.583944, -6.3671455)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
 [node name="Node3D Arbustos" type="Node3D" parent="Mapa" unique_id=1801414065]
 transform = Transform3D(0.99647737, 0, 0.083862096, 0, 1, 0, -0.083862096, 0, 0.99647737, 2.100859, 0, -4.0328918)
 
@@ -132,9 +110,6 @@ transform = Transform3D(0.6, 0, 3.7252903e-09, 0, 0.6, 0, 3.7252903e-09, 0, 0.6,
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.79999995, 6.206194, 1.1920929e-07, -2.5769641)
 
 [node name="Node3D Arvores" type="Node3D" parent="Mapa" unique_id=520547274]
-
-[node name="StaticBody3D4" parent="Mapa/Node3D Arvores" unique_id=799473905 instance=ExtResource("6_q23hr")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.81797, 0, -5.476182)
 
 [node name="PontosLabel" type="Label" parent="." unique_id=295680024]
 offset_left = 918.0
@@ -161,5 +136,17 @@ multimesh = SubResource("MultiMesh_enwlr")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=411039945]
 transform = Transform3D(1, 0, 0, 0, 0.9502596, 0.31145883, 0, -0.31145883, 0.9502596, 9.205829, 0.9666815, -5.639292)
 current = true
+
+[node name="StaticBody3D" parent="." unique_id=1509450583 instance=ExtResource("7_l4r64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4458885, 0.6412997, -11.922822)
+
+[node name="StaticBody3D2" parent="." unique_id=603535120 instance=ExtResource("7_l4r64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39890385, 0.6412997, -11.922822)
+
+[node name="StaticBody3D3" parent="." unique_id=79502908 instance=ExtResource("7_l4r64")]
+transform = Transform3D(0.011205156, 0, -0.99993724, 0, 1, 0, 0.99993724, 0, 0.011205156, 11.097958, 0.6412997, -8.595813)
+
+[node name="StaticBody3D4" parent="." unique_id=1468722732 instance=ExtResource("7_l4r64")]
+transform = Transform3D(0.011205156, 0, -0.99993724, 0, 1, 0, 0.99993724, 0, 0.011205156, 11.097958, 0.6412997, -4.1035776)
 
 [editable path="cortador"]

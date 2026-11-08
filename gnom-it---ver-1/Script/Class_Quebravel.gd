@@ -3,13 +3,13 @@ class_name Quebravel
 extends Node
 
 const POPUP_PONTOS = preload("res://Cenas/PopupPontos.tscn")
-const POPUP_TEMPO = preload("res://Cenas/PopupTempo.tscn")
+# const POPUP_TEMPO = preload("res://Cenas/PopupTempo.tscn")
 
 # ========================================
 # CONFIGURAÇÕES
 # ========================================
 
-const TEMPO_BONUS := 3
+# const TEMPO_BONUS := 3
 
 const PONTOS_ARBUSTO := 10
 const PONTOS_CAIXA := 10
@@ -82,25 +82,25 @@ static func quebrar(objeto: Node) -> void:
 	popup_pontos.aparecer("+%d" % pontos)
 
 	# ========================================
-	# ADICIONAR TEMPO
+	# ADICIONAR TEMPO (DESATIVADO)
 	# ========================================
 
-	var fase = objeto.get_tree().get_first_node_in_group("fase")
-
-	if fase:
-		fase.adicionar_tempo(TEMPO_BONUS)
+	# var fase = objeto.get_tree().get_first_node_in_group("fase")
+	#
+	# if fase:
+	# 	fase.adicionar_tempo(TEMPO_BONUS)
 
 	# ========================================
-	# POPUP DE TEMPO (2D)
+	# POPUP DE TEMPO (2D) (DESATIVADO)
 	# ========================================
 
-	var marker = cena.find_child("PopUpTempo", true, false)
-
-	if marker is Marker2D:
-		var popup_tempo = POPUP_TEMPO.instantiate()
-		marker.add_child(popup_tempo)
-		popup_tempo.position = Vector2.ZERO
-		popup_tempo.aparecer("+%ds" % TEMPO_BONUS)
+	# var marker = cena.find_child("PopUpTempo", true, false)
+	#
+	# if marker is Marker2D:
+	# 	var popup_tempo = POPUP_TEMPO.instantiate()
+	# 	marker.add_child(popup_tempo)
+	# 	popup_tempo.position = Vector2.ZERO
+	# 	popup_tempo.aparecer("+%ds" % TEMPO_BONUS)
 
 	# ========================================
 	# DESTRUIR OBJETO

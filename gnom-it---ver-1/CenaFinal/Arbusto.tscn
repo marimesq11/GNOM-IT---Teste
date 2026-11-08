@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://hcdxwjicfi71"]
 
 [ext_resource type="Texture2D" uid="uid://c0cg3t0gl0v3" path="res://Assets/TextureBrush/9.png" id="1_tysla"]
-[ext_resource type="AudioStream" uid="uid://bxg4fg5u4rm5a" path="res://Cenas/BatendoArbusto.mp3" id="2_7mrl8"]
-[ext_resource type="PackedScene" uid="uid://e3hg1aadau1r" path="res://folhas_moita.tscn" id="3_j4w2l"]
+[ext_resource type="AudioStream" uid="uid://bxg4fg5u4rm5a" path="res://Sons/BatendoArbusto.mp3" id="2_7mrl8"]
+[ext_resource type="PackedScene" uid="uid://e3hg1aadau1r" path="res://partículas/folhas_moita.tscn" id="3_j4w2l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xlusc"]
 resource_name = "stylized bush"

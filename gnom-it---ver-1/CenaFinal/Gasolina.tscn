@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cd0iw0jg20kn"]
 
-[ext_resource type="Texture2D" uid="uid://bqq4c7ilk1ddj" path="res://galão gasolinafbx_0.png" id="1_4wm8l"]
-[ext_resource type="Script" uid="uid://dsk5anytrwafw" path="res://Abastecer.gd" id="1_6iv6h"]
+[ext_resource type="Texture2D" uid="uid://bqq4c7ilk1ddj" path="res://Texture/galão gasolinafbx_0.png" id="1_4wm8l"]
+[ext_resource type="Script" uid="uid://dsk5anytrwafw" path="res://Script/Abastecer.gd" id="1_6iv6h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s4ymi"]
 resource_name = "galão"

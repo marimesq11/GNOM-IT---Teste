@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://wyq8n7faedce"
+path="res://.godot/imported/gnomados_mais_gnomados (1) (online-audio-converter.com).mp3-fbb68eaacac82b0ac7a3d493c9651f48.mp3str"
+
+[deps]
+
+source_file="res://Sons/gnomados_mais_gnomados (1) (online-audio-converter.com).mp3"
+dest_files=["res://.godot/imported/gnomados_mais_gnomados (1) (online-audio-converter.com).mp3-fbb68eaacac82b0ac7a3d493c9651f48.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

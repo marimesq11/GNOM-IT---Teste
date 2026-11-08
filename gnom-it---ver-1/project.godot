@@ -39,7 +39,6 @@ folder_colors={
 "res://Assets/": "red",
 "res://CenaFinal/": "gray",
 "res://Cenas/": "orange",
-"res://CenasCenarios/": "purple",
 "res://Meshs/": "blue",
 "res://Script/": "yellow",
 "res://Shaders/": "green",

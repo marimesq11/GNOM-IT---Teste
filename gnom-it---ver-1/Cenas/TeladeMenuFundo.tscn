@@ -2,10 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://bn175qs86uedx" path="res://Texture/grama.png" id="2_qbuvn"]
 [ext_resource type="Script" uid="uid://krqcf0ojhopo" path="res://Script/MeshGrama.gd" id="3_0myt7"]
+[ext_resource type="PackedScene" uid="uid://ha0uk070ur0r" path="res://CenaFinal/CercaFinal.tscn" id="3_teoud"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="4_6anum"]
-[ext_resource type="PackedScene" uid="uid://1rbhaw7sd8r1" path="res://CenasCenarios/CercaDensa.tscn" id="13_ltumv"]
 [ext_resource type="PackedScene" uid="uid://hcdxwjicfi71" path="res://CenaFinal/Arbusto.tscn" id="14_lpdgj"]
-[ext_resource type="PackedScene" uid="uid://b55qjd34jjrfd" path="res://Arvores.tscn" id="20_mkn42"]
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="21_6eh2m"]
 [ext_resource type="ArrayMesh" uid="uid://dcerdi21bij6n" path="res://Meshs/Plane_001.res" id="26_dbly1"]
 
@@ -63,12 +62,21 @@ tamanho_terreno = Vector2(23, 23)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4078646, 0, -7.3955283)
 shape = SubResource("BoxShape3D_w4tno")
 
+[node name="StaticBody3D" parent="Chao" unique_id=1509450583 instance=ExtResource("3_teoud")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4458885, 0.6412997, -11.922822)
+
+[node name="StaticBody3D2" parent="Chao" unique_id=1260956486 instance=ExtResource("3_teoud")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39890385, 0.6412997, -11.922822)
+
+[node name="StaticBody3D3" parent="Chao" unique_id=1851647681 instance=ExtResource("3_teoud")]
+transform = Transform3D(0.011205156, 0, -0.99993724, 0, 1, 0, 0.99993724, 0, 0.011205156, 11.097958, 0.6412997, -8.595813)
+
+[node name="StaticBody3D4" parent="Chao" unique_id=448092993 instance=ExtResource("3_teoud")]
+transform = Transform3D(0.011205156, 0, -0.99993724, 0, 1, 0, 0.99993724, 0, 0.011205156, 11.097958, 0.6412997, -4.1035776)
+
 [node name="cortador" parent="." unique_id=1886462838 instance=ExtResource("4_6anum")]
 transform = Transform3D(0.1219495, 0, -0.057907857, 0, 0.135, 0, 0.057907857, 0, 0.1219495, 9.929316, 0.17322394, -7.043184)
 script = null
-
-[node name="Cylinder2" parent="cortador/Node3D" parent_id_path=PackedInt32Array(1886462838, 1042802644) index="1" unique_id=532416502]
-surface_material_override/0 = null
 
 [node name="SpringArm3D" parent="cortador/CameraPivot" parent_id_path=PackedInt32Array(1886462838, 1415393391) index="0" unique_id=1278876024]
 transform = Transform3D(1, 0, 0, 0, 0.9856564, -0.16876462, 0, 0.16876462, 0.9856564, 0, 8.079196, -22.956856)
@@ -98,24 +106,6 @@ transform = Transform3D(1.3431945, 0, 0, 0, 1, 0, 0, 0, 1.3415703, 0, 0, 0)
 [node name="Node3D Cercas" type="Node3D" parent="Mapa" unique_id=624003926]
 transform = Transform3D(1.3319743, 0, 0, 0, 0.99999976, 0, 0, 0, 1.3093848, 0, 7.4505797e-09, -4.7683707e-07)
 
-[node name="StaticBody3D10" parent="Mapa/Node3D Cercas" unique_id=591901831 instance=ExtResource("13_ltumv")]
-transform = Transform3D(0.013846599, 0, -0.99990416, 0, 1, 0, 0.99990416, 0, 0.013846599, 6.3436704, 0.583944, -4.3938317)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D7" parent="Mapa/Node3D Cercas" unique_id=277442789 instance=ExtResource("13_ltumv")]
-transform = Transform3D(0.9999404, 0, -0.010920153, 0, 1, 0, 0.010920154, 0, 0.99994045, -1.0015926, 0.583944, -6.3912964)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
-[node name="StaticBody3D8" parent="Mapa/Node3D Cercas" unique_id=547606264 instance=ExtResource("13_ltumv")]
-transform = Transform3D(0.9999404, 0, -0.010920152, 0, 1, 0, 0.010920153, 0, 0.99994045, 4.005885, 0.583944, -6.3671455)
-collision_layer = 3
-collision_mask = 3
-collision_priority = 2.0
-
 [node name="Node3D Arbustos" type="Node3D" parent="Mapa" unique_id=1801414065]
 transform = Transform3D(0.99647737, 0, 0.083862096, 0, 1, 0, -0.083862096, 0, 0.99647737, 2.100859, 0, -4.0328918)
 
@@ -132,9 +122,6 @@ transform = Transform3D(0.6, 0, 3.7252903e-09, 0, 0.6, 0, 3.7252903e-09, 0, 0.6,
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.79999995, 6.206194, 1.1920929e-07, -2.5769641)
 
 [node name="Node3D Arvores" type="Node3D" parent="Mapa" unique_id=520547274]
-
-[node name="StaticBody3D4" parent="Mapa/Node3D Arvores" unique_id=799473905 instance=ExtResource("20_mkn42")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.81797, 0, -5.476182)
 
 [node name="PontosLabel" type="Label" parent="." unique_id=295680024]
 offset_left = 918.0

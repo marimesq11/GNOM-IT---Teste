@@ -1,4 +1,3 @@
-
 extends CharacterBody3D
 
 @export_group("Partícula de Morte")
@@ -218,6 +217,20 @@ func _configurar_cortador() -> void:
 func _physics_process(delta: float) -> void:
 	_configurar_cortador()
 
+	# VERIFICA SE PODE PULAR MESMO DURANTE A PATRULHA
+	if estado == Estado.PATRULHANDO or estado == Estado.PERSEGUINDO:
+		if is_instance_valid(Cortador) and is_instance_valid(ponto_destino):
+			var diferenca: Vector3 = ponto_destino.global_position - global_position
+			diferenca.y = 0.0
+
+			var vaga_livre: bool = not is_instance_valid(Cortador.gnomo_em_cima)
+
+			if diferenca.length_squared() <= distancia_pulo * distancia_pulo and vaga_livre:
+				estado = Estado.PERSEGUINDO
+				esperando_patrulha = false
+				comecar_pulo()
+				return
+
 	match estado:
 		Estado.PATRULHANDO:
 			if _jogador_na_area():
@@ -226,6 +239,7 @@ func _physics_process(delta: float) -> void:
 				_perseguir(delta)
 			else:
 				_patrulhar(delta)
+
 		Estado.PERSEGUINDO:
 			if not _jogador_na_area():
 				estado = Estado.PATRULHANDO
@@ -233,11 +247,14 @@ func _physics_process(delta: float) -> void:
 				_patrulhar(delta)
 			else:
 				_perseguir(delta)
+
 		Estado.PULANDO:
 			_atualizar_pulo(delta)
+
 		Estado.PRESO:
 			_atualizar_posicao_preso()
 			_debug_encaixe(delta)
+
 		Estado.ARREMESSADO:
 			_atualizar_arremesso(delta)
 
@@ -247,8 +264,10 @@ func _physics_process(delta: float) -> void:
 func _jogador_na_area() -> bool:
 	if not is_instance_valid(Cortador):
 		return false
-	var diferenca := Cortador.global_position - centro_patrulha
+
+	var diferenca := Cortador.global_position - global_position
 	diferenca.y = 0.0
+
 	return diferenca.length_squared() <= raio_patrulha * raio_patrulha
 
 # ==========================================
@@ -325,15 +344,24 @@ func _perseguir(delta: float) -> void:
 		move_and_slide()
 		return
 
-	var diferenca := Cortador.global_position - global_position
+	var posicao_alvo: Vector3 = Cortador.global_position
+
+	if is_instance_valid(ponto_destino):
+		posicao_alvo = ponto_destino.global_position
+
+	var diferenca := posicao_alvo - global_position
 	diferenca.y = 0.0
 	var distancia_quadrada := diferenca.length_squared()
 
-	if distancia_quadrada <= _distancia_pulo_quad and is_on_floor():
-		if impulso_empurrao.length_squared() < 0.1:
-			if not is_instance_valid(Cortador.gnomo_em_cima):
-				comecar_pulo()
-				return
+	var vaga_livre: bool = not is_instance_valid(Cortador.gnomo_em_cima)
+
+	# VERIFICA SE PODE PULAR
+	if distancia_quadrada <= distancia_pulo * distancia_pulo and vaga_livre:
+		if is_on_floor():
+			if mostrar_debug:
+				print("GNOMO: iniciando pulo!")
+			comecar_pulo()
+			return
 
 	var direcao := Vector3.ZERO
 	if distancia_quadrada > 0.0001:
@@ -341,11 +369,25 @@ func _perseguir(delta: float) -> void:
 
 	velocity.x = direcao.x * velocidade + impulso_empurrao.x
 	velocity.z = direcao.z * velocidade + impulso_empurrao.z
+
 	impulso_empurrao = impulso_empurrao.move_toward(Vector3.ZERO, desaceleracao_empurrao * delta)
+
 	move_and_slide()
+
+	# VERIFICA NOVAMENTE APÓS O MOVIMENTO
+	if estado == Estado.PERSEGUINDO and vaga_livre and is_on_floor():
+		var nova_diferenca := posicao_alvo - global_position
+		nova_diferenca.y = 0.0
+
+		if nova_diferenca.length_squared() <= distancia_pulo * distancia_pulo:
+			if mostrar_debug:
+				print("GNOMO: iniciando pulo após movimento!")
+			comecar_pulo()
+			return
 
 	# ANIMAÇÃO: GnomoAndando
 	# $AnimationPlayer.play("GnomoAndando")
+
 	_olhar_para_jogador(delta)
 
 # ==========================================

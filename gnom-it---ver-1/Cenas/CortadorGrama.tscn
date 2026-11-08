@@ -10,9 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://cntqn6sdmpltx" path="res://Cenas/vrumvrum finalizada_3.png" id="7_ehtmn"]
 [ext_resource type="PackedScene" uid="uid://dieb7vxtlr7q3" path="res://partículas/gotas_gasolina.tscn" id="9_efun1"]
 [ext_resource type="PackedScene" uid="uid://b4po3ksq72kjw" path="res://partículas/grama_sendo_cortada_2.tscn" id="10_ehtmn"]
+[ext_resource type="AudioStream" uid="uid://wyq8n7faedce" path="res://Sons/gnomados_mais_gnomados (1) (online-audio-converter.com).mp3" id="11_valaj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a3hm4"]
-size = Vector3(4.7055664, 1.20047, 4.7196045)
+size = Vector3(3.5024414, 1.20047, 4.2781677)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ak1vr"]
 height = 0.90426636
@@ -208,9 +209,10 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
 collision_layer = 2
 collision_mask = 135
 script = ExtResource("2_757jh")
+volume_motor_db = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1636614886]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.013916045, -0.25196838, -0.02252196)
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, -0.10791013, -0.25196838, 0.04478453)
 shape = SubResource("BoxShape3D_a3hm4")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1743808473]
@@ -288,10 +290,14 @@ skeleton = NodePath("")
 transform = Transform3D(1.6924207, 0, 0, 0, 0.71159667, 0, 0, 0, 2.0746107, 0, 0, 0)
 
 [node name="gotas gasolina" parent="." unique_id=1885486024 instance=ExtResource("9_efun1")]
-transform = Transform3D(-0.003490628, -0.9999939, -8.707525e-08, -0.9960187, 0.0034767597, -0.08907669, 0.08907615, -0.00031084684, -0.9960248, 0, 3.0188684, -0.78618854)
-visible = false
+transform = Transform3D(-0.0034906284, -0.99999386, -8.708071e-08, 0.7442486, -0.0025979702, 0.6678974, -0.66789305, 0.0023313162, 0.7442533, 0, 1.0806849, -1.1347647)
 emitting = false
 
 [node name="grama sendo cortada 2" parent="." unique_id=842933967 instance=ExtResource("10_ehtmn")]
 transform = Transform3D(0.82553244, -0.56435454, 0, 0.56435454, 0.82553244, 0, 0, 0, 0.99999994, 0, 0, -3.5010407)
 emitting = false
+
+[node name="Motor" type="AudioStreamPlayer" parent="." unique_id=331842219]
+stream = ExtResource("11_valaj")
+volume_db = -9.075
+parameters/looping = true

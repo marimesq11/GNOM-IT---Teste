@@ -1,4 +1,3 @@
-
 extends CharacterBody3D
 
 @export_group("Partícula de Morte")
@@ -472,22 +471,36 @@ func ataque_acertou() -> void:
 	atacando = false
 	parado = true
 
-	# Para os sons de perseguição
 	_parar_sons_perseguicao()
 
-	# Conta os ataques
+	# CONTADOR DE ATAQUES
 	contador_ataques += 1
-
-	# Tenta tocar o som de ataque
 	_tentar_tocar_som_ataque()
 
+	# ========================================
+	# CAUSAR DANO AO JOGADOR
+	# ========================================
+
+	if Cortador.has_method("receber_dano"):
+		Cortador.receber_dano(dano)
+		print("GNOMO CAUSOU ", dano, " DE DANO!")
+
+	elif Cortador.has_method("tomar_dano"):
+		Cortador.tomar_dano(dano)
+		print("GNOMO CAUSOU ", dano, " DE DANO!")
+
+	else:
+		push_warning("ERRO: O Cortador não possui uma função de receber dano!")
+
+	# ========================================
 	# RECUO
+	# ========================================
+
 	var direcao_recuo = global_position - Cortador.global_position
 	direcao_recuo.y = 0.0
 
 	if direcao_recuo.length_squared() > 0.0001:
 		direcao_recuo = direcao_recuo.normalized()
-
 		global_position += direcao_recuo * forca_recuo
 
 	velocity = Vector3.ZERO
