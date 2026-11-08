@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bgg28mm36h0ob"]
 
 [ext_resource type="Script" uid="uid://bk2nbw0k61ktm" path="res://Script/tela_play.gd" id="1_qac85"]
-[ext_resource type="VideoStream" uid="uid://bid45nh41eodq" path="res://Cenas/Abertura.ogv" id="2_1sdbo"]
+[ext_resource type="VideoStream" uid="uid://bg63ag2oosyg2" path="res://Cenas/AberturaFinalSemSom.ogv" id="2_qac85"]
 [ext_resource type="Texture2D" uid="uid://dxgmohl2w3n6o" path="res://CenaFinal/fundopng.webp" id="3_or1u7"]
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="4_2rx5s"]
 [ext_resource type="PackedScene" uid="uid://bampf43d6ghk3" path="res://Cenas/TeladeMenuFundo.tscn" id="5_y3n7w"]
@@ -44,7 +44,7 @@ offset_right = 921.0
 offset_bottom = 471.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-stream = ExtResource("2_1sdbo")
+stream = ExtResource("2_qac85")
 metadata/_edit_use_anchors_ = true
 
 [node name="Fundopng" type="Sprite2D" parent="." unique_id=1534194813]
