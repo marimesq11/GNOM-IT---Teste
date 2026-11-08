@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bisslde0g21h4"]
+
+[ext_resource type="PackedScene" uid="uid://b83ip5j82r7h0" path="res://partículas/casinha.fbx" id="1_24qlm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7t83b"]
+size = Vector3(1, 0.4970703, 0.45117188)
+
+[node name="casinha" unique_id=560591924 instance=ExtResource("1_24qlm")]
+
+[node name="Cube_010" parent="." index="0" unique_id=1781656619]
+transform = Transform3D(80, 0, 0, 0, -3.4969112e-06, 80, 0, -80, -3.4969112e-06, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1" unique_id=1664943481]
+transform = Transform3D(6.4, 0, 0, 0, 8, 0, 0, 0, 8, 0, 2.0117188, 0.1953125)
+shape = SubResource("BoxShape3D_7t83b")

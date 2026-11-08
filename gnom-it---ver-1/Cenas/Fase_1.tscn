@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://ha0uk070ur0r" path="res://CenaFinal/CercaFinal.tscn" id="22_abs0n"]
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="24_abx8d"]
 [ext_resource type="PackedScene" uid="uid://cd0iw0jg20kn" path="res://CenaFinal/Gasolina.tscn" id="25_i3obs"]
-[ext_resource type="PackedScene" uid="uid://nwa5tb7v4wik" path="res://partículas/gnomos_quebrando.tscn" id="25_romvb"]
 [ext_resource type="PackedScene" uid="uid://b83ip5j82r7h0" path="res://partículas/casinha.fbx" id="26_romvb"]
 [ext_resource type="PackedScene" uid="uid://bfxeppe2iietr" path="res://123JÁ.tscn" id="26_v0rfd"]
 [ext_resource type="Script" uid="uid://hh2nsm3gvm7f" path="res://123já.gd" id="27_4scbl"]
@@ -299,9 +298,6 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10.3
 
 [node name="StaticBody3D10" parent="." unique_id=914739756 instance=ExtResource("22_abs0n")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10.36229, 0.7264879, -4.086636)
-
-[node name="gnomos quebrando" parent="." unique_id=1836821295 instance=ExtResource("25_romvb")]
-transform = Transform3D(1, 0, 0, 0, -0.9990438, 0.04371964, 0, -0.04371964, -0.9990438, -6.380989, 0.00999999, 0.3988123)
 
 [node name="casinha" parent="." unique_id=560591924 instance=ExtResource("26_romvb")]
 transform = Transform3D(-3.4969112e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.4969112e-08, -11.572254, 0.010000301, -0.28916407)
