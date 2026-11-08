@@ -1,6 +1,9 @@
 
 extends CharacterBody3D
 
+@export_group("Partícula de Morte")
+@export var controlador_cor_morte: CorMorteGnomo
+
 const GRUPO_ATROPELAVEL := &"atropelavel"
 
 # ==========================================
@@ -581,6 +584,9 @@ func morrer_atropelado() -> void:
 	_timer_dano.stop()
 	_timer_caido.stop()
 	_parar_sons_perseguicao()
+	
+	if is_instance_valid(controlador_cor_morte):
+		controlador_cor_morte.mudar_cor(self)
 
 	if is_in_group(GRUPO_ATROPELAVEL):
 		remove_from_group(GRUPO_ATROPELAVEL)

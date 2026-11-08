@@ -287,4 +287,5 @@ skeleton = NodePath("")
 transform = Transform3D(1.6924207, 0, 0, 0, 0.71159667, 0, 0, 0, 2.0746107, 0, 0, 0)
 
 [node name="gotas gasolina" parent="." unique_id=1885486024 instance=ExtResource("9_efun1")]
-transform = Transform3D(-0.0034906038, -0.9999938, 0, 0.9999938, -0.0034906038, 0, 0, 0, 0.9999998, 0, 1.1036394, -0.91162115)
+transform = Transform3D(-0.003490628, -0.9999939, -8.707525e-08, -0.9960187, 0.0034767597, -0.08907669, 0.08907615, -0.00031084684, -0.9960248, 0, 3.0188684, -0.78618854)
+emitting = false

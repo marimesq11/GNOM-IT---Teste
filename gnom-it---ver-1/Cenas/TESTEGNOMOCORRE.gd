@@ -1,6 +1,9 @@
 
 extends CharacterBody3D
 
+@export_group("Partícula de Morte")
+@export var controlador_cor_morte: CorMorteGnomo
+
 # SONS DE MORTE
 @export var som_morte_gnomo_1: AudioStreamPlayer
 @export var som_morte_gnomo_2: AudioStreamPlayer
@@ -472,7 +475,10 @@ func morrer_atropelado() -> void:
 	aguardando_aterrissagem = false
 	_timer_som.stop()
 	parar_tremedeira()
-
+	
+	if is_instance_valid(controlador_cor_morte):
+		controlador_cor_morte.mudar_cor(self)
+	
 	GameManager.adicionar_pontos(10, global_position)
 	GameManager.registrar_gnomo()
 

@@ -6,6 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://bo0bp2wr6boaj" path="res://partículas/SomMorteGnomo1.mp3" id="4_56ony"]
 [ext_resource type="AudioStream" uid="uid://divllh2abwd3t" path="res://partículas/SomMorteGnomo2.mp3" id="5_vfdvo"]
 [ext_resource type="AudioStream" uid="uid://def6cr8cnjndt" path="res://partículas/SomMorteGnomo3.mp3" id="6_wji66"]
+[ext_resource type="Script" uid="uid://lmwremddj2yb" path="res://Cenas/Class_GnomoMorrendo.gd" id="7_wji66"]
+[ext_resource type="PackedScene" uid="uid://nwa5tb7v4wik" path="res://partículas/gnomos_quebrando.tscn" id="8_w5bx5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ckb4l"]
 radius = 1.9577835
@@ -229,11 +231,12 @@ shadow_mesh = SubResource("ArrayMesh_37arf")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8poqy"]
 albedo_color = Color(1, 1, 0, 1)
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1369375029 node_paths=PackedStringArray("som_morte_gnomo_1", "som_morte_gnomo_2", "som_morte_gnomo_3", "som_morte_gnomo_4", "modelo_gnomo") groups=["atropelavel", "inimigos"]]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1369375029 node_paths=PackedStringArray("controlador_cor_morte", "som_morte_gnomo_1", "som_morte_gnomo_2", "som_morte_gnomo_3", "som_morte_gnomo_4", "modelo_gnomo") groups=["GnomoAmarelo", "atropelavel", "inimigos"]]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_h7iwr")
+controlador_cor_morte = NodePath("CorMorteGnomo")
 som_morte_gnomo_1 = NodePath("AudioStreamPlayer/Morreu")
 som_morte_gnomo_2 = NodePath("AudioStreamPlayer/Morreu2")
 som_morte_gnomo_3 = NodePath("AudioStreamPlayer/Morreu3")
@@ -301,3 +304,10 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 mesh = SubResource("ArrayMesh_r6abq")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_8poqy")
+
+[node name="CorMorteGnomo" type="Node" parent="." unique_id=515782515 node_paths=PackedStringArray("particula")]
+script = ExtResource("7_wji66")
+particula = NodePath("gnomos quebrando")
+
+[node name="gnomos quebrando" parent="CorMorteGnomo" unique_id=1836821295 instance=ExtResource("8_w5bx5")]
+emitting = false
