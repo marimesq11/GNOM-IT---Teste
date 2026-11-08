@@ -1,4 +1,3 @@
-
 class_name Quebravel
 extends Node
 
@@ -56,7 +55,15 @@ static func quebrar(objeto: Node) -> void:
 
 	elif objeto.is_in_group("flor"):
 		pontos = PONTOS_FLOR
-		emitir_particula(objeto, cena, "flores quebrando")
+
+		# PARTÍCULA COM A COR DA FLOR
+		var particulas_flor = objeto.find_child("Particula", true, false)
+
+		if particulas_flor is CorParticulaFlor:
+			particulas_flor.emitir_particula(objeto.global_position)
+		else:
+			push_warning("QUEBRAVEL: Não encontrou CorParticulaFlor na flor!")
+
 		tocar_som(objeto, cena, "ColidirArbusto", 1.0, 1.2)
 
 	else:

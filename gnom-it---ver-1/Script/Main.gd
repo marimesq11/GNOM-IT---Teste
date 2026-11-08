@@ -13,7 +13,7 @@ var morto: bool = false
 @export var cor_alerta: Color = Color.RED
 
 @export_group("Som de tempo acabando")
-@export var limite_som: float = 15.0
+@export var limite_som: float = 10.0
 @export var som_tempo_acabando: AudioStreamPlayer
 
 @onready var timer: Timer = $Timer

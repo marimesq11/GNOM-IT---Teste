@@ -232,7 +232,7 @@ shape = SubResource("BoxShape3D_757jh")
 [node name="Pivot" type="Marker3D" parent="Node3D" unique_id=1040135284]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8352765, 0.3730383, -1.0549375)
 
-[node name="Ponto_Inimigo" type="Marker3D" parent="Node3D" unique_id=575713915]
+[node name="ponto_destino" type="Marker3D" parent="Node3D" unique_id=575713915]
 unique_name_in_owner = true
 transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0.10574847, 1.0510907, -0.955245)
 

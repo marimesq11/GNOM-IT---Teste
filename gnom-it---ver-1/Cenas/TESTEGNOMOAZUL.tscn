@@ -179,8 +179,8 @@ transform = Transform3D(-99.93598, 3.577574, 4.2648006e-07, 0, -1.192093e-05, 10
 mesh = SubResource("ArrayMesh_kwejd")
 skeleton = NodePath("")
 
-[node name="Ponto_Encaixe" type="Marker3D" parent="." unique_id=1555663088]
-transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0.23357908, -1.1914524, -0.0020707024)
+[node name="Ponto_Encaixe" type="Marker3D" parent="." unique_id=1555663088 groups=["ponto_destino_gnomo"]]
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0.23357908, -1.569247, 0.037870962)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1477260594]
 
@@ -217,7 +217,7 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=334635846 groups=["atropelavel", "inimigos"]]
 shape = SubResource("CylinderShape3D_0i88t")
 
-[node name="CorMorteGnomo" type="Node" parent="." unique_id=106398099 node_paths=PackedStringArray("particula")]
+[node name="CorMorteGnomo" type="Node" parent="." unique_id=106398099 node_paths=PackedStringArray("particula") groups=["controlador_cor_morte"]]
 script = ExtResource("12_dij4r")
 particula = NodePath("gnomos quebrando")
 

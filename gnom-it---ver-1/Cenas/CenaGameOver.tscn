@@ -38,7 +38,7 @@ theme_override_font_sizes/font_size = 43
 text = "Tentar novamente"
 flat = true
 script = ExtResource("2_8xphj")
-cena_destino = "uid://6gs2bnf2gw7o"
+cena_destino = "uid://b146wv5rkk4gs"
 
 [node name="Label2" type="RichTextLabel" parent="." unique_id=195859108]
 z_index = 1

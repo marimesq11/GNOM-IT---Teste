@@ -730,18 +730,23 @@ func _emitir_gasolina() -> void:
 		_gasolina_emitida = gasolina
 		gasolina_alterada.emit(gasolina, gasolina_maxima)
 
+
 func _empurrar_gnomo(objeto: Node3D) -> void:
 	if not is_instance_valid(objeto):
 		return
 
-	if objeto.has_method("receber_empurrao"):
-		var direcao: Vector3 = objeto.global_position - global_position
+	if not objeto.has_method("receber_empurrao"):
+		return
+
+	var direcao: Vector3 = objeto.global_position - global_position
+	direcao.y = 0.0
+
+	if direcao.length_squared() < 0.0001:
+		direcao = -global_transform.basis.z
 		direcao.y = 0.0
 
-		if direcao.length_squared() < 0.0001:
-			direcao = -global_transform.basis.z
+	objeto.receber_empurrao(direcao.normalized())
 
-		objeto.receber_empurrao(direcao.normalized())
 
 func atualizar_fumaca_preta() -> void:
 	if particula_fumaca_preta == null:

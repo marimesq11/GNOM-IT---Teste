@@ -1,4 +1,3 @@
-
 extends Node3D
 
 # =========================================================
@@ -150,35 +149,45 @@ func spawnar_inimigo() -> void:
 	# CONFIGURA REFERÊNCIAS
 	# =====================================================
 
+	
 	var recebeu_referencia := false
 
 	for propriedade in inimigo.get_property_list():
 		var nome_propriedade: String = propriedade.name
 
-		# Inimigos que usam o Cortador
+		# REFERÊNCIA DO CORTADOR
 		if nome_propriedade == "Cortador":
 			if is_instance_valid(jogador):
 				inimigo.set("Cortador", jogador)
 				recebeu_referencia = true
+				
+		# PONTO ONDE O GNOMO DEVE SUBIR
+		elif nome_propriedade == "ponto_destino":
+			if is_instance_valid(jogador):
+				var ponto := jogador.find_child("ponto_destino", true, false) as Marker3D
 
-		# Inimigos que usam a mesh da grama
+				if is_instance_valid(ponto):
+					inimigo.set("ponto_destino", ponto)
+					recebeu_referencia = true
+				else:
+					push_warning("SPAWNER: ponto_destino não encontrado no Cortador!")
+
+
+		# SISTEMA DA MESH DE GRAMA
 		elif nome_propriedade == "sistema_grama":
 			if is_instance_valid(sistema_grama):
 				inimigo.set("sistema_grama", sistema_grama)
 				recebeu_referencia = true
-			else:
-				push_warning("SPAWNER: Sistema da mesh de grama não configurado!")
 
-		# Inimigos que usam a textura do chão
+		# SISTEMA DA TEXTURA DO CHÃO
 		elif nome_propriedade == "sistema_chao":
 			if is_instance_valid(sistema_chao):
 				inimigo.set("sistema_chao", sistema_chao)
 				recebeu_referencia = true
-			else:
-				push_warning("SPAWNER: Sistema da textura do chão não configurado!")
 
 	if not recebeu_referencia:
 		print("AVISO: Inimigo ", tipo + 1, " não recebeu referência externa!")
+
 
 	# =====================================================
 	# ADICIONA À CENA

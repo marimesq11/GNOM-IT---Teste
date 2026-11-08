@@ -55,7 +55,7 @@ theme_override_font_sizes/font_size = 34
 text = "Tentar novamente"
 flat = true
 script = ExtResource("4_ccbbh")
-cena_destino = "uid://6gs2bnf2gw7o"
+cena_destino = "uid://b146wv5rkk4gs"
 
 [node name="Derrota2" type="Sprite2D" parent="." unique_id=1756154884]
 z_index = -1

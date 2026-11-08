@@ -204,7 +204,7 @@ pitch_scale = 0.79
 
 [node name="Magia" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=929503280]
 stream = ExtResource("8_kwuwa")
-volume_db = 5.725
+volume_db = 24.0
 
 [node name="Barulinhos" type="AudioStreamPlayer" parent="AudioStreamPlayer" unique_id=588695121]
 stream = ExtResource("10_t1yev")

@@ -407,22 +407,9 @@ transform = Transform3D(0.18944545, 0, -0.4627207, 0, 0.5, 0, 0.4627207, 0, 0.18
 [node name="Node3D3" parent="." unique_id=642321627 instance=ExtResource("33_0yihv")]
 transform = Transform3D(0.41335383, 0, -0.2813159, 0, 0.5, 0, 0.2813159, 0, 0.41335383, -7.879712, 0.31315625, 9.809692)
 
-[node name="Spanw" type="Node3D" parent="." unique_id=1863625013 node_paths=PackedStringArray("sistema_grama", "marker_1", "marker_2", "marker_3")]
+[node name="Spanw" type="Node3D" parent="." unique_id=1863625013]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.138, 0.15561026, 3.52)
 script = ExtResource("30_iegax")
-inimigo_1 = ExtResource("31_xqa8m")
-inimigo_2 = ExtResource("33_0outj")
-inimigo_3 = ExtResource("31_oe0oo")
-inimigo_4 = ExtResource("34_xqa8m")
-max_inimigo_1 = 3
-max_inimigo_2 = 3
-max_inimigo_3 = 10
-max_inimigo_4 = 5
-intervalo_spawn = 2.0
-sistema_grama = NodePath("../Chao/ChaoMesh")
-marker_1 = NodePath("Marker3D")
-marker_2 = NodePath("Marker3D2")
-marker_3 = NodePath("Marker3D3")
 
 [node name="Marker3D" type="Marker3D" parent="Spanw" unique_id=1998461000]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21347904, 0.0033054352, 0)
@@ -445,12 +432,12 @@ distancia_chegada_patrulha = 0.2
 intervalo_som_min = 17.0
 intervalo_som_max = 31.0
 Cortador = NodePath("../cortador")
-ponto_destino = NodePath("../cortador/Node3D/Ponto_Inimigo")
+ponto_destino = NodePath("../cortador/Node3D/ponto_destino")
 
 [node name="Node3D7" parent="." unique_id=516448486 node_paths=PackedStringArray("Cortador", "ponto_destino") instance=ExtResource("33_0outj")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 1.9402541, 0.31588995, 2.0837302)
 Cortador = NodePath("../cortador")
-ponto_destino = NodePath("../cortador/Node3D/Ponto_Inimigo")
+ponto_destino = NodePath("../cortador/Node3D/ponto_destino")
 
 [node name="CharacterBody3D5" parent="." unique_id=1747277323 instance=ExtResource("31_oe0oo")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 6.170895, 0.07347563, 0)
