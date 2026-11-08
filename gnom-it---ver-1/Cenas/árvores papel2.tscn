@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c1c5y0trjw8qb"]
+
+[ext_resource type="Texture2D" uid="uid://c7u0ap5wql6st" path="res://Texture/árvore 2.png" id="1_88n8y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7t83b"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("1_88n8y")
+disable_receive_shadows = true
+billboard_mode = 2
+billboard_keep_scale = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bv7jr"]
+material = SubResource("StandardMaterial3D_7t83b")
+orientation = 2
+
+[node name="ÁrvoresPapel" type="Node3D" unique_id=1931869752]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1629152551]
+transform = Transform3D(1, 0, 0, 0, -1, -9.535953e-08, 0, 9.535953e-08, -1, 0, 1, 0)
+mesh = SubResource("PlaneMesh_bv7jr")
