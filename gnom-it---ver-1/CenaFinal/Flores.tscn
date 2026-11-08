@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://c8fejlovbih1o"]
 
 [ext_resource type="Texture2D" uid="uid://ddu3qkk2i35l3" path="res://flores_0.png" id="1_itlco"]
+[ext_resource type="PackedScene" uid="uid://dmxlnc8euecj5" path="res://partículas/flores_quebrando.tscn" id="2_hbn2n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18lsh"]
 resource_name = "flores"
@@ -202,3 +203,6 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1798793606]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47275233, 0)
 shape = SubResource("SphereShape3D_0i88t")
+
+[node name="flores quebrando" parent="." unique_id=604799326 instance=ExtResource("2_hbn2n")]
+transform = Transform3D(-0.034468636, -0.9994058, 0, 0.9994058, -0.034468636, 0, 0, 0, 1, 0, 0.5041994, 0)

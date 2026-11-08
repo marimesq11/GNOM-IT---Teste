@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://cd0iw0jg20kn" path="res://CenaFinal/Gasolina.tscn" id="12_mctnb"]
 [ext_resource type="PackedScene" uid="uid://k0b04vssj23n" path="res://Cenas/CadeiraDeitada.tscn" id="14_hfko0"]
 [ext_resource type="PackedScene" uid="uid://bqi3x00xbubml" path="res://CenasCenarios/MesadePicnic.tscn" id="15_brmt8"]
-[ext_resource type="PackedScene" uid="uid://cb5ndd6g33b30" path="res://CenasCenarios/FolhasnoChao.tscn" id="16_n0fw8"]
 [ext_resource type="PackedScene" uid="uid://bus73ub0e28uq" path="res://CenaFinal/CaixaouCanteiro.tscn" id="17_fhyt8"]
 [ext_resource type="PackedScene" uid="uid://hcdxwjicfi71" path="res://CenaFinal/Arbusto.tscn" id="19_kxesi"]
 [ext_resource type="PackedScene" uid="uid://b55qjd34jjrfd" path="res://Arvores.tscn" id="25_lrtr4"]
@@ -213,12 +212,6 @@ transform = Transform3D(0.03648928, 0, 0.019344812, 0, 0.041299984, 0, -0.019344
 transform = Transform3D(0.023315564, -4.1104264e-05, 0.034089178, 8.476047e-05, 0.041299894, -8.172887e-06, -0.03408909, 7.4575975e-05, 0.0233156, 3.1053216, 0.13901961, 2.4890282)
 
 [node name="Node3D Folhas caidas" type="Node3D" parent="Mapa/Nod3D Detalhes" unique_id=931211862]
-
-[node name="_09qv_VarB_High" parent="Mapa/Nod3D Detalhes/Node3D Folhas caidas" unique_id=664883950 instance=ExtResource("16_n0fw8")]
-transform = Transform3D(0.49999994, 0, 0, 0, 0.49999985, 0, 0, 0, 0.4999998, -3.123595, 0.82552594, 0.80744594)
-
-[node name="_09qv_VarB_High2" parent="Mapa/Nod3D Detalhes/Node3D Folhas caidas" unique_id=1373455489 instance=ExtResource("16_n0fw8")]
-transform = Transform3D(0.29665533, 0, -0.521532, 0, 0.59999985, 0, 0.5215319, 0, 0.2966553, -3.616557, 0.82552606, 1.0863891)
 
 [node name="Node3D caixas" type="Node3D" parent="Mapa/Nod3D Detalhes" unique_id=1815275768]
 

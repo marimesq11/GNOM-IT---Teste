@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://0eo6ptyk6c2k" path="res://Cenas/vrumvrum finalizada_2.png" id="6_efun1"]
 [ext_resource type="Texture2D" uid="uid://cntqn6sdmpltx" path="res://Cenas/vrumvrum finalizada_3.png" id="7_ehtmn"]
 [ext_resource type="PackedScene" uid="uid://dieb7vxtlr7q3" path="res://partículas/gotas_gasolina.tscn" id="9_efun1"]
+[ext_resource type="PackedScene" uid="uid://b4po3ksq72kjw" path="res://partículas/grama_sendo_cortada_2.tscn" id="10_ehtmn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a3hm4"]
 size = Vector3(4.7055664, 1.20047, 4.7196045)
@@ -288,4 +289,9 @@ transform = Transform3D(1.6924207, 0, 0, 0, 0.71159667, 0, 0, 0, 2.0746107, 0, 0
 
 [node name="gotas gasolina" parent="." unique_id=1885486024 instance=ExtResource("9_efun1")]
 transform = Transform3D(-0.003490628, -0.9999939, -8.707525e-08, -0.9960187, 0.0034767597, -0.08907669, 0.08907615, -0.00031084684, -0.9960248, 0, 3.0188684, -0.78618854)
+visible = false
+emitting = false
+
+[node name="grama sendo cortada 2" parent="." unique_id=842933967 instance=ExtResource("10_ehtmn")]
+transform = Transform3D(0.82553244, -0.56435454, 0, 0.56435454, 0.82553244, 0, 0, 0, 0.99999994, 0, 0, -3.5010407)
 emitting = false

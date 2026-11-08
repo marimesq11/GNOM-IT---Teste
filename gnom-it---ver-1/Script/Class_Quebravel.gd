@@ -1,3 +1,4 @@
+
 class_name Quebravel
 extends Node
 
@@ -37,17 +38,17 @@ static func quebrar(objeto: Node) -> void:
 
 	if objeto.is_in_group("planta"):
 		pontos = PONTOS_ARBUSTO
-		# emitir_particula(objeto, cena, "ParticulaArbusto")
+		emitir_particula(objeto, cena, "folhas moita")
 		tocar_som(objeto, cena, "ColidirArbusto", 0.8, 1.0)
 
 	# ========================================
-	# CAIXA
+	# CAIXA / MADEIRA
 	# ========================================
 
 	elif objeto.is_in_group("madeira"):
 		pontos = PONTOS_CAIXA
+		emitir_particula(objeto, cena, "tábuas quebrando")
 		tocar_som(objeto, cena, "CaixaQuebrando")
-		# emitir_particula(objeto, cena, "ParticulaCaixa")
 
 	# ========================================
 	# FLOR
@@ -55,7 +56,7 @@ static func quebrar(objeto: Node) -> void:
 
 	elif objeto.is_in_group("flor"):
 		pontos = PONTOS_FLOR
-		# emitir_particula(objeto, cena, "ParticulaFlor")
+		emitir_particula(objeto, cena, "flores quebrando")
 		tocar_som(objeto, cena, "ColidirArbusto", 1.0, 1.2)
 
 	else:
@@ -112,32 +113,38 @@ static func quebrar(objeto: Node) -> void:
 # FUNÇÃO PARA EMITIR PARTÍCULAS
 # ========================================
 
-# static func emitir_particula(
-# 	objeto: Node,
-# 	cena: Node,
-# 	nome: String
-# ) -> void:
-#
-# 	var particula = objeto.find_child(nome, true, false)
-#
-# 	if particula == null:
-# 		return
-#
-# 	if not particula is GPUParticles3D:
-# 		return
-#
-# 	var pos = particula.global_transform
-#
-# 	particula.reparent(cena)
-# 	particula.global_transform = pos
-#
-# 	particula.one_shot = true
-# 	particula.restart()
-# 	particula.emitting = true
-#
-# 	particula.get_tree().create_timer(
-# 		particula.lifetime + 0.5
-# 	).timeout.connect(particula.queue_free)
+static func emitir_particula(objeto: Node, cena: Node, nome: String) -> void:
+	var particula = objeto.find_child(nome, true, false)
+
+	if particula == null:
+		push_warning("QUEBRAVEL: Não encontrou a partícula " + nome)
+		return
+
+	if not particula is GPUParticles3D and not particula is CPUParticles3D:
+		push_warning("QUEBRAVEL: O nó " + nome + " não é uma partícula 3D!")
+		return
+
+	# Guarda a posição antes de destruir o objeto
+	var posicao_original = particula.global_transform
+
+	# Retira a partícula do objeto para não ser destruída
+	particula.reparent(cena)
+	particula.global_transform = posicao_original
+
+	# Emite uma única vez
+	particula.one_shot = true
+	particula.emitting = false
+	particula.restart()
+	particula.emitting = true
+
+	# Aguarda a emissão terminar antes de remover
+	var tempo_total: float = particula.lifetime * (2.0 - particula.explosiveness) / maxf(particula.speed_scale, 0.01) + 0.5
+
+	particula.get_tree().create_timer(tempo_total).timeout.connect(
+		func():
+			if is_instance_valid(particula):
+				particula.queue_free()
+	)
 
 # ========================================
 # FUNÇÃO PARA TOCAR SONS
