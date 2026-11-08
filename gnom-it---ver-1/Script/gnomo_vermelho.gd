@@ -1,25 +1,20 @@
 
 extends CharacterBody3D
 
+@export_group("Partícula de Morte")
+@export var controlador_cor_morte: CorMorteGnomo
 # ==========================================
 # GRAVIDADE
 # ==========================================
-
 var gravidade: float = 9.8
-
-
 # ==========================================
 # DANO
 # ==========================================
-
 @export var dano: float = 1
 var sendo_atropelado: bool = false
-
-
 # ==========================================
 # VELOCIDADE
 # ==========================================
-
 @export var velocidade: float = 3.5
 @export var velocidade_ataque: float = 3.0
 @export var velocidade_inicial: float = 0.5
@@ -27,14 +22,11 @@ var sendo_atropelado: bool = false
 
 var velocidade_atual: float = 0.0
 var velocidade_rotacao: float = 2.0
-
-
 # ==========================================
 # CORTADOR
 # ==========================================
 
 @export var Cortador: CharacterBody3D
-
 
 # ==========================================
 # DISTÂNCIA
@@ -525,6 +517,8 @@ func morrer_atropelado() -> void:
 	parado = true
 
 	velocity = Vector3.ZERO
+	if is_instance_valid(controlador_cor_morte):
+		controlador_cor_morte.mudar_cor(self)
 
 	# PONTUAÇÃO
 	GameManager.adicionar_pontos(50, global_position)

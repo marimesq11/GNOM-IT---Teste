@@ -16,10 +16,11 @@ collision_mode = 1
 collision_friction = 0.34
 collision_bounce = 0.3
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gwnse"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oc1cu"]
+vertex_color_use_as_albedo = true
 
 [sub_resource type="PrismMesh" id="PrismMesh_1scgq"]
-material = SubResource("StandardMaterial3D_gwnse")
+material = SubResource("StandardMaterial3D_oc1cu")
 size = Vector3(0.275, 0.3, 0.135)
 
 [node name="gnomos quebrando" type="GPUParticles3D" unique_id=1836821295]
