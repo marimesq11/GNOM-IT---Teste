@@ -7,6 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://dieb7vxtlr7q3" path="res://partículas/gotas_gasolina.tscn" id="4_8sk2g"]
 [ext_resource type="PackedScene" uid="uid://nwa5tb7v4wik" path="res://partículas/gnomos_quebrando.tscn" id="5_ovhyt"]
 [ext_resource type="PackedScene" uid="uid://cixrlgrwbfgty" path="res://gnomo verde finalizado.fbx" id="6_gwnse"]
+[ext_resource type="PackedScene" uid="uid://bmv27j3bbj5ob" path="res://grama_sendo_cortada_1.tscn" id="8_lmts4"]
+[ext_resource type="PackedScene" uid="uid://b4po3ksq72kjw" path="res://partículas/grama_sendo_cortada_2.tscn" id="9_ds2xs"]
+[ext_resource type="PackedScene" uid="uid://dmxlnc8euecj5" path="res://partículas/flores_quebrando.tscn" id="10_hi4uh"]
+[ext_resource type="PackedScene" uid="uid://gr1w040d2bwx" path="res://partículas/tábuas_quebrando.tscn" id="11_7deak"]
+[ext_resource type="PackedScene" uid="uid://e3hg1aadau1r" path="res://folhas_moita.tscn" id="12_hi4uh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xu8hi"]
 sky_top_color = Color(0.3019608, 0.8, 1, 1)
@@ -58,9 +63,26 @@ visible = false
 
 [node name="gnomos quebrando" parent="." unique_id=1836821295 instance=ExtResource("5_ovhyt")]
 transform = Transform3D(1, 0, 0, 0, -0.99904376, 0.043719567, 0, -0.043719567, -0.99904376, 0, 0, 0)
+visible = false
 
 [node name="gnomo verde finalizado2" parent="." unique_id=1806405872 instance=ExtResource("6_gwnse")]
 visible = false
 
 [node name="CharacterBody3D" parent="." unique_id=1317807494 instance=ExtResource("1_2gkvm")]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0.036420345, -0.12758428, 0.1280284)
+transform = Transform3D(0.14907324, -0.0166484, 0, 0.0166484, 0.14907324, 0, 0, 0, 0.14999999, 0.036420345, -0.12758428, 0.1280284)
+visible = false
+
+[node name="grama sendo cortada 1" parent="." unique_id=888436002 instance=ExtResource("8_lmts4")]
+
+[node name="grama sendo cortada 2" parent="." unique_id=842933967 instance=ExtResource("9_ds2xs")]
+visible = false
+
+[node name="flores quebrando" parent="." unique_id=604799326 instance=ExtResource("10_hi4uh")]
+transform = Transform3D(-0.034468662, -0.9994058, 0, 0.9994058, -0.034468662, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="tábuas quebrando" parent="." unique_id=388242706 instance=ExtResource("11_7deak")]
+visible = false
+
+[node name="folhas moita" parent="." unique_id=1085378684 instance=ExtResource("12_hi4uh")]
+transform = Transform3D(-0.034468662, -0.9994058, 0, 0.9994058, -0.034468662, 0, 0, 0, 1, 0, 0, 0)

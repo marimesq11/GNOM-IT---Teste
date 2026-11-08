@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://b4po3ksq72kjw"]
+
+[ext_resource type="Texture2D" uid="uid://wexs7ry2dsut" path="res://Texture/folha cortada.png" id="1_x8o5e"]
+
+[sub_resource type="Curve" id="Curve_ovhyt"]
+_data = [Vector2(0, 1), 0.0, 0.73316306, 0, 0, Vector2(1, 0), -4.608005, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y7vdc"]
+curve = SubResource("Curve_ovhyt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bv7jr"]
+emission_shape_scale = Vector3(0.065, 0.175, 1)
+angle_min = -720.0
+angle_max = -720.0
+use_rotation_3d = true
+rotation_3d_min = Vector3(0, 0, 900.155)
+rotation_3d_max = Vector3(900, 0, 0)
+spread = 20.0
+initial_velocity_min = 3.0
+initial_velocity_max = 5.99
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_y7vdc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7deak"]
+transparency = 1
+albedo_texture = ExtResource("1_x8o5e")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7t83b"]
+material = SubResource("StandardMaterial3D_7deak")
+size = Vector2(0.2, 0.2)
+
+[node name="grama sendo cortada 2" type="GPUParticles3D" unique_id=842933967]
+transform = Transform3D(0.8255325, -0.5643546, 0, 0.5643546, 0.8255325, 0, 0, 0, 1, 0, 0, 0)
+amount = 20
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_bv7jr")
+draw_pass_1 = SubResource("PlaneMesh_7t83b")

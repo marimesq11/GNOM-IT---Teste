@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://gr1w040d2bwx"]
+
+[sub_resource type="Curve" id="Curve_uw4pi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.8555169, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1scgq"]
+curve = SubResource("Curve_uw4pi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7t83b"]
+use_rotation_3d = true
+rotation_3d_min = Vector3(-900, -90, -900)
+rotation_3d_max = Vector3(90, 90, 90)
+spread = 90.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+scale_min = 0.79999995
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_1scgq")
+
+[sub_resource type="Gradient" id="Gradient_1axwp"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dw1jd"]
+gradient = SubResource("Gradient_1axwp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yd6g7"]
+albedo_color = Color(0.5241582, 0.25171065, 0.09948399, 1)
+albedo_texture = SubResource("GradientTexture1D_dw1jd")
+
+[sub_resource type="BoxMesh" id="BoxMesh_dubrf"]
+material = SubResource("StandardMaterial3D_yd6g7")
+size = Vector3(0.1, 1, 0.2)
+
+[node name="tábuas quebrando" type="GPUParticles3D" unique_id=388242706]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, 0, 0, 0)
+amount = 12
+speed_scale = 1.4
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_7t83b")
+draw_pass_1 = SubResource("BoxMesh_dubrf")
