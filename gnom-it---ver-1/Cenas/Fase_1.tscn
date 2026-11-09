@@ -106,7 +106,7 @@ tamanho_terreno = Vector2(21, 16)
 raio_corte = 0.4
 
 [node name="ChaoMesh" type="MeshInstance3D" parent="Chao" unique_id=331962387 node_paths=PackedStringArray("grama")]
-transform = Transform3D(1.0001253, 0, 0, 0, -4.3716867e-08, 1.0001253, 0, -1.0001253, -4.3716867e-08, -0.024392128, -0.019366384, 0.019423604)
+transform = Transform3D(1.0001253, 0, 0, 0, -4.3716867e-08, 1.0001253, 0, -1.0001253, -4.3716867e-08, -0.023788452, -0.019366384, 0.019440532)
 mesh = SubResource("QuadMesh_ahhmj")
 skeleton = NodePath("")
 script = ExtResource("6_lgwaj")
@@ -528,6 +528,10 @@ cor_flor = Color(0, 0.73333335, 1, 1)
 transform = Transform3D(0.120081514, 0, -1.294442, 0, 1.2999996, 0, 1.294442, 0, 0.120081514, -18.77164, -0.6139796, -7.246501)
 cor_flor = Color(0, 0.73333335, 1, 1)
 
+[node name="Node3D141" parent="flores" unique_id=826278501 instance=ExtResource("29_uy7v8")]
+transform = Transform3D(0.120081514, 0, -1.294442, 0, 1.2999994, 0, 1.294442, 0, 0.120081514, -26.133015, -0.8469337, -10.575407)
+cor_flor = Color(0, 0.73333335, 1, 1)
+
 [node name="Node3D98" parent="flores" unique_id=619048900 instance=ExtResource("29_uy7v8")]
 transform = Transform3D(0.120081514, 0, -1.294442, 0, 1.2999995, 0, 1.294442, 0, 0.120081514, -17.902176, -0.6139796, -9.337299)
 cor_flor = Color(0, 0.73333335, 1, 1)
@@ -692,6 +696,14 @@ cor_flor = Color(0.96149987, 0.23000002, 1, 1)
 transform = Transform3D(-0.120081246, 0, 1.294442, 0, 1.2999992, 0, -1.294442, 0, -0.120081246, -2.520029, -0.61397946, -1.9562991)
 cor_flor = Color(0.96149987, 0.23000002, 1, 1)
 
+[node name="Node3D142" parent="flores" unique_id=2063195663 instance=ExtResource("29_uy7v8")]
+transform = Transform3D(0.23447502, -1.0357156, 0.74987495, 0.29936066, 0.7856538, 0.99152863, -1.243143, -0.0061582923, 0.38020715, 4.558134, 1.0771061, 0.7271924)
+cor_flor = Color(0.96149987, 0.23000002, 1, 1)
+
+[node name="Node3D143" parent="flores" unique_id=1976151788 instance=ExtResource("29_uy7v8")]
+transform = Transform3D(0.68821853, -0.95608187, 0.5497824, 0.29936066, 0.7856538, 0.99152833, -1.0614793, -0.39831176, 0.636089, 4.2667656, 0.43142182, 1.3621612)
+cor_flor = Color(0.96149987, 0.23000002, 1, 1)
+
 [node name="Node3D82" parent="flores" unique_id=1517790570 instance=ExtResource("29_uy7v8")]
 transform = Transform3D(-0.120081246, 0, 1.294442, 0, 1.299999, 0, -1.294442, 0, -0.120081246, -4.49706, -0.6139797, -17.871502)
 cor_flor = Color(0.96149987, 0.23000002, 1, 1)
@@ -728,6 +740,14 @@ cor_flor = Color(0.97095054, 0.4409329, 1, 1)
 transform = Transform3D(-0.12008101, 0, 1.2944419, 0, 1.2999985, 0, -1.2944419, 0, -0.12008101, -3.2892265, -0.6139794, -0.1633277)
 cor_flor = Color(0.97095054, 0.4409329, 1, 1)
 
+[node name="Node3D140" parent="flores" unique_id=1848622591 instance=ExtResource("29_uy7v8")]
+transform = Transform3D(-0.12008101, 0, 1.2944422, 0, 1.2999982, 0, -1.2944422, 0, -0.12008101, -3.0984669, -1.4748523, -2.197895)
+cor_flor = Color(0.97095054, 0.4409329, 1, 1)
+
+[node name="Node3D139" parent="flores" unique_id=545962103 instance=ExtResource("29_uy7v8")]
+transform = Transform3D(-0.12008101, 0, 1.2944422, 0, 1.2999982, 0, -1.2944422, 0, -0.12008101, -1.5722218, -1.2365496, -4.3475356)
+cor_flor = Color(0.97095054, 0.4409329, 1, 1)
+
 [node name="Node3D114" parent="flores" unique_id=872652776 instance=ExtResource("29_uy7v8")]
 transform = Transform3D(-0.12008101, 0, 1.294442, 0, 1.2999984, 0, -1.294442, 0, -0.12008101, -2.3395863, -0.61397934, -6.1830053)
 cor_flor = Color(0.97095054, 0.4409329, 1, 1)
@@ -742,6 +762,18 @@ cor_flor = Color(0.96149987, 0.23000002, 1, 1)
 
 [node name="Node3D61" parent="flores" unique_id=272323645 instance=ExtResource("29_uy7v8")]
 transform = Transform3D(-0.12008119, 0, 1.2944418, 0, 1.2999986, 0, -1.2944418, 0, -0.12008119, -22.461464, -0.6139802, 10.586689)
+cor_flor = Color(0.96149987, 0.23000002, 1, 1)
+
+[node name="Node3D136" parent="flores" unique_id=1339022891 instance=ExtResource("29_uy7v8")]
+transform = Transform3D(-0.12008101, 0, 1.2944422, 0, 1.2999979, 0, -1.2944422, 0, -0.12008101, -23.648748, 1.3407177, 12.041401)
+cor_flor = Color(0.96149987, 0.23000002, 1, 1)
+
+[node name="Node3D138" parent="flores" unique_id=329018788 instance=ExtResource("29_uy7v8")]
+transform = Transform3D(-0.12008101, 0, 1.2944422, 0, 1.2999973, 0, -1.2944422, 0, -0.12008101, -24.30141, 1.1503333, 11.179247)
+cor_flor = Color(0.96149987, 0.23000002, 1, 1)
+
+[node name="Node3D137" parent="flores" unique_id=110042647 instance=ExtResource("29_uy7v8")]
+transform = Transform3D(-0.52710766, 1.187127, -0.053692147, -0.37032706, -0.21990825, -1.2265798, -1.1291661, -0.48204225, 0.42733964, -24.158133, 1.3407177, 12.2482395)
 cor_flor = Color(0.96149987, 0.23000002, 1, 1)
 
 [node name="Node3D62" parent="flores" unique_id=160918742 instance=ExtResource("29_uy7v8")]
@@ -1163,7 +1195,7 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 2.0836246, 0.0447633, -
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 7.1685076, 0.0447633, -3.8685806)
 
 [node name="StaticBody3D59" parent="moitas" unique_id=199368744 instance=ExtResource("31_ysvjn")]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.18894792, 0.0447633, -0.2195437)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.15820944, 0.0447633, -0.2195437)
 
 [node name="StaticBody3D49" parent="moitas" unique_id=24597712 instance=ExtResource("31_ysvjn")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 2.4886289, 0.0447633, -6.028331)
