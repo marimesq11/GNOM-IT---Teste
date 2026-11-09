@@ -125,15 +125,15 @@ shape = SubResource("BoxShape3D_w4tno")
 [node name="cortador" parent="." unique_id=1886462838 node_paths=PackedStringArray("sistema_grama", "sistema_chao") instance=ExtResource("7_8g53y")]
 transform = Transform3D(-5.9010374e-09, 0, 0.135, 0, 0.135, 0, -0.135, 0, -5.9010374e-09, -8.4893675, 0.17322394, -0.08252096)
 volume_motor_db = 7.0
-move_speed = 7.0
-acceleration = 8.0
+move_speed = 6.0
 rotation_speed = 5.0
+velocidade_re = 3.0
+aceleracao_re = 2.0
 sistema_grama = NodePath("../Chao/ChaoMesh")
 sistema_chao = NodePath("../Chao")
 suavizacao_posicao_camera = 6.0
 suavizacao_giro_camera = 2.0
 velocidade_minima_drift = 1.0
-giro_minimo_drift = 0.0
 tempo_entre_drifts = 0.7
 velocidade_giro_drift = 3.0
 velocidade_giro_maximo_drift = 5.5
@@ -257,7 +257,7 @@ inimigo_1 = ExtResource("33_ge1o4")
 inimigo_2 = ExtResource("34_kld5c")
 inimigo_3 = ExtResource("32_evw4c")
 inimigo_4 = ExtResource("35_u3q6n")
-max_inimigo_1 = 4
+max_inimigo_1 = 3
 max_inimigo_2 = 10
 max_inimigo_4 = 4
 sistema_grama = NodePath("../Chao/ChaoMesh")
@@ -267,13 +267,13 @@ marker_2 = NodePath("Marker3D2")
 marker_3 = NodePath("Marker3D3")
 
 [node name="Marker3D" type="Marker3D" parent="Spanw" unique_id=1998461000]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6495886, -0.04316646, -3.5166469)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6495886, -0.04316646, -10.694088)
 
 [node name="Marker3D2" type="Marker3D" parent="Spanw" unique_id=25467446]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.40549, 0, -10.549803)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.72148, 0, -10.857756)
 
 [node name="Marker3D3" type="Marker3D" parent="Spanw" unique_id=252496745]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1756935, 0, 3.7783914)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.130477, 0, 2.068349)
 
 [node name="Musica" type="AudioStreamPlayer" parent="." unique_id=920233300]
 stream = ExtResource("36_ap2ss")
@@ -426,10 +426,10 @@ transform = Transform3D(-4.6771188e-08, 0, 1.07, 0, 1.07, 0, -1.07, 0, -4.677118
 transform = Transform3D(1.07, 0, 0, 0, 1.07, 0, 0, 0, 1.07, 9.446569, -0.046471894, 0.026771545)
 
 [node name="StaticBody3D" parent="." unique_id=1730049231 instance=ExtResource("28_q22ik")]
-transform = Transform3D(-0.59999996, 0, 5.2453665e-08, 0, 0.59999996, 0, -5.2453665e-08, 0, -0.59999996, -1.080642, 0.14, 6.957602)
+transform = Transform3D(-0.59999996, 0, 5.2453665e-08, 0, 0.59999996, 0, -5.2453665e-08, 0, -0.59999996, -1.0794574, 0.135, 6.957602)
 
-[node name="StaticBody3D2" parent="." unique_id=515785607 instance=ExtResource("28_q22ik")]
-transform = Transform3D(7.868049e-08, 0, 0.59999996, 0, 0.59999996, 0, -0.59999996, 0, 7.868049e-08, 9.4131155, 0.14, -1.505002)
+[node name="StaticBody3D2" parent="." unique_id=424799861 instance=ExtResource("28_q22ik")]
+transform = Transform3D(7.868049e-08, 0, 0.59999996, 0, 0.59999996, 0, -0.59999996, 0, 7.868049e-08, 9.545484, 0.135, -1.5035226)
 
 [node name="flores" type="Node3D" parent="." unique_id=804918761]
 transform = Transform3D(0.64857006, 0, -0.26335698, 0, 0.7, 0, 0.26335698, 0, 0.64857006, 7.8913593, 0.31041324, 6.370093)

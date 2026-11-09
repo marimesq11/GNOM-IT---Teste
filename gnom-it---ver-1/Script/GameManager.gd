@@ -23,8 +23,8 @@ func adicionar_pontos(valor: int, posicao_3d: Vector3) -> void:
 # CONFIGURAÇÕES DA AVALIAÇÃO
 # ==================================================
 
-var meta_gnomos: int = 15
-var meta_objetos: int = 16
+var meta_gnomos: int = 0
+var meta_objetos: int = 0
 var meta_objetivos: int = 3
 
 # GRAMA ATIVADA
@@ -39,8 +39,8 @@ var limite_3_estrelas: float = 85.0
 # PROGRESSO DA FASE
 # ==================================================
 
-var gnomos_destruidos: int = 0
-var objetos_destruidos: int = 0
+var gnomos_destruidos: int = 10
+var objetos_destruidos: int = 100
 var objetivos_concluidos: int = 0
 
 var porcentagem_grama: float = 0.0
@@ -105,7 +105,7 @@ func calcular_nota_cenario() -> float:
 
 
 func calcular_nota_grama() -> float:
-	return clampf(porcentagem_grama / 85.0 * 100.0, 0.0, 100.0)
+	return clampf(porcentagem_grama / 60.0 * 100.0, 0.0, 100.0)
 
 
 # ==================================================
