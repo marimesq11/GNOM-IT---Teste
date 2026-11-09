@@ -698,7 +698,7 @@ func morrer() -> void:
 	area_atropelamento.set_deferred("monitoring", false)
 	area_atropelamento.set_deferred("monitorable", false)
 
-	get_tree().call_deferred("change_scene_to_file", "res://CenaGameOver.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://Cenas/CenaGameOver.tscn")
 
 # ==========================================
 # GASOLINA
