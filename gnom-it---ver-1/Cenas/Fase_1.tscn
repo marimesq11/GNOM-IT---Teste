@@ -426,13 +426,10 @@ transform = Transform3D(-4.6771188e-08, 0, 1.07, 0, 1.07, 0, -1.07, 0, -4.677118
 transform = Transform3D(1.07, 0, 0, 0, 1.07, 0, 0, 0, 1.07, 9.446569, -0.046471894, 0.026771545)
 
 [node name="StaticBody3D" parent="." unique_id=1730049231 instance=ExtResource("28_q22ik")]
-transform = Transform3D(-0.59999996, 0, 5.2453665e-08, 0, 0.59999996, 0, -5.2453665e-08, 0, -0.59999996, -1.080642, 0.22252253, 7.4143405)
-
-[node name="StaticBody3D3" parent="." unique_id=2109109289 instance=ExtResource("28_q22ik")]
-transform = Transform3D(-0.59999996, 0, 5.2453665e-08, 0, 0.59999996, 0, -5.2453665e-08, 0, -0.59999996, -1.0802501, 0.22252253, 6.31631)
+transform = Transform3D(-0.59999996, 0, 5.2453665e-08, 0, 0.59999996, 0, -5.2453665e-08, 0, -0.59999996, -1.080642, 0.14, 6.957602)
 
 [node name="StaticBody3D2" parent="." unique_id=515785607 instance=ExtResource("28_q22ik")]
-transform = Transform3D(7.868049e-08, 0, 0.59999996, 0, 0.59999996, 0, -0.59999996, 0, 7.868049e-08, 9.4131155, 0.17107704, -1.505002)
+transform = Transform3D(7.868049e-08, 0, 0.59999996, 0, 0.59999996, 0, -0.59999996, 0, 7.868049e-08, 9.4131155, 0.14, -1.505002)
 
 [node name="flores" type="Node3D" parent="." unique_id=804918761]
 transform = Transform3D(0.64857006, 0, -0.26335698, 0, 0.7, 0, 0.26335698, 0, 0.64857006, 7.8913593, 0.31041324, 6.370093)
