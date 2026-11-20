@@ -23,8 +23,8 @@ func adicionar_pontos(valor: int, posicao_3d: Vector3) -> void:
 # CONFIGURAÇÕES DA AVALIAÇÃO
 # ==================================================
 
-var meta_gnomos: int = 0
-var meta_objetos: int = 0
+var meta_gnomos: int = 8
+var meta_objetos: int = 200
 var meta_objetivos: int = 3
 
 # GRAMA ATIVADA
@@ -38,13 +38,11 @@ var limite_3_estrelas: float = 85.0
 # ==================================================
 # PROGRESSO DA FASE
 # ==================================================
-
-var gnomos_destruidos: int = 10
-var objetos_destruidos: int = 100
+var gnomos_destruidos: int = 0
+var objetos_destruidos: int = 0
 var objetivos_concluidos: int = 0
 
 var porcentagem_grama: float = 0.0
-
 
 # ==================================================
 # REGISTRAR AÇÕES

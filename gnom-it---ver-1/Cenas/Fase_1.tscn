@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://dnyrwky64ojs" path="res://Cenas/Gnomo_Verde.tscn" id="35_u3q6n"]
 [ext_resource type="AudioStream" uid="uid://dfeeqxt3pp7by" path="res://Sons/Música Livre de Direitos Autorais [[SAMBA- BRASIL]]- As Músicas Mais Diferenciadas [BPohzqiZRbo].mp3" id="36_ap2ss"]
 [ext_resource type="PackedScene" uid="uid://2slay4u5jwq6" path="res://Cenas/árvore_3d.tscn" id="36_djl3f"]
+[ext_resource type="Script" uid="uid://deknbqkpxp74f" path="res://Cenas/ObjetivosNaTela.gd" id="37_1nvmd"]
 [ext_resource type="Texture2D" uid="uid://belyvcv8ceneu" path="res://Assets/placa.webp" id="37_ngmd1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8hd82"]
@@ -1461,6 +1462,19 @@ transform = Transform3D(-0.7995843, 0, -0.6005538, 0, 1, 0, 0.6005538, 0, -0.799
 
 [node name="árvore 3D7" parent="." unique_id=39994706 instance=ExtResource("36_djl3f")]
 transform = Transform3D(-0.7995843, 0, -0.6005538, 0, 1, 0, 0.6005538, 0, -0.7995843, 5.741018, 0.014518876, -15.822133)
+
+[node name="Label" type="Label" parent="." unique_id=258063959]
+modulate = Color(1, 0.8232569, 0, 1)
+offset_left = 736.0
+offset_top = 28.0
+offset_right = 998.0
+offset_bottom = 110.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("24_abx8d")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 2
+script = ExtResource("37_1nvmd")
 
 [connection signal="timeout" from="Timer" to="cortador" method="_on_timer_timeout"]
 
