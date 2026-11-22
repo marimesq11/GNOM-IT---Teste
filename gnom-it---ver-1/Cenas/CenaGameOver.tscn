@@ -3,19 +3,18 @@
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="1_epneq"]
 [ext_resource type="Script" uid="uid://qcb6apaiudqr" path="res://Script/Botao_TentarNovamente.gd" id="2_8xphj"]
 [ext_resource type="Script" uid="uid://hb2vvohjp8kc" path="res://Script/pontos_label.gd" id="3_dfjfp"]
-[ext_resource type="Texture2D" uid="uid://giyiknyi02iq" path="res://Assets/Derrota.webp" id="4_epneq"]
 [ext_resource type="Texture2D" uid="uid://cfmfkqucs84yv" path="res://Cenas/correntes.webp" id="5_eaj2c"]
-[ext_resource type="Texture2D" uid="uid://dir2i4fr7bgrq" path="res://Assets/Botao_Vazio.webp" id="6_1j80l"]
 [ext_resource type="PackedScene" uid="uid://bampf43d6ghk3" path="res://Cenas/TeladeMenuFundo.tscn" id="7_pp35q"]
+[ext_resource type="Texture2D" uid="uid://bkol5qbayplkk" path="res://Texture/placa 4.png" id="8_8xphj"]
 
 [node name="Node2D" type="Node2D" unique_id=1130400279]
 
 [node name="Label" type="Label" parent="." unique_id=445339637]
 z_index = 1
-offset_left = 215.0
-offset_top = -117.00001
-offset_right = 966.0
-offset_bottom = 272.0
+offset_left = 221.0
+offset_top = -110.0
+offset_right = 972.0
+offset_bottom = 279.0
 rotation = 0.06633489
 theme_override_colors/font_color = Color(1, 0.8000001, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -26,6 +25,7 @@ theme_override_font_sizes/font_size = 44
 text = "Você Morreu!"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Button" type="Button" parent="." unique_id=771223616]
 offset_left = 396.0
@@ -39,6 +39,7 @@ text = "Tentar novamente"
 flat = true
 script = ExtResource("2_8xphj")
 cena_destino = "uid://b146wv5rkk4gs"
+metadata/_edit_use_anchors_ = true
 
 [node name="Label2" type="RichTextLabel" parent="." unique_id=195859108]
 z_index = 1
@@ -59,12 +60,7 @@ tamanho_nota = 60
 cor_nota = Color(1, 0.8, 0, 1)
 tamanho_pontos = 60
 cor_pontos = Color(1, 0.8, 0, 1)
-
-[node name="Derrota" type="Sprite2D" parent="." unique_id=1817103224]
-position = Vector2(572.00006, 102.000015)
-rotation = 0.073314756
-scale = Vector2(1.0091325, 0.56123745)
-texture = ExtResource("4_epneq")
+metadata/_edit_use_anchors_ = true
 
 [node name="Correntes" type="Sprite2D" parent="." unique_id=1628196370]
 z_index = -1
@@ -82,17 +78,23 @@ position = Vector2(582, 166)
 scale = Vector2(0.7841797, 0.46006945)
 texture = ExtResource("5_eaj2c")
 
-[node name="BotaoVazio" type="Sprite2D" parent="." unique_id=1553931815]
-z_index = -1
-position = Vector2(582, 328)
-rotation = -0.007785702
-scale = Vector2(2.9198914, 2.001991)
-texture = ExtResource("6_1j80l")
-
-[node name="Derrota2" type="Sprite2D" parent="." unique_id=1272757875]
-z_index = -1
-position = Vector2(593, 553)
-scale = Vector2(1.1999987, 0.56)
-texture = ExtResource("4_epneq")
-
 [node name="CenaTeste" parent="." unique_id=1397743769 instance=ExtResource("7_pp35q")]
+
+[node name="Placa4" type="Sprite2D" parent="." unique_id=609402995]
+z_index = -1
+position = Vector2(592.00006, 538.00006)
+scale = Vector2(0.8425926, 0.8425926)
+texture = ExtResource("8_8xphj")
+
+[node name="Placa6" type="Sprite2D" parent="." unique_id=852768486]
+z_index = -1
+position = Vector2(594, 304)
+scale = Vector2(1.0864199, 1.0864198)
+texture = ExtResource("8_8xphj")
+
+[node name="Placa5" type="Sprite2D" parent="." unique_id=903998182]
+z_index = -1
+position = Vector2(585.00006, 95)
+rotation = 0.06336414
+scale = Vector2(0.77817655, 0.77817655)
+texture = ExtResource("8_8xphj")

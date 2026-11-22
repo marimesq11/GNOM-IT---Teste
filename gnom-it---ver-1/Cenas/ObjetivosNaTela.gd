@@ -22,7 +22,8 @@ func atualizar_desafios() -> void:
 		)
 
 	# Monta o texto e atualiza durante a partida.
-	text = "Desafios:\n\n"
-	text += "Gnomos destruídos: %d/%d\n\n" % [gnomos, GameManager.meta_gnomos]
-	text += "Decorações quebradas: %d/%d\n\n" % [objetos, GameManager.meta_objetos]
-	text += "Grama cortada: %.0f%%/%.0f%%" % [minf(grama_normalizada, meta_grama), meta_grama]
+	text = "    Desafios:    \n"
+	text += "Gnomos: %d/%d\n" % [gnomos, GameManager.meta_gnomos]
+	#text = "Gnomos: %d/%d\n" % [gnomos, GameManager.meta_gnomos]
+	text += "Decorações: %d/%d\n" % [objetos, GameManager.meta_objetos]
+	text += "Grama: %.0f%%/%.0f%%" % [minf(grama_normalizada, meta_grama), meta_grama]
