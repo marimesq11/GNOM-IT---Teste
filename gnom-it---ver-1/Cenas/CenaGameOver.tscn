@@ -28,13 +28,14 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Button" type="Button" parent="." unique_id=771223616]
-offset_left = 396.0
-offset_top = 498.0
-offset_right = 802.0
-offset_bottom = 598.0
+offset_left = 394.0
+offset_top = 509.0
+offset_right = 804.0
+offset_bottom = 609.0
 theme_override_colors/font_color = Color(1, 0.8, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 43
+theme_override_constants/outline_size = 11
+theme_override_fonts/font = ExtResource("1_epneq")
+theme_override_font_sizes/font_size = 39
 text = "Tentar novamente"
 flat = true
 script = ExtResource("2_8xphj")
@@ -43,22 +44,24 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Label2" type="RichTextLabel" parent="." unique_id=195859108]
 z_index = 1
-offset_left = 234.0
-offset_top = 214.00002
-offset_right = 1318.0
-offset_bottom = 462.29993
+offset_left = 244.0
+offset_top = 228.00002
+offset_right = 1328.0
+offset_bottom = 476.29993
 scale = Vector2(0.6287296, 0.88199794)
 theme_override_colors/default_color = Color(1, 0.8, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("1_epneq")
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_dfjfp")
-tamanho_estrelas = 90
+tamanho_estrelas = 85
 cor_estrelas = Color(1, 0.8, 0, 1)
-tamanho_nota = 60
+espaco_entre_estrelas = 1
+tamanho_nota = 55
 cor_nota = Color(1, 0.8, 0, 1)
-tamanho_pontos = 60
+tamanho_pontos = 55
 cor_pontos = Color(1, 0.8, 0, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -74,22 +77,22 @@ texture = ExtResource("5_eaj2c")
 
 [node name="Correntes2" type="Sprite2D" parent="." unique_id=1569379967]
 z_index = -1
-position = Vector2(582, 166)
-scale = Vector2(0.7841797, 0.46006945)
+position = Vector2(582, 197.25002)
+scale = Vector2(0.7841797, 0.56857646)
 texture = ExtResource("5_eaj2c")
 
 [node name="CenaTeste" parent="." unique_id=1397743769 instance=ExtResource("7_pp35q")]
 
 [node name="Placa4" type="Sprite2D" parent="." unique_id=609402995]
 z_index = -1
-position = Vector2(592.00006, 538.00006)
-scale = Vector2(0.8425926, 0.8425926)
+position = Vector2(594.00006, 548)
+scale = Vector2(0.8425926, 0.74074084)
 texture = ExtResource("8_8xphj")
 
 [node name="Placa6" type="Sprite2D" parent="." unique_id=852768486]
 z_index = -1
-position = Vector2(594, 304)
-scale = Vector2(1.0864199, 1.0864198)
+position = Vector2(578, 319.50003)
+scale = Vector2(1.0864199, 1.2916667)
 texture = ExtResource("8_8xphj")
 
 [node name="Placa5" type="Sprite2D" parent="." unique_id=903998182]

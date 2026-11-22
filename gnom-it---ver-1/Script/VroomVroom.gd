@@ -687,7 +687,6 @@ func morrer() -> void:
 	# particulas_morte.emitting = true
 
 	morreu.emit()
-	hide()
 
 	set_physics_process(false)
 	set_process(false)
@@ -698,7 +697,7 @@ func morrer() -> void:
 	area_atropelamento.set_deferred("monitoring", false)
 	area_atropelamento.set_deferred("monitorable", false)
 
-	get_tree().call_deferred("change_scene_to_file", "res://Cenas/CenaGameOver.tscn")
+	GameManager.iniciar_derrota()
 
 # ==========================================
 # GASOLINA

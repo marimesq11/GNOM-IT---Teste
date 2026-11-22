@@ -151,3 +151,84 @@ func reiniciar() -> void:
 	objetos_destruidos = 0
 	objetivos_concluidos = 0
 	porcentagem_grama = 0.0
+	
+
+# ==================================================
+# TRANSIÇÃO DE DERROTA
+# ==================================================
+
+var transicao_ativa: bool = false
+var vinheta_morte: ColorRect
+var material_vinheta: ShaderMaterial
+
+var tempo_fechar: float = 0.7
+var tempo_escuro: float = 1.0
+var tempo_abrir: float = 0.7
+
+
+func iniciar_derrota() -> void:
+	if transicao_ativa:
+		return
+
+	transicao_ativa = true
+
+	# Cria a camada acima de todas as cenas
+	var camada = CanvasLayer.new()
+	camada.layer = 100
+	add_child(camada)
+
+	# Cria o retângulo da vinheta
+	vinheta_morte = ColorRect.new()
+	vinheta_morte.set_anchors_and_offsets_preset(
+		Control.PRESET_FULL_RECT
+	)
+	vinheta_morte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	camada.add_child(vinheta_morte)
+	vinheta_morte.set_anchors_and_offsets_preset(
+	Control.PRESET_FULL_RECT
+)
+
+	# Aplica o shader
+	material_vinheta = ShaderMaterial.new()
+	material_vinheta.shader = preload("res://Shaders/VinhetaMorte.gdshader")
+	vinheta_morte.material = material_vinheta
+
+	material_vinheta.set_shader_parameter("raio", 1.4)
+
+	# Fecha a vinheta
+	var fechar = create_tween()
+	fechar.tween_property(
+		material_vinheta,
+		"shader_parameter/raio",
+		-0.2,
+		tempo_fechar
+	)
+
+	await fechar.finished
+
+	# Espera com a tela preta
+	await get_tree().create_timer(tempo_escuro).timeout
+
+	# Abre a cena de derrota
+	get_tree().change_scene_to_file(
+		"res://Cenas/CenaGameOver.tscn"
+	)
+
+	await get_tree().process_frame
+
+	# Abre a vinheta
+	var abrir = create_tween()
+	abrir.tween_property(
+		material_vinheta,
+		"shader_parameter/raio",
+		1.4,
+		tempo_abrir
+	)
+
+	await abrir.finished
+
+	camada.queue_free()
+	vinheta_morte = null
+	material_vinheta = null
+	transicao_ativa = false
