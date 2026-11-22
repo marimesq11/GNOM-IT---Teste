@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://krqcf0ojhopo" path="res://Script/MeshGrama.gd" id="6_lgwaj"]
 [ext_resource type="PackedScene" uid="uid://dbqhupiq8dkaa" path="res://Cenas/CortadorGrama.tscn" id="7_8g53y"]
 [ext_resource type="Texture2D" uid="uid://bvvnmtli7his4" path="res://Assets/barra_gasolina.webp" id="8_5vmr8"]
+[ext_resource type="Texture2D" uid="uid://cuxy4pbjbo2g" path="res://Texture/skybox.png" id="8_cmnet"]
 [ext_resource type="Script" uid="uid://b4u2m2wkpc22g" path="res://Script/barra_gasolina.gd" id="9_7i838"]
 [ext_resource type="AudioStream" uid="uid://dfc2yeodrtdxy" path="res://CenaFinal/SomRelogio.mp3" id="21_abs0n"]
 [ext_resource type="PackedScene" uid="uid://ha0uk070ur0r" path="res://CenaFinal/CercaFinal.tscn" id="22_abs0n"]
@@ -54,16 +55,16 @@ size = Vector2(21, 16)
 [sub_resource type="BoxShape3D" id="BoxShape3D_w4tno"]
 size = Vector3(21.349148, 0.02, 16.382956)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xu8hi"]
-sky_top_color = Color(0.3019608, 0.8, 1, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_tiypw"]
+panorama = ExtResource("8_cmnet")
 
-[sub_resource type="Sky" id="Sky_xu8hi"]
-sky_material = SubResource("ProceduralSkyMaterial_xu8hi")
+[sub_resource type="Sky" id="Sky_pakw5"]
+sky_material = SubResource("PanoramaSkyMaterial_tiypw")
 
 [sub_resource type="Environment" id="Environment_65ar7"]
 background_mode = 2
 background_energy_multiplier = 0.6
-sky = SubResource("Sky_xu8hi")
+sky = SubResource("Sky_pakw5")
 ambient_light_source = 3
 ambient_light_color = Color(0, 0.42745098, 0.8980392, 1)
 ambient_light_energy = 0.0
