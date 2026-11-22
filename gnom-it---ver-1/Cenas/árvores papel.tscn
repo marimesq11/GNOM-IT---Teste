@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dbhjhhbgkgqi0"]
 
-[ext_resource type="Texture2D" uid="uid://cxmykssiuk8bd" path="res://Texture/árvore.png" id="1_ta6vc"]
+[ext_resource type="Texture2D" uid="uid://b7kr5cycaa6f4" path="res://Texture/arvore png 1.png" id="1_ta6vc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7t83b"]
 transparency = 1
