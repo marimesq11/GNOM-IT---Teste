@@ -178,10 +178,6 @@ func _on_jogador_morreu() -> void:
 	morrer()
 
 
-# ==================================================
-# MORRER
-# ==================================================
-
 func morrer() -> void:
 	if morto:
 		return
@@ -195,12 +191,17 @@ func morrer() -> void:
 	if som_tempo_acabando:
 		som_tempo_acabando.stop()
 
-	print("Voce morreu!")
+	# Trava o movimento do jogador
+	if is_instance_valid(jogador):
+		if jogador.has_method("travar_movimento"):
+			jogador.travar_movimento()
 
-	# Mantem o atraso original
+	print("Você morreu!")
+
+	# Mantém o atraso original
 	await get_tree().create_timer(atraso_troca).timeout
 
-	# Comeca a cinematica
+	# Inicia a câmera cinematográfica
 	iniciar_camera_derrota()
 
 

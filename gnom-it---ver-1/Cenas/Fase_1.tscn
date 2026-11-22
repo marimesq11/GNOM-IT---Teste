@@ -106,11 +106,11 @@ atraso_troca = 1.0
 som_tempo_acabando = NodePath("Musica/TempoAcabando")
 camera_derrota = NodePath("CameraFinalFase")
 centro_da_fase = NodePath("CentrodaFase")
-altura_camera = 10.0
-distancia_camera = 8.0
-tempo_volta = 3.0
+altura_camera = 9.0
+distancia_camera = 7.0
+tempo_volta = 4.0
 distancia_zoom = 2.0
-altura_zoom = 1.5
+altura_zoom = 1.0
 
 [node name="FundoCinzadaContagem" type="ColorRect" parent="." unique_id=487936354]
 offset_left = -5.0
