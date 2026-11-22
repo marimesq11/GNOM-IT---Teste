@@ -221,7 +221,7 @@ transform = Transform3D(1.3431945, 0, 0, 0, 1, 0, 0, 0, 1.3415703, 0, 0, 0)
 [node name="Nod3D Detalhes" type="Node3D" parent="Mapa" unique_id=67084255]
 
 [node name="Timer" type="Timer" parent="." unique_id=2053944718]
-wait_time = 10.0
+wait_time = 90.0
 one_shot = true
 
 [node name="TimeLabel" type="Label" parent="." unique_id=1208621726]
