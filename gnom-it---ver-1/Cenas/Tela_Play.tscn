@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dxgmohl2w3n6o" path="res://CenaFinal/fundopng.webp" id="3_or1u7"]
 [ext_resource type="FontFile" uid="uid://dhw60d8frxtd" path="res://Peralta-Regular.ttf" id="4_2rx5s"]
 [ext_resource type="PackedScene" uid="uid://bampf43d6ghk3" path="res://Cenas/TeladeMenuFundo.tscn" id="5_y3n7w"]
-[ext_resource type="Texture2D" uid="uid://b581f3gm13den" path="res://Cenas/tutorial.png" id="6_yk627"]
+[ext_resource type="Texture2D" uid="uid://bfrom5vqe7mht" path="res://Texture/Use WASD para se mover.png" id="6_qac85"]
 
 [sub_resource type="Gradient" id="Gradient_x5cbs"]
 offsets = PackedFloat32Array(0, 0.288, 0.536, 0.768, 0.968)
@@ -45,7 +45,7 @@ offset_bottom = 471.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 stream = ExtResource("2_qac85")
-volume_db = 4.8799996
+volume_db = 4.879999
 metadata/_edit_use_anchors_ = true
 
 [node name="Fundopng" type="Sprite2D" parent="." unique_id=1534194813]
@@ -198,11 +198,10 @@ scale = Vector2(-0.51103723, 23.344357)
 color = Color(0, 0, 0, 0.60784316)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1555995261]
-visible = false
 z_index = 5
-position = Vector2(594, 374)
-scale = Vector2(0.4322266, 0.35914356)
-texture = ExtResource("6_yk627")
+position = Vector2(594, 324)
+scale = Vector2(0.7, 0.582)
+texture = ExtResource("6_qac85")
 
 [node name="Skip" type="Button" parent="." unique_id=599272738]
 visible = false
