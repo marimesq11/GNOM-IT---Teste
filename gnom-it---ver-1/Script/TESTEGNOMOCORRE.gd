@@ -565,7 +565,7 @@ func morrer_atropelado() -> void:
 	if is_instance_valid(controlador_cor_morte):
 		controlador_cor_morte.mudar_cor(self)
 
-	GameManager.adicionar_pontos(10, global_position)
+	GameManager.adicionar_pontos(30, global_position)
 	GameManager.registrar_gnomo()
 
 	# PARTICULA: GnomoMorte

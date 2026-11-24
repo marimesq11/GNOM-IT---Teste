@@ -40,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://belyvcv8ceneu" path="res://Assets/placa.webp" id="37_ngmd1"]
 [ext_resource type="Texture2D" uid="uid://bntm3iwhuu1i1" path="res://Texture/papel.png" id="38_l1hhw"]
 [ext_resource type="Texture2D" uid="uid://bkol5qbayplkk" path="res://Texture/placa 4.png" id="41_8g53y"]
+[ext_resource type="Script" uid="uid://ctjwikpl5hdbj" path="res://Cenas/Pause.gd" id="41_t2xxc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8hd82"]
 render_priority = 0
@@ -153,10 +154,13 @@ sistema_chao = NodePath("../Chao")
 suavizacao_posicao_camera = 6.0
 suavizacao_giro_camera = 2.0
 velocidade_minima_drift = 1.0
+giro_minimo_drift = 2.0
+angulo_minimo_curva_aberta = 25.0
 tempo_entre_drifts = 0.7
 velocidade_giro_drift = 3.0
 velocidade_giro_maximo_drift = 5.5
-fator_derrapagem = 0.5
+ganho_giro_drift = 3.2
+fator_derrapagem = 0.65
 tempo_inercia_drift = 0.25
 multiplicador_rotacao_drift = 3.0
 angulo_derrapagem = 45.0
@@ -1527,6 +1531,115 @@ texture = ExtResource("37_ngmd1")
 [node name="CentrodaFase" type="Marker3D" parent="." unique_id=1651288020]
 
 [node name="CameraFinalFase" type="Camera3D" parent="." unique_id=1323253919]
+
+[node name="CharacterBody3D6" parent="." unique_id=1889229225 instance=ExtResource("34_kld5c")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, -5.27295, 0, 0)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1737832679 node_paths=PackedStringArray("fundo", "titulo", "esc_sair", "botao_menu", "botao_sair")]
+process_mode = 3
+layer = 20
+script = ExtResource("41_t2xxc")
+cena_menu_principal = "uid://bgg28mm36h0ob"
+fundo = NodePath("FundoEscuro")
+titulo = NodePath("TituloPause")
+esc_sair = NodePath("EscSair")
+botao_menu = NodePath("BotaoMenu")
+botao_sair = NodePath("BotaoSair")
+
+[node name="FundoEscuro" type="ColorRect" parent="CanvasLayer2" unique_id=506299660]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(30.62555, 17.771244)
+color = Color(0, 0, 0, 0.54800004)
+
+[node name="TituloPause" type="Label" parent="CanvasLayer2" unique_id=726972942]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -209.0
+offset_top = -168.0
+offset_right = 264.0
+offset_bottom = -63.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.7607843, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 13
+theme_override_fonts/font = ExtResource("24_abx8d")
+theme_override_font_sizes/font_size = 80
+text = "PAUSADO"
+
+[node name="Contagem" type="Label" parent="CanvasLayer2" unique_id=1658671282]
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_left = 0.523
+anchor_top = 0.5
+anchor_right = 0.523
+anchor_bottom = 0.5
+offset_left = -53.49597
+offset_top = -122.0
+offset_right = 84.50403
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(1, 0.7607843, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("24_abx8d")
+theme_override_font_sizes/font_size = 150
+
+[node name="EscSair" type="Label" parent="CanvasLayer2" unique_id=2127591202]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 255.0
+offset_top = 286.0
+offset_right = 549.0
+offset_bottom = 313.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.7607843, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 13
+theme_override_fonts/font = ExtResource("24_abx8d")
+theme_override_font_sizes/font_size = 20
+text = "Pressione Esc para fechar"
+
+[node name="BotaoMenu" type="Button" parent="CanvasLayer2" unique_id=1005237811]
+z_index = 21
+offset_left = 518.0
+offset_top = 279.0
+offset_right = 687.0
+offset_bottom = 352.0
+theme_override_colors/font_color = Color(1, 0.7607843, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 13
+theme_override_fonts/font = ExtResource("24_abx8d")
+theme_override_font_sizes/font_size = 45
+text = "Menu"
+flat = true
+
+[node name="BotaoSair" type="Button" parent="CanvasLayer2" unique_id=2047568174]
+z_index = 21
+offset_left = 516.0
+offset_top = 342.0
+offset_right = 685.0
+offset_bottom = 415.0
+theme_override_colors/font_color = Color(1, 0.7607843, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 13
+theme_override_fonts/font = ExtResource("24_abx8d")
+theme_override_font_sizes/font_size = 45
+text = "Sair"
+flat = true
 
 [connection signal="timeout" from="Timer" to="cortador" method="_on_timer_timeout"]
 

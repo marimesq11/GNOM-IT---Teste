@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://qcb6apaiudqr" path="res://Script/Botao_TentarNovamente.gd" id="2_8xphj"]
 [ext_resource type="Script" uid="uid://hb2vvohjp8kc" path="res://Script/pontos_label.gd" id="3_dfjfp"]
 [ext_resource type="Texture2D" uid="uid://cfmfkqucs84yv" path="res://Cenas/correntes.webp" id="5_eaj2c"]
+[ext_resource type="Script" uid="uid://x54vm7ybm7f5" path="res://Script/BotaoIrparaOMenu.gd" id="7_epneq"]
 [ext_resource type="PackedScene" uid="uid://bampf43d6ghk3" path="res://Cenas/TeladeMenuFundo.tscn" id="7_pp35q"]
 [ext_resource type="Texture2D" uid="uid://bkol5qbayplkk" path="res://Texture/placa 4.png" id="8_8xphj"]
 
@@ -28,15 +29,16 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Button" type="Button" parent="." unique_id=771223616]
-offset_left = 394.0
-offset_top = 509.0
-offset_right = 804.0
+offset_left = 587.0
+offset_top = 497.0
+offset_right = 997.0
 offset_bottom = 609.0
 theme_override_colors/font_color = Color(1, 0.8, 0, 1)
 theme_override_constants/outline_size = 11
 theme_override_fonts/font = ExtResource("1_epneq")
-theme_override_font_sizes/font_size = 39
-text = "Tentar novamente"
+theme_override_font_sizes/font_size = 35
+text = "Tentar 
+novamente"
 flat = true
 script = ExtResource("2_8xphj")
 cena_destino = "uid://b146wv5rkk4gs"
@@ -70,7 +72,14 @@ texture = ExtResource("5_eaj2c")
 
 [node name="Correntes3" type="Sprite2D" parent="." unique_id=1786459898]
 z_index = -1
-position = Vector2(590, 407)
+position = Vector2(394, 484.00003)
+scale = Vector2(0.7314453, 0.5503472)
+texture = ExtResource("5_eaj2c")
+
+[node name="Correntes4" type="Sprite2D" parent="." unique_id=719356736]
+z_index = -1
+position = Vector2(741, 478.00003)
+scale = Vector2(0.7314453, 0.5503472)
 texture = ExtResource("5_eaj2c")
 
 [node name="Correntes2" type="Sprite2D" parent="." unique_id=1569379967]
@@ -83,8 +92,14 @@ texture = ExtResource("5_eaj2c")
 
 [node name="Placa4" type="Sprite2D" parent="." unique_id=609402995]
 z_index = -1
-position = Vector2(594.00006, 548)
-scale = Vector2(0.8425926, 0.74074084)
+position = Vector2(373, 544)
+scale = Vector2(0.64785874, 0.62037045)
+texture = ExtResource("8_8xphj")
+
+[node name="Placa7" type="Sprite2D" parent="." unique_id=1495941050]
+z_index = -1
+position = Vector2(790, 544)
+scale = Vector2(0.64785874, 0.62037045)
 texture = ExtResource("8_8xphj")
 
 [node name="Placa6" type="Sprite2D" parent="." unique_id=852768486]
@@ -99,3 +114,20 @@ position = Vector2(585.00006, 95)
 rotation = 0.06336414
 scale = Vector2(0.77817655, 0.77817655)
 texture = ExtResource("8_8xphj")
+
+[node name="Button2" type="Button" parent="." unique_id=2077438058]
+z_index = 1
+offset_left = 298.0
+offset_top = 525.0
+offset_right = 627.0
+offset_bottom = 663.0
+scale = Vector2(0.42724398, 0.36575606)
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 29
+theme_override_fonts/font = ExtResource("1_epneq")
+theme_override_font_sizes/font_size = 100
+text = "Menu"
+flat = true
+script = ExtResource("7_epneq")
+cena_destino = "uid://bgg28mm36h0ob"

@@ -72,6 +72,12 @@ var destino_movimento: Vector3
 # ==================================================
 
 func _ready() -> void:
+	# Main e seus filhos respeitam a pausa
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+
+	# Garante que a fase comece despausada
+	get_tree().paused = false
+
 	GameManager.reiniciar()
 
 	posicao_original_label = label.position
@@ -89,7 +95,8 @@ func _ready() -> void:
 
 	# Conecta o sinal de morte do cortador
 	if jogador and jogador.has_signal("morreu"):
-		jogador.connect("morreu", _on_jogador_morreu)
+		if not jogador.morreu.is_connected(_on_jogador_morreu):
+			jogador.morreu.connect(_on_jogador_morreu)
 
 	# Mantem a camera de derrota desligada
 	if camera_derrota:
@@ -178,30 +185,45 @@ func _on_jogador_morreu() -> void:
 	morrer()
 
 
+# ==================================================
+# MORRER E CONGELAR A FASE
+# ==================================================
+
 func morrer() -> void:
 	if morto:
 		return
 
 	morto = true
+
+	# Para o cronometro
 	timer.stop()
 
 	label.position = posicao_original_label
 	label.add_theme_color_override("font_color", cor_alerta)
 
+	# Para o som do timer
 	if som_tempo_acabando:
 		som_tempo_acabando.stop()
 
-	# Trava o movimento do jogador
+	# Trava o cortador
 	if is_instance_valid(jogador):
 		if jogador.has_method("travar_movimento"):
 			jogador.travar_movimento()
 
-	print("Você morreu!")
+	print("Fim da partida!")
 
-	# Mantém o atraso original
-	await get_tree().create_timer(atraso_troca).timeout
+	# Congela a fase inteira
+	get_tree().paused = true
 
-	# Inicia a câmera cinematográfica
+	print("JOGO PAUSADO: ", get_tree().paused)
+
+	# Espera mesmo com o jogo pausado
+	await get_tree().create_timer(
+		atraso_troca,
+		true
+	).timeout
+
+	# Inicia a camera cinematografica
 	iniciar_camera_derrota()
 
 
@@ -232,7 +254,7 @@ func iniciar_camera_derrota() -> void:
 	if camera_original:
 		camera_derrota.global_transform = camera_original.global_transform
 
-	# Ativa a camera cinematografica
+	# Ativa a CameraFinalFase
 	camera_derrota.make_current()
 
 	var centro = centro_da_fase.global_position
@@ -254,6 +276,7 @@ func iniciar_camera_derrota() -> void:
 	)
 
 	var subida = create_tween()
+	subida.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	subida.set_trans(Tween.TRANS_SINE)
 	subida.set_ease(Tween.EASE_IN_OUT)
 
@@ -271,6 +294,7 @@ func iniciar_camera_derrota() -> void:
 	# ==================================================
 
 	var volta = create_tween()
+	volta.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	volta.set_trans(Tween.TRANS_LINEAR)
 
 	volta.tween_method(
@@ -295,6 +319,7 @@ func iniciar_camera_derrota() -> void:
 	)
 
 	var retorno = create_tween()
+	retorno.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	retorno.set_trans(Tween.TRANS_SINE)
 	retorno.set_ease(Tween.EASE_IN_OUT)
 
@@ -376,12 +401,13 @@ func iniciar_transicao(cena_destino: String) -> void:
 
 	transicao_ativa = true
 
-	# Guarda a arvore
+	# Guarda a arvore antes da troca de cena
 	var arvore = get_tree()
 
-	# Cria a camada na raiz
+	# Cria uma camada que sobrevive a troca de cena
 	var camada = CanvasLayer.new()
 	camada.layer = 100
+	camada.process_mode = Node.PROCESS_MODE_ALWAYS
 	arvore.root.add_child(camada)
 
 	# Cria a vinheta
@@ -402,8 +428,9 @@ func iniciar_transicao(cena_destino: String) -> void:
 	vinheta.material = material
 	material.set_shader_parameter("raio", 1.4)
 
-	# Usa um Tween independente do Main
+	# Cria o Tween independente do Main
 	var animacao = arvore.create_tween()
+	animacao.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 
 	# Fecha a vinheta
 	animacao.tween_property(
@@ -413,17 +440,20 @@ func iniciar_transicao(cena_destino: String) -> void:
 		tempo_fechar
 	)
 
-	# Tela preta
+	# Mantem a tela preta
 	animacao.tween_interval(tempo_escuro)
+
+	# Despausa antes da troca
+	animacao.tween_callback(
+		arvore.set.bind("paused", false)
+	)
 
 	# Troca de cena
 	animacao.tween_callback(
-		func():
-			arvore.paused = false
-			arvore.change_scene_to_file(cena_destino)
+		arvore.change_scene_to_file.bind(cena_destino)
 	)
 
-	# Aguarda a nova cena entrar
+	# Pequeno intervalo para carregar
 	animacao.tween_interval(0.1)
 
 	# Abre a vinheta
